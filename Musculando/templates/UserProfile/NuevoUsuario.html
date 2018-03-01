@@ -1,0 +1,189 @@
+{% extends "../Base/Base.html" %}
+{% load staticfiles %}
+{% block Title %}
+	Musculando | Nuevo usuario
+{% endblock Title %}
+
+
+{% block stayle %}
+		<link href="{% static "assets/global/plugins/font-awesome/css/font-awesome.min.css" %}" rel="stylesheet" type="text/css" />
+        <link href="{% static "assets/global/plugins/simple-line-icons/simple-line-icons.min.css" %}" rel="stylesheet" type="text/css" />
+        <link href="{% static "assets/global/plugins/bootstrap/css/bootstrap.min.css" %}" rel="stylesheet" type="text/css" />
+        <link href="{% static "assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" %}" rel="stylesheet" type="text/css" />
+        <!-- END GLOBAL MANDATORY STYLES -->
+        <!-- BEGIN PAGE LEVEL PLUGINS -->
+        <link href="{% static "assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css" %}" rel="stylesheet" type="text/css" />
+        <!-- END PAGE LEVEL PLUGINS -->
+        <!-- BEGIN THEME GLOBAL STYLES -->
+        
+        <link href="{% static "assets/global/css/plugins.min.css" %}" rel="stylesheet" type="text/css" />
+        <!-- END THEME GLOBAL STYLES -->
+        <!-- BEGIN PAGE LEVEL STYLES -->
+        <link href="{% static "assets/pages/css/profile.min.css" %}" rel="stylesheet" type="text/css" />
+        <!-- END PAGE LEVEL STYLES -->
+        <!-- BEGIN THEME LAYOUT STYLES -->
+        <link href="{% static "assets/layouts/layout2/css/layout.min.css" %}" rel="stylesheet" type="text/css" />
+        <link href="{% static "assets/layouts/layout2/css/themes/blue.min.css" %}" rel="stylesheet" type="text/css" id="style_color" />
+        <link href="{% static "assets/layouts/layout2/css/custom.min.css" %}" rel="stylesheet" type="text/css" />
+        <style>
+        	body{
+        		overflow:hidden;
+        	}
+        </style>
+
+{% endblock stayle %}
+
+{% block Content %}
+			<div class="loader"> <img id="Cargando" src="{% static "assets/global/img/spinning-circles.svg" %}" alt=""></div>
+	<!-- BEGIN CONTENT -->
+            <div class="page-content-wrapper">
+                <!-- BEGIN CONTENT BODY -->
+                <div class="page-content">
+                    					<div class="portlet light bordered">
+                                            <div class="portlet-title">
+                                                <div class="caption">
+                                                    
+                                                    <span class="caption-subject font-blue-hoki bold uppercase">Registro de Usuario</span>
+                                                    <span class="caption-helper">Musculando</span>
+                                                </div>
+                                                <div class="tools">
+                                                    <a href="" class="collapse" data-original-title="" title=""> </a>
+                                                    <a href="#portlet-config" data-toggle="modal" class="config" data-original-title="" title=""> </a>
+                                                    <a href="" class="reload" data-original-title="" title=""> </a>
+                                                    <a href="" class="remove" data-original-title="" title=""> </a>
+                                                </div>
+                                            </div>
+                                            <div class="portlet-body form">
+                                                <!-- BEGIN FORM-->
+                                                <form action="" method="POST" enctype="multipart/form-data" class="horizontal-form">
+                                               		{% csrf_token %}
+                                                    <div class="form-body">
+                                                        
+                                                        <div class="row">
+                                                        
+                                                            <div class="col-md-6">
+                                                            <h3 class="form-section">Informacion para Inicio de Sesion</h3>
+                                                            {% for field in Form %}
+                                                            {% if field.name == "username" %}
+                                                            	<div class="form-group">
+                                                                    <label class="control-label">Usuario</label>
+                                                                    <input type="text"  class="form-control" placeholder="{{field.label}}" autocomplete="off" 
+                      												required autofocus maxlength="{{field.max_length}}" {{ field }}    
+                                                                    
+                                                                </div>
+                                                             {% elif field.name == "password1" %}
+                                                            	<div class="form-group">
+                                                                    <label class="control-label">Clave</label>
+                                                                    <input type="password"  class="form-control" placeholder="{{field.label}}" autocomplete="off" 
+                      												required autofocus maxlength="{{field.max_length}}" {{ field }}    
+                                                                    
+                                                                </div>
+                                                             {% else %}
+                                                            	<div class="form-group">
+                                                                    <label class="control-label">Repite Tu Clave</label>
+                                                                    <input type="password"  class="form-control" placeholder="{{field.label}}" autocomplete="off" 
+                      												required autofocus maxlength="{{field.max_length}}" {{ field }}    
+                                                                    
+                                                                </div>
+                                                            {% endif %}
+                                                                
+                                                              {% if field.errors %}
+										                        <div class="alert alert-danger alert-dismissible">
+										                          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+										                          <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+										                          
+										                           {{ field.errors }}
+										                        </div>
+										                        {% elif field.help_text %}
+										                          <div class="alert alert-info alert-dismissible">
+										                          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+										                          <h4><i class="icon fa fa-info"></i> Considere!</h4>
+										                         {{ field.help_text|safe }}
+										                        </div>
+										               
+										                   {% endif %}   
+										                   {% endfor %}
+                                                                
+                                                                
+                                                            </div>
+                                                            <!--/span-->
+                                                            <div class="col-md-6">
+                                                            <h3 class="form-section">Informacion Para el perfil de usuario</h3>
+                                                            	{% for fields in  Form2 %}
+                                                                <div class="form-group">
+                                                                    <label class="control-label">{{fields.label}}</label>
+                                                                    {{fields}}
+                                                                </div>
+                                                             {% if fields.errors %}
+                                                                <div class="alert alert-danger alert-dismissible">
+                                                                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                                                  <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                                                                  
+                                                                   {{ fields.errors }}
+                                                                </div>
+                                                                {% elif field.help_text %}
+                                                                  <div class="alert alert-info alert-dismissible">
+                                                                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                                                  <h4><i class="icon fa fa-info"></i> Considere!</h4>
+                                                                 {{ field.help_text|safe }}
+                                                                </div>
+                                                       
+                                                           {% endif %} 
+                                                            		
+                                                            	{% endfor %}
+                                                            </div>
+                                                            <!--/span-->
+                                                        </div>
+                                                        <!--/row-->
+                                                        
+                                                        <!--/row-->
+                                                        
+                                                        
+                                                    </div>
+                                                    <div class="form-actions right">
+                                                        <button id="Actualizar" type="button" class="btn blue" onclick="Habilitar();">Agregar Informacion De Perfil</button>
+                                                                <button id="" type="submit" class="btn green" > Guardar  </button>
+                                                                <button id="Cancelar" type="button" onclick="Desabilitar();" disabled class="btn default"> Cancel </button>
+                                                    </div>
+                                                </form>
+                                                <!-- END FORM-->
+                                            </div>
+                                        </div>
+                </div>
+                <!-- END CONTENT BODY -->
+            </div>
+            <!-- END CONTENT -->
+{% endblock Content %}
+
+{% block Scripts %}
+			<script src="{% static "assets/global/plugins/jquery.min.js" %}" type="text/javascript"></script>
+            <script src="{% static "assets/global/plugins/bootstrap/js/bootstrap.min.js" %}" type="text/javascript"></script>
+            <script src="{% static "assets/global/plugins/js.cookie.min.js" %}" type="text/javascript"></script>
+            <script src="{% static "assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript" %}"></script>
+            <script src="{% static "assets/global/plugins/jquery.blockui.min.js" type="text/javascript" %}"></script>
+            <script src="{% static "assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" %}" type="text/javascript"></script>
+            <!-- END CORE PLUGINS -->
+            <!-- BEGIN PAGE LEVEL PLUGINS -->
+            <script src="{% static "assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js" %}" type="text/javascript"></script>
+            <script src="{% static "assets/global/plugins/jquery.sparkline.min.js" type="text/javascript" %}"></script>
+            <!-- END PAGE LEVEL PLUGINS -->
+            <!-- BEGIN THEME GLOBAL SCRIPTS -->
+            <script src="{% static "assets/global/scripts/app.min.js" %}" type="text/javascript"></script>
+            <!-- END THEME GLOBAL SCRIPTS -->
+            <!-- BEGIN PAGE LEVEL SCRIPTS -->
+            <script src="{% static "assets/pages/scripts/profile.min.js" %}" type="text/javascript"></script>
+            <!-- END PAGE LEVEL SCRIPTS -->
+            <!-- BEGIN THEME LAYOUT SCRIPTS -->
+            <script src="{% static "assets/layouts/layout2/scripts/layout.min.js" %}" type="text/javascript"></script>
+            <script src="{% static "assets/layouts/layout2/scripts/demo.min.js" %}" type="text/javascript"></script>
+            <script src="{% static "assets/layouts/global/scripts/quick-sidebar.min.js" %}" type="text/javascript"></script>
+            <script src="{% static "assets/layouts/global/scripts/quick-nav.min.js" %}" type="text/javascript"></script>
+            <script src="{% static "assets/apps/scripts/Perfil.js" %}" type="text/javascript"></script>
+            <script>
+            $(window).load(function() {
+			    $(".loader").fadeOut("slow");
+			    $('body').css({'overflow':'visible'});
+			});
+
+            </script>
+{% endblock Scripts %}

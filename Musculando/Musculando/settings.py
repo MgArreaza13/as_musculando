@@ -39,7 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'apps.Clases',
     'apps.Panel',
+    'apps.Proveedores',
     'apps.UserProfile',
 ]
 
@@ -66,6 +68,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'apps.ContextProcesor.UserProfile.ProfileContextProcesor',
+                'apps.ContextProcesor.server.server_url',
             ],
         },
     },

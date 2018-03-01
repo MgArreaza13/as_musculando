@@ -1,0 +1,256 @@
+{% extends "../Base/Base.html" %}
+{% load staticfiles %}
+{% block Title %}
+	Listado De Clases
+{% endblock Title %}
+
+{% block stayle %}
+	<link href="{% static "assets/global/plugins/cubeportfolio/css/cubeportfolio.css" %}" rel="stylesheet" type="text/css" />
+{% endblock stayle %}
+
+
+{% block Content %}
+	<div class="page-sidebar-wrapper">
+                <!-- END SIDEBAR -->
+                <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+                <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+                
+                <!-- END SIDEBAR -->
+            </div>
+            <!-- END SIDEBAR -->
+            <!-- BEGIN CONTENT -->
+            <div class="page-content-wrapper">
+            	{% if listaDeClases %}
+			        <!-- BEGIN CONTENT BODY -->
+                <div class="page-content">
+                    <!-- BEGIN PAGE HEADER-->
+                    <!-- BEGIN THEME PANEL -->
+                    <div class="theme-panel">
+                        <div class="toggler tooltips" data-container="body" data-placement="left" data-html="true" data-original-title="Click to open advance theme customizer panel">
+                            <i class="icon-settings"></i>
+                        </div>
+                        <div class="toggler-close">
+                            <i class="icon-close"></i>
+                        </div>
+                        <div class="theme-options">
+                            <div class="theme-option theme-colors clearfix">
+                                <span> THEME COLOR </span>
+                                <ul>
+                                    <li class="color-default current tooltips" data-style="default" data-container="body" data-original-title="Default"> </li>
+                                    <li class="color-grey tooltips" data-style="grey" data-container="body" data-original-title="Grey"> </li>
+                                    <li class="color-blue tooltips" data-style="blue" data-container="body" data-original-title="Blue"> </li>
+                                    <li class="color-dark tooltips" data-style="dark" data-container="body" data-original-title="Dark"> </li>
+                                    <li class="color-light tooltips" data-style="light" data-container="body" data-original-title="Light"> </li>
+                                </ul>
+                            </div>
+                            <div class="theme-option">
+                                <span> Theme Style </span>
+                                <select class="layout-style-option form-control input-small">
+                                    <option value="square" selected="selected">Square corners</option>
+                                    <option value="rounded">Rounded corners</option>
+                                </select>
+                            </div>
+                            <div class="theme-option">
+                                <span> Layout </span>
+                                <select class="layout-option form-control input-small">
+                                    <option value="fluid" selected="selected">Fluid</option>
+                                    <option value="boxed">Boxed</option>
+                                </select>
+                            </div>
+                            <div class="theme-option">
+                                <span> Header </span>
+                                <select class="page-header-option form-control input-small">
+                                    <option value="fixed" selected="selected">Fixed</option>
+                                    <option value="default">Default</option>
+                                </select>
+                            </div>
+                            <div class="theme-option">
+                                <span> Top Dropdown</span>
+                                <select class="page-header-top-dropdown-style-option form-control input-small">
+                                    <option value="light" selected="selected">Light</option>
+                                    <option value="dark">Dark</option>
+                                </select>
+                            </div>
+                            <div class="theme-option">
+                                <span> Sidebar Mode</span>
+                                <select class="sidebar-option form-control input-small">
+                                    <option value="fixed">Fixed</option>
+                                    <option value="default" selected="selected">Default</option>
+                                </select>
+                            </div>
+                            <div class="theme-option">
+                                <span> Sidebar Style</span>
+                                <select class="sidebar-style-option form-control input-small">
+                                    <option value="default" selected="selected">Default</option>
+                                    <option value="compact">Compact</option>
+                                </select>
+                            </div>
+                            <div class="theme-option">
+                                <span> Sidebar Menu </span>
+                                <select class="sidebar-menu-option form-control input-small">
+                                    <option value="accordion" selected="selected">Accordion</option>
+                                    <option value="hover">Hover</option>
+                                </select>
+                            </div>
+                            <div class="theme-option">
+                                <span> Sidebar Position </span>
+                                <select class="sidebar-pos-option form-control input-small">
+                                    <option value="left" selected="selected">Left</option>
+                                    <option value="right">Right</option>
+                                </select>
+                            </div>
+                            <div class="theme-option">
+                                <span> Footer </span>
+                                <select class="page-footer-option form-control input-small">
+                                    <option value="fixed">Fixed</option>
+                                    <option value="default" selected="selected">Default</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END THEME PANEL -->
+                    <h1 class="page-title"> Portfolio 1
+                        <small>Portfolio 1 - Basic Grid</small>
+                    </h1>
+                    <div class="page-bar">
+                        <ul class="page-breadcrumb">
+                            <li>
+                                <i class="icon-home"></i>
+                                <a href="index.html">Home</a>
+                                <i class="fa fa-angle-right"></i>
+                            </li>
+                            <li>
+                                <a href="#">General</a>
+                                <i class="fa fa-angle-right"></i>
+                            </li>
+                            <li>
+                                <span>Portfolio</span>
+                            </li>
+                        </ul>
+                        <div class="page-toolbar">
+                            <div class="btn-group pull-right">
+                                <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true"> Actions
+                                    <i class="fa fa-angle-down"></i>
+                                </button>
+                                <ul class="dropdown-menu pull-right" role="menu">
+                                    <li>
+                                        <a href="#">
+                                            <i class="icon-bell"></i> Action</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="icon-shield"></i> Another action</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="icon-user"></i> Something else here</a>
+                                    </li>
+                                    <li class="divider"> </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="icon-bag"></i> Separated link</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END PAGE HEADER-->
+                    <div class="portfolio-content portfolio-1">
+                        <div id="js-filters-juicy-projects" class="cbp-l-filters-button">
+                            <div data-filter="*" class="cbp-filter-item-active cbp-filter-item btn dark btn-outline uppercase"> All
+                                <div class="cbp-filter-counter"></div>
+                            </div>
+                            <div data-filter=".identity" class="cbp-filter-item btn dark btn-outline uppercase"> Identity
+                                <div class="cbp-filter-counter"></div>
+                            </div>
+                            <div data-filter=".web-design" class="cbp-filter-item btn dark btn-outline uppercase"> Web Design
+                                <div class="cbp-filter-counter"></div>
+                            </div>
+                            <div data-filter=".graphic" class="cbp-filter-item btn dark btn-outline uppercase"> Graphic
+                                <div class="cbp-filter-counter"></div>
+                            </div>
+                            <div data-filter=".logos" class="cbp-filter-item btn dark btn-outline uppercase"> Logo
+                                <div class="cbp-filter-counter"></div>
+                            </div>
+                        </div>
+                        <div id="js-grid-juicy-projects" class="cbp">
+                        	{% for clases  in listaDeClases %}
+	                            <div class="cbp-item graphic">
+	                                <div class="cbp-caption">
+	                                    <div class="cbp-caption-defaultWrap">
+	                                        <img src="{% static "assets/pages/img/indice-copia.jpg" %}" alt=""> </div>
+	                                    <div class="cbp-caption-activeWrap">
+	                                        <div class="cbp-l-caption-alignCenter">
+	                                            <div class="cbp-l-caption-body">
+	                                                <a href="../assets/global/plugins/cubeportfolio/ajax/project1.html" class="cbp-singlePage cbp-l-caption-buttonLeft btn red uppercase btn red uppercase" rel="nofollow">more info</a>
+	                                                <a href="{% static "assets/pages/img/indice-copia.jpg" %}" class="cbp-lightbox cbp-l-caption-buttonRight btn red uppercase btn red uppercase" data-title="Musculando<br>by Desidium Software">Ver Imagen</a>
+	                                            </div>
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                                <div class="cbp-l-grid-projects-title uppercase text-center uppercase text-center">{{clases.nameClass}}</div>
+	                                <div class="cbp-l-grid-projects-desc uppercase text-center uppercase text-center">Web Design / Graphic</div>
+	                            </div>	
+                        	{% endfor %}
+                         
+                        </div>
+                        <div id="js-loadMore-juicy-projects" class="cbp-l-loadMore-button">
+                            <a href="../assets/global/plugins/cubeportfolio/ajax/loadMore.html" class="cbp-l-loadMore-link btn grey-mint btn-outline" rel="nofollow">
+                                <span class="cbp-l-loadMore-defaultText">LOAD MORE</span>
+                                <span class="cbp-l-loadMore-loadingText">LOADING...</span>
+                                <span class="cbp-l-loadMore-noMoreLoading">NO MORE WORKS</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- END CONTENT BODY -->
+	            	{% else %}
+	            	<!-- BEGIN CONTENT BODY -->
+		                <div class="page-content">
+		                    <!-- BEGIN PAGE HEADER-->
+		                    
+		                    <h1 class="page-title"> Lista de Clases 
+		                        
+		                    </h1>
+		                    <div class="page-bar">
+		                        <ul class="page-breadcrumb">
+		                            <li>
+		                                <i class="icon-home"></i>
+		                                <a href="index.html">Inicio</a>
+		                                <i class="fa fa-angle-right"></i>
+		                            </li>
+		                            <li>
+		                                <a href="#">Clases</a>
+		                                <i class="fa fa-angle-right"></i>
+		                            </li>
+		                            <li>
+		                                <span>Lista</span>
+		                            </li>
+		                        </ul>
+		                        
+		                    </div>
+		                    <!-- END PAGE HEADER-->
+		                    <div class="row">
+		                        <div class="col-md-12">
+		                            <!-- BEGIN EXAMPLE TABLE PORTLET-->
+		                            <h3>Listado Vacio</h3>
+		                            <!-- END EXAMPLE TABLE PORTLET-->
+		                            
+		                        </div>
+		                    </div>
+		                </div>
+		                <!-- END CONTENT BODY -->
+
+            		
+            	{% endif %}
+            </div>
+{% endblock Content %}
+			
+{% block Scripts %}
+	<script src="{% static "assets/global/plugins/cubeportfolio/js/jquery.cubeportfolio.min.js" %}" type="text/javascript"></script>
+            <!-- END PAGE LEVEL PLUGINS -->
+            <!-- BEGIN THEME GLOBAL SCRIPTS -->
+            <!-- END THEME GLOBAL SCRIPTS -->
+            <!-- BEGIN PAGE LEVEL SCRIPTS -->
+            <script src="{% static "assets/pages/scripts/portfolio-1.min.js" %}" type="text/javascript"></script>
+{% endblock Scripts %}

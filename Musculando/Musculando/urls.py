@@ -21,8 +21,12 @@ from django.conf.urls.static import static
 #from rest_framework_jwt.views import refresh_jwt_token
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
     url(r'^', include('apps.Panel.urls', namespace='Panel')),
+    url(r'^admin/', admin.site.urls),
+    url(r'^Clases/', include('apps.Clases.urls', namespace='Clases')),
+    url(r'^Usuarios/', include('apps.UserProfile.urls', namespace='Usuarios')),
+    url(r'^Proveedores/', include('apps.Proveedores.urls', namespace='Proveedores')),
+    
 ]
 #urlpatterns += router.urls
 if settings.DEBUG:
