@@ -40,9 +40,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'apps.Clases',
+    'apps.Caja',
+    'apps.Configuracion',
     'apps.Panel',
     'apps.Proveedores',
     'apps.UserProfile',
+    'apps.Socios',
 ]
 
 MIDDLEWARE = [
@@ -70,6 +73,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'apps.ContextProcesor.UserProfile.ProfileContextProcesor',
                 'apps.ContextProcesor.server.server_url',
+                'apps.ContextProcesor.UserProfile.SocioContextProcesor',
             ],
         },
     },

@@ -35,41 +35,20 @@ var FormWizard = function () {
                 focusInvalid: false, // do not focus the last invalid input
                 rules: {
                     //account
-                    titulo: {
-                        minlength: 5,
+                   
+                    Nombre: {
+     
                         required: true
                     },
-                    password: {
-                        minlength: 5,
-                        required: true
-                    },
-                    rpassword: {
-                        minlength: 5,
+                    Apellido: {
+
                         required: true,
-                        equalTo: "#submit_form_password"
+
                     },
                     
-                    //profile
-                    fullname: {
-                        required: true
-                    },
-                    email: {
-                        required: true,
-                        email: true
-                    },
-                    phone: {
-                        required: true
-                    },
-                    status: {
-                        required: true
-                    },
-                    address: {
-                        required: true
-                    },
-                    city: {
-                        required: true
-                    },
-                    curso: {
+                    
+                   
+                    plan: {
                         required: true
                     },
                     //payment

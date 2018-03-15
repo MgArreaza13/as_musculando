@@ -36,7 +36,6 @@ def Login(request):
 				perfil_usuario = query_perfil[0]
 			else:
 				perfil_usuario = None
-			print(perfil_usuario.is_complete)
 			if QueryUser(request.user.id) == False or perfil_usuario.is_complete == False :
 				#No tiene Perfil
 				return redirect('Usuarios:Perfil')

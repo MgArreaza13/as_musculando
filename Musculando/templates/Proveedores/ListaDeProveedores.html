@@ -6,14 +6,19 @@
 
 {% block stayle %}
 		
+       <link href="{% static "assets/global/plugins/font-awesome/css/font-awesome.min.css" %}" rel="stylesheet" type="text/css" />
+        <link href="{% static "assets/global/plugins/simple-line-icons/simple-line-icons.min.css" %}" rel="stylesheet" type="text/css" />
+        <link href="{% static "assets/global/plugins/bootstrap/css/bootstrap.min.css" %}" rel="stylesheet" type="text/css" />
+        <link href="{% static "assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" %}" rel="stylesheet" type="text/css" />
+        <!-- END GLOBAL MANDATORY STYLES -->
         <!-- BEGIN PAGE LEVEL PLUGINS -->
         <link href="{% static "assets/global/plugins/datatables/datatables.min.css" %}" rel="stylesheet" type="text/css" />
         <link href="{% static "assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" %}" rel="stylesheet" type="text/css" />
         <link href="{% static "assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" %}" rel="stylesheet" type="text/css" />
         <!-- END PAGE LEVEL PLUGINS -->
         <!-- BEGIN THEME GLOBAL STYLES -->
-        <link href="{% static "assets/global/css/components.min.css" %}" rel="stylesheet" id="style_components" type="text/css" />
-        <link href="{% static "assets/global/css/plugins.min.css" %}" rel="stylesheet" type="text/css" />
+        <link href="{% static "assets/global/css/components-md.min.css" %}" rel="stylesheet" id="style_components" type="text/css" />
+        <link href="{% static "assets/global/css/plugins-md.min.css" %}" rel="stylesheet" type="text/css" />
         <!-- END THEME GLOBAL STYLES -->
         <!-- BEGIN THEME LAYOUT STYLES -->
         <link href="{% static "assets/layouts/layout2/css/layout.min.css" %}" rel="stylesheet" type="text/css" />
@@ -160,12 +165,6 @@
 
 {% block Scripts %}
 	<!-- BEGIN CORE PLUGINS -->
-            <script src="{% static "assets/global/plugins/jquery.min.js" %}" type="text/javascript"></script>
-            <script src="{% static "assets/global/plugins/bootstrap/js/bootstrap.min.js" %}" type="text/javascript"></script>
-            <script src="{% static "assets/global/plugins/js.cookie.min.js" %}" type="text/javascript"></script>
-            <script src="{% static "assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" %}" type="text/javascript"></script>
-            <script src="{% static "assets/global/plugins/jquery.blockui.min.js" %}" type="text/javascript"></script>
-            <script src="{% static "assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" %}" type="text/javascript"></script>
             <!-- END CORE PLUGINS -->
             <!-- BEGIN PAGE LEVEL PLUGINS -->
             <script src="{% static "assets/global/scripts/datatable.js" %}" type="text/javascript"></script>
@@ -174,15 +173,9 @@
             <script src="{% static "assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" %}" type="text/javascript"></script>
             <!-- END PAGE LEVEL PLUGINS -->
             <!-- BEGIN THEME GLOBAL SCRIPTS -->
-            <script src="{% static "assets/global/scripts/app.min.js" %}" type="text/javascript"></script>
             <!-- END THEME GLOBAL SCRIPTS -->
             <!-- BEGIN PAGE LEVEL SCRIPTS -->
             <script src="{% static "assets/pages/scripts/table-datatables-buttons.min.js" %}" type="text/javascript"></script>
-            <!-- END PAGE LEVEL SCRIPTS -->
-            <!-- BEGIN THEME LAYOUT SCRIPTS -->
-            <script src="{% static "assets/layouts/layout2/scripts/layout.min.js" %}" type="text/javascript"></script>
-            <script src="{% static "assets/layouts/layout2/scripts/demo.min.js" %}" type="text/javascript"></script>
-            <script src="{% static "assets/layouts/global/scripts/quick-sidebar.min.js" %}" type="text/javascript"></script>
-            <script src="{% static "assets/layouts/global/scripts/quick-nav.min.js" %}" type="text/javascript"></script>
+            
             <!-- END THEME LAYOUT SCRIPTS -->
 {% endblock Scripts %}

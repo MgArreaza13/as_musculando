@@ -24,8 +24,11 @@ urlpatterns = [
     url(r'^', include('apps.Panel.urls', namespace='Panel')),
     url(r'^admin/', admin.site.urls),
     url(r'^Clases/', include('apps.Clases.urls', namespace='Clases')),
+    url(r'^Caja/', include('apps.Caja.urls', namespace='Caja')),
+    url(r'^Configuracion/', include('apps.Configuracion.urls', namespace='Configuracion')),
     url(r'^Usuarios/', include('apps.UserProfile.urls', namespace='Usuarios')),
     url(r'^Proveedores/', include('apps.Proveedores.urls', namespace='Proveedores')),
+    url(r'^Socios/', include('apps.Socios.urls', namespace='Socios')),
     
 ]
 #urlpatterns += router.urls

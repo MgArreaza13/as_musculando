@@ -84,7 +84,7 @@ def Perfil(request):
 			if len(request.FILES) != 0:
 				perfil.image = request.FILES['ImagenDePerfil']
 			else:
-				perfil.image = UserProfile.image
+				perfil.image = 'Null'
 			perfil.is_complete = True
 			perfil.save()
 	contexto = {
