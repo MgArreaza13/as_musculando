@@ -18,9 +18,16 @@ from apps.Socios.forms import SociosRegisterForm
 from apps.UserProfile.models import tb_profile
 
 ##########SCRIPTS################
-
 from apps.Scripts.DesactivateUser import Desactivate_Register
 
+
+######################CELERY################
+from apps.tasks.Email_tasks import VencimientoMensualidad
+from apps.tasks.Email_tasks import NewSocioMAil
+from apps.tasks.Email_tasks import DesactivacionSocio
+from apps.tasks.Email_tasks import ActivacionSocio
+from apps.tasks.Email_tasks import PerfilEliminado
+from apps.tasks.Email_tasks import GetProfile
 # Create your views here.
 
 
@@ -28,7 +35,7 @@ from apps.Scripts.DesactivateUser import Desactivate_Register
 
 
 
-#####################FUNCION QUE DESACTIVA SOCIOS######################
+#####################FUNCION QUE DESACTIVA SOCIOS POR VENCIMIENTO DE FECHA ######################
 def DectivandoSocios(request):
 	hoy = datetime.today().date()
 	socios = tb_socio.objects.all()
@@ -36,6 +43,8 @@ def DectivandoSocios(request):
 		if(socios[i].dateInactive_socio == hoy):
 			socios[i].status = 'Desactivado'
 			socios[i].save()
+			###ENVIAR EL CORREO QUE SE DESACTIVO EL PERFIL ########
+			VencimientoMensualidad.delay(socios[i].perfil.nameUser, socios[i].TarifaMensual.precioPlan, socios[i].TarifaMensual.nombrePlan, socios[i].perfil.mailUser)
 	return HttpResponse(200)
 
 
@@ -88,6 +97,8 @@ def NewSocio(request):
 				nuevoSocio.TarifaMensual = tb_plan.objects.get(id = request.POST['IdPlanSeleccionado'])
 				nuevoSocio.dateInactive_socio = Desactivate_Register(datetime.today().date() , 1)
 				nuevoSocio.save() 
+				################ENVIAR CORREO QUE SE CREO EL PERFIL DE SOCIO CORRECTAMENTE ########
+				NewSocioMAil.delay(request.POST['username'], nuevoSocio.TarifaMensual.precioPlan, nuevoSocio.TarifaMensual.nombrePlan, request.POST['mailUser'])
 				return redirect('Socios:ListaDeSocios')
 			else:
 				Form	= UsuarioForm(request.POST , request.FILES  or None)
@@ -106,10 +117,10 @@ def NewSocio(request):
 #########################ELIMINAR SOCIO ##############################
 
 def DeleteSocio(request):
-	queryset_user = User.objects.all()
 	status = None
 	id_usuario = request.GET.get('id', None)
 	queryset = User.objects.get(id = id_usuario)
+	PerfilEliminado.delay()
 	queryset.delete()
 	status = 200
 	return HttpResponse(status)
@@ -122,6 +133,7 @@ def DesactivateSocio(request):
 	id_socio = request.GET.get('id', None)
 	queryset = tb_socio.objects.get(id = id_socio)
 	queryset.status = 'Desactivado'
+	DesactivacionSocio.delay(queryset.perfil.nameUser, queryset.TarifaMensual.precioPlan, queryset.TarifaMensual.nombrePlan, queryset.perfil.mailUser)
 	queryset.save()
 	return HttpResponse(200)
 
@@ -131,4 +143,5 @@ def ActivateSocio(request):
 	queryset = tb_socio.objects.get(id = id_socio)
 	queryset.status = 'Activo'
 	queryset.save()
+	ActivacionSocio.delay(queryset.perfil.nameUser,  queryset.perfil.mailUser)
 	return HttpResponse(200)
