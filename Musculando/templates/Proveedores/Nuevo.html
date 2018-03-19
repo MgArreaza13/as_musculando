@@ -45,7 +45,7 @@
 {% endblock stayle %}
 
 {% block Content %}
-	
+	<div class="loader" id="loading-screen"> <img id="Cargando" src="{% static "assets/global/img/spinning-circles.svg" %}" alt=""></div>
 	<div class="page-sidebar-wrapper">
                 <!-- END SIDEBAR -->
                 <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
@@ -203,5 +203,12 @@
             <script src="{% static "assets/layouts/layout2/scripts/demo.min.js" %}" type="text/javascript"></script>
             <script src="{% static "assets/layouts/global/scripts/quick-sidebar.min.js" %}" type="text/javascript"></script>
             <script src="{% static "assets/layouts/global/scripts/quick-nav.min.js" %}" type="text/javascript"></script>
+            <script>
+            $(window).load(function() {
+                $(".loader").fadeOut("slow");
+                $('body').css({'overflow':'visible'});
+            });
+
+            </script>
             <!-- END THEME LAYOUT SCRIPTS -->
 {% endblock Scripts %}

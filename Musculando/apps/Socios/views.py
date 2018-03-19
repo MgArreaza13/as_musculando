@@ -6,6 +6,7 @@ from django.contrib.auth import login as login_django
 from django.contrib.auth import logout as logout_django
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
+from django.http import JsonResponse
 from datetime import datetime
 ########Modelos################
 from apps.Socios.models import tb_socio
@@ -32,7 +33,24 @@ from apps.tasks.Email_tasks import GetProfile
 
 
 
+##########################DATOS DEL SOCIO ########################################
 
+def getSocio(request):
+	id_User = request.GET.get('id_socio', None)
+	usuario = User.objects.get(id = id_User)
+	perfil = tb_profile.objects.get(user__id = id_User)
+	socio = tb_socio.objects.get(perfil__user__id = id_User)
+	data = {
+		'username':str(usuario),
+		'name': str(perfil.nameUser),
+		'lastname': str(perfil.lastName),
+		'mail':str(perfil.mailUser),
+		'plan':str(socio.TarifaMensual.nombrePlan),
+		'monto_plan':str(socio.TarifaMensual.precioPlan)
+
+	}
+
+	return JsonResponse(data)
 
 
 #####################FUNCION QUE DESACTIVA SOCIOS POR VENCIMIENTO DE FECHA ######################

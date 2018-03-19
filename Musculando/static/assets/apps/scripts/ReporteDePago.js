@@ -6,6 +6,8 @@ function EnviarNuevoReporteDePago() {
 	var tarifaMensual = $('#TarifaMensual').val();
 	var MontoTafifaMensual = $('#MontoTarifaMensual').val();
 	var Direccion = $('#Direccion').val();
+	var screen = $('#loading-screen');
+    configureLoadingScreen(screen);
 
 
 	$.ajax({
@@ -49,4 +51,15 @@ function EnviarNuevoReporteDePago() {
 		});
 
 
+}
+
+
+function configureLoadingScreen(screen){
+    $(document)
+        .ajaxStart(function () {
+            screen.fadeIn();
+        })
+        .ajaxStop(function () {
+            screen.fadeOut();
+        });
 }

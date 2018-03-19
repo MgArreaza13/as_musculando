@@ -43,6 +43,8 @@ function ModalSocio() {
 	$("#responsive").modal("show");
 }
 function PlanSeleccionado(id) {
+	var screen = $('#loading-screen');
+    configureLoadingScreen(screen);
 	$.ajax({
 		    // la URL para la petición
 		    url : '/Configuracion/Planes/Solicitud/Get/Registro/',
@@ -83,4 +85,15 @@ function PlanSeleccionado(id) {
 		 
 		    // código a ejecutar sin importar si la petición falló o n
 		});
+}
+
+
+function configureLoadingScreen(screen){
+    $(document)
+        .ajaxStart(function () {
+            screen.fadeIn();
+        })
+        .ajaxStop(function () {
+            screen.fadeOut();
+        });
 }

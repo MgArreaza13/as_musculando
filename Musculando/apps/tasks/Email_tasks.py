@@ -82,7 +82,7 @@ def ActivacionSocio(usuario ,correo):
 	email_body_usuario = "Hola %s, Hemos Activado tu perfil porque asi lo solicito el administrador, Disfruta de nuestros beneficios nuevamente" %(usuario)
 	send_mail (email_subject_usuario, cuerpo, 'musculando@b7000615.ferozo.com', [correo], fail_silently=True, html_message=email_body_usuario)
 	#mensaje para apreciasoft
-	email_subject_Soporte = 'Musculando - Desactivacion de Perfil Por vencimiento de cuota'
+	email_subject_Soporte = 'Musculando - Activacion del perfil'
 	email_body_Soporte = "Hemos Activado el socio %s respondiendo a tu solicitud de activacion satisfactoriamente," %(usuario)
 	send_mail(email_subject_Soporte, cuerpo , 'musculando@b7000615.ferozo.com', ['soporte@apreciasoft.com', "mg.arreaza.13@gmail.com",],fail_silently=True, html_message=email_body_Soporte)
 	
