@@ -211,6 +211,7 @@
                                                         
                                                         
                                                     </div>
+                                                    <input id="messageChanel" name="messageChanel" type="hidden" value="">
                                                     <input type="hidden" value="0" id="IdPlanSeleccionado" name="IdPlanSeleccionado">
                                                     <div class="form-actions right">
                                                         <button id="Actualizar" type="button" class="btn blue" onclick="Habilitar();">Agregar Informacion De Perfil</button>
@@ -260,6 +261,12 @@
                                                             <i class="icon-user"></i>
                                                         </div>
                                                         <div class="col-xs-9 text-left mobile-padding">{{plan.dateCreate}}</div>
+                                                    </div>
+                                                    <div class="row mobile-padding">
+                                                        <div class="col-xs-3 text-right mobile-padding">
+                                                            <i class="icon-user"></i>
+                                                        </div>
+                                                        <div class="col-xs-9 text-left mobile-padding">${{plan.precioPlanAnual}} al año</div>
                                                     </div>
                                                     <div class="price-table-footer">
                                                        <button value="{{plan.id}}" href="javascript:void(0);" id="SeleccionarPlan" onclick="PlanSeleccionado(this.value);"  class="btn blue btn-block">Seleccionar Plan</button> 

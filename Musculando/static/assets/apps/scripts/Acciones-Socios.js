@@ -1,3 +1,28 @@
+
+function Get_formas_de_pago() {
+	var response_json;
+	 $.ajax({
+		    // la URL para la petición
+		    url : '/Configuracion/Forma/De/Pago/Solicitud/Get/',
+		    dataType : 'json',
+		    // código a ejecutar si la petición es satisfactoria;
+		    // la respuesta es pasada como argumento a la función
+		    success : function(data) {
+		    	response_json = data
+		    	
+		    }
+		 
+		    // código a ejecutar si la petición falla;
+		    // son pasados como argumentos a la función
+		    // el objeto de la petición en crudo y código de estatus de la petición
+		   
+		 
+		    // código a ejecutar sin importar si la petición falló o n
+		});	
+
+	 return response_json;
+}
+
 function Eliminar(id) {
 	swal({
 		  title: '¿Estas Seguro?',
@@ -276,6 +301,155 @@ function EnviarNuevoReporteDePago2() {
 }
 
 
+
+function ReportePago(id) {
+	var myArrayOfThings;
+	$.ajax({
+		    // la URL para la petición
+		    url : '/Configuracion/Forma/De/Pago/Solicitud/Get/',
+		    dataType : 'json',
+		    // código a ejecutar si la petición es satisfactoria;
+		    // la respuesta es pasada como argumento a la función
+		    success : function(data) {
+		    	
+		    	myArrayOfThings  = data
+		    	var options = {};
+			    $.map(myArrayOfThings,function(o,query) {options[o.forma_de_pago] = o.forma_de_pago;});
+			      swal.setDefaults({
+			          input: 'text',
+			          confirmButtonText: 'Siguiente &rarr;',
+			          showCancelButton: true,
+			          progressSteps: ['1', '2']
+			        })
+			      //console.log(options);
+			        var steps = [
+			          {
+			           	 title: 'Seleccione la forma que desea activar',
+						  input: 'select',
+						  inputOptions: {
+						    'Anual': 'Anual',
+						    'Mensual': 'Mensual',
+						  },
+						  inputPlaceholder: 'Activar Anual o Mensual',
+			          },
+			        {
+			            title: 'Seleccione un metodo de pago',
+			            input: 'select',
+			            inputOptions: options,
+			            inputPlaceholder: 'metodos de pago',
+			          },
+
+
+			          
+			        ]
+
+			        swal.queue(steps).then(function (result) {
+			        	if (result.value[0] != '' && result.value[1] != '' ){
+			        		mensual_anual = result.value[0];
+			        		forma_pago = result.value[1];
+			        		swal.resetDefaults()
+			        	if (result.value[0] == "Anual") {
+						    swal({
+						  title: '¿Estas Seguro?',
+						  text: "¿Estas Seguro de que deseas Activar este Socio por todo el año?",
+						  type: 'warning',
+						  showCancelButton: true,
+						  confirmButtonColor: '#3085d6',
+						  cancelButtonColor: '#d33',
+						  confirmButtonText: 'Si, Quiero Activarlo Anual!'
+						}).then(function (result) {
+							//console.log(result)
+				           if(result.value){
+				           	//console.log('dije que si ');
+				    		$.ajax({
+			                    url: '/Socios/Nueva/Peticion/de/Activar/Socio/',
+			                    data: {
+			                      'id_socio':id,
+			                      'mensual_anual': mensual_anual,
+			                      'forma_pago':forma_pago,
+			                  },
+			                  dataType: 'json',
+			                  success: function (status) {
+			                     swal({
+			                        title: 'Hemos Cargado de manera exitosa su pago !',
+			                        confirmButtonText: 'Aceptar!'
+			                      })
+			                     location.reload(); 
+			                }
+			            });
+				           	
+				           }
+				        });
+						  }
+						else if (result.value[0] == "Mensual") {
+						    swal({
+						  title: '¿Estas Seguro?',
+						  text: "¿Estas Seguro de que deseas Activar este Socio por todo el mes?",
+						  type: 'warning',
+						  showCancelButton: true,
+						  confirmButtonColor: '#3085d6',
+						  cancelButtonColor: '#d33',
+						  confirmButtonText: 'Si, Quiero Activarlo Mensual!'
+						}).then(function (result) {
+							console.log(result)
+				           if(result.value){
+				           	//console.log('dije que si ');
+				    		$.ajax({
+			                    url: '/Socios/Nueva/Peticion/de/Activar/Socio/',
+			                    data: {
+			                      'id_socio':id,
+			                      'mensual_anual': mensual_anual,
+			                      'forma_pago':forma_pago,
+			                  },
+			                  dataType: 'json',
+			                  success: function (status) {
+			                     swal({
+			                        title: 'Hemos Cargado de manera exitosa su pago !',
+			                        confirmButtonText: 'Aceptar!'
+			                      })
+			                     location.reload(); 
+			                }
+			            });
+				           	
+				           }
+				        });
+						  }
+
+			        	}
+			        	else{
+			        		swal.resetDefaults()
+			        		swal("OOOh!", "Hemos tenido un problema al verificar sus datos!", "error")
+
+
+
+			        	}
+			        	
+			               
+			                
+
+			        }, function () {
+			          swal.resetDefaults()
+			        })
+		    	
+		    	
+		    }
+		 
+		    // código a ejecutar si la petición falla;
+		    // son pasados como argumentos a la función
+		    // el objeto de la petición en crudo y código de estatus de la petición
+		   
+		 
+		    // código a ejecutar sin importar si la petición falló o n
+		});
+	
+	
+    
+    
+}
+
+
+
+
 function configureLoadingScreen(screen){
     $(document)
         .ajaxStart(function () {
@@ -285,3 +459,5 @@ function configureLoadingScreen(screen){
             screen.fadeOut();
         });
 }
+
+

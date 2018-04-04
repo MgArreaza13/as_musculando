@@ -1,3 +1,5 @@
+
+
 $('#id_nameUser').removeAttr("required");
 $('#id_lastName').removeAttr("required");
 $('#id_dni').removeAttr("required");
@@ -6,6 +8,7 @@ $('#id_houseTlf').removeAttr("required");
 $('#id_mailUser').removeAttr("required");
 $('#id_mailUser').removeAttr("required");
 $('#id_obraSocial').removeAttr("required");
+
 function Habilitar() {
 $('#id_nameUser').removeAttr("disabled");
 $('#id_lastName').removeAttr("disabled");
@@ -69,6 +72,8 @@ function PlanSeleccionado(id) {
 		    		$('#FechaPlan').html(plan.fecha);
 		    		$('#IdPlanSeleccionado').val(id);
 		    		$("#responsive").modal("hide");	
+		    		
+
 		    	}
 		    	else{
 		    		$("#responsive").modal("hide");	

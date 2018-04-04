@@ -49,6 +49,8 @@ INSTALLED_APPS = [
     'apps.Proveedores',
     'apps.UserProfile',
     'apps.Socios',
+    'apps.Marketing',
+    'channels',
 ]
 
 MIDDLEWARE = [
@@ -84,6 +86,23 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Musculando.wsgi.application'
 
+
+CHANNEL_LAYERS = {
+ "default": {
+ "BACKEND": "asgi_redis.RedisChannelLayer",
+ "CONFIG": {
+   "hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379')],
+ },
+ 'ROUTING': 'Musculando.routing.channel_routing',
+ },
+}
+
+
+BROKER_URL = 'redis://localhost:6379/0' # Al Redis Server
+
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
@@ -124,13 +143,47 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'es-mx'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Caracas'
 
 USE_I18N = True
 
 USE_L10N = True
 
 USE_TZ = True
+
+
+from celery.schedules import crontab
+from datetime import datetime
+
+USE_TZ = True
+
+
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TASK_SERIALIZER = 'json'
+TIME_ZONE = 'America/Caracas'
+
+CELERY_ENABLE_UTC = False
+CELERY_TIMEZONE = TIME_ZONE
+
+t = datetime.today()
+diario = crontab(minute=0, hour=7)
+
+CELERYBEAT_SCHEDULE = {
+    'desactivate-socio': {
+        'task': 'apps.Socios.tasks.desactivatesocios',
+        'schedule': diario,
+    },
+}
+
+
+
+
+
+
+
 
 
 # Static files (CSS, JavaScript, Images)

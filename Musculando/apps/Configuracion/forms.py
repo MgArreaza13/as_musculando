@@ -11,12 +11,14 @@ class PlanRegisterForm(forms.ModelForm):
 		fields = [
 		'nombrePlan',
 		'precioPlan',
+		'precioPlanAnual',
 		'descripcionPlan',
 		
 		]
 		labels = {
 		'nombrePlan':'Nombre Plan',
 		'precioPlan':'Precio Plan',
+		'precioPlanAnual':'Precio De Oferta Anual',
 		'descripcionPlan': 'Decripcion',
 		}
 		widgets = {
@@ -31,6 +33,12 @@ class PlanRegisterForm(forms.ModelForm):
 			  
 			  'autocomplete':'off',
 			   'placeholder':'Precio del Plan'}),
+
+		'precioPlanAnual': NumberInput(attrs={'class':'form-control', 
+			  'required':'False',
+			  
+			  'autocomplete':'off',
+			   'placeholder':'Promocion Anual'}),
 
 		'descripcionPlan': Textarea(attrs={'class':'form-control', 
 			  'required':'False',

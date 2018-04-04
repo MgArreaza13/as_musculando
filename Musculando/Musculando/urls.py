@@ -18,6 +18,13 @@ from django.conf import settings
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
+
+from rest_framework import routers
+router =  routers.DefaultRouter()
+
+
+from apps.Marketing.views import MailViewSet
+router.register(r'api/Mails', MailViewSet)
 #from rest_framework_jwt.views import refresh_jwt_token
 
 urlpatterns = [
@@ -29,8 +36,10 @@ urlpatterns = [
     url(r'^Usuarios/', include('apps.UserProfile.urls', namespace='Usuarios')),
     url(r'^Proveedores/', include('apps.Proveedores.urls', namespace='Proveedores')),
     url(r'^Socios/', include('apps.Socios.urls', namespace='Socios')),
+    url(r'^Marketing/', include('apps.Marketing.urls', namespace='Marketing')),
     
 ]
 #urlpatterns += router.urls
+urlpatterns += router.urls
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

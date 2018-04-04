@@ -6,10 +6,14 @@ from apps.Configuracion.views import ListaDePlanes
 from apps.Configuracion.views import EliminarPlan
 from apps.Configuracion.views import getPlan
 from apps.Configuracion.views import updatePlan
-#from apps.Panel.views import Login
-#from apps.Panel.views import ComingSoon
-#from apps.Panel.views import Logout
-
+#####################CONFIGURACION############################
+from apps.Configuracion.views import Configuracion_g
+###################FORMASS DE PAGO############################
+from apps.Configuracion.views import DeleteFormadePago
+from apps.Configuracion.views import NewFormadePago
+from apps.Configuracion.views import GetFormaDePago
+from apps.Configuracion.views import UpdateFormaDePago
+from apps.Configuracion.views import FormasdePagoGet
 
 urlpatterns = [
 	########################PLANES#########################################
@@ -18,13 +22,13 @@ urlpatterns = [
 	url(r'^Planes/Solicitud/Eliminar/Registro/$', EliminarPlan ,  name='EliminarPlan' ),
 	url(r'^Planes/Solicitud/Get/Registro/$', getPlan ,  name='getPlan' ),
 	url(r'^Planes/Solicitud/Update/Registro/$', updatePlan ,  name='updatePlan' ),
-
-	#url(r'^$', Inicio, name='Inicio' ),
-	#url(r'^Entrar/$', Login, name='Login' ),
-	#url(r'^Viene/Pronto$', ComingSoon, name='ComingSoon' ),
-	#url(r'^Salir/$', Logout, name='Logout' ),
-	#url(r'^calendario/$', calendario, name='calendario' ),
-	#url(r'^ingresosegresos/$', ingresosegresos, name='ingresoegresos' ),
-	#url(r'^registro/$', registro ),
+	#######################CONFIGURACION GENERAL ###################################
+	url(r'^$', Configuracion_g, name='Configuracion_g' ),
+	#########################FORMAS DE PAGO#########################################
+	url(r'^Forma/De/Pago/Solicitud/Eliminar/Registro/$', DeleteFormadePago ,  name='DeleteFormadePago' ),
+	url(r'^Forma/De/Pago/Solicitud/Nuevo/Registro/$', NewFormadePago ,  name='NewFormadePago' ),
+	url(r'^Forma/De/Pago/Solicitud/Get/Registro/$', GetFormaDePago ,  name='GetFormaDePago' ),
+	url(r'^Forma/De/Pago/Solicitud/Update/Registro/$', UpdateFormaDePago ,  name='UpdateFormaDePago' ),
+  	url(r'^Forma/De/Pago/Solicitud/Get/$', FormasdePagoGet ,  name='FormasdePagoGet' ),
   
 ]

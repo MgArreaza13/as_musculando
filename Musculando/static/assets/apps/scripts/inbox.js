@@ -1,10 +1,10 @@
 var AppInbox = function () {
 
-    var content = $('.inbox-content');
+    var content = $('#cuerpoBoxMail');
     var listListing = '';
 
     var loadInbox = function (el, name) {
-        var url = 'app_inbox_inbox.html';
+        var url = '/api/Mails';
         var title = el.attr('data-title');
         listListing = name;
 
@@ -17,27 +17,50 @@ var AppInbox = function () {
         toggleButton(el);
 
         $.ajax({
-            type: "GET",
             cache: false,
             url: url,
-            dataType: "html",
+            dataType: "json",
             success: function(res) 
             {
                 toggleButton(el);
 
-                App.unblockUI('.inbox-content');
+                var contenido = '' ;
 
+                App.unblockUI('.inbox-content');
+                for(var i = 0; i<res.length; i++){
+
+                    contenido += '<tr class="unread" data-messageid="'+res[i].id+'">'+
+                    '<td class="inbox-small-cells">'+
+                        '<label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">'+
+                            '<input type="checkbox" class="mail-checkbox" value="1" />'+
+                            '<span></span>'+
+                        '</label>'+
+                    '</td>'+
+                    '<td class="inbox-small-cells">'+
+                        '<i class="fa fa-star"></i>'+
+                    '</td>'+
+                    '<td class="view-message hidden-xs">' + res[i].user.username + '</td>'+
+                    '<td class="view-message ">'+res[i].Asunto  + ' </td>'+
+                    '<td class="view-message inbox-small-cells">'+
+                        
+                    '</td>'+
+                    '<td class="view-message text-right"> '+ res[i].dateCreate  + ' </td>'+
+                '</tr>';
+
+                }
                 $('.inbox-nav > li.active').removeClass('active');
                 el.closest('li').addClass('active');
                 $('.inbox-header > h1').text(title);
 
-                content.html(res);
+                
+
+                content.html(contenido);
 
                 if (Layout.fixContentHeight) {
                     Layout.fixContentHeight();
                 }
             },
-            error: function(xhr, ajaxOptions, thrownError)
+            error: function( ajaxOptions, thrownError)
             {
                 toggleButton(el);
             },
@@ -87,7 +110,7 @@ var AppInbox = function () {
                 content.html(res);
                 Layout.fixContentHeight();
             },
-            error: function(xhr, ajaxOptions, thrownError)
+            error: function( ajaxOptions, thrownError)
             {
                 toggleButton(el);
             },
@@ -125,45 +148,59 @@ var AppInbox = function () {
     }
 
     var loadCompose = function (el) {
-        var url = 'app_inbox_compose.html';
-
-        App.blockUI({
-            target: content,
-            overlayColor: 'none',
-            animate: true
-        });
-
-        toggleButton(el);
-
-        // load the form via ajax
-        $.ajax({
-            type: "GET",
-            cache: false,
-            url: url,
-            dataType: "html",
-            success: function(res) 
-            {
-                App.unblockUI(content);
-                toggleButton(el);
-
-                $('.inbox-nav > li.active').removeClass('active');
-                $('.inbox-header > h1').text('Compose');
-
-                content.html(res);
-
-                initFileupload();
-                initWysihtml5();
-
-                $('.inbox-wysihtml5').focus();
-                Layout.fixContentHeight();
-            },
-            error: function(xhr, ajaxOptions, thrownError)
-            {
-                toggleButton(el);
-            },
-            async: false
-        });
-    }
+        $('#Envidados').addClass('hidden');
+        var contenido = $('#Envidados');
+        var html =  '<form class="inbox-compose form-horizontal" id="fileupload" action="#" method="POST" enctype="multipart/form-data">'+ 
+    '<div class="inbox-compose-btn">'+
+        '<button class="btn green">'
+            '+<i class="fa fa-check"></i>Send</button>'
+        '<button class="btn default inbox-discard-btn">Discard</button>'
+        '<button class="btn default">Draft</button>'+
+    '</div>'+
+    '<div class="inbox-form-group mail-to">'+
+        '<label class="control-label">To:</label>'+
+        '<div class="controls controls-to">'+
+            '<input type="text" class="form-control" name="to">'+
+            '<span class="inbox-cc-bcc">'+
+                '<span class="inbox-cc"> Cc </span>'+
+                '<span class="inbox-bcc"> Bcc </span>'+
+            '</span>'
+        '</div>'
+    '</div>'
+    '<div class="inbox-form-group input-cc display-hide">'+
+        '<a href="javascript:;" class="close"> </a>'+
+        '<label class="control-label">Cc:</label>'+
+        '<div class="controls controls-cc">'+
+            '<input type="text" name="cc" class="form-control"> </div>'+
+    '</div>'+
+    '<div class="inbox-form-group input-bcc display-hide">'+
+        '<a href="javascript:;" class="close"> </a>'+
+        '<label class="control-label">Bcc:</label>'+
+        '<div class="controls controls-bcc">'+
+            '<input type="text" name="bcc" class="form-control"> </div>'+
+    '</div>'+
+    '<div class="inbox-form-group">'+
+        '<label class="control-label">Subject:</label>'+
+        '<div class="controls">'+
+            '<input type="text" class="form-control" name="subject"> </div>'+
+    '</div>'+
+    '<div class="inbox-form-group">'+
+        '<textarea class="inbox-editor inbox-wysihtml5 form-control" name="message" rows="12"></textarea>'+
+    '</div>'+
+    '<div class="inbox-compose-attachment">'+
+       
+        '<span class="btn green btn-outline fileinput-button">'+
+            '<i class="fa fa-plus"></i>'+
+            '<span> Add files... </span>'+
+            '<input type="file" name="files[]" multiple> </span>'+
+        
+        '<table role="presentation" class="table table-striped margin-top-10">'+
+            '<tbody class="files"> </tbody>'+
+       ' </table>'+
+    '</div>'+
+   
+'</form>';
+contenido.html(html)  }
 
     var loadReply = function (el) {
         var messageid = $(el).attr("data-messageid");
@@ -200,7 +237,7 @@ var AppInbox = function () {
                 initWysihtml5();
                 Layout.fixContentHeight();
             },
-            error: function(xhr, ajaxOptions, thrownError)
+            error: function(ajaxOptions, thrownError)
             {
                 toggleButton(el);
             },

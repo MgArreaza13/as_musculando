@@ -188,6 +188,12 @@
                                                         </div>
                                                         <div class="col-xs-9 text-left mobile-padding">{{plan.dateCreate}}</div>
                                                     </div>
+                                                    <div class="row mobile-padding">
+                                                        <div class="col-xs-3 text-right mobile-padding">
+                                                            <i class="icon-user"></i>
+                                                        </div>
+                                                        <div class="col-xs-9 text-left mobile-padding">${{plan.precioPlanAnual}} al año</div>
+                                                    </div>
                                                     <div class="price-table-footer">
                                                         <div class="col-xs-6 text-right mobile-padding">
                                                             <button value="{{plan.id}}" onclick="EliminarPlan(this.value);" type="button" class="btn red-mint">Eliminar</button>
@@ -239,6 +245,14 @@
                                                             <div class="col-md-6">
                                                                 <input id="precio" name="precio" type="number" class="form-control" placeholder="Introduce el precio del plan" >
                                                                 <span id="PrecioNuevoPlan" class="help-block hidden" style="color: red;margin-left: 1em;">*Ingrese un monto</span>
+                                                                
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-md-3 control-label">Precio Anual <strong style="color:red">*</strong></label>
+                                                            <div class="col-md-6">
+                                                                <input id="precioAnualinput" name="precioAnual" type="number" class="form-control" placeholder="Introduce Promocion Anual" >
+                                                                <span id="PrecioAnualPlan" class="help-block hidden" style="color: red;margin-left: 1em;">*Ingrese un monto</span>
                                                                 
                                                             </div>
                                                         </div>

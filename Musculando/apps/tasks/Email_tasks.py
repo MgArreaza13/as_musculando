@@ -4,7 +4,14 @@ from apps.UserProfile.models import tb_profile
 from django.contrib.auth.models import User
 from celery import task
 from Musculando.celery import app
+import time
+import json
+import logging
+from apps.Panel.consumers import ws_connect
+from channels import Group
 
+from channels import Channel
+log = logging.getLogger(__name__)
 
 
 #######################ENVIAR CORREO CUANDO REPORTA PAGO#################################
@@ -43,7 +50,8 @@ def VencimientoMensualidad(usuario, monto, plan, correo):
 ##################EMAIL NUEVO SOCIO #########################
 
 @app.task
-def NewSocioMAil(usuario, monto, plan, correo):
+def NewSocioMAil(usuario, monto, plan, correo, ):
+	time.sleep(40)
 	cuerpo = ""
 	###Mensaje para el usuario #########
 	email_subject_usuario = 'Musculando - Bienvenido a la Familia Musculando'
@@ -53,8 +61,9 @@ def NewSocioMAil(usuario, monto, plan, correo):
 	email_subject_Soporte = 'Musculando - Nuevo Socio Creado '
 	email_body_Soporte = "Hemos creado el socio %s perfectamente un monto de $:%s referente al plan %s " %(usuario,monto,plan)
 	send_mail(email_subject_Soporte, cuerpo , 'musculando@b7000615.ferozo.com', ['soporte@apreciasoft.com', "mg.arreaza.13@gmail.com",],fail_silently=True, html_message=email_body_Soporte)
-	
-
+	Group('notifcaciones').send({
+        'text': json.dumps ({"action": "completed","content": "Hemos Finalizado el proceso"})
+    })
 ##################EMAIL PARA SOCIO DESACTIVADO #########################
 
 @app.task

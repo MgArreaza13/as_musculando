@@ -41,6 +41,7 @@
         <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css">
+         <script src="{% static "assets/global/plugins/jquery.min.js" %}" type="text/javascript"></script>
         <link href="{% static "assets/global/plugins/font-awesome/css/font-awesome.min.css" %}" rel="stylesheet" type="text/css" />
         <link href="{% static "assets/global/plugins/simple-line-icons/simple-line-icons.min.css" %}" rel="stylesheet" type="text/css" />
         <link href="{% static "assets/global/plugins/bootstrap/css/bootstrap.min.css" %}" rel="stylesheet" type="text/css" />
@@ -63,6 +64,37 @@
         <link href="{% static "assets/layouts/layout2/css/custom.min.css" %}" rel="stylesheet" type="text/css" />
         <!-- END THEME LAYOUT STYLES -->
         <link rel="shortcut icon" href="favicon.ico" /> </head>
+        <script>
+
+        var ws_scheme_dispatch = window.location.protocol == "https:" ? "wss" : "ws";
+        var ws_path_dispatch = ws_scheme_dispatch + '://' + window.location.host;
+        console.log("Conectando a " + ws_path_dispatch)
+        dispatch_socket = new WebSocket(ws_path_dispatch);
+        dispatch_socket.onmessage = function(message) {
+        console.log("Got message: " + message.data);
+        var data = JSON.parse(message.data);
+        var miguel_message = message.data.reply_channel
+        // if action is started, add new item to table
+        if (data.action == "started") {
+            task_status.append("Mensaje recibido");
+        }
+        // if action is completed, just update the status
+        else if (data.action == "completed"){
+            console.log(data)
+        }
+    }
+
+        if (dispatch_socket.readyState == WebSocket.OPEN) dispatch_socket.onopen();
+
+        function muevelo_baby(mensaje){
+            var message = {
+                action: "long_process",
+                job_name: mensaje
+            };
+            dispatch_socket.send(JSON.stringify(message));
+        }
+
+        </script>
         {% block stayle %}
             
         {% endblock stayle %}
@@ -742,7 +774,7 @@
             <script src="{% static "assets/global/scripts/app.min.js" %}" type="text/javascript"></script>
             <!-- END THEME GLOBAL SCRIPTS -->
             <!-- BEGIN PAGE LEVEL SCRIPTS -->
-            <script src="{% static "assets/pages/scripts/dashboard.min.js" %}" type="text/javascript"></script>
+            <script src="{% static "assets/pages/scripts/dashboard.js" %}" type="text/javascript"></script>
             <script src="{% static "assets/pages/scripts/NuevoProveedor.js" %}" type="text/javascript"></script>
             
            
@@ -752,7 +784,7 @@
             <script src="{% static "assets/layouts/layout2/scripts/demo.min.js" %}" type="text/javascript"></script>
             <script src="{% static "assets/layouts/global/scripts/quick-sidebar.min.js" %}" type="text/javascript"></script>
             <script src="{% static "assets/layouts/global/scripts/quick-nav.min.js" %}" type="text/javascript"></script>
-            <script src="{% static "assets/global/scripts/DesactivateSocio.js" %}" type="text/javascript"></script>
+            
             <script src="{% static "assets/apps/scripts/swet-miguel.js" %}" type="text/javascript"></script>
             {% block Scripts %}
                 

@@ -100,13 +100,7 @@
 		                                        </thead>
 		                                        <tfoot>
 		                                            <tr>
-		                                                <th>Nombre</th>
-		                                                <th>Mensualidad</th>
-		                                                <th>Status</th>
-		                                                <th>Fecha de Corte</th>
-		                                                <th>Numero de Contacto</th>
-		                                                <th>Acciones</th>
-		                                                <th>Correo</th>
+		                                                
 		                                                
 		                                            </tr>
 		                                        </tfoot>
@@ -145,7 +139,7 @@
                                                                         <button type="button" class="btn btn-warning btn-block" value="{{socio.id}}" onclick="Desactivar(this.value);"> Desactivar </button>
                                                                     </li>
                                                                     <li>
-                                                                        <button type="button" class="btn btn blue btn-block" value="{{socio.perfil.user.id}}" onclick="Reportar_Pago(this.value);"> Reportar Pago </button>
+                                                                        <button type="button" class="btn btn blue btn-block" value="{{socio.id}}" onclick="ReportePago(this.value);"> Reportar Pago </button>
                                                                     </li>
                                                                     <li class="divider"> </li>
                                                                     <!--

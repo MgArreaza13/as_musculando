@@ -1,12 +1,11 @@
-$('#id_descripcionPlan').removeAttr("required");
-$('#Requerido-nombrePlan').html('*');
-$('#Requerido-precioPlan').html('*');
 var Nombre_Validate = false;
 var Precio_Validate = false;
+var Promocion_Anual = false;
 
 function Modal() {
 	$('#Nombre').val('');
 	$('#precio').val('');
+	$('#precioAnualinput').val('');
 	$('#Descripcion').val('');
 	$("#ActualizarPlan").addClass('hidden');
 	$("#GuardarPlan").removeClass('hidden');
@@ -18,6 +17,7 @@ function Modal() {
 function EnviarDatosDePlan() {
 	var Nombre = $('#Nombre').val();
 	var Precio = $('#precio').val();
+	var PrecioAnual = $('#precioAnualinput').val();
 	var Descripcion = $('#Descripcion').val();
 	if (Nombre == '') {
 		//Nombre Invalido
@@ -27,6 +27,14 @@ function EnviarDatosDePlan() {
 		//Nombre Valido
 		$('#NuevoPlanNombre').addClass('hidden');
 		Nombre_Validate = true;}
+	if (PrecioAnual == '') {
+		//Nombre Invalido
+		$('#PrecioAnualPlan').removeClass('hidden');
+		Promocion_Anual  = false;
+	}else{
+		//Nombre Valido
+		$('#PrecioAnualPlan').addClass('hidden');
+		Promocion_Anual = true;}
 	if (Precio == '') {
 		//Nombre Invalido
 		$('#PrecioNuevoPlan').removeClass('hidden');
@@ -35,7 +43,7 @@ function EnviarDatosDePlan() {
 		//Nombre Valido
 		$('#PrecioNuevoPlan').addClass('hidden');
 		Precio_Validate = true;}
-	if (Nombre_Validate == true && Precio_Validate == true) {
+	if (Nombre_Validate == true && Precio_Validate == true && Promocion_Anual == true) {
 	    $("#responsive").modal("hide");
     	 var screen = $('#loading-screen');
     	configureLoadingScreen(screen);
@@ -49,6 +57,7 @@ function EnviarDatosDePlan() {
 		    	'Nombre':Nombre,
 		    	'Precio':Precio,
 		    	'Descripcion':Descripcion,
+		    	'PrecioAnual':PrecioAnual,
 		    },
 		    // el tipo de información que se espera de respuesta
 		    dataType : 'json',
@@ -168,6 +177,7 @@ function EditarPlan(id) {
 		    		//todo correcto 
 		    		$('#Nombre').val(plan.nombrePlan);
 		    		$('#precio').val(plan.precioPlan);
+		    		$('#precioAnualinput').val(plan.montoAnal);
 		    		$('#Descripcion').val(plan.descripcionPlan);
 		    		$("#ActualizarPlan").removeClass('hidden');
 		    		$("#GuardarPlan").addClass('hidden');
@@ -196,6 +206,7 @@ function EditarPlan(id) {
 function UpdatePlan(id) {
 	var Nombre = $('#Nombre').val();
 	var Precio = $('#precio').val();
+	var MontoAnual = $('#precioAnualinput').val();
 	var Descripcion = $('#Descripcion').val();
 	if (Nombre == '') {
 		//Nombre Invalido
@@ -213,7 +224,16 @@ function UpdatePlan(id) {
 		//Nombre Valido
 		$('#PrecioNuevoPlan').addClass('hidden');
 		Precio_Validate = true;}
-	if (Nombre_Validate == true && Precio_Validate == true) {
+	if (MontoAnual == '') {
+		//Nombre Invalido
+		$('#PrecioAnualPlan').removeClass('hidden');
+		Promocion_Anual  = false;
+	}else{
+		//Nombre Valido
+		$('#PrecioAnualPlan').addClass('hidden');
+		Promocion_Anual = true;}
+
+	if (Nombre_Validate == true && Precio_Validate == true && Promocion_Anual == true) {
 	    $("#responsive").modal("hide");
     	 var screen = $('#loading-screen');
     	configureLoadingScreen(screen);
@@ -226,6 +246,7 @@ function UpdatePlan(id) {
 		    data : { 
 		    	'id':id,
 		    	'Nombre':Nombre,
+		    	'MontoAnual':MontoAnual,
 		    	'Precio':Precio,
 		    	'Descripcion':Descripcion,
 		    },
@@ -234,6 +255,7 @@ function UpdatePlan(id) {
 		    // código a ejecutar si la petición es satisfactoria;
 		    // la respuesta es pasada como argumento a la función
 		    success : function(status) {
+		    	//console.log(status)
 		    	if (status == 200) {
 		    		//todo correcto 
 		    		swal("Felicidades!", "Hemos Cargado Tu Registro Con Exito!", "success")

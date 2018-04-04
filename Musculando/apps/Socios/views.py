@@ -12,6 +12,7 @@ from datetime import datetime
 from apps.Socios.models import tb_socio
 from apps.Configuracion.models import tb_plan
 from django.contrib.auth.models import User ##MODULE LO USUARIO DE DJANGO
+from apps.Caja.models import tb_ingreso_mensualidad
 #######FORMULARIOS#############
 from apps.UserProfile.forms import UsuarioForm
 from apps.UserProfile.forms import ProfileForm
@@ -29,6 +30,11 @@ from apps.tasks.Email_tasks import DesactivacionSocio
 from apps.tasks.Email_tasks import ActivacionSocio
 from apps.tasks.Email_tasks import PerfilEliminado
 from apps.tasks.Email_tasks import GetProfile
+
+
+
+
+
 # Create your views here.
 
 
@@ -54,16 +60,16 @@ def getSocio(request):
 
 
 #####################FUNCION QUE DESACTIVA SOCIOS POR VENCIMIENTO DE FECHA ######################
-def DectivandoSocios(request):
-	hoy = datetime.today().date()
-	socios = tb_socio.objects.all()
-	for i in range(0,len(socios)):
-		if(socios[i].dateInactive_socio == hoy):
-			socios[i].status = 'Desactivado'
-			socios[i].save()
+#def DectivandoSocios(request):
+#	hoy = datetime.today().date()
+#	socios = tb_socio.objects.all()
+#	for i in range(0,len(socios)):
+#		if(socios[i].dateInactive_socio == hoy):
+#			socios[i].status = 'Desactivado'
+#			socios[i].save()
 			###ENVIAR EL CORREO QUE SE DESACTIVO EL PERFIL ########
-			VencimientoMensualidad.delay(socios[i].perfil.nameUser, socios[i].TarifaMensual.precioPlan, socios[i].TarifaMensual.nombrePlan, socios[i].perfil.mailUser)
-	return HttpResponse(200)
+#			VencimientoMensualidad.delay(socios[i].perfil.nameUser, socios[i].TarifaMensual.precioPlan, socios[i].TarifaMensual.nombrePlan, socios[i].perfil.mailUser)
+#	return HttpResponse(200)
 
 
 
@@ -163,3 +169,44 @@ def ActivateSocio(request):
 	queryset.save()
 	ActivacionSocio.delay(queryset.perfil.nameUser,  queryset.perfil.mailUser)
 	return HttpResponse(200)
+
+
+
+
+
+def ActivacionSocioMensualAnual(request):
+	status = None
+	id_socio = request.GET.get('id_socio', None)
+	anual_mensual = request.GET.get('mensual_anual', None)
+	forma_de_pago = request.GET.get('forma_pago', None)
+	#activar socio, anual, mensual 
+	socio = tb_socio.objects.get(id = id_socio)
+	if anual_mensual == 'Mensual':
+		#activo al socio mensual
+		socio.status = 'Activo'
+		socio.dateInactive_socio = Desactivate_Register(socio.dateInactive_socio, 1)
+		socio.save()
+	elif anual_mensual == "Anual":
+		#activo al socio por todo el a#o 
+		socio.status = 'Activo'
+		socio.dateInactive_socio = Desactivate_Register(socio.dateInactive_socio, 12)
+		socio.save()
+	ingreso = tb_ingreso_mensualidad()
+	#GENRAR INGRESO 
+	ingreso.user = request.user
+	ingreso.plan = tb_plan.objects.get(nombrePlan = socio.TarifaMensual)
+	if anual_mensual == 'Mensual':
+		ingreso.monto = socio.TarifaMensual.precioPlan
+	elif anual_mensual == "Anual":
+		ingreso.monto = socio.TarifaMensual.precioPlanAnual
+	ingreso.descripcion = 'Activacion de socio'
+	ingreso.nombre = socio.perfil.nameUser
+	ingreso.apellido = socio.perfil.lastName
+	ingreso.correo  = socio.perfil.mailUser
+	ingreso.save()
+	status = 200
+	return HttpResponse(status)
+
+
+
+
