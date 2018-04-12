@@ -4,6 +4,12 @@
 	Musculando | Inicio
 {% endblock Title %}
 
+
+<script>
+    
+console.log({{totalIngrsos_mensual}})
+
+</script>
 {% block Content %}
     {% if  profile_response.perfil != 'Null' and socio_profile.status == 'Desactivado'   %}
         <div class="page-content-wrapper">
@@ -161,10 +167,17 @@
                                 <div class="display">
                                     <div class="number">
                                         <h3 class="font-green-sharp">
-                                            <span data-counter="counterup" data-value="7800">0</span>
+                                            <span data-counter="counterup" data-value="
+                                             {% if totalIngresos.total != None %}
+                                               {{totalIngresos.total}} 
+                                            {% else %}
+                                                0
+                                            {% endif %}
+
+                                            ">0</span>
                                             <small class="font-green-sharp">$</small>
                                         </h3>
-                                        <small> INGRESOS MENSUAL</small>
+                                        <small> TOTAL INGRESOS </small>
                                     </div>
                                     <div class="icon">
                                         <i class="icon-pie-chart"></i>
@@ -190,10 +203,14 @@
                                 <div class="display">
                                     <div class="number">
                                         <h3 class="font-green-sharp">
-                                            <span data-counter="counterup" data-value="5000">0</span>
+                                            <span data-counter="counterup" data-value=" {% if totalIngrsos_mensual.total_mensual != None %}
+                                               {{totalIngrsos_mensual.total_mensual}} 
+                                            {% else %}
+                                                0
+                                            {% endif %}">0</span>
                                             <small class="font-green-sharp">$</small>
                                         </h3>
-                                        <small>EGRESOS MENSUAL</small>
+                                        <small>INGRESOS MENSUAL</small>
                                     </div>
                                     <div class="icon">
                                         <i class="icon-pie-chart"></i>
@@ -207,7 +224,13 @@
                                 <div class="display">
                                     <div class="number">
                                         <h3 class="font-blue-sharp">
-                                            <span data-counter="counterup" data-value="17"></span>
+                                            <span data-counter="counterup" data-value="
+                                            {% if totalPlanes != None %}
+                                               {{totalPlanes}} 
+                                            {% else %}
+                                                0
+                                            
+                                            {% endif %}"></span>
                                         </h3>
                                         <small>PLANES DISPONIBLES</small>
                                     </div>
@@ -223,7 +246,12 @@
                                 <div class="display">
                                     <div class="number">
                                         <h3 class="font-purple-soft">
-                                            <span data-counter="counterup" data-value="276"></span>
+                                            <span data-counter="counterup" data-value="
+                                            {% if totalSociosActivos != None %}
+                                               {{totalSociosActivos}} 
+                                            {% else %}
+                                                0
+                                            {% endif %}"></span>
                                         </h3>
                                         <small>SOCIOS ACTIVOS</small>
                                     </div>

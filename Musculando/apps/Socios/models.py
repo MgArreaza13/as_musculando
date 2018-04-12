@@ -31,7 +31,7 @@ class tb_socio (models.Model):
 	#nameProfile				=	models.CharField(default='', null=False, max_length=30)
 	#StatusKf					= 	models.ForeignKey(tb_status_turn, on_delete=models.CASCADE, null=False, default='')
 	def __str__(self):
-		return self.perfil.user.username
+		return self.perfil.nameUser
 	class Meta:
 		managed = True
 		db_table = 'socios'

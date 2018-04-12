@@ -94,43 +94,38 @@ def NewSocio(request):
 	planes =  tb_plan.objects.all()
 	fallido = None
 	if request.method == 'POST':
-		Form  = UsuarioForm(request.POST, request.FILES  or None)
+		#Form  = UsuarioForm(request.POST, request.FILES  or None)
 		Form2 = ProfileForm(request.POST, request.FILES  or None)
 		Form3 = SociosRegisterForm(request.POST, request.FILES  or None)
-		if Form.is_valid():
-			Form.save()
-			usuario = request.POST['username']
-			clave 	= request.POST['password1']
-			user 	= authenticate(username=usuario, password=clave)
-			if user is not None and user.is_active:
-				nuevoPerfil = tb_profile()
-				nuevoPerfil.user = user
-				nuevoPerfil.nameUser = request.POST['nameUser']
-				nuevoPerfil.dni = request.POST['dni']
-				nuevoPerfil.mailUser = request.POST['mailUser']
-				nuevoPerfil.tipoUser = 'Socio'
-				if len(request.FILES) != 0:
-					nuevoPerfil.image = request.FILES['ImagenDePerfil']
-				else:
-					nuevoPerfil.image = 'Null'
-				nuevoPerfil.save()
-				nuevoSocio = tb_socio()
-				nuevoSocio.perfil = tb_profile.objects.get(id = nuevoPerfil.id)
-				nuevoSocio.obraSocial =  request.POST['obraSocial']
-				nuevoSocio.status = 'Activo'
-				nuevoSocio.TarifaMensual = tb_plan.objects.get(id = request.POST['IdPlanSeleccionado'])
-				nuevoSocio.dateInactive_socio = Desactivate_Register(datetime.today().date() , 1)
-				nuevoSocio.save() 
-				################ENVIAR CORREO QUE SE CREO EL PERFIL DE SOCIO CORRECTAMENTE ########
-				NewSocioMAil.delay(request.POST['username'], nuevoSocio.TarifaMensual.precioPlan, nuevoSocio.TarifaMensual.nombrePlan, request.POST['mailUser'])
-				return redirect('Socios:ListaDeSocios')
+		if Form2.is_valid() and Form3.is_valid():
+			nuevoPerfil = tb_profile()
+			#nuevoPerfil.user = 
+			nuevoPerfil.nameUser = request.POST['nameUser']
+			nuevoPerfil.dni = request.POST['dni']
+			nuevoPerfil.mailUser = request.POST['mailUser']
+			nuevoPerfil.tipoUser = 'Socio'
+			if len(request.FILES) != 0:
+				nuevoPerfil.image = request.FILES['ImagenDePerfil']
 			else:
-				Form	= UsuarioForm(request.POST , request.FILES  or None)
-				Form2	= ProfileForm(request.POST, request.FILES  or None)
-				Form3 = SociosRegisterForm(request.POST, request.FILES  or None)
-				fallido = "No pudimos guardar sus datos, intentalo de nuevo luego de verificarlos" 
+				nuevoPerfil.image = 'Null'
+			nuevoPerfil.save()
+			nuevoSocio = tb_socio()
+			nuevoSocio.perfil = tb_profile.objects.get(id = nuevoPerfil.id)
+			nuevoSocio.obraSocial =  request.POST['obraSocial']
+			nuevoSocio.status = 'Activo'
+			nuevoSocio.TarifaMensual = tb_plan.objects.get(id = request.POST['IdPlanSeleccionado'])
+			nuevoSocio.dateInactive_socio = Desactivate_Register(datetime.today().date() , 1)
+			nuevoSocio.save() 
+				################ENVIAR CORREO QUE SE CREO EL PERFIL DE SOCIO CORRECTAMENTE ########
+			NewSocioMAil.delay(request.POST['nameUser'], nuevoSocio.TarifaMensual.precioPlan, nuevoSocio.TarifaMensual.nombrePlan, request.POST['mailUser'])
+			return redirect('Socios:ListaDeSocios')
+		else:
+			#Form	= UsuarioForm(request.POST , request.FILES  or None)
+			Form2	= ProfileForm(request.POST, request.FILES  or None)
+			Form3 = SociosRegisterForm(request.POST, request.FILES  or None)
+			fallido = "No pudimos guardar sus datos, intentalo de nuevo luego de verificarlos" 
 	contexto = {
-	'Form':Form,
+	#'Form':Form,
 	'Form2':Form2,
 	'Form3':Form3,
 	'planes':planes,

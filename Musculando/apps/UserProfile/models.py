@@ -11,7 +11,7 @@ PAGO_CHOICES = (
     ('Socio', 'Socio'),
 )
 class tb_profile (models.Model):
-	user			=	models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=False, default='')
+	user			=	models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True)
 	nameUser		=	models.CharField(default='Sin Definir', null=True, max_length=30)
 	lastName		=	models.CharField(default='Sin Definir', null=True, max_length=30)
 	dni 			=	models.CharField(default='A-000000000', null=True, max_length=30)
@@ -27,7 +27,7 @@ class tb_profile (models.Model):
 	#nameProfile	=	models.CharField(default='', null=False, max_length=30)
 	#StatusKf		= 	models.ForeignKey(tb_status_turn, on_delete=models.CASCADE, null=False, default='')
 	def __str__(self):
-		return self.user.username
+		return self.nameUser
 	class Meta:
 		managed = True
 		db_table = 'profile'
