@@ -8,6 +8,7 @@ from apps.Socios.views import DesactivateSocio
 from apps.Socios.views import ActivateSocio
 from apps.Socios.views import getSocio
 from apps.Socios.views import ActivacionSocioMensualAnual
+from apps.Socios.views import UpdateSocio
 
 #from apps.Proveedores.views import ListaDeProveedores
 #from apps.Proveedores.views import Nuevo
@@ -28,5 +29,6 @@ urlpatterns = [
 	url(r'^Nueva/Peticion/de/Activar/Socio/$', ActivacionSocioMensualAnual, name='ActivacionSocioMensualAnual'  ),
 	url(r'^Lista/$', ListaDeSocios , name='ListaDeSocios'  ),
 	url(r'^Nuevo/$', NewSocio , name='NewSocio'  ),
+	url(r'^Editar/(?P<id_socio>\d+)$', UpdateSocio, name='UpdateSocio'  ),
   
 ]

@@ -15,6 +15,23 @@ from apps.Configuracion.views import GetFormaDePago
 from apps.Configuracion.views import UpdateFormaDePago
 from apps.Configuracion.views import FormasdePagoGet
 
+
+#################TIPOS DE COLABORADORES#########################
+
+from apps.Configuracion.views import DeleteTipoDeColaborador
+from apps.Configuracion.views import NuevoTipoDeColaborador
+from apps.Configuracion.views import GetTipoColaborador
+from apps.Configuracion.views import UpdateTipoColaborador
+
+
+
+##############################TIPO DE EGRESO###########################################
+from apps.Configuracion.views import NuevoTipoDeEgreso
+from apps.Configuracion.views import DeleteTipoDeEgreso
+from apps.Configuracion.views import GetTipoEgreso
+from apps.Configuracion.views import UpdateTipoEgreso
+
+
 urlpatterns = [
 	########################PLANES#########################################
 	url(r'^Planes/Lista/$', ListaDePlanes ,  name='ListaDePlanes' ),
@@ -30,5 +47,17 @@ urlpatterns = [
 	url(r'^Forma/De/Pago/Solicitud/Get/Registro/$', GetFormaDePago ,  name='GetFormaDePago' ),
 	url(r'^Forma/De/Pago/Solicitud/Update/Registro/$', UpdateFormaDePago ,  name='UpdateFormaDePago' ),
   	url(r'^Forma/De/Pago/Solicitud/Get/$', FormasdePagoGet ,  name='FormasdePagoGet' ),
-  
+  	#########################TIPO DE COLABORADORES#########################################
+  	url(r'^Tipo/De/Colaboradores/Solicitud/Eliminar/Registro/$', DeleteTipoDeColaborador ,  name='DeleteTipoDeColaborador' ),
+  	url(r'^Tipo/De/Colaboradores/Solicitud/Nuevo/Registro/$', NuevoTipoDeColaborador ,  name='NuevoTipoDeColaborador' ),
+	url(r'^Tipo/De/Colaboradores/Get/Registro/$', GetTipoColaborador ,  name='GetTipoColaborador' ),
+	url(r'^Tipo/De/Colaboradores/Update/Registro/$', UpdateTipoColaborador ,  name='UpdateTipoColaborador' ),
+	##############################TIPO DE EGRESO###########################################
+	url(r'^Tipo/De/Egreso/Solicitud/Eliminar/Registro/$', DeleteTipoDeEgreso ,  name='DeleteTipoDeEgreso' ),
+  	url(r'^Tipo/De/Egreso/Solicitud/Nuevo/Registro/$', NuevoTipoDeEgreso ,  name='NuevoTipoDeEgreso' ),
+	url(r'^Tipo/De/Egreso/Get/Registro/$', GetTipoEgreso ,  name='GetTipoEgreso' ),
+	url(r'^Tipo/De/Egreso/Update/Registro/$', UpdateTipoEgreso ,  name='UpdateTipoEgreso' ),
+
+
+
 ]

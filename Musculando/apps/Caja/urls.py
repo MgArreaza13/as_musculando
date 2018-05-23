@@ -3,6 +3,10 @@ from django.contrib import admin
 from apps.Caja.views import NewMensualIngreso
 from apps.Caja.views import NuevoReporteDePagoMensual
 from apps.Caja.views import ListadoDeIngresos
+from apps.Caja.views import ListEgresos
+
+from apps.Caja.views import NewEgreso
+
 
 urlpatterns = [
 	#url(r'^registro/$', Registro, name='Registro'  ),
@@ -12,6 +16,8 @@ urlpatterns = [
 	#url(r'^Nuevo/$', Nuevo, name='Nuevo'  ),
 	#url(r'^Nueva/Peticion/de/Nuevo/Proveedor$', NuevoProveedor, name='NuevoProveedor'  ),
 	url(r'^Ingresos/Lista/$', ListadoDeIngresos , name='ListadoDeIngresos'  ),
+	url(r'^Egresos/Lista/$', ListEgresos , name='ListEgresos'  ),
+	url(r'^Egresos/Nuevo/$', NewEgreso , name='NewEgreso'  ),
 	url(r'^Nuevo/Pago/De/Mensualidad/$', NewMensualIngreso , name='NewMensualIngreso'  ),
   	url(r'^Nueva/Solicitud/Pago/De/Mensualidad/$', NuevoReporteDePagoMensual , name='NuevoReporteDePagoMensual'  ),
 ]

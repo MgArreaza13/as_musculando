@@ -20,10 +20,33 @@ class tb_plan(models.Model):
 
 class tb_formasDePago(models.Model):
 	user 					=	models.ForeignKey(settings.AUTH_USER_MODEL)
-	nameFormasDePago		=	models.CharField(default='', null=False, max_length=30, unique=True)
+	nameFormasDePago		=	models.CharField(default='Sin Datos', null=False, max_length=30, unique=True)
 	dateCreate				=	models.DateField(auto_now=True, blank=False)
 	def __str__(self):
 		return self.nameFormasDePago
 	class Meta:
 		managed = True
 		db_table = 'formas_de_pago'	
+
+
+class tb_tipoColaborador(models.Model):
+	user 					=	models.ForeignKey(settings.AUTH_USER_MODEL)
+	tipodeColaborador		=	models.CharField(default='Sin Datos', null=False, max_length=30, unique=True)
+	dateCreate				=	models.DateField(auto_now=True, blank=False)
+	def __str__(self):
+		return self.tipodeColaborador
+	class Meta:
+		managed = True
+		db_table = 'tipo_de_colaborador'	
+
+
+
+class tb_tipoEgreso(models.Model):
+	user 					=	models.ForeignKey(settings.AUTH_USER_MODEL)
+	tipodeEgreso			=	models.CharField(default='Sin Datos', null=False, max_length=30, unique=True)
+	dateCreate				=	models.DateField(auto_now=True, blank=False)
+	def __str__(self):
+		return self.tipodeEgreso
+	class Meta:
+		managed = True
+		db_table = 'tipo_de_egreso'

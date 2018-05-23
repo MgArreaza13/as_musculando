@@ -85,16 +85,19 @@
 		                                    <div class="tools"> </div>
 		                                </div>
 		                                <div class="portlet-body">
-		                                    <table class="table table-striped table-bordered table-hover" id="sample_1">
+		                                    <table class="table table-striped table-bordered table-hover" id="sample_1" style="padding-bottom:13em;">
 		                                        <thead>
 		                                            <tr>
 		                                                <th>Nombre</th>
+		                                                <th>Apellido</th>
+		                                                <th>Número de contacto Movil</th>
+		                                                <th>Fecha de Nacimiento</th>
 		                                                <th>Mensualidad</th>
 		                                                <th>Status</th>
-		                                                <th>Fecha de Corte</th>
-		                                                <th>Numero de Contacto</th>
-		                                                <th>Acciones</th>
+		                                                <th>Fecha de Vencimiento de Abono</th>
+	                                         
 		                                                <th>Correo</th>
+		                                                <th>Acciones</th>
 		                                                
 		                                            </tr>
 		                                        </thead>
@@ -108,7 +111,9 @@
 		                                        	{% for socio in socios  %}
 			                                        	<tr>
 			                                                <td>{{socio.perfil.nameUser}}</td>
-			                                                
+			                                                <td>{{socio.perfil.lastName}}</td>
+			                                                <td>{{socio.perfil.movilTlf}}</td>
+			                                                <td>{{socio.perfil.birthdayDate}}</td>
 			                                                
 			                                                <td>${{socio.TarifaMensual.precioPlan}}</td>
 			                                                <td>
@@ -123,14 +128,19 @@
 			                                                </td>
 			                                               
                                                             <td>{{socio.dateInactive_socio}}</td>
-			                                                <td>{{socio.perfil.movilTlf}}</td>
+			                                               <td>{{socio.perfil.mailUser}}</td>
 			                                                <td>
-			                                                	<div class="btn-group">
-                                                                <button type="button" class="btn btn-primary">Accion</button>
-                                                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+			                                                	<div class="btn-group"style="position:relative!important ; with:108px!important">
+                                                                
+                                                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Acciones
                                                                     <i class="fa fa-angle-down"></i>
                                                                 </button>
-                                                                <ul class="dropdown-menu" role="menu">
+                                                                <ul class="dropdown-menu" style="min-width: 108px !important" role="menu">
+
+                                                                	<li>
+                                                                        <a style="background:#32c5d2;color:white;" href="{% url "Socios:UpdateSocio" socio.id %}"  class="btn btn-success btn-block" > Editar </a>
+                                                                    </li>
+                                                                    <li class="divider"> </li>
                                                                     
                                                                     <li>
                                                                         <button type="button" class="btn btn-success btn-block" value="{{socio.id}}" onclick="Activar(this.value);"> Activar </button>
@@ -141,7 +151,6 @@
                                                                     <li>
                                                                         <button type="button" class="btn btn blue btn-block" value="{{socio.id}}" onclick="ReportePago(this.value);"> Reportar Pago </button>
                                                                     </li>
-                                                                    <li class="divider"> </li>
                                                                     <!--
                                                                     <li>
                                                                         <button type="button" class="btn btn-info btn-block" value="{{socio.perfil.user.id}}" onclick=""> Editar </button>
@@ -152,7 +161,7 @@
                                                                     </li>
                                                                 </ul>
                                                             </div>
-			                                                <td>{{socio.perfil.mailUser}}</td>
+			                                                
 			                                                
 			                                                </td>
 			                                            </tr>

@@ -125,3 +125,26 @@ def GetProfile(id_user):
 	perfil = tb_profile.objects.get(user__username = queryset.username )
 	PerfilEliminado.delay(perfil.nameUser, perfil.mailUser)
 	
+
+
+
+
+
+
+##################EMAIL POR ELIMINACION DE COLABORADOR #########################
+
+@app.task
+def ColaboradorEliminado():
+	cuerpo = ""
+	###Mensaje para el usuario #########
+	
+	#email_subject_usuario = 'Musculando - Perfil Eliminado'
+	#email_body_usuario = "Hola %s, Hemos eliminado tu perfil lamentablemente por solicitud del administrador, contactate con el para verificar el porque se te ha borrado el perfil" %(usuario)
+	#send_mail (email_subject_usuario, cuerpo, 'musculando@b7000615.ferozo.com', [correo], fail_silently=True, html_message=email_body_usuario)
+	#mensaje para apreciasoft
+	email_subject_Soporte = 'Musculando - Colaborador Eliminado'
+	email_body_Soporte = "Hemos Eliminado un Colaborador  por solicitud de usted." 
+	send_mail(email_subject_Soporte, cuerpo , 'musculando@b7000615.ferozo.com', ['soporte@apreciasoft.com', "mg.arreaza.13@gmail.com",],fail_silently=True, html_message=email_body_Soporte)
+	
+
+

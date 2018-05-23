@@ -1,11 +1,17 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User 
 from django.http import HttpResponse
+from django.shortcuts import redirect
 #################MODELOS###################
 from apps.Socios.models import tb_socio
+from apps.Caja.models import tb_egreso
 from apps.Caja.models import tb_ingreso_mensualidad
 from apps.Configuracion.models import tb_plan
+from apps.Configuracion.models import tb_tipoEgreso
+from apps.Proveedores.models import tb_proveedor
 from django.contrib.auth.decorators import login_required
+##################FORMULARIOS#############################
+from apps.Caja.forms import EgresoRegisterForm
 ################SCRIPTS#########################
 from apps.Scripts.DesactivateUser import Desactivate_Register
 # Create your views here.
@@ -55,3 +61,42 @@ def NuevoReporteDePagoMensual(request):
 	socio.save()
 	MailNewIngresoMensualidad.delay(usuario,monto_plan,plan,correo)
 	return HttpResponse(200)
+
+
+###################################EGRESOS###############################################
+
+
+@login_required(login_url = 'Panel:Login' )
+def ListEgresos(request):
+	egresos = tb_egreso.objects.all()
+	contexto = {
+		'egresos':egresos
+	}
+	return render(request, 'Caja/Egresos.html', contexto)
+
+
+
+
+def NewEgreso(request):
+	Form = EgresoRegisterForm() 
+	if request.method == 'POST':
+		print('METODO ES POST')
+		Form  = EgresoRegisterForm(request.POST, request.FILES  or None)
+		if Form.is_valid():
+			print('FORMULARIO ES VALIDO')
+			Form = Form.save(commit=False)
+			Form.user = request.user
+			Form.proveedor = tb_proveedor.objects.get(id = request.POST['proveedor'])
+			Form.tipoDeEgreso = tb_tipoEgreso.objects.get(id= request.POST['tipoDeEgreso'])
+			Form.save()
+			return redirect('Caja:ListEgresos')
+			print('ESTA GUARDADO')
+		else:
+			print('error')
+	else:
+		pass
+	contexto = {
+		'Form':Form
+	}
+
+	return render(request, 'Caja/newegreso.html', contexto)

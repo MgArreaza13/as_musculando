@@ -1,0 +1,38 @@
+from django.db import models
+from django.conf import settings
+from apps.Configuracion.models import tb_tipoColaborador
+from apps.UserProfile.models import tb_profile
+#from apps.Turn.models import tb_status_turn
+
+# Create your models here.
+
+PAGO_CHOICES = (
+    ('Administrador', 'Administrador'),
+    ('Colaborador', 'Colaborador'),
+	('SinDefinir', 'Sin Definir'),
+    ('Socio', 'Socio'),
+)
+class tb_colaboradores (models.Model):
+	user				=	models.OneToOneField(tb_profile, on_delete=models.CASCADE, null=True)
+	honorariosPorHora	=	models.CharField(default='0', null=True, max_length=30)
+	diasParaElPremio	= 	models.CharField(default='0', null=True, max_length=30)
+	tipoColaborador		=	models.ForeignKey(tb_tipoColaborador, on_delete=models.CASCADE, null=False, default='')
+	#nameUser		=	models.CharField(default='Sin Definir', null=True, max_length=30)
+	#lastName		=	models.CharField(default='Sin Definir', null=True, max_length=30)
+	#dni 			=	models.CharField(default='A-000000000', null=True, max_length=30)
+	#movilTlf		=	models.CharField(default='+000000000', null=True, max_length=30)
+	#houseTlf		=	models.CharField(default='+000000000', null=True, max_length=30)
+	#mailUser		=	models.EmailField(default='sin@definir.com', null=True, max_length=30)
+	#birthdayDate	=	models.DateField(blank=False, null=True, default='1995-04-19' )
+	#image 			= 	models.ImageField(upload_to='users/avatar/', default='', null=False, )
+	#image 			= 	models.ImageField(upload_to='users/avatar/', default='', null=True, )
+	#tipoUser		=  	models.CharField(max_length=30,null=False,choices=PAGO_CHOICES,default='SinDefinir',) # Esto se utilizara para saber si es admin, colaborador o client
+	#dateCreate		=	models.DateField(auto_now=True, blank=False)
+	#is_complete		=   models.BooleanField(null=False, blank=True , default=False)
+	#nameProfile	=	models.CharField(default='', null=False, max_length=30)
+	#StatusKf		= 	models.ForeignKey(tb_status_turn, on_delete=models.CASCADE, null=False, default='')
+	def __str__(self):
+		return self.user.nameUser
+	class Meta:
+		managed = True
+		db_table = 'colaboradores'

@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'djcelery',
     'apps.Clases',
     'apps.Caja',
+    'apps.Colaboradores',
     'apps.Configuracion',
     'apps.Panel',
     'apps.Proveedores',

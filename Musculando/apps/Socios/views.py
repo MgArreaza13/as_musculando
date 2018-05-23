@@ -133,6 +133,50 @@ def NewSocio(request):
 	}
 	return render(request, 'Socios/NuevoSocio.html' , contexto)
 
+
+
+
+
+
+def UpdateSocio(request, id_socio):
+	socio= tb_socio.objects.get(id=id_socio)
+	perfil = tb_profile.objects.get(id = socio.perfil.id)
+	planes =  tb_plan.objects.all()
+	fallido = None
+	if request.method == 'GET':
+		Form2= ProfileForm(instance = perfil)
+		Form3 = SociosRegisterForm(instance = socio)
+	else:
+		Form2 = ProfileForm(request.POST , request.FILES  ,  instance = perfil)
+		Form3 = SociosRegisterForm(request.POST , request.FILES  ,  instance = socio)
+		if Form2.is_valid() and Form3.is_valid():
+			nuevoPerfil = Form2.save(commit=False)
+			#nuevoPerfil.user = 
+			nuevoPerfil.nameUser = request.POST['nameUser']
+			nuevoPerfil.dni = request.POST['dni']
+			nuevoPerfil.mailUser = request.POST['mailUser']
+			nuevoPerfil.tipoUser = 'Socio'
+			if len(request.FILES) != 0:
+				nuevoPerfil.image = request.FILES['ImagenDePerfil']
+			else:
+				nuevoPerfil.image = 'Null'
+			nuevoPerfil.save()
+			nuevoSocio = Form3.save(commit=False)
+			nuevoSocio.obraSocial =  request.POST['obraSocial']
+			nuevoSocio.status = 'Activo'
+			nuevoSocio.TarifaMensual = tb_plan.objects.get(id = request.POST['IdPlanSeleccionado'])
+			nuevoSocio.dateInactive_socio = Desactivate_Register(datetime.today().date() , 1)
+			nuevoSocio.save() 
+				################ENVIAR CORREO QUE SE CREO EL PERFIL DE SOCIO CORRECTAMENTE ########
+			#NewSocioMAil.delay(request.POST['nameUser'], nuevoSocio.TarifaMensual.precioPlan, nuevoSocio.TarifaMensual.nombrePlan, request.POST['mailUser'])
+			return redirect('Socios:ListaDeSocios')
+		else:
+			#Form	= UsuarioForm(request.POST , request.FILES  or None)
+			Form2	= ProfileForm(request.POST, request.FILES  or None)
+			Form3 = SociosRegisterForm(request.POST, request.FILES  or None)
+			fallido = "No pudimos guardar sus datos, intentalo de nuevo luego de verificarlos" 
+	return render (request, 'Socios/NuevoSocio.html' , {'Form2':Form2,'Form3':Form3,'planes':planes,'fallido':fallido,})
+
 #########################ELIMINAR SOCIO ##############################
 
 def DeleteSocio(request):
@@ -194,7 +238,7 @@ def ActivacionSocioMensualAnual(request):
 		ingreso.monto = socio.TarifaMensual.precioPlan
 	elif anual_mensual == "Anual":
 		ingreso.monto = socio.TarifaMensual.precioPlanAnual
-	ingreso.descripcion = 'Activacion de socio'
+	ingreso.descripcion = 'Pago. Abono Mensual del Asociado.'
 	ingreso.nombre = socio.perfil.nameUser
 	ingreso.apellido = socio.perfil.lastName
 	ingreso.correo  = socio.perfil.mailUser

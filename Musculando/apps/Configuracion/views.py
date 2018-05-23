@@ -7,6 +7,8 @@ from django.core import serializers
 ###############MODELOS################
 from apps.Configuracion.models import tb_plan
 from apps.Configuracion.models import tb_formasDePago
+from apps.Configuracion.models import tb_tipoColaborador
+from apps.Configuracion.models import tb_tipoEgreso
 from apps.Socios.models import tb_socio
 
 ##############FORMULARIOS################
@@ -87,9 +89,13 @@ def updatePlan(request):
 
 ################################CONFIGURACION GENERAL###############################
 def Configuracion_g(request):
-	formas_de_pago = tb_formasDePago.objects.all()
+	formas_de_pago 			= tb_formasDePago.objects.all()
+	tipos_de_colaboradores  = tb_tipoColaborador.objects.all()
+	tipos_de_egresos		= tb_tipoEgreso.objects.all()
 	contexto = {
 	'formas_de_pago':formas_de_pago,
+	'tipos_de_colaboradores':tipos_de_colaboradores,
+	'tipos_de_egresos':tipos_de_egresos
 	} 
 	return render(request, 'Configuracion/Configuracion_General.html', contexto)
 
@@ -147,3 +153,114 @@ def FormasdePagoGet(request):
 	
 
 	return HttpResponse(data)
+
+
+
+
+
+
+
+################################TIPOS DE COLABORADORES######################################
+
+
+
+def NuevoTipoDeColaborador(request):
+	status = None
+	tipo_de_colaborador = request.GET.get('TipoDeColaborador', None)
+	queryset = tb_tipoColaborador.objects.filter(tipodeColaborador = tipo_de_colaborador )
+	if (len(queryset) >= 1):
+		status = 401
+	else:
+		tipo = tb_tipoColaborador()
+		tipo.user = request.user
+		tipo.tipodeColaborador =  tipo_de_colaborador
+		tipo.save()
+		status = 200
+	return HttpResponse(status)
+
+
+
+
+
+def DeleteTipoDeColaborador(request):
+	status = None
+	id_tipo_de_colaborador = request.GET.get('id', None)
+	queryset = tb_tipoColaborador.objects.get(id=id_tipo_de_colaborador)
+	queryset.delete()
+	status = 200
+	return HttpResponse(status)
+
+
+
+
+def GetTipoColaborador(request):
+	id_tipo_de_colaborador = request.GET.get('id_tipo_colaborador', None)
+	queryset = tb_tipoColaborador.objects.get(id = id_tipo_de_colaborador)
+	tipo_colaborador = {
+		'user':str(queryset.user),
+		'tipodecolaborador':queryset.tipodeColaborador,
+	}
+	return JsonResponse(tipo_colaborador)
+
+
+
+
+def UpdateTipoColaborador(request):
+	id_tipo_colaborador = request.GET.get('id_tipo_colaborador', None)
+	queryset = tb_tipoColaborador.objects.get(id= id_tipo_colaborador)
+	queryset.user = request.user
+	queryset.tipodeColaborador = request.GET.get('nombre_tipo_colaborador', None)
+	queryset.save()
+	status = 200 
+	return HttpResponse(status)
+
+
+
+######################################TIPOS DE EGRESOS#############################################
+
+
+
+def NuevoTipoDeEgreso(request):
+	status = None
+	tipo_de_egreso = request.GET.get('TipoDeEgreso', None)
+	queryset = tb_tipoEgreso.objects.filter(tipodeEgreso = tipo_de_egreso )
+	if (len(queryset) >= 1):
+		status = 401
+	else:
+		tipo = tb_tipoEgreso()
+		tipo.user = request.user
+		tipo.tipodeEgreso =  tipo_de_egreso
+		tipo.save()
+		status = 200
+	return HttpResponse(status)
+
+
+def DeleteTipoDeEgreso(request):
+	status = None
+	id_tipo_de_egreso = request.GET.get('id', None)
+	queryset = tb_tipoEgreso.objects.get(id=id_tipo_de_egreso)
+	queryset.delete()
+	status = 200
+	return HttpResponse(status)
+
+
+def GetTipoEgreso(request):
+	id_tipo_de_egreso = request.GET.get('id_tipo_egreso', None)
+	queryset = tb_tipoEgreso.objects.get(id = id_tipo_de_egreso)
+	tipo_egreso = {
+		'user':str(queryset.user),
+		'tipodeEgreso':queryset.tipodeEgreso,
+	}
+	return JsonResponse(tipo_egreso)
+
+
+
+
+def UpdateTipoEgreso(request):
+	id_tipo_de_egreso = request.GET.get('id_tipo_egreso', None)
+	queryset = tb_tipoEgreso.objects.get(id = id_tipo_de_egreso)
+	queryset.user = request.user
+	queryset.tipodeEgreso = request.GET.get('nombre_tipo_egreso', None)
+	queryset.save()
+	status = 200 
+	return HttpResponse(status)

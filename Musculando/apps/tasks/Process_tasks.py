@@ -23,15 +23,15 @@ log = logging.getLogger(__name__)
 
 @app.task
 def Socios():
-	print('migueeeeeeeeeeel')
+	#print('migueeeeeeeeeeel')
 	hoy = datetime.today().date()
 	socios = tb_socio.objects.all()
 	for i in range(0,len(socios)):
-		print(i)
+	#	print(i)
 		if(socios[i].dateInactive_socio == hoy):
 			socios[i].status = 'Desactivado'
 			socios[i].save()
-			print(socios[i])
-			#VencimientoMensualidad(socios[i].perfil.nameUser, socios[i].TarifaMensual.precioPlan, socios[i].TarifaMensual.nombrePlan, socios[i].perfil.mailUser)
+			#print(socios[i])
+			VencimientoMensualidad(socios[i].perfil.nameUser, socios[i].TarifaMensual.precioPlan, socios[i].TarifaMensual.nombrePlan, socios[i].perfil.mailUser)
 
 
