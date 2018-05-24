@@ -100,3 +100,16 @@ def NewEgreso(request):
 	}
 
 	return render(request, 'Caja/newegreso.html', contexto)
+
+
+
+
+
+def Resumen(request):
+	ingresos = tb_ingreso_mensualidad.objects.all()
+	egresos = tb_egreso.objects.all()
+	contexto = {
+		'ingresos':ingresos,
+		'egresos':egresos
+	}
+	return render(request, 'Caja/Resumen.html', contexto)
