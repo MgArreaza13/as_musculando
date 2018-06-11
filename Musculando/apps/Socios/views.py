@@ -114,7 +114,7 @@ def NewSocio(request):
 			nuevoSocio.obraSocial =  request.POST['obraSocial']
 			nuevoSocio.status = 'Activo'
 			nuevoSocio.TarifaMensual = tb_plan.objects.get(id = request.POST['IdPlanSeleccionado'])
-			nuevoSocio.dateInactive_socio = Desactivate_Register(datetime.today().date() , 1)
+			nuevoSocio.dateInactive_socio = request.POST['dateInactive_socio']
 			nuevoSocio.save() 
 				################ENVIAR CORREO QUE SE CREO EL PERFIL DE SOCIO CORRECTAMENTE ########
 			NewSocioMAil.delay(request.POST['nameUser'], nuevoSocio.TarifaMensual.precioPlan, nuevoSocio.TarifaMensual.nombrePlan, request.POST['mailUser'])
@@ -165,7 +165,7 @@ def UpdateSocio(request, id_socio):
 			nuevoSocio.obraSocial =  request.POST['obraSocial']
 			nuevoSocio.status = 'Activo'
 			nuevoSocio.TarifaMensual = tb_plan.objects.get(id = request.POST['IdPlanSeleccionado'])
-			nuevoSocio.dateInactive_socio = Desactivate_Register(datetime.today().date() , 1)
+			nuevoSocio.dateInactive_socio = request.POST['dateInactive_socio']
 			nuevoSocio.save() 
 				################ENVIAR CORREO QUE SE CREO EL PERFIL DE SOCIO CORRECTAMENTE ########
 			#NewSocioMAil.delay(request.POST['nameUser'], nuevoSocio.TarifaMensual.precioPlan, nuevoSocio.TarifaMensual.nombrePlan, request.POST['mailUser'])

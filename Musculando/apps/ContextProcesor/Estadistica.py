@@ -21,10 +21,16 @@ def ResumenIngresos(request):
 	#Egresos Mensual 
 	totalEgresos_mensual = tb_egreso.objects.filter(dateCreate__month = date.today().month).aggregate(total_mensual=Sum('monto'))
 
-	balanceGeneral = TotalIngresos['total'] - TotalEgresos['total']
+	if len(TotalIngresos) == 0 or len(TotalEgresos) == 0 :
+		balanceGeneral = 0
+	else:
+		balanceGeneral = int(TotalIngresos['total']) - int(TotalEgresos['total'])
 	#print(balanceGeneral)
 
-	balanceGeneralMensual = totalIngrsos_mensual['total_mensual'] - totalEgresos_mensual['total_mensual']
+	if len(totalIngrsos_mensual) == 0 or len(totalEgresos_mensual) == 0:
+		balanceGeneralMensual = 0
+	else:
+		balanceGeneralMensual = int(totalIngrsos_mensual['total_mensual']) - int(totalEgresos_mensual['total_mensual'])
 	
 	return {'totalIngresos':TotalIngresos, 'totalIngrsos_mensual':totalIngrsos_mensual, 'TotalEgresos':TotalEgresos, 'totalEgresos_mensual':totalEgresos_mensual, 'balanceGeneral':balanceGeneral, 'balanceGeneralMensual':balanceGeneralMensual }
 

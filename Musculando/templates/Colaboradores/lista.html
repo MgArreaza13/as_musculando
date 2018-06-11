@@ -85,50 +85,89 @@
 		                                    <div class="tools"> </div>
 		                                </div>
 		                                <div class="portlet-body">
-		                                    <table class="table table-striped table-bordered table-hover" style="padding-bottom:3em;" id="sample_1">
+		                                    <table class="table table-striped table-bordered table-hover" style="padding-bottom:5em;" id="sample_1">
 		                                        <thead>
 		                                            <tr>
-		                                                <th>Nombre</th>
-		                                                <th>Dni</th>
-		                                                <th>Dias Para Premio</th>
-		                                                <th>Telefono</th>
+		                                                <th>Nombre de Usuario</th>
+		                                                <th>Documento de Identidad</th>
+		                                                <th>Numero de Telefono</th>
+		                                                <th>Direccion de Correo</th>
 		                                                <th>Tipo De Colaborador</th>
-		                                                <th>Correo</th>
+		                                                <th>Honorarios Mensuales</th>
+		                                                <th>Monto Por Clase</th>
+		                                                <th>Comision Por Clase</th>
+		                                                <th>Presentimo</th>
+		                                                <th>Monto Aguinaldo</th>
+		                                                <th>Monto de Cuenta</th>
 		                                                <th>Acciones</th>
-		                                                
 		                                            </tr>
 		                                        </thead>
 		                                        <tfoot>
-		                                            <tr>
-		                                                
-		                                                
-		                                            </tr>
+		                                            <tr></tr>
 		                                        </tfoot>
 		                                        <tbody>
 		                                        	{% for colaborador in Colaboradores  %}
 			                                        	<tr>
-			                                                <td>{{colaborador.user.nameUser}}</td>
-			                                                
-			                                                
-			                                                <td>{{colaborador.user.dni}}</td>
-			                                                <td>
-			                                                	{{colaborador.diasParaElPremio}}
-			                                                	
+			                                                <td style="text-align:center">{{colaborador.user.nameUser}}</td>
+			                                                <td style="text-align:center">{{colaborador.user.dni}}</td>
+                                                            <td style="text-align:center">{{colaborador.user.movilTlf}}</td>
+			                                                <td style="text-align:center">{{colaborador.user.mailUser}}</td>
+			                                                <td style="text-align:center">{{colaborador.tipoColaborador}}</td>
+			                                                <td style="text-align:center">
+			                                                	{% if colaborador.isHonorarios != False %}
+			                                                		${{colaborador.honorariosMensuales}}
+	
+			                                                	{% else %}
+			                                                		No Aplica
+			                                                	{% endif %}
 			                                                </td>
-			                                               
-                                                            <td>{{colaborador.user.movilTlf}}</td>
-			                                                <td>{{colaborador.tipoColaborador}}</td>
-			                                                <td>{{colaborador.user.mailUser}}</td>
+			                                                <td style="text-align:center">
+			                                                	{% if colaborador.isMontoXClase != False %}
+			                                                		${{colaborador.montoXClase}}
+	
+			                                                	{% else %}
+			                                                		No Aplica
+			                                                	{% endif %}
+			                                                </td>
+			                                                <td style="text-align:center">
+			                                                	{% if colaborador.isComison != False %}
+			                                                		${{colaborador.comisionXClase}}
+	
+			                                                	{% else %}
+			                                                		No Aplica
+			                                                	{% endif %}
+			                                                </td>
+			                                                <td style="text-align:center">
+			                                                	{% if colaborador.isPresentimo != False %}
+			                                                		${{colaborador.presentimo}}
+	
+			                                                	{% else %}
+			                                                		No Aplica
+			                                                	{% endif %}
+			                                                </td>
+			                                                <td style="text-align:center">
+			                                                	{% if colaborador.isAguinaldo != False %}
+			                                                		${{colaborador.montoAguinaldo}}
+	
+			                                                	{% else %}
+			                                                		No Aplica
+			                                                	{% endif %}
+			                                                </td>
+			                                                <td style="text-align:center">
+			                                                	
+			                                 
+			                                                		<span class="label label-success"> ${{colaborador.cuentaColaborador}} </span>
+	
+			                                                
+			                                                </td>
 			                                                <td>
 			                                                	<div class="btn-group"  style="position:relative!important ; with:108px!important">
-                                                                
                                                                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> Acciones
                                                                     <i class="fa fa-angle-down"></i>
                                                                 </button>
                                                                 <ul class="dropdown-menu" style="min-width: 108px !important" role="menu">
-                                                                    
                                                                     <li>
-                                                                        <a style="background:#32c5d2;color:white;" href="{% url "Colaboradores:UpdateColaboradores" colaborador.id %}"  class="btn btn-success btn-block" > Editar </a>
+                                                                        <a style="background:#32c5d2;color:white;" href="#"  class="btn btn-success btn-block" > Editar </a>
                                                                     </li>
                                                                     <li>
                                                                         <button type="button" class="btn btn-danger btn-block" value="{{colaborador.id}}" onclick="EliminarColaborador(this.value);"> Eliminar </button>
@@ -153,7 +192,7 @@
 		                                </div>
 		                            </div>
 		                            <!-- END EXAMPLE TABLE PORTLET-->
-		                            <a href="{% url "Colaboradores:NewColaborador" %}"  class="btn green btn-block">Nuevo Colaborador</a>
+		                            <a href="#"  class="btn green btn-block">Nuevo Colaborador</a>
 		                        </div>
 		                    </div>
 		                </div>

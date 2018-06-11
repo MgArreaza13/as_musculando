@@ -120,6 +120,9 @@ DATABASES = {
         "PORT":'',
         'HOST':"Localhost",
         },
+        'OPTIONS': {
+            'sql_mode': 'traditional',
+        }
     }
 
 

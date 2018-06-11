@@ -8,9 +8,12 @@ class SociosRegisterForm(forms.ModelForm):
 		model = tb_socio
 		fields = [
 		'obraSocial',
+		'dateInactive_socio'
+
 		]
 		labels = {
-		'obraSocial':'Obra Social',		
+		'obraSocial':'Obra Social',	
+		'dateInactive_socio':'Fecha de Desactivacion De Socio'	
 		}
 		widgets = {
 		'obraSocial': TextInput(attrs={'class':'form-control', 
@@ -18,6 +21,13 @@ class SociosRegisterForm(forms.ModelForm):
 			  'disabled':True,
 			  'autocomplete':'off',
 			   'placeholder':'Ingrese El Primer Nombre Del Usuario'}),
+
+		'dateInactive_socio': DateInput(attrs={'class':'form-control', 
+			  'required':'False',
+			  'disabled':True,
+			  'autocomplete':'off',
+			  'type':'date',
+			  'placeholder':'Fecha de Inicio'}),
 
 		#'descriptionProduct': Textarea(attrs={'class':'form-control', 
 		#	'required':True ,
@@ -28,4 +38,4 @@ class SociosRegisterForm(forms.ModelForm):
 		#	   'rows': 6}),
 		}
           
-		exclude = ['perfil', 'status', 'dateInactive_socio', 'dateCreate_socio', 'TarifaMensual']
+		exclude = ['perfil', 'status', 'dateCreate_socio', 'TarifaMensual']

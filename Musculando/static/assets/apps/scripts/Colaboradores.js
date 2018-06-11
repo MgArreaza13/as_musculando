@@ -1,4 +1,75 @@
 
+setInterval(function () {
+	//console.log('miguel')
+	if (parseInt($('#id_honorariosMensuales').val()) > 0) {
+		//activa el check de honorarios
+		//console.log('activo')
+		$('#id_isHonorarios').prop('checked', true);
+		$('#id_isHonorarios').val('True');
+	}
+	else
+	{
+		//console.log('desactivo')
+		$('#id_isHonorarios').prop('checked', false);
+		$('#id_isHonorarios').val('False');
+	}
+	if (parseInt($('#id_montoXClase').val()) >0) {
+		$('#id_isMontoXClase').prop('checked', true);
+		$('#id_isMontoXClase').val('True');
+	}
+	else {
+		$('#id_isMontoXClase').prop('checked', false);
+		$('#id_isMontoXClase').val('False');
+	}
+	if (parseInt($('#id_comisionXClase').val()) >0) {
+		$('#id_isComison').prop('checked', true);
+		$('#id_isComison').val('True');
+	}
+	else {
+		$('#id_isComison').prop('checked', false);
+		$('#id_isComison').val('False');
+	}
+
+	if (parseInt($('#id_presentimo').val()) >0) {
+		$('#id_isPresentimo').prop('checked', true);
+		$('#id_isPresentimo').val('True');
+	}
+	else {
+		$('#id_isPresentimo').prop('checked', false);
+		$('#id_isPresentimo').val('False');
+	}
+
+
+
+	if (parseInt($('#id_montoAguinaldo').val()) >0) {
+		$('#id_isAguinaldo').prop('checked', true);
+		$('#id_isAguinaldo').val('True');
+	}
+	else {
+		$('#id_isAguinaldo').prop('checked', false);
+		$('#id_isAguinaldo').val('False');
+	}
+
+	 }, 300);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function EliminarColaborador(id_colaborador) {
 	//obtener id
 	//preguntar si lo eliminara 
@@ -60,3 +131,6 @@ function EliminarColaborador(id_colaborador) {
 
 
 }
+
+
+

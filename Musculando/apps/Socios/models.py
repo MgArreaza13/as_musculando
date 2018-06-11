@@ -25,7 +25,7 @@ class tb_socio (models.Model):
 	#image 						= 	models.ImageField(upload_to='users/avatar/', default='', null=False, )
 	#image 						= 	models.ImageField(upload_to='users/avatar/', default='', null=True, )
 	#tipoUser					=  	models.CharField(max_length=30,null=False,choices=PAGO_CHOICES,default='SinDefinir',) # Esto se utilizara para saber si es admin, colaborador o client
-	dateInactive_socio			=	models.DateField(blank=False, null=True, default='1995-04-19' )
+	dateInactive_socio			=	models.DateField(blank=False, null=True, default='2018-04-19' )
 	dateCreate_socio			=	models.DateField(auto_now=True, blank=False)
 	#is_complete				=   models.BooleanField(null=False, blank=True , default=False)
 	#nameProfile				=	models.CharField(default='', null=False, max_length=30)

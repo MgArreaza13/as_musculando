@@ -1,5 +1,4 @@
-
-
+$('#id_dateInactive_socio').removeAttr("required");
 $('#id_nameUser').removeAttr("required");
 $('#id_lastName').removeAttr("required");
 $('#id_dni').removeAttr("required");
@@ -10,6 +9,7 @@ $('#id_mailUser').removeAttr("required");
 $('#id_obraSocial').removeAttr("required");
 
 function Habilitar() {
+$('#id_dateInactive_socio').removeAttr("disabled");
 $('#id_nameUser').removeAttr("disabled");
 $('#id_lastName').removeAttr("disabled");
 $('#id_dni').removeAttr("disabled");
@@ -25,7 +25,9 @@ $("#Cancelar").removeAttr('disabled');
 $('#CambiarAvatar').removeClass('hidden');
 $("#Actualizar").attr('disabled', 'disabled');
 }
+
 function Desabilitar() {
+$('#id_dateInactive_socio').attr('disabled', 'disabled');
 $('#id_nameUser').attr('disabled', 'disabled');
 $('#id_lastName').attr('disabled', 'disabled');
 $('#id_dni').attr('disabled', 'disabled');
@@ -72,6 +74,10 @@ function PlanSeleccionado(id) {
 		    		$('#FechaPlan').html(plan.fecha);
 		    		$('#IdPlanSeleccionado').val(id);
 		    		$("#responsive").modal("hide");	
+		    		$('#Enviar').removeClass('btn-warning');
+		    		$('#Enviar').addClass('green');
+		    		$('#Enviar').text('Guardar');
+		    		$('#Enviar').removeAttr("disabled");
 		    		
 
 		    	}
