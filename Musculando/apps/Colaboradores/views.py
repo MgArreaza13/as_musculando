@@ -20,22 +20,15 @@ def ListaDeColaboradores(request):
 	}
 	return render(request, 'Colaboradores/lista.html', contexto)
 
+def EliminarColaborador(request):
+	status = None
+	id_colaborador = request.GET.get('id', None)
+	queryset = tb_colaboradores.objects.get(id = id_colaborador)
+	ColaboradorEliminado.delay()
+	queryset.delete()
+	status = 200
+	return HttpResponse(status)
 
-
-
-#def EliminarColaborador(request):
-#	status = None
-#	id_colaborador = request.GET.get('id', None)
-#	queryset = tb_colaboradores.objects.get(id = id_colaborador)
-#	ColaboradorEliminado.delay()
-#	queryset.delete()
-#	status = 200
-#	return HttpResponse(status)
-#
-#
-#
-#
-#
 def NewColaborador(request):
 	Form = ProfileForm()
 	Form2 = ColaboradoresRegisterForm()
@@ -77,19 +70,15 @@ def NewColaborador(request):
 	'fallido':fallido,
 	}
 	return render(request, 'Colaboradores/nuevo.html' , contexto)
-#
-#
-#
-#
-#
-#def UpdateColaboradores(request, id_colaborador):
-#	colaborador= tb_colaboradores.objects.get(id=id_colaborador)
+
+#def UpdateColaboradores(request , id_colaborador):
+#	colaborador= tb_colaboradores.objects.get(id = id_colaborador)
 #	perfil = tb_profile.objects.get(id = colaborador.user.id)
-#	fallido = None
+#	fallido = None	
 #	if request.method == 'GET':
 #		Form= ProfileForm(instance = perfil)
 #		Form2 = ColaboradoresRegisterForm(instance = colaborador)
-#	else:
+#	else:		
 #		Form = ProfileForm(request.POST , request.FILES  ,  instance = perfil)
 #		Form2 = ColaboradoresRegisterForm(request.POST , request.FILES  ,  instance = colaborador)
 #		if Form.is_valid() and Form2.is_valid():
@@ -101,7 +90,7 @@ def NewColaborador(request):
 #			nuevoPerfil.tipoUser = 'Colaborador'
 #			if len(request.FILES) != 0:
 #				nuevoPerfil.image = request.FILES['ImagenDePerfil']
-#			else:
+#			else:				
 #				nuevoPerfil.image = 'Null'
 #			nuevoPerfil.save()
 #			nuevoColaborador = Form2.save(commit=False)
@@ -114,7 +103,7 @@ def NewColaborador(request):
 #			#NewSocioMAil.delay(request.POST['nameUser'], nuevoSocio.TarifaMensual.precioPlan, nuevoSocio.TarifaMensual.nombrePlan, request.POST['mailUser'])
 #			return redirect('Colaboradores:ListaDeColaboradores')
 #		else:
-#			#Form	= UsuarioForm(request.POST , request.FILES  or None)
+#			#			#Form	= UsuarioForm(request.POST , request.FILES  or None)
 #			Form	= ProfileForm(request.POST, request.FILES  or None)
 #			Form2 = ColaboradoresRegisterForm(request.POST, request.FILES  or None)
 #			fallido = "No pudimos guardar sus datos, intentalo de nuevo luego de verificarlos" 

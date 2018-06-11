@@ -13,11 +13,12 @@ from apps.Socios.models import tb_socio
 from apps.Configuracion.models import tb_plan
 from django.contrib.auth.models import User ##MODULE LO USUARIO DE DJANGO
 from apps.Caja.models import tb_ingreso_mensualidad
+from apps.UserProfile.models import tb_profile
 #######FORMULARIOS#############
 from apps.UserProfile.forms import UsuarioForm
 from apps.UserProfile.forms import ProfileForm
 from apps.Socios.forms import SociosRegisterForm
-from apps.UserProfile.models import tb_profile
+
 
 ##########SCRIPTS################
 from apps.Scripts.DesactivateUser import Desactivate_Register
