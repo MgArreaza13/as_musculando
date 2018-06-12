@@ -71,40 +71,41 @@ def NewColaborador(request):
 	}
 	return render(request, 'Colaboradores/nuevo.html' , contexto)
 
-#def UpdateColaboradores(request , id_colaborador):
-#	colaborador= tb_colaboradores.objects.get(id = id_colaborador)
-#	perfil = tb_profile.objects.get(id = colaborador.user.id)
-#	fallido = None	
-#	if request.method == 'GET':
-#		Form= ProfileForm(instance = perfil)
-#		Form2 = ColaboradoresRegisterForm(instance = colaborador)
-#	else:		
-#		Form = ProfileForm(request.POST , request.FILES  ,  instance = perfil)
-#		Form2 = ColaboradoresRegisterForm(request.POST , request.FILES  ,  instance = colaborador)
-#		if Form.is_valid() and Form2.is_valid():
-#			nuevoPerfil = Form.save(commit=False)
+
+def UpdateColaboradores(request , id_colaborador):
+	colaborador= tb_colaboradores.objects.get(id = id_colaborador)
+	perfil = tb_profile.objects.get(id = colaborador.user.id)
+	fallido = None	
+	if request.method == 'GET':
+		Form  = ProfileForm(instance = perfil)
+		Form2 = ColaboradoresRegisterForm(instance = colaborador)
+	else:		
+		Form  = ProfileForm(request.POST , request.FILES  ,  instance = perfil)
+		Form2 = ColaboradoresRegisterForm(request.POST , request.FILES  ,  instance = colaborador)
+		if Form.is_valid() and Form2.is_valid():
+			nuevoPerfil = Form.save(commit=False)
 #			#nuevoPerfil.user = 
-#			nuevoPerfil.nameUser = request.POST['nameUser']
-#			nuevoPerfil.dni = request.POST['dni']
-#			nuevoPerfil.mailUser = request.POST['mailUser']
-#			nuevoPerfil.tipoUser = 'Colaborador'
-#			if len(request.FILES) != 0:
-#				nuevoPerfil.image = request.FILES['ImagenDePerfil']
-#			else:				
-#				nuevoPerfil.image = 'Null'
-#			nuevoPerfil.save()
-#			nuevoColaborador = Form2.save(commit=False)
+			nuevoPerfil.nameUser = request.POST['nameUser']
+			nuevoPerfil.dni = request.POST['dni']
+			nuevoPerfil.mailUser = request.POST['mailUser']
+			nuevoPerfil.tipoUser = 'Colaborador'
+			if len(request.FILES) != 0:
+				nuevoPerfil.image = request.FILES['ImagenDePerfil']
+			else:				
+				nuevoPerfil.image = 'Null'
+			nuevoPerfil.save()
+			nuevoColaborador = Form2.save(commit=False)
 #			#nuevoColaborador.user = tb_profile.objects.get(id = nuevoPerfil.id)
-#			nuevoColaborador.honorariosPorHora =  request.POST['honorariosPorHora']
-#			nuevoColaborador.diasParaElPremio =  request.POST['diasParaElPremio']
-#			nuevoColaborador.tipoColaborador =  tb_tipoColaborador.objects.get(id =request.POST['tipoColaborador'])
-#			nuevoColaborador.save() 
-#				################ENVIAR CORREO QUE SE CREO EL PERFIL DE SOCIO CORRECTAMENTE ########
+			nuevoColaborador.honorariosPorHora =  request.POST['honorariosPorHora']
+			nuevoColaborador.diasParaElPremio =  request.POST['diasParaElPremio']
+			nuevoColaborador.tipoColaborador =  tb_tipoColaborador.objects.get(id =request.POST['tipoColaborador'])
+			nuevoColaborador.save() 
+				################ENVIAR CORREO QUE SE CREO EL PERFIL DE SOCIO CORRECTAMENTE ########
 #			#NewSocioMAil.delay(request.POST['nameUser'], nuevoSocio.TarifaMensual.precioPlan, nuevoSocio.TarifaMensual.nombrePlan, request.POST['mailUser'])
-#			return redirect('Colaboradores:ListaDeColaboradores')
-#		else:
-#			#			#Form	= UsuarioForm(request.POST , request.FILES  or None)
-#			Form	= ProfileForm(request.POST, request.FILES  or None)
-#			Form2 = ColaboradoresRegisterForm(request.POST, request.FILES  or None)
-#			fallido = "No pudimos guardar sus datos, intentalo de nuevo luego de verificarlos" 
-#	return render (request, 'Colaboradores/nuevo.html' , {'Form':Form,'Form2':Form2,'fallido':fallido,})
+			return redirect('Colaboradores:ListaDeColaboradores')
+		else:
+		#	#Form	= UsuarioForm(request.POST , request.FILES  or None)
+			Form  = ProfileForm(request.POST, request.FILES  or None)
+			Form2 = ColaboradoresRegisterForm(request.POST, request.FILES  or None)
+			fallido = "No pudimos guardar sus datos, intentalo de nuevo luego de verificarlos" 
+	return render (request, 'Colaboradores/nuevo.html' , {'Form':Form,'Form2':Form2,'fallido':fallido,})

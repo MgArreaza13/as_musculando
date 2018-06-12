@@ -167,7 +167,7 @@
                                                                 </button>
                                                                 <ul class="dropdown-menu" style="min-width: 108px !important" role="menu">
                                                                     <li>
-                                                                        <a style="background:#32c5d2;color:white;" href="#"  class="btn btn-success btn-block" > Editar </a>
+                                                                        <a style="background:#32c5d2;color:white;" href="{% url "Colaboradores:UpdateColaboradores" colaborador.id %}"  class="btn btn-success btn-block" > Editar </a>
                                                                     </li>
                                                                     <li>
                                                                         <button type="button" class="btn btn-danger btn-block" value="{{colaborador.id}}" onclick="EliminarColaborador(this.value);"> Eliminar </button>
