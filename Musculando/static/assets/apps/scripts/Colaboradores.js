@@ -70,7 +70,7 @@ setInterval(function () {
 
 
 
-function EliminarColaborador(id_colaborador) {
+function EliminarColaborador2(id_colaborador,id_profile) {
 	//obtener id
 	//preguntar si lo eliminara 
 	//eliminar
@@ -96,6 +96,7 @@ function EliminarColaborador(id_colaborador) {
 		    // (también es posible utilizar una cadena de datos)
 		    data : { 
 		    	'id':id_colaborador,
+		    	'id_profile':id_profile
 		    },
 		    // el tipo de información que se espera de respuesta
 		    dataType : 'json',

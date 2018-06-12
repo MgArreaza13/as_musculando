@@ -23,9 +23,12 @@ def ListaDeColaboradores(request):
 def EliminarColaborador(request):
 	status = None
 	id_colaborador = request.GET.get('id', None)
+	id_profile = request.GET.get('id_profile', None)
 	queryset = tb_colaboradores.objects.get(id = id_colaborador)
 	ColaboradorEliminado.delay()
 	queryset.delete()
+	queryset2 = tb_profile.objects.get(id = id_profile)
+	queryset2.delete()
 	status = 200
 	return HttpResponse(status)
 
@@ -42,7 +45,10 @@ def NewColaborador(request):
 			nuevoPerfil = tb_profile()
 			#nuevoPerfil.user = 
 			nuevoPerfil.nameUser = request.POST['nameUser']
+			nuevoPerfil.lastName = request.POST['lastName']
 			nuevoPerfil.dni = request.POST['dni']
+			nuevoPerfil.movilTlf = request.POST['movilTlf']
+			nuevoPerfil.houseTlf = request.POST['houseTlf']
 			nuevoPerfil.mailUser = request.POST['mailUser']
 			nuevoPerfil.tipoUser = 'Colaborador'
 			if len(request.FILES) != 0:
@@ -86,7 +92,10 @@ def UpdateColaboradores(request , id_colaborador):
 			nuevoPerfil = Form.save(commit=False)
 #			#nuevoPerfil.user = 
 			nuevoPerfil.nameUser = request.POST['nameUser']
+			nuevoPerfil.lastName = request.POST['lastName']
 			nuevoPerfil.dni = request.POST['dni']
+			nuevoPerfil.movilTlf = request.POST['movilTlf']
+			nuevoPerfil.houseTlf = request.POST['houseTlf']
 			nuevoPerfil.mailUser = request.POST['mailUser']
 			nuevoPerfil.tipoUser = 'Colaborador'
 			if len(request.FILES) != 0:
@@ -95,10 +104,7 @@ def UpdateColaboradores(request , id_colaborador):
 				nuevoPerfil.image = 'Null'
 			nuevoPerfil.save()
 			nuevoColaborador = Form2.save(commit=False)
-#			#nuevoColaborador.user = tb_profile.objects.get(id = nuevoPerfil.id)
-			nuevoColaborador.honorariosPorHora =  request.POST['honorariosPorHora']
-			nuevoColaborador.diasParaElPremio =  request.POST['diasParaElPremio']
-			nuevoColaborador.tipoColaborador =  tb_tipoColaborador.objects.get(id =request.POST['tipoColaborador'])
+			nuevoColaborador.user = tb_profile.objects.get(id = nuevoPerfil.id)
 			nuevoColaborador.save() 
 				################ENVIAR CORREO QUE SE CREO EL PERFIL DE SOCIO CORRECTAMENTE ########
 #			#NewSocioMAil.delay(request.POST['nameUser'], nuevoSocio.TarifaMensual.precioPlan, nuevoSocio.TarifaMensual.nombrePlan, request.POST['mailUser'])

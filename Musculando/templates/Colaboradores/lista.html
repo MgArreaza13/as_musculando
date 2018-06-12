@@ -170,7 +170,7 @@
                                                                         <a style="background:#32c5d2;color:white;" href="{% url "Colaboradores:UpdateColaboradores" colaborador.id %}"  class="btn btn-success btn-block" > Editar </a>
                                                                     </li>
                                                                     <li>
-                                                                        <button type="button" class="btn btn-danger btn-block" value="{{colaborador.id}}" onclick="EliminarColaborador(this.value);"> Eliminar </button>
+                                                                        <button type="button" class="btn btn-danger btn-block" value="{{colaborador.id}}" id="{{colaborador.user.id}}" onclick="EliminarColaborador2(this.value, this.id);"> Eliminar </button>
                                                                     </li>
                                                                     
                                                                     <li class="divider"> </li>
