@@ -213,3 +213,24 @@ EMAIL_HOST_USER = 'musculando@b7000615.ferozo.com'
 EMAIL_HOST_PASSWORD = 'Adolf5454@'
 EMAIL_PORT = 587
 
+#CACHES = {'default': {
+#        'BACKEND ': 'django.core.cache.backends.db.DatabaseCache',
+#        'LOCATION': 'redis://localhost:6379/0',
+#        'OPTIONS': {
+#        'DB':1,
+#        'PARSER_CLASS':'redis.connection.HiredisParser'
+#        }
+#    }
+#}
+
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://localhost:6379/0',
+        'OPTIONS': {
+             'DB':1,
+            'PARSER_CLASS':'redis.connection.HiredisParser'
+        }
+    }
+}

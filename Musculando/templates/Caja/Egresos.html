@@ -83,6 +83,7 @@
 		                                            <tr>
 		                                                <th>Usuario</th>
 		                                                <th>Proveedor</th>
+		                                                <th>Colaborador</th>
 		                                                <th>Monto</th>
 		                                                <th>Tipo De Egreso</th>
 		                                                <th>Descripcion</th>
@@ -96,7 +97,20 @@
 		                                        	{% for egresos in egresos  %}
 			                                        	<tr>
 			                                                <td>{{egresos.user}}</td>
-			                                                <td>{{egresos.proveedor}}</td>
+			                                                <td>
+			                                                	{% if egresos.proveedor == None %}
+			                                                		No Aplica 
+			                                                	{% else %}
+			                                                		{{egresos.proveedor}}
+			                                                	{% endif %}
+			                                                </td>
+			                                                <td>
+			                                                	{% if egresos.colaborador == None %}
+			                                                		No Aplica 
+			                                                	{% else %}
+			                                                		{{egresos.colaborador}}
+			                                                	{% endif %}
+			                                                </td>
 			                                                <td><span class="label label-danger"> ${{egresos.monto}} </span></td>
 			                                                <td>{{egresos.tipoDeEgreso}}</td>
 			                                                <td>{{egresos.descripcion}}</td>

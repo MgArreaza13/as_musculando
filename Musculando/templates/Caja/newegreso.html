@@ -69,12 +69,16 @@
 
                                                                 
                                                             {% for field in Form %}
-                                                            
-                                                            	<div class="form-group">
-                                                                    <label class="control-label">{{field.label}} <span style="color:red;">*</span></label>
-                                                                     {{ field }}    
+                                                                
+                                                                
+                                                                    <div class="form-group">
+                                                                        <label class="control-label">{{field.label}} <span style="color:red;">*</span></label>
+                                                                         {{ field }}    
+                                                                        
+                                                                    </div>
                                                                     
-                                                                </div>
+                                                               
+                                                            	
                                                            
                                                                 
                                                               {% if field.errors %}
@@ -93,6 +97,28 @@
 										               
 										                   {% endif %}   
 										                   {% endfor %}
+                                                           <div id="ColaboradorInput" class="form-group">
+                                                                        <label class="control-label">Colaborador <span style="color:red;">*</span></label>
+                                                                         <select class="form-control" name="colaborador" id="id_colaborador">
+                                                                             <option selected="" value="">----------</option>
+
+                                                                             {% for colaborador  in  colaboradores %}
+                                                                                 <option value="{{colaborador.id}}">{{colaborador.user.nameUser}}</option>
+                                                                             {% endfor %}
+                                                                         </select>
+                                                                        
+                                                                    </div>
+                                                                    <div id="ProveedorInput" class="form-group">
+                                                                        <label class="control-label">Proveedor<span style="color:red;">*</span></label>
+                                                                         <select class="form-control" name="proveedor" id="id_proveedor">
+                                                                            <option selected="" value="">----------------</option>
+                                                                            {% for proveedor  in proveedores %}
+                                                                                <option value="{{proveedor.id}}">{{proveedor.nameProveedor}}</option>
+                                                                            {% endfor %}
+                                                                             
+                                                                         </select>  
+                                                                        
+                                                                    </div>
                                                                
                                                                 
                                                             </div>
@@ -213,7 +239,7 @@
             <script src="{% static "assets/layouts/layout2/scripts/demo.min.js" %}" type="text/javascript"></script>
             <script src="{% static "assets/layouts/global/scripts/quick-sidebar.min.js" %}" type="text/javascript"></script>
             <script src="{% static "assets/layouts/global/scripts/quick-nav.min.js" %}" type="text/javascript"></script>
-            <script src="{% static "assets/apps/scripts/NuevoSocio.js" %}" type="text/javascript"></script>
+            <script src="{% static "assets/apps/scripts/egresos.js" %}" type="text/javascript"></script>
             <script>
             $(window).load(function() {
 			    $(".loader").fadeOut("slow");

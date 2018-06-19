@@ -1,24 +1,62 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.shortcuts import redirect
+from django.contrib.auth.decorators import login_required
 #####################MODELOS##########################
 from apps.Colaboradores.models import tb_colaboradores
 from apps.UserProfile.models import tb_profile
 from apps.Configuracion.models import tb_tipoColaborador
+from apps.Colaboradores.models import tb_cuentaColaborador
+from apps.Caja.models import tb_egreso
 #####################FORMS#############################
 from apps.Colaboradores.forms import ColaboradoresRegisterForm
 from apps.UserProfile.forms import ProfileForm
 #####################TAREAS############################
 from apps.tasks.Email_tasks import ColaboradorEliminado
+#####################utilidades#########################
+from django.db.models import Count, Min, Sum, Avg
 # Create your views here.
 
 
+
+
+@login_required(login_url = 'Panel:Login' )
+def CuentaColaborador(request, id_colaborador):
+	colaborador = tb_colaboradores.objects.get(id = id_colaborador)
+	list_cuenta = tb_cuentaColaborador.objects.filter(colaborador__id = id_colaborador)
+	pagos_realizados = tb_egreso.objects.filter(colaborador__id = id_colaborador)
+	total_pagos_realizados = tb_egreso.objects.filter(colaborador__id = id_colaborador).aggregate(total=Sum('monto'))
+	monto_total_de_cuenta = tb_cuentaColaborador.objects.filter(colaborador__id = id_colaborador).aggregate(total=Sum('monto'))
+	if monto_total_de_cuenta['total'] != None  and total_pagos_realizados['total'] != None:
+		total_deudas_por_pagar = float(monto_total_de_cuenta['total']) - float(total_pagos_realizados['total'])
+	elif monto_total_de_cuenta['total'] != None and total_pagos_realizados['total'] == None:
+		total_deudas_por_pagar = float(monto_total_de_cuenta['total']) 
+	else:
+		total_deudas_por_pagar = 0 
+	context = {
+		'colaborador':colaborador,
+		'list_cuenta':list_cuenta,
+		'pagos_realizados':pagos_realizados,
+		'total_pagos_realizados':total_pagos_realizados,
+		'monto_total_de_cuenta':monto_total_de_cuenta,
+		'total_deudas_por_pagar':total_deudas_por_pagar
+	}
+	return render(request, 'Colaboradores/Cuenta.html', context )
+
+
+
+
+
+
+
+@login_required(login_url = 'Panel:Login' )
 def ListaDeColaboradores(request):
 	Colaboradores = tb_colaboradores.objects.all()
 	contexto = {
 		'Colaboradores':Colaboradores
 	}
 	return render(request, 'Colaboradores/lista.html', contexto)
+
 
 def EliminarColaborador(request):
 	status = None
@@ -32,18 +70,16 @@ def EliminarColaborador(request):
 	status = 200
 	return HttpResponse(status)
 
+@login_required(login_url = 'Panel:Login' )
 def NewColaborador(request):
 	Form = ProfileForm()
 	Form2 = ColaboradoresRegisterForm()
 	fallido = None
 	if request.method == 'POST':
-		
-		#Form  = UsuarioForm(request.POST, request.FILES  or None)
 		Form = ProfileForm(request.POST, request.FILES  or None)
 		Form2 = ColaboradoresRegisterForm(request.POST, request.FILES  or None)
 		if Form.is_valid() and Form2.is_valid():
 			nuevoPerfil = tb_profile()
-			#nuevoPerfil.user = 
 			nuevoPerfil.nameUser = request.POST['nameUser']
 			nuevoPerfil.lastName = request.POST['lastName']
 			nuevoPerfil.dni = request.POST['dni']
@@ -58,15 +94,17 @@ def NewColaborador(request):
 			nuevoPerfil.save()
 			nuevoColaborador = Form2.save(commit=False)
 			nuevoColaborador.user = tb_profile.objects.get(id = nuevoPerfil.id)
-			#nuevoColaborador.honorariosPorHora =  request.POST['honorariosPorHora']
-			#nuevoColaborador.diasParaElPremio =  request.POST['diasParaElPremio']
-			#nuevoColaborador.tipoColaborador =  tb_tipoColaborador.objects.get(id =request.POST['tipoColaborador'])
+			nuevoColaborador.cuentaColaborador = request.POST['honorariosMensuales']
 			nuevoColaborador.save() 
-				################ENVIAR CORREO QUE SE CREO EL PERFIL DE SOCIO CORRECTAMENTE ########
-			#NewSocioMAil.delay(request.POST['nameUser'], nuevoSocio.TarifaMensual.precioPlan, nuevoSocio.TarifaMensual.nombrePlan, request.POST['mailUser'])
+			#luego de guardar, necesito registrar el ingreso principal del colaborador
+			if float(request.POST['honorariosMensuales']) != 0 :
+				cuenta = tb_cuentaColaborador()
+				cuenta.colaborador = tb_colaboradores.objects.get(id = nuevoColaborador.id)
+				cuenta.typePago = 'Honorarios Mensual'
+				cuenta.monto = float(request.POST['honorariosMensuales'])
+				cuenta.save() 
 			return redirect('Colaboradores:ListaDeColaboradores')
 		else:
-			#Form	= UsuarioForm(request.POST , request.FILES  or None)
 			Form	= ProfileForm(request.POST, request.FILES  or None)
 			Form2 = ColaboradoresRegisterForm(request.POST, request.FILES  or None)
 			fallido = "No pudimos guardar sus datos, intentalo de nuevo luego de verificarlos" 
@@ -77,7 +115,7 @@ def NewColaborador(request):
 	}
 	return render(request, 'Colaboradores/nuevo.html' , contexto)
 
-
+@login_required(login_url = 'Panel:Login' )
 def UpdateColaboradores(request , id_colaborador):
 	colaborador= tb_colaboradores.objects.get(id = id_colaborador)
 	perfil = tb_profile.objects.get(id = colaborador.user.id)

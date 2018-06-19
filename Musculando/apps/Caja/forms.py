@@ -11,17 +11,19 @@ class EgresoRegisterForm(forms.ModelForm):
 		fields = [
 		'monto',
 		'descripcion',
-		'proveedor',
 		'tipoDeEgreso',
+		'proveedor',
+		'colaborador'
 		]
 		labels = {
 			'monto':'Monto de Egreso',
 			'descripcion' :'Descripcion del Egreso',
 			'proveedor' :'Proveedor',
-			'tipoDeEgreso' :'Tipo de Egreso',	
+			'tipoDeEgreso' :'Tipo de Egreso',
+			'colaborador': 'Colaborador'	
 		}
 		widgets = {
-		'monto': TextInput(attrs={'class':'form-control', 
+		'monto': NumberInput(attrs={'class':'form-control', 
 			  'required':'False',
 			  'disabled':False,
 			  'autocomplete':'off',
@@ -34,10 +36,15 @@ class EgresoRegisterForm(forms.ModelForm):
 			   'placeholder':'Descripcion del Egreso'}),
 
 		'proveedor': Select(attrs={'class':'form-control', 
-			  'required':'False',
+			  'required':False,
 			  'disabled':False,
 			  'autocomplete':'off',
 			   'placeholder':'Proveedor'}),
+		'colaborador': Select(attrs={'class':'form-control', 
+			  'required':False,
+			  'disabled':False,
+			  'autocomplete':'off',
+			   'placeholder':'Colaborador'}),
 
 		'tipoDeEgreso': Select(attrs={'class':'form-control', 
 			  'required':'False',
@@ -54,4 +61,4 @@ class EgresoRegisterForm(forms.ModelForm):
 		#	   'rows': 6}),
 		}
           
-		exclude = ['user',]
+		exclude = ['user', 'colaborador', 'proveedor']

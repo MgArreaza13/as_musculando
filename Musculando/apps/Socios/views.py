@@ -79,6 +79,8 @@ def getSocio(request):
 @login_required(login_url = 'Panel:Login' )
 def ListaDeSocios(request):
 	socios = tb_socio.objects.all()
+	for socio in socios:
+		print(socio)
 	contexto = {
 	'socios':socios
 	}
@@ -89,6 +91,7 @@ def ListaDeSocios(request):
 ##########################NUEVO SOCIO################################
 
 def NewSocio(request):
+	#print('esto esta por funcionar')
 	Form = UsuarioForm()
 	Form2 = ProfileForm()
 	Form3 = SociosRegisterForm()
@@ -99,7 +102,8 @@ def NewSocio(request):
 		Form2 = ProfileForm(request.POST, request.FILES  or None)
 		Form3 = SociosRegisterForm(request.POST, request.FILES  or None)
 		if Form2.is_valid() and Form3.is_valid():
-			nuevoPerfil = tb_profile()
+			#print('validos')
+			nuevoPerfil = Form2.save(commit=False)
 			#nuevoPerfil.user = 
 			nuevoPerfil.nameUser = request.POST['nameUser']
 			nuevoPerfil.dni = request.POST['dni']
@@ -110,7 +114,7 @@ def NewSocio(request):
 			else:
 				nuevoPerfil.image = 'Null'
 			nuevoPerfil.save()
-			nuevoSocio = tb_socio()
+			nuevoSocio = Form3.save(commit=False)
 			nuevoSocio.perfil = tb_profile.objects.get(id = nuevoPerfil.id)
 			nuevoSocio.obraSocial =  request.POST['obraSocial']
 			nuevoSocio.status = 'Activo'
@@ -119,6 +123,7 @@ def NewSocio(request):
 			nuevoSocio.save() 
 				################ENVIAR CORREO QUE SE CREO EL PERFIL DE SOCIO CORRECTAMENTE ########
 			NewSocioMAil.delay(request.POST['nameUser'], nuevoSocio.TarifaMensual.precioPlan, nuevoSocio.TarifaMensual.nombrePlan, request.POST['mailUser'])
+			#print('miguel')
 			return redirect('Socios:ListaDeSocios')
 		else:
 			#Form	= UsuarioForm(request.POST , request.FILES  or None)

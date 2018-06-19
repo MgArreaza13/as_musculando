@@ -95,21 +95,24 @@
                                 -->
                             </ul>
                         </li>
-                        <li class="nav-item  ">
-                            <a href="javascript:;" class="nav-link nav-toggle">
-                                <i class="fa fa-users"></i>
-                                <span class="title">COLABORADORES</span>
-                                <span class="arrow"></span>
-                            </a>
-                            <ul class="sub-menu">
-                                <li class="nav-item  ">
-                                    <a href="{% url "Colaboradores:ListaDeColaboradores" %}" class="nav-link ">
-                                        <span class="title">Listado de Colaboradores </span>
-                                    </a>
-                                </li>
-                        
-                            </ul>
-                        </li>
+                        {% if profile_response.perfil.tipoUser == 'Administrador' %}
+                            
+                            <li class="nav-item  ">
+                                <a href="javascript:;" class="nav-link nav-toggle">
+                                    <i class="fa fa-users"></i>
+                                    <span class="title">COLABORADORES</span>
+                                    <span class="arrow"></span>
+                                </a>
+                                <ul class="sub-menu">
+                                    <li class="nav-item  ">
+                                        <a href="{% url "Colaboradores:ListaDeColaboradores" %}" class="nav-link ">
+                                            <span class="title">Listado de Colaboradores </span>
+                                        </a>
+                                    </li>
+                            
+                                </ul>
+                            </li>
+                        {% endif %}
                         
                         
                         
@@ -246,22 +249,24 @@
                                 -->
                             </ul>
                         </li>
-                        <li class="nav-item  ">
-                            <a href="javascript:;" class="nav-link nav-toggle">
-                                <i class="fa fa-users"></i>
-                                <span class="title">COLABORADORES</span>
-                                <span class="arrow"></span>
-                            </a>
-                            <ul class="sub-menu">
-                                <li class="nav-item  ">
-                                    <a href="{% url "Colaboradores:ListaDeColaboradores" %}" class="nav-link ">
-                                        <i class="fa fa-tasks"></i>
-                                        <span class="title">Listado de Colaboradores </span>
-                                    </a>
-                                </li>
-                        
-                            </ul>
-                        </li>
+                        {% if profile_response.perfil.tipoUser == 'Administrador' %}
+                            
+                            <li class="nav-item  ">
+                                <a href="javascript:;" class="nav-link nav-toggle">
+                                    <i class="fa fa-users"></i>
+                                    <span class="title">COLABORADORES</span>
+                                    <span class="arrow"></span>
+                                </a>
+                                <ul class="sub-menu">
+                                    <li class="nav-item  ">
+                                        <a href="{% url "Colaboradores:ListaDeColaboradores" %}" class="nav-link ">
+                                            <span class="title">Listado de Colaboradores </span>
+                                        </a>
+                                    </li>
+                            
+                                </ul>
+                            </li>
+                        {% endif %}
                         <li class="nav-item  ">
                             <a href="?p=" class="nav-link nav-toggle">
                                 <i class="fa fa-line-chart"></i>

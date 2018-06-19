@@ -7,10 +7,12 @@ from apps.UserProfile.models import tb_profile
 # Create your models here.
 
 PAGO_CHOICES = (
-    ('Administrador', 'Administrador'),
-    ('Colaborador', 'Colaborador'),
-	('SinDefinir', 'Sin Definir'),
-    ('Socio', 'Socio'),
+    ('honorarios Mensuales', 'Honorarios Mensuales'),
+    ('Monto Por Clase', 'Monto Por clase'),
+	('Sin Definir', 'Sin Definir'),
+    ('Comision Por Clase', 'Comision Por Clase'),
+    ('Presentimo', 'Presentimo'),
+    ('Aguinaldo', 'Aguinaldo'),
 )
 class tb_colaboradores (models.Model):
 	user					=	models.OneToOneField(tb_profile, on_delete=models.CASCADE, null=True)
@@ -21,11 +23,13 @@ class tb_colaboradores (models.Model):
 	montoAguinaldo			=	models.FloatField(default=0, null=True, max_length=300)
 	tipoColaborador			=	models.ForeignKey(tb_tipoColaborador, on_delete=models.CASCADE, null=False, default='')
 	cuentaColaborador		=	models.FloatField(default=0, null=True, max_length=300)
+	montoPagadoColaborador 	=	models.FloatField(default=0, null=True, max_length=300)
 	isHonorarios			=   models.BooleanField(null=False, blank=True , default=False)
 	isMontoXClase			=   models.BooleanField(null=False, blank=True , default=False)
 	isComison				=   models.BooleanField(null=False, blank=True , default=False)
 	isPresentimo			=   models.BooleanField(null=False, blank=True , default=False)
 	isAguinaldo				=   models.BooleanField(null=False, blank=True , default=False)
+	dateCreate				=	models.DateField(auto_now=True, blank=False)
 	#diasParaElPremio	= 	models.CharField(default='0', null=True, max_length=30)
 	#nameUser		=	models.CharField(default='Sin Definir', null=True, max_length=30)
 	#lastName		=	models.CharField(default='Sin Definir', null=True, max_length=30)
@@ -37,7 +41,6 @@ class tb_colaboradores (models.Model):
 	#image 			= 	models.ImageField(upload_to='users/avatar/', default='', null=False, )
 	#image 			= 	models.ImageField(upload_to='users/avatar/', default='', null=True, )
 	#tipoUser		=  	models.CharField(max_length=30,null=False,choices=PAGO_CHOICES,default='SinDefinir',) # Esto se utilizara para saber si es admin, colaborador o client
-	dateCreate		=	models.DateField(auto_now=True, blank=False)
 	#is_complete		=   models.BooleanField(null=False, blank=True , default=False)
 	#nameProfile	=	models.CharField(default='', null=False, max_length=30)
 	#StatusKf		= 	models.ForeignKey(tb_status_turn, on_delete=models.CASCADE, null=False, default='')
@@ -46,3 +49,17 @@ class tb_colaboradores (models.Model):
 	class Meta:
 		managed = True
 		db_table = 'colaboradores'
+
+
+class tb_cuentaColaborador (models.Model):
+	#user					=	models.OneToOneField(tb_profile, on_delete=models.CASCADE, null=True)
+	colaborador				=	models.ForeignKey(tb_colaboradores, on_delete=models.CASCADE, null=False, default='')
+	typePago				=	models.CharField(max_length=300,null=False,choices=PAGO_CHOICES,default='SinDefinir',)
+	monto					=	models.FloatField(default=0, null=True, max_length=300)
+	dateCreate				=	models.DateField(auto_now=True, blank=False)
+	
+	def __str__(self):
+		return self.colaborador.user.nameUser
+	class Meta:
+		managed = True
+		db_table = 'cuentaColaborador'

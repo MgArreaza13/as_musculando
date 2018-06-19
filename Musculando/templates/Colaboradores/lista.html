@@ -85,7 +85,7 @@
 		                                    <div class="tools"> </div>
 		                                </div>
 		                                <div class="portlet-body">
-		                                    <table class="table table-striped table-bordered table-hover" style="padding-bottom:5em;" id="sample_1">
+		                                    <table class="table table-striped table-bordered table-hover" style="padding-bottom:8em;" id="sample_1">
 		                                        <thead>
 		                                            <tr>
 		                                                <th>Nombre de Usuario</th>
@@ -98,7 +98,8 @@
 		                                                <th>Comision Por Clase</th>
 		                                                <th>Presentimo</th>
 		                                                <th>Monto Aguinaldo</th>
-		                                                <th>Monto de Cuenta</th>
+		                                                <th>Monto de Deuda</th>
+		                                                <th>Monto Pagado</th>
 		                                                <th>Acciones</th>
 		                                            </tr>
 		                                        </thead>
@@ -153,10 +154,17 @@
 			                                                		No Aplica
 			                                                	{% endif %}
 			                                                </td>
-			                                                <td style="text-align:center">
+			                                                <td style="text-align:center;">
 			                                                	
 			                                 
-			                                                		<span class="label label-success"> ${{colaborador.cuentaColaborador}} </span>
+			                                                		<span style="font-size:15px" class="label label-danger"> ${{colaborador.cuentaColaborador}} </span>
+	
+			                                                
+			                                                </td>
+			                                                <td style="text-align:center;">
+			                                                	
+			                                 
+			                                                		<span style="font-size:15px" class="label label-success"> ${{colaborador.montoPagadoColaborador}} </span>
 	
 			                                                
 			                                                </td>
@@ -168,6 +176,9 @@
                                                                 <ul class="dropdown-menu" style="min-width: 108px !important" role="menu">
                                                                     <li>
                                                                         <a style="background:#32c5d2;color:white;" href="{% url "Colaboradores:UpdateColaboradores" colaborador.id %}"  class="btn btn-success btn-block" > Editar </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a style="background:#337ab7; color:white;" href="{% url "Colaboradores:CuentaColaborador" colaborador.id %}"  class="btn btn-primary btn-block" > ver cuenta </a>
                                                                     </li>
                                                                     <li>
                                                                         <button type="button" class="btn btn-danger btn-block" value="{{colaborador.id}}" id="{{colaborador.user.id}}" onclick="EliminarColaborador2(this.value, this.id);"> Eliminar </button>

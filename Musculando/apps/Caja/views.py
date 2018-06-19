@@ -6,6 +6,7 @@ from django.shortcuts import redirect
 from apps.Socios.models import tb_socio
 from apps.Caja.models import tb_egreso
 from apps.Caja.models import tb_ingreso_mensualidad
+from apps.Colaboradores.models import tb_colaboradores
 from apps.Configuracion.models import tb_plan
 from apps.Configuracion.models import tb_tipoEgreso
 from apps.Proveedores.models import tb_proveedor
@@ -79,14 +80,24 @@ def ListEgresos(request):
 
 def NewEgreso(request):
 	Form = EgresoRegisterForm() 
+	colaboradores = tb_colaboradores.objects.all()
+	proveedores = tb_proveedor.objects.all()
+
 	if request.method == 'POST':
-		print('METODO ES POST')
+		print(request.POST)
 		Form  = EgresoRegisterForm(request.POST, request.FILES  or None)
 		if Form.is_valid():
 			print('FORMULARIO ES VALIDO')
 			Form = Form.save(commit=False)
 			Form.user = request.user
-			Form.proveedor = tb_proveedor.objects.get(id = request.POST['proveedor'])
+			if request.POST['proveedor'] != "":
+				Form.proveedor = tb_proveedor.objects.get(id = request.POST['proveedor'])
+			if request.POST['colaborador'] != "":
+				colaborador = tb_colaboradores.objects.get(id = request.POST['colaborador'])
+				Form.colaborador = colaborador
+				colaborador.montoPagadoColaborador += float(request.POST['monto'])
+				colaborador.cuentaColaborador -= float(request.POST['monto'])
+				colaborador.save()
 			Form.tipoDeEgreso = tb_tipoEgreso.objects.get(id= request.POST['tipoDeEgreso'])
 			Form.save()
 			return redirect('Caja:ListEgresos')
@@ -96,7 +107,9 @@ def NewEgreso(request):
 	else:
 		pass
 	contexto = {
-		'Form':Form
+		'Form':Form,
+		'colaboradores':colaboradores,
+		'proveedores':proveedores
 	}
 
 	return render(request, 'Caja/newegreso.html', contexto)

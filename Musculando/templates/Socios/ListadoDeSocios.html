@@ -107,6 +107,9 @@
 		                                                
 		                                            </tr>
 		                                        </tfoot>
+		                                        {% load cache %}
+
+		                                        
 		                                        <tbody>
 		                                        	{% for socio in socios  %}
 			                                        	<tr>
@@ -167,6 +170,7 @@
 			                                            </tr>
 		                                        	{% endfor %}
 		                                        </tbody>
+		                                        
 		                                    </table>
 		                                </div>
 		                            </div>
