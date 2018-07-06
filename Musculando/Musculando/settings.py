@@ -83,6 +83,9 @@ TEMPLATES = [
                 'apps.ContextProcesor.Estadistica.ResumenIngresos',
                 'apps.ContextProcesor.Estadistica.ResumenSociosActivos',
                 'apps.ContextProcesor.Estadistica.ResumenPlanes',
+                'apps.ContextProcesor.liquidacion.Liquidacion',
+                'apps.ContextProcesor.Presentimo.presentimo', 
+                
             ],
         },
     },
@@ -177,11 +180,20 @@ CELERY_TIMEZONE = TIME_ZONE
 
 t = datetime.today()
 diario = crontab(minute=0, hour=7)
+mensual = crontab(minute=0, hour=0)
 
 CELERYBEAT_SCHEDULE = {
     'desactivate-socio': {
         'task': 'apps.Socios.tasks.desactivatesocios',
         'schedule': diario,
+    },
+    'aguinaldo-colaborador': {
+        'task': 'apps.Colaboradores.tasks.aguinaldo',
+        'schedule': mensual,
+    },
+    'presentimo-colaborador': {
+        'task': 'apps.Colaboradores.tasks.PresentimoMensualActivate',
+        'schedule': mensual,
     },
 }
 

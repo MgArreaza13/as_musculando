@@ -87,4 +87,4 @@ class ColaboradoresRegisterForm(forms.ModelForm):
 		#	   'rows': 6}),
 		}
           
-		exclude = ['user','dateCreate', 'cuentaColaborador']
+		exclude = ['user','dateCreate', 'cuentaColaborador', 'isPresentimoPay']

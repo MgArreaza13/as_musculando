@@ -13,9 +13,17 @@ from apps.Colaboradores.forms import ColaboradoresRegisterForm
 from apps.UserProfile.forms import ProfileForm
 #####################TAREAS############################
 from apps.tasks.Email_tasks import ColaboradorEliminado
+from apps.Colaboradores.tasks import LiquidacionColaboradores
+from apps.Colaboradores.tasks import presentimo
 #####################utilidades#########################
 from django.db.models import Count, Min, Sum, Avg
+
+
+
 # Create your views here.
+
+
+
 
 
 
@@ -46,6 +54,39 @@ def CuentaColaborador(request, id_colaborador):
 
 
 
+@login_required(login_url = 'Panel:Login' )
+def Liquidacion(request):
+	Colaboradores = tb_colaboradores.objects.all()
+	monto_total = tb_colaboradores.objects.all().aggregate(total=Sum('cuentaColaborador'))
+	contexto = {
+		'monto_total':monto_total,
+		'Colaboradores':Colaboradores
+	}
+	return render(request, 'Colaboradores/Liquidacion.html', contexto)
+
+
+@login_required(login_url = 'Panel:Login' )
+def Presentimo(request):
+	Colaboradores = tb_colaboradores.objects.filter(isPresentimo =  True).filter(isPresentimoPay = False )
+	monto_total = tb_colaboradores.objects.filter(isPresentimo =  True).filter(isPresentimoPay = False ).aggregate(total=Sum('presentimo'))
+	contexto = {
+		'monto_total':monto_total,
+		'Colaboradores':Colaboradores
+	}
+	return render(request, 'Colaboradores/Presentimo.html', contexto)
+
+
+def ProcesoDeLiquidacion(request):
+	status = 200 
+	id_u =  request.user.id
+	LiquidacionColaboradores.delay(id_u)
+	return HttpResponse(status)
+
+
+def ProcesoDePresentimo(request):
+	status = 200 
+	presentimo.delay()
+	return HttpResponse(status)
 
 
 

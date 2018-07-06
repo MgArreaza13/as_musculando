@@ -23,15 +23,18 @@ def ResumenIngresos(request):
 
 	if len(TotalIngresos) == 0 or len(TotalEgresos) == 0 :
 		balanceGeneral = 0
-	else:
-		balanceGeneral = int(TotalIngresos['total']) - int(TotalEgresos['total'])
+	elif  TotalIngresos['total'] != None and TotalEgresos['total']!=None:
+		balanceGeneral = TotalIngresos['total'] - TotalEgresos['total']
+	else :
+		balanceGeneral = 0
 	#print(balanceGeneral)
 
 	if len(totalIngrsos_mensual) == 0 or len(totalEgresos_mensual) == 0:
 		balanceGeneralMensual = 0
+	elif totalIngrsos_mensual['total_mensual'] != None and totalEgresos_mensual['total_mensual'] != None:
+		balanceGeneralMensual = float(totalIngrsos_mensual['total_mensual']) - float(totalEgresos_mensual['total_mensual'])
 	else:
-		balanceGeneralMensual = int(totalIngrsos_mensual['total_mensual']) - int(totalEgresos_mensual['total_mensual'])
-	
+		balanceGeneralMensual = 0
 	return {'totalIngresos':TotalIngresos, 'totalIngrsos_mensual':totalIngrsos_mensual, 'TotalEgresos':TotalEgresos, 'totalEgresos_mensual':totalEgresos_mensual, 'balanceGeneral':balanceGeneral, 'balanceGeneralMensual':balanceGeneralMensual }
 
 

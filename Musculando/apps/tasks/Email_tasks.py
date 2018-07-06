@@ -51,7 +51,7 @@ def VencimientoMensualidad(usuario, monto, plan, correo):
 
 @app.task
 def NewSocioMAil(usuario, monto, plan, correo, ):
-	time.sleep(40)
+	#time.sleep(10)
 	cuerpo = ""
 	###Mensaje para el usuario #########
 	email_subject_usuario = 'Musculando - Bienvenido a la Familia Musculando'
@@ -62,7 +62,7 @@ def NewSocioMAil(usuario, monto, plan, correo, ):
 	email_body_Soporte = "Hemos creado el socio %s perfectamente un monto de $:%s referente al plan %s " %(usuario,monto,plan)
 	send_mail(email_subject_Soporte, cuerpo , 'musculando@b7000615.ferozo.com', ['soporte@apreciasoft.com', "mg.arreaza.13@gmail.com",],fail_silently=True, html_message=email_body_Soporte)
 	Group('notifcaciones').send({
-        'text': json.dumps ({"action": "completed","content": "Hemos Finalizado el proceso"})
+        'text': json.dumps ({"action": "socio_creado","content": "Hemos Finalizado el proceso"})
     })
 ##################EMAIL PARA SOCIO DESACTIVADO #########################
 
@@ -148,3 +148,66 @@ def ColaboradorEliminado():
 	
 
 
+######################Pago de colaborador 
+
+@app.task
+def PagoColaborador(usuario,correo):
+	cuerpo = ""
+	###Mensaje para el usuario #########
+	email_subject_usuario = 'Musculando - Pago Imputado'
+	email_body_usuario = "Hola %s, Hemos imputado un pago en tu cuenta por orden del administrador" %(usuario)
+	send_mail (email_subject_usuario, cuerpo, 'musculando@b7000615.ferozo.com', [correo], fail_silently=True, html_message=email_body_usuario)
+
+
+######################Pago de colaborador 
+
+@app.task
+def AguinaldoColaborador(usuario,correo):
+	cuerpo = ""
+	###Mensaje para el usuario #########
+	email_subject_usuario = 'Musculando - Aguinaldo'
+	email_body_usuario = "Hola %s, Hemos cargado el monto de tu Aguinaldo  a tu cuenta por orden del administrador" %(usuario)
+	send_mail (email_subject_usuario, cuerpo, 'musculando@b7000615.ferozo.com', [correo], fail_silently=True, html_message=email_body_usuario)
+	
+
+
+
+
+###################### Finalizado el Proceso de pago 
+@app.task
+def administradorNotificacion():
+	cuerpo = ""
+	email_subject_Soporte = 'Musculando - Liquidacion Completada'
+	email_body_Soporte = "Hemos Liquidado El monto de la cuenta de cada colaborador por solicitud de usted" 
+	send_mail(email_subject_Soporte, cuerpo , 'musculando@b7000615.ferozo.com', ['soporte@apreciasoft.com', "mg.arreaza.13@gmail.com",],fail_silently=True, html_message=email_body_Soporte)
+	
+
+
+
+###################### Finalizado el Presentimo
+@app.task
+def administradorNotificacionPresentimo():
+	cuerpo = ""
+	email_subject_Soporte = 'Musculando - Presentimo Completada'
+	email_body_Soporte = "Hemos Imputado El monto de presentimo de cada colaborador a la cuenta de cada colaborador por solicitud de usted" 
+	send_mail(email_subject_Soporte, cuerpo , 'musculando@b7000615.ferozo.com', ['soporte@apreciasoft.com', "mg.arreaza.13@gmail.com",],fail_silently=True, html_message=email_body_Soporte)
+	
+
+
+###################### Finalizado el Presentimo Colaborador
+@app.task
+def PresentimoColaborador(usuario,correo):
+	cuerpo = ""
+	###Mensaje para el usuario #########
+	email_subject_usuario = 'Musculando - Presentimo'
+	email_body_usuario = "Hola %s, Hemos cargado el monto de tu Presentimo a tu cuenta por orden del administrador" %(usuario)
+	send_mail (email_subject_usuario, cuerpo, 'musculando@b7000615.ferozo.com', [correo], fail_silently=True, html_message=email_body_usuario)
+	
+###################### Finalizado el Presentimo
+@app.task
+def administradorNotificacionAguinaldo():
+	cuerpo = ""
+	email_subject_Soporte = 'Musculando - Aguinaldo Cargado'
+	email_body_Soporte = "Hemos Imputado El monto del aguinaldo de cada colaborador a la cuenta de cada colaborador por solicitud de usted" 
+	send_mail(email_subject_Soporte, cuerpo , 'musculando@b7000615.ferozo.com', ['soporte@apreciasoft.com', "mg.arreaza.13@gmail.com",],fail_silently=True, html_message=email_body_Soporte)
+	

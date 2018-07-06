@@ -13,6 +13,8 @@ PAGO_CHOICES = (
     ('Comision Por Clase', 'Comision Por Clase'),
     ('Presentimo', 'Presentimo'),
     ('Aguinaldo', 'Aguinaldo'),
+    ('Liquidacion Mensual', 'Liquidacion Mensual'),
+
 )
 class tb_colaboradores (models.Model):
 	user					=	models.OneToOneField(tb_profile, on_delete=models.CASCADE, null=True)
@@ -28,6 +30,7 @@ class tb_colaboradores (models.Model):
 	isMontoXClase			=   models.BooleanField(null=False, blank=True , default=False)
 	isComison				=   models.BooleanField(null=False, blank=True , default=False)
 	isPresentimo			=   models.BooleanField(null=False, blank=True , default=False)
+	isPresentimoPay			=   models.BooleanField(null=False, blank=True , default=False)
 	isAguinaldo				=   models.BooleanField(null=False, blank=True , default=False)
 	dateCreate				=	models.DateField(auto_now=True, blank=False)
 	#diasParaElPremio	= 	models.CharField(default='0', null=True, max_length=30)

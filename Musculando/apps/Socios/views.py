@@ -79,8 +79,6 @@ def getSocio(request):
 @login_required(login_url = 'Panel:Login' )
 def ListaDeSocios(request):
 	socios = tb_socio.objects.all()
-	for socio in socios:
-		print(socio)
 	contexto = {
 	'socios':socios
 	}

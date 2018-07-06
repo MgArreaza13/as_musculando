@@ -1,0 +1,421 @@
+{% extends "../Base/Base.html" %}
+{% load staticfiles %}
+
+{% block Title %}
+	Musculando | Listado Colaboradores
+{% endblock Title %}
+
+{% block stayle %}
+	<!-- BEGIN PAGE LEVEL PLUGINS -->
+        
+        <link href="{% static "assets/global/plugins/font-awesome/css/font-awesome.min.css" %}" rel="stylesheet" type="text/css" />
+        <link href="{% static "assets/global/plugins/simple-line-icons/simple-line-icons.min.css" %}" rel="stylesheet" type="text/css" />
+        <link href="{% static "assets/global/plugins/bootstrap/css/bootstrap.min.css" %}" rel="stylesheet" type="text/css" />
+        <link href="{% static "assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" %}" rel="stylesheet" type="text/css" />
+        <!-- END GLOBAL MANDATORY STYLES -->
+        <!-- BEGIN PAGE LEVEL PLUGINS -->
+        <link href="{% static "assets/global/plugins/datatables/datatables.min.css" %}" rel="stylesheet" type="text/css" />
+        <link href="{% static "assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" %}" rel="stylesheet" type="text/css" />
+        <link href="{% static "assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" %}" rel="stylesheet" type="text/css" />
+        <!-- END PAGE LEVEL PLUGINS -->
+        <!-- BEGIN THEME GLOBAL STYLES -->
+        <link href="{% static "assets/global/css/components-md.min.css" %}" rel="stylesheet" id="style_components" type="text/css" />
+        <link href="{% static "assets/global/css/plugins-md.min.css" %}" rel="stylesheet" type="text/css" />
+        <!-- END THEME GLOBAL STYLES -->
+        <!-- BEGIN THEME LAYOUT STYLES -->
+        <link href="{% static "assets/layouts/layout2/css/layout.min.css" %}" rel="stylesheet" type="text/css" />
+        <link href="{% static "assets/layouts/layout2/css/themes/blue.min.css" %}" rel="stylesheet" type="text/css" id="style_color" />
+        <link href="{% static "assets/layouts/layout2/css/custom.min.css" %}" rel="stylesheet" type="text/css" />
+        <link href="{% static "assets/global/plugins/select2/css/select2.min.css" %}" rel="stylesheet" type="text/css" />
+        <link href="{% static "assets/global/plugins/select2/css/select2-bootstrap.min.css" %}" rel="stylesheet" type="text/css" />
+  
+{% endblock stayle %}
+
+
+{% block Content %}
+<div class="loader" id="loading-screen"> <img id="Cargando" src="{% static "assets/global/img/spinning-circles.svg" %}" alt=""></div>
+	<div class="page-sidebar-wrapper">
+                <!-- END SIDEBAR -->
+                <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+                <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+                
+                <!-- END SIDEBAR -->
+            </div>
+            <!-- END SIDEBAR -->
+            <!-- BEGIN CONTENT -->
+            <div id="Listado" class="page-content-wrapper">
+            	{% if Colaboradores %}
+		                <!-- BEGIN CONTENT BODY -->
+		                <div class="page-content">
+		                    <!-- BEGIN PAGE HEADER-->
+		                    <!-- BEGIN THEME PANEL -->
+		                   
+		                    <!-- END THEME PANEL -->
+		                    <h1 class="page-title"> Listados De Colaboradores 
+		                        
+		                    </h1>
+		                    <div class="page-bar">
+		                        <ul class="page-breadcrumb">
+		                            <li>
+		                                <i class="icon-home"></i>
+		                                <a href="index.html">Inicio</a>
+		                                <i class="fa fa-angle-right"></i>
+		                            </li>
+		                            <li>
+		                                <a href="#">Colaboradores</a>
+		                                <i class="fa fa-angle-right"></i>
+		                            </li>
+		                            <li>
+		                                <span>Listado</span>
+		                            </li>
+		                        </ul>
+		                        
+		                    </div>
+
+		                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="dashboard-stat2 " style="background:dodgerblue;">
+                                <div class="display">
+                                    <div class="number">
+                                        <h3 class="font-white-sharp" style="color:white;">
+                                            <span style="color:white;" data-counter="counterup" data-value="
+                                             {% if balanceGeneral != None %}
+                                               {{balanceGeneral}} 
+                                            {% else %}
+                                                0
+                                            {% endif %}
+
+                                            ">0</span>
+                                            <small style="color:white;" class="font-white-sharp">$</small>
+                                        </h3>
+                                        <small style="color:white;"> TOTAL CUENTA </small>
+                                    </div>
+                                    <div style="color:white;" class="icon">
+                                        <i class="icon-pie-chart"></i>
+                                    </div>
+                                </div>
+                                <!--
+                                <div class="progress-info">
+                                    <div class="progress">
+                                        <span style="width: 76%;" class="progress-bar progress-bar-success green-sharp">
+                                            <span class="sr-only">76% progress</span>
+                                        </span>
+                                    </div>
+                                    <div class="status">
+                                        <div class="status-title"> progress </div>
+                                        <div class="status-number"> 76% </div>
+                                    </div>
+                                </div>
+                                -->
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="dashboard-stat2 " style="background:crimson;">
+                                <div class="display">
+                                    <div class="number">
+                                        <h3 class="font-white-sharp" style="color:white;">
+                                            <span style="color:white;" data-counter="counterup" data-value="
+                                             {% if monto_total.total != None %}
+                                               {{monto_total.total}} 
+                                            {% else %}
+                                                0
+                                            {% endif %}
+
+                                            ">0</span>
+                                            <small style="color:white;" class="font-white-sharp">$</small>
+                                        </h3>
+                                        <small style="color:white;"> TOTAL CUENTA PRESENTIMO </small>
+                                    </div>
+                                    <div style="color:white;" class="icon">
+                                        <i class="icon-pie-chart"></i>
+                                    </div>
+                                </div>
+                                <!--
+                                <div class="progress-info">
+                                    <div class="progress">
+                                        <span style="width: 76%;" class="progress-bar progress-bar-success green-sharp">
+                                            <span class="sr-only">76% progress</span>
+                                        </span>
+                                    </div>
+                                    <div class="status">
+                                        <div class="status-title"> progress </div>
+                                        <div class="status-number"> 76% </div>
+                                    </div>
+                                </div>
+                                -->
+                            </div>
+                        </div>
+
+                        <!--
+	
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <div class="dashboard-stat2 ">
+                                <div class="display">
+                                    <div class="number">
+                                        <h3 class="font-blue-sharp">
+                                            <span data-counter="counterup" data-value="
+                                            {% if totalPlanes != None %}
+                                               {{totalPlanes}} 
+                                            {% else %}
+                                                0
+                                            
+                                            {% endif %}"></span>
+                                        </h3>
+                                        <small>PLANES DISPONIBLES</small>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="icon-basket"></i>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <div class="dashboard-stat2 ">
+                                <div class="display">
+                                    <div class="number">
+                                        <h3 class="font-purple-soft">
+                                            <span data-counter="counterup" data-value="
+                                            {% if totalSociosActivos != None %}
+                                               {{totalSociosActivos}} 
+                                            {% else %}
+                                                0
+                                            {% endif %}"></span>
+                                        </h3>
+                                        <small>SOCIOS ACTIVOS</small>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="icon-user"></i>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div> -->
+                    </div>
+
+                    
+
+                    
+		                    <!-- END PAGE HEADER-->
+		                   
+		                    <div class="row">
+		                        <div class="col-md-12">
+		                            <!-- BEGIN EXAMPLE TABLE PORTLET-->
+		                            <div class="portlet light ">
+		                                <div class="portlet-title">
+		                                    <div class="caption font-dark">
+		                                        <i class="icon-settings font-dark"></i>
+		                                        <span class="caption-subject bold uppercase">Accciones</span>
+		                                    </div>
+		                                    <div class="tools"> </div>
+		                                </div>
+		                                <div class="portlet-body">
+		                                    <table class="table table-striped table-bordered table-hover" style="padding-bottom:8em;" id="sample_1">
+		                                        <thead>
+		                                            <tr>
+		                                                <th>Nombre de Usuario</th>
+		                                                <th>Documento de Identidad</th>
+		                                                <th>Numero de Telefono</th>
+		                                                <th>Direccion de Correo</th>
+		                                                <th>Tipo De Colaborador</th>
+		                                                <th>Honorarios Mensuales</th>
+		                                                <th>Monto Por Clase</th>
+		                                                <th>Comision Por Clase</th>
+		                                                <th>Presentimo</th>
+		                                                <th>Monto Aguinaldo</th>
+		                                                <th>Monto de Presentimo</th>
+		                                               
+		                                                <th>Acciones</th>
+		                                            </tr>
+		                                        </thead>
+		                                        <tfoot>
+		                                            <tr></tr>
+		                                        </tfoot>
+		                                        <tbody>
+		                                        	{% for colaborador in Colaboradores  %}
+			                                        	<tr>
+			                                                <td style="text-align:center">{{colaborador.user.nameUser}}</td>
+			                                                <td style="text-align:center">{{colaborador.user.dni}}</td>
+                                                            <td style="text-align:center">{{colaborador.user.movilTlf}}</td>
+			                                                <td style="text-align:center">{{colaborador.user.mailUser}}</td>
+			                                                <td style="text-align:center">{{colaborador.tipoColaborador}}</td>
+			                                                <td style="text-align:center">
+			                                                	{% if colaborador.isHonorarios != False %}
+			                                                		${{colaborador.honorariosMensuales}}
+	
+			                                                	{% else %}
+			                                                		No Aplica
+			                                                	{% endif %}
+			                                                </td>
+			                                                <td style="text-align:center">
+			                                                	{% if colaborador.isMontoXClase != False %}
+			                                                		${{colaborador.montoXClase}}
+	
+			                                                	{% else %}
+			                                                		No Aplica
+			                                                	{% endif %}
+			                                                </td>
+			                                                <td style="text-align:center">
+			                                                	{% if colaborador.isComison != False %}
+			                                                		${{colaborador.comisionXClase}}
+	
+			                                                	{% else %}
+			                                                		No Aplica
+			                                                	{% endif %}
+			                                                </td>
+			                                                <td style="text-align:center">
+			                                                	{% if colaborador.isPresentimo != False %}
+			                                                		${{colaborador.presentimo}}
+	
+			                                                	{% else %}
+			                                                		No Aplica
+			                                                	{% endif %}
+			                                                </td>
+			                                                <td style="text-align:center">
+			                                                	{% if colaborador.isAguinaldo != False %}
+			                                                		${{colaborador.montoAguinaldo}}
+	
+			                                                	{% else %}
+			                                                		No Aplica
+			                                                	{% endif %}
+			                                                </td>
+			                                                <td style="text-align:center;">
+			                                                	
+			                                 
+			                                                		<span style="font-size:15px" class="label label-danger"> ${{colaborador.presentimo}} </span>
+	
+			                                                
+			                                                </td>
+			                                                
+			                                                <td>
+			                                                	<div class="btn-group"  style="position:relative!important ; with:108px!important">
+                                                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> Acciones
+                                                                    <i class="fa fa-angle-down"></i>
+                                                                </button>
+                                                                <ul class="dropdown-menu" style="min-width: 108px !important" role="menu">
+                                                                    <li>
+                                                                        <a style="background:#32c5d2;color:white;" href="{% url "Colaboradores:UpdateColaboradores" colaborador.id %}"  class="btn btn-success btn-block" > Editar </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a style="background:#337ab7; color:white;" href="{% url "Colaboradores:CuentaColaborador" colaborador.id %}"  class="btn btn-primary btn-block" > ver cuenta </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <button type="button" class="btn btn-danger btn-block" value="{{colaborador.id}}" id="{{colaborador.user.id}}" onclick="EliminarColaborador2(this.value, this.id);"> Eliminar </button>
+                                                                    </li>
+                                                                    
+                                                                    <li class="divider"> </li>
+                                                                    <!--
+                                                                    <li>
+                                                                        <button type="button" class="btn btn-info btn-block" value="{{colaborador.perfil.user.id}}" onclick=""> Editar </button>
+                                                                    </li> -->
+                                                                    
+                                                                    
+                                                                </ul>
+                                                            </div>
+			                                                
+			                                                
+			                                                </td>
+			                                            </tr>
+		                                        	{% endfor %}
+		                                        </tbody>
+		                                    </table>
+		                                </div>
+		                            </div>
+		                            <!-- END EXAMPLE TABLE PORTLET-->
+		                            <a href="javascript:void(0)" onclick="PresentimoColaboradores()"  class="btn green btn-block">IMPUTAR PRESENTIMO A COLABORADORES</a>
+		                        </div>
+		                    </div>
+		                </div>
+		                <!-- END CONTENT BODY -->
+	            	{% else %}
+	            	<!-- BEGIN CONTENT BODY -->
+		                <div class="page-content">
+		                    <!-- BEGIN PAGE HEADER-->
+		                    
+		                    <h1 class="page-title"> Listados De Colaboradores 
+		                        
+		                    </h1>
+		                    <div class="page-bar">
+		                        <ul class="page-breadcrumb">
+		                            <li>
+		                                <i class="icon-home"></i>
+		                                <a href="index.html">Inicio</a>
+		                                <i class="fa fa-angle-right"></i>
+		                            </li>
+		                            <li>
+		                                <a href="#">Colaboradores</a>
+		                                <i class="fa fa-angle-right"></i>
+		                            </li>
+		                            <li>
+		                                <span>Listado</span>
+		                            </li>
+		                        </ul>
+		                        
+		                    </div>
+		                    <!-- END PAGE HEADER-->
+		                    <div class="row">
+		                        <div class="col-md-12">
+		                            <!-- BEGIN EXAMPLE TABLE PORTLET-->
+		                            <h3>Listado Vacio</h3>
+		                            <!-- END EXAMPLE TABLE PORTLET-->
+		                            
+		                        </div>
+		                    </div>
+		                     
+		                </div>
+		                <!-- END CONTENT BODY -->
+
+            		
+            	{% endif %}
+
+            </div>
+
+
+             
+
+
+					
+{% endblock Content %}
+
+
+{% block Scripts %}
+	<!-- BEGIN CORE PLUGINS -->
+            
+            <!-- END CORE PLUGINS -->
+            <!-- BEGIN PAGE LEVEL PLUGINS -->
+            <script src="{% static "assets/global/scripts/datatable.js" %}" type="text/javascript"></script>
+            <script src="{% static "assets/global/plugins/datatables/datatables.min.js" %}" type="text/javascript"></script>
+            <script src="{% static "assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js" %}" type="text/javascript"></script>
+            <script src="{% static "assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" %}" type="text/javascript"></script>
+            <!-- END PAGE LEVEL PLUGINS -->
+            <!-- BEGIN THEME GLOBAL SCRIPTS -->
+            <!-- END THEME GLOBAL SCRIPTS -->
+            <!-- BEGIN PAGE LEVEL SCRIPTS -->
+            <script src="{% static "assets/pages/scripts/table-datatables-buttons.min.js" %}" type="text/javascript"></script>
+            <script src="{% static "assets/apps/scripts/Acciones-Socios.js" %}" type="text/javascript"></script>
+            <!-- END PAGE LEVEL SCRIPTS -->
+            <!-- BEGIN THEME LAYOUT SCRIPTS -->
+            <script src="{% static "assets/global/plugins/select2/js/select2.full.min.js" %}" type="text/javascript"></script>
+            <script src="{% static "assets/global/plugins/jquery-validation/js/jquery.validate.min.js" %}" type="text/javascript"></script>
+            <script src="{% static "assets/global/plugins/jquery-validation/js/additional-methods.min.js" %}" type="text/javascript"></script>
+            <script src="{% static "assets/global/plugins/bootstrap-wizard/jquery.bootstrap.wizard.min.js" %}" type="text/javascript"></script>
+            <!-- END PAGE LEVEL PLUGINS -->
+            <!-- BEGIN THEME GLOBAL SCRIPTS -->
+            <script src="{% static "assets/global/scripts/app.min.js" %}" type="text/javascript"></script>
+            <!-- END THEME GLOBAL SCRIPTS -->
+            <!-- BEGIN PAGE LEVEL SCRIPTS -->
+            <script src="{% static "assets/pages/scripts/form-wizard.js" %}" type="text/javascript"></script>
+            <script src="{% static "assets/apps/scripts/Colaboradores.js" %}" type="text/javascript"></script>
+            <script src="{% static "assets/apps/scripts/DeleteColaborador.js" %}" type="text/javascript"></script>
+
+
+             <script>
+            $(window).load(function() {
+			    $(".loader").fadeOut("slow");
+			    $('body').css({'overflow':'visible'});
+			});
+
+            </script>
+            
+            <!-- END THEME LAYOUT SCRIPTS -->
+{% endblock Scripts %}

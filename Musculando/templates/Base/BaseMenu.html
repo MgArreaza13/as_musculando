@@ -112,6 +112,9 @@
                             
                                 </ul>
                             </li>
+
+                            
+
                         {% endif %}
                         
                         
@@ -266,6 +269,44 @@
                             
                                 </ul>
                             </li>
+                            {% if liquidacion == False %}
+                                <li class="nav-item  ">
+                                    <a href="javascript:;" class="nav-link nav-toggle">
+                                        <i class="fa fa-users"></i>
+                                        <span class="title">LIQUIDACION COLABORADORES</span>
+                                        <span class="arrow"></span>
+                                    </a>
+                                    <ul class="sub-menu">
+                                        <li class="nav-item  ">
+                                            <a href="{% url "Colaboradores:Liquidacion" %}" class="nav-link ">
+                                                <span class="title">LIQUIDACION </span>
+                                            </a>
+                                        </li>
+                                
+                                    </ul>
+                                </li>
+                                
+                            {% endif %}
+
+
+                            {% if presentimo == False %}
+                                <li class="nav-item  ">
+                                    <a href="javascript:;" class="nav-link nav-toggle">
+                                        <i class="fa fa-users"></i>
+                                        <span class="title">PRESENTIMO COLABORADORES</span>
+                                        <span class="arrow"></span>
+                                    </a>
+                                    <ul class="sub-menu">
+                                        <li class="nav-item  ">
+                                            <a href="{% url "Colaboradores:Presentimo" %}" class="nav-link ">
+                                                <span class="title">PRESENTIMO</span>
+                                            </a>
+                                        </li>
+                                
+                                    </ul>
+                                </li>
+                                
+                            {% endif %}
                         {% endif %}
                         <li class="nav-item  ">
                             <a href="?p=" class="nav-link nav-toggle">
@@ -339,4 +380,5 @@
                     <!-- END SIDEBAR MENU -->
                 </div>
                 <!-- END SIDEBAR -->
+                
             </div>

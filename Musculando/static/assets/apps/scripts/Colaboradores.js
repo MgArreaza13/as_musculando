@@ -1,4 +1,4 @@
-
+$('#id_montoAguinaldo').removeAttr('disabled', 'disabled');
 setInterval(function () {
 	//console.log('miguel')
 	if (parseInt($('#id_honorariosMensuales').val()) > 0) {
@@ -6,12 +6,18 @@ setInterval(function () {
 		//console.log('activo')
 		$('#id_isHonorarios').prop('checked', true);
 		$('#id_isHonorarios').val('True');
+		var aguinaldo = parseInt($('#id_honorariosMensuales').val()) / 2;
+		$('#id_montoAguinaldo').val(aguinaldo);
 	}
+	
+	
 	else
 	{
 		//console.log('desactivo')
 		$('#id_isHonorarios').prop('checked', false);
 		$('#id_isHonorarios').val('False');
+		$('#id_montoAguinaldo').val(0);
+
 	}
 	if (parseInt($('#id_montoXClase').val()) >0) {
 		$('#id_isMontoXClase').prop('checked', true);
@@ -135,3 +141,118 @@ function EliminarColaborador2(id_colaborador,id_profile) {
 
 
 
+
+
+
+function PagarCuentaColaboradores() {
+	//obtener id
+	//preguntar si lo eliminara 
+	//eliminar
+	//dar una respuesta 
+
+	swal({
+		  title: '¿Estas Seguro?',
+		  text: "¿Estas Seguro que deseas pagar el monto total de la cuenta de colaboradores? " +
+		  		"este proceso se hara en segundo plano, ya que puede tardar un poco el proceso. " +
+		  		"Pero se le avisara tan pronto haya terminado" ,
+		  type: 'warning',
+		  showCancelButton: true,
+		  confirmButtonColor: '#3085d6',
+		  cancelButtonColor: '#d33',
+		  confirmButtonText: 'Si, Quiero Pagarlo!'
+		}).then(function (result) {
+			if(result.value){
+
+				$.ajax({
+		    // la URL para la petición
+		    url : '/Colaboradores/Solicitud/Para/Procesar/Liquidacion/de/Colaboradores',
+		    
+		    dataType : 'json',
+		    
+		    success : function(status) {
+		    	if (status == 200) {
+		    		//todo correcto 
+		    		swal(
+					      'Proceso!',
+					      'Estamos procesando los pagos, le informaremos a penas terminemos.',
+					      'success'
+					    );
+		        	location.href ="/";
+		    	}
+		    	else{
+		    		swal("OOOh!", "Hemos tenido un problema con su peticion", "error")
+		    	}
+		    },
+		 
+		    // código a ejecutar si la petición falla;
+		    // son pasados como argumentos a la función
+		    // el objeto de la petición en crudo y código de estatus de la petición
+		    error : function(xhr, status) {
+		        swal("OOOh!", "Hemos tenido un problema con el Servidor!", "error")
+		    },
+		 
+		    // código a ejecutar sin importar si la petición falló o n
+		});
+           }
+           
+        });
+
+
+}
+
+
+
+function PresentimoColaboradores() {
+	//obtener id
+	//preguntar si lo eliminara 
+	//eliminar
+	//dar una respuesta 
+
+	swal({
+		  title: '¿Estas Seguro?',
+		  text: "¿Estas Seguro que deseas cargar el monto total del presentimo de los colaboradores? " +
+		  		"este proceso se hara en segundo plano, ya que puede tardar un poco el proceso. " +
+		  		"Pero se le avisara tan pronto haya terminado" ,
+		  type: 'warning',
+		  showCancelButton: true,
+		  confirmButtonColor: '#3085d6',
+		  cancelButtonColor: '#d33',
+		  confirmButtonText: 'Si, Quiero Pagarlo!'
+		}).then(function (result) {
+			if(result.value){
+
+				$.ajax({
+		    // la URL para la petición
+		    url : '/Colaboradores/Solicitud/Para/Procesar/Presentimo/de/Colaboradores',
+		    
+		    dataType : 'json',
+		    
+		    success : function(status) {
+		    	if (status == 200) {
+		    		//todo correcto 
+		    		swal(
+					      'Proceso!',
+					      'Estamos procesando los cargos, le informaremos a penas terminemos.',
+					      'success'
+					    );
+		        	location.href ="/";
+		    	}
+		    	else{
+		    		swal("OOOh!", "Hemos tenido un problema con su peticion", "error")
+		    	}
+		    },
+		    // código a ejecutar si la petición falla;
+		    // son pasados como argumentos a la función
+		    // el objeto de la petición en crudo y código de estatus de la petición
+		    error : function(xhr, status) {
+		        swal("OOOh!", "Hemos tenido un problema con el Servidor!", "error")
+		    },
+		 
+		    // código a ejecutar sin importar si la petición falló o n
+		});
+           }
+           
+        });
+
+
+}

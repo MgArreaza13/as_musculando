@@ -169,10 +169,10 @@ var Login = function () {
 		    $.backstretch([
 		        
 		        
-		        "http://localhost:8000/static/assets/pages/img/login/l3.jpg",
-		        "http://localhost:8000/static/assets/pages/img/login/l4.jpg",
-		        "http://localhost:8000/static/assets/pages/img/login/l5.jpg",
-		        "http://localhost:8000/static/assets/pages/img/login/l6.jpg",
+		        "http://179.43.123.41:8003/static/assets/pages/img/login/l3.jpg",
+		        "http://179.43.123.41:8003/static/assets/pages/img/login/l4.jpg",
+		        "http://179.43.123.41:8003/static/assets/pages/img/login/l5.jpg",
+		        "http://179.43.123.41:8003/static/assets/pages/img/login/l6.jpg",
 		        
 		        
 		        ], {
