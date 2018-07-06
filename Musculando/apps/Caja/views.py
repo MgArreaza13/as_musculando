@@ -11,8 +11,12 @@ from apps.Configuracion.models import tb_plan
 from apps.Configuracion.models import tb_tipoEgreso
 from apps.Proveedores.models import tb_proveedor
 from django.contrib.auth.decorators import login_required
+from apps.Configuracion.models import tb_tipoIngreso
+from apps.Caja.models import tb_ingresos
 ##################FORMULARIOS#############################
 from apps.Caja.forms import EgresoRegisterForm
+from apps.Caja.forms import IngresoRegisterForm
+
 ################SCRIPTS#########################
 from apps.Scripts.DesactivateUser import Desactivate_Register
 # Create your views here.
@@ -29,6 +33,19 @@ def NewMensualIngreso(request):
 	}
 	return render(request, 'Caja/NuevoPagodeMensualidad.html', contexto)
 	
+
+
+@login_required(login_url = 'Panel:Login' )
+def ListOtroIngresos(request):
+	ingresos = tb_ingresos.objects.all()
+	contexto = {
+		'ingresos':ingresos
+	}
+	return render(request, 'Caja/OtroIngresosList.html', contexto)
+
+
+
+
 @login_required(login_url = 'Panel:Login' )
 def ListadoDeIngresos(request):
 	ingresos = tb_ingreso_mensualidad.objects.all()
@@ -64,6 +81,31 @@ def NuevoReporteDePagoMensual(request):
 	return HttpResponse(200)
 
 
+
+
+
+def NewIngreso(request):
+	Form = IngresoRegisterForm() 
+	if request.method == 'POST':
+		Form  = IngresoRegisterForm(request.POST, request.FILES  or None)
+		if Form.is_valid():
+			Form = Form.save(commit=False)
+			Form.user = request.user
+			Form.save()
+			return redirect('Caja:ListOtroIngresos')
+		else:
+			print('error')
+	else:
+		pass
+	contexto = {
+		'Form':Form,
+	}
+
+	return render(request, 'Caja/newingreso.html', contexto)
+
+
+
+
 ###################################EGRESOS###############################################
 
 
@@ -87,7 +129,6 @@ def NewEgreso(request):
 		print(request.POST)
 		Form  = EgresoRegisterForm(request.POST, request.FILES  or None)
 		if Form.is_valid():
-			print('FORMULARIO ES VALIDO')
 			Form = Form.save(commit=False)
 			Form.user = request.user
 			if request.POST['proveedor'] != "":
@@ -120,9 +161,11 @@ def NewEgreso(request):
 
 def Resumen(request):
 	ingresos = tb_ingreso_mensualidad.objects.all()
+	ingresos_especial = tb_ingresos.objects.all()
 	egresos = tb_egreso.objects.all()
 	contexto = {
 		'ingresos':ingresos,
+		'ingresos_especial':ingresos_especial,
 		'egresos':egresos
 	}
 	return render(request, 'Caja/Resumen.html', contexto)

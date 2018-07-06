@@ -9,6 +9,7 @@ from apps.Configuracion.models import tb_plan
 from apps.Configuracion.models import tb_formasDePago
 from apps.Configuracion.models import tb_tipoColaborador
 from apps.Configuracion.models import tb_tipoEgreso
+from apps.Configuracion.models import tb_tipoIngreso
 from apps.Socios.models import tb_socio
 
 ##############FORMULARIOS################
@@ -92,10 +93,12 @@ def Configuracion_g(request):
 	formas_de_pago 			= tb_formasDePago.objects.all()
 	tipos_de_colaboradores  = tb_tipoColaborador.objects.all()
 	tipos_de_egresos		= tb_tipoEgreso.objects.all()
+	tipos_de_ingresos		= tb_tipoIngreso.objects.all()
 	contexto = {
 	'formas_de_pago':formas_de_pago,
 	'tipos_de_colaboradores':tipos_de_colaboradores,
-	'tipos_de_egresos':tipos_de_egresos
+	'tipos_de_egresos':tipos_de_egresos,
+	'tipos_de_ingresos':tipos_de_ingresos
 	} 
 	return render(request, 'Configuracion/Configuracion_General.html', contexto)
 
@@ -261,6 +264,58 @@ def UpdateTipoEgreso(request):
 	queryset = tb_tipoEgreso.objects.get(id = id_tipo_de_egreso)
 	queryset.user = request.user
 	queryset.tipodeEgreso = request.GET.get('nombre_tipo_egreso', None)
+	queryset.save()
+	status = 200 
+	return HttpResponse(status)
+
+
+
+
+######################################TIPOS DE INGRESOS#############################################
+
+
+
+def NuevoTipoDeIngreso(request):
+	status = None
+	tipo_de_ingreso = request.GET.get('TipoDeIngreso', None)
+	queryset = tb_tipoIngreso.objects.filter(tipodeIngreso = tipo_de_ingreso )
+	if (len(queryset) >= 1):
+		status = 401
+	else:
+		tipo = tb_tipoIngreso()
+		tipo.user = request.user
+		tipo.tipodeIngreso =  tipo_de_ingreso
+		tipo.save()
+		status = 200
+	return HttpResponse(status)
+
+
+def DeleteTipoDeIngreso(request):
+	status = None
+	id_tipo_de_ingreso = request.GET.get('id', None)
+	queryset = tb_tipoIngreso.objects.get(id=id_tipo_de_ingreso)
+	queryset.delete()
+	status = 200
+	return HttpResponse(status)
+
+
+def GetTipoIngreso(request):
+	id_tipo_de_ingreso = request.GET.get('id_tipo_ingreso', None)
+	queryset = tb_tipoIngreso.objects.get(id = id_tipo_de_ingreso)
+	tipo_ingreso = {
+		'user':str(queryset.user),
+		'tipodeIngreso':queryset.tipodeIngreso,
+	}
+	return JsonResponse(tipo_ingreso)
+
+
+
+
+def UpdateTipoIngreso(request):
+	id_tipo_de_ingreso = request.GET.get('id_tipo_ingreso', None)
+	queryset = tb_tipoIngreso.objects.get(id = id_tipo_de_ingreso)
+	queryset.user = request.user
+	queryset.tipodeIngreso = request.GET.get('nombre_tipo_ingreso', None)
 	queryset.save()
 	status = 200 
 	return HttpResponse(status)

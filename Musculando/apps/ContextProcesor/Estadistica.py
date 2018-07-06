@@ -1,6 +1,8 @@
 ##########################MODELOS#######################
 from apps.Caja.models import tb_ingreso_mensualidad
 from apps.Caja.models import tb_egreso
+from apps.Caja.models import tb_ingresos
+
 from apps.Socios.models import tb_socio
 from apps.Configuracion.models import tb_plan
 from apps.UserProfile.models import tb_profile
@@ -11,28 +13,41 @@ from django.db.models import Count, Min, Sum, Avg
 
 def ResumenIngresos(request):
 	#Total ingresos 
-	TotalIngresos = tb_ingreso_mensualidad.objects.all().aggregate(total=Sum('monto'))
+	ingresos_socios 	= tb_ingreso_mensualidad.objects.all().aggregate(total=Sum('monto'))
+	ingresos_especial 	= tb_ingresos.objects.all().aggregate(total=Sum('monto'))
+	if ingresos_socios['total'] == None:
+		ingresos_socios['total'] = 0
+	if ingresos_especial['total'] == None:
+		ingresos_especial['total'] = 0
+	TotalIngresos = ingresos_socios['total'] + ingresos_especial['total']
+
+	
 	# ingresos mensual 
-	
-	totalIngrsos_mensual = tb_ingreso_mensualidad.objects.filter(dateCreate__month = date.today().month).aggregate(total_mensual=Sum('monto'))
-	
+	ingreso_mensual_socio 		=	tb_ingreso_mensualidad.objects.filter(dateCreate__month = date.today().month).aggregate(total_mensual=Sum('monto'))
+	ingreso_mensual 			=	tb_ingresos.objects.filter(dateCreate__month = date.today().month).aggregate(total_mensual=Sum('monto'))
+	if ingreso_mensual_socio['total_mensual'] == None:
+		ingreso_mensual_socio['total_mensual'] = 0
+	if ingreso_mensual ['total_mensual'] == None:
+		ngreso_mensual ['total_mensual'] = 0
+
+	totalIngrsos_mensual = float(ingreso_mensual_socio['total_mensual']) + float(ingreso_mensual['total_mensual'])
 	#Total Egresos
 	TotalEgresos = tb_egreso.objects.all().aggregate(total=Sum('monto'))
 	#Egresos Mensual 
 	totalEgresos_mensual = tb_egreso.objects.filter(dateCreate__month = date.today().month).aggregate(total_mensual=Sum('monto'))
 
-	if len(TotalIngresos) == 0 or len(TotalEgresos) == 0 :
-		balanceGeneral = 0
-	elif  TotalIngresos['total'] != None and TotalEgresos['total']!=None:
-		balanceGeneral = TotalIngresos['total'] - TotalEgresos['total']
+	if len(TotalEgresos) == 0 :
+		balanceGeneral = TotalIngresos
+	elif  TotalEgresos['total']!=None:
+		balanceGeneral = TotalIngresos - TotalEgresos['total']
 	else :
 		balanceGeneral = 0
 	#print(balanceGeneral)
 
-	if len(totalIngrsos_mensual) == 0 or len(totalEgresos_mensual) == 0:
-		balanceGeneralMensual = 0
-	elif totalIngrsos_mensual['total_mensual'] != None and totalEgresos_mensual['total_mensual'] != None:
-		balanceGeneralMensual = float(totalIngrsos_mensual['total_mensual']) - float(totalEgresos_mensual['total_mensual'])
+	if len(totalEgresos_mensual) == 0:
+		balanceGeneralMensual = totalIngrsos_mensual
+	elif totalEgresos_mensual['total_mensual'] != None:
+		balanceGeneralMensual = totalIngrsos_mensual - totalEgresos_mensual['total_mensual']
 	else:
 		balanceGeneralMensual = 0
 	return {'totalIngresos':TotalIngresos, 'totalIngrsos_mensual':totalIngrsos_mensual, 'TotalEgresos':TotalEgresos, 'totalEgresos_mensual':totalEgresos_mensual, 'balanceGeneral':balanceGeneral, 'balanceGeneralMensual':balanceGeneralMensual }

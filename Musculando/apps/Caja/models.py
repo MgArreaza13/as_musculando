@@ -4,6 +4,7 @@ from apps.Configuracion.models import tb_plan
 from apps.Configuracion.models import tb_tipoEgreso
 from apps.Proveedores.models import tb_proveedor
 from apps.Colaboradores.models import tb_colaboradores
+from apps.Configuracion.models import tb_tipoIngreso
 # Create your models here.
 
 class tb_ingreso_mensualidad (models.Model):
@@ -16,7 +17,7 @@ class tb_ingreso_mensualidad (models.Model):
 	monto					=	models.FloatField(default='0000', null=True,)
 	descripcion	 			=	models.TextField(default='Sin Descripcion', null=True, max_length=3000)
 	nombre					=	models.CharField(default='Sin nombre', null=False, max_length=300)
-	apellido					=	models.CharField(default='Sin Apellido', null=False, max_length=300)
+	apellido				=	models.CharField(default='Sin Apellido', null=False, max_length=300)
 	correo					=	models.EmailField(default='sin@email.com', null=False, max_length=30)
 	#CollaboratorFavoriteKf	= 	models.ForeignKey(tb_collaborator, on_delete=models.CASCADE, null=False, default='')
 	#addressClientTwo		= 	models.TextField(default='', null=False)
@@ -30,6 +31,24 @@ class tb_ingreso_mensualidad (models.Model):
 	class Meta:
 		managed = True
 		db_table = 'ingreso_mensualidad' 
+
+
+
+
+
+class tb_ingresos(models.Model):
+	user 							=	models.ForeignKey(settings.AUTH_USER_MODEL)
+	monto							=	models.FloatField(default='0000', null=True,)
+	descripcion	 					=	models.TextField(default='Sin Descripcion', null=True, max_length=3000)
+	tipoDeIngresos					=   models.ForeignKey(tb_tipoIngreso, on_delete=models.CASCADE, null=True,)
+	dateCreate						=	models.DateField(auto_now=True, blank=False)
+	
+	def __str__(self):
+		return self.user.username
+	class Meta:
+		managed = True
+		db_table = 'ingresos' 
+
 
 
 

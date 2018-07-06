@@ -1,7 +1,7 @@
 {% extends "../Base/Base.html" %}
 {% load staticfiles %}
 {% block Title %}
-	Musculando | Nuevo Egreso
+	Musculando | Nuevo Ingreso
 {% endblock Title %}
 
 
@@ -44,7 +44,7 @@
                                             <div class="portlet-title">
                                                 <div class="caption">
                                                     
-                                                    <span class="caption-subject font-blue-hoki bold uppercase">Registro de Egresos</span>
+                                                    <span class="caption-subject font-blue-hoki bold uppercase">Registro de Ingresos</span>
                                                     <span class="caption-helper">Musculando</span>
                                                 </div>
                                                 <div class="tools">
@@ -64,7 +64,7 @@
                                                         <div class="col-md-3"></div>
                                                         
                                                         <div class="col-md-6">
-                                                            <h3 class="form-section">Datos del Egreso <span style="color:red;">*</span></h3>
+                                                            <h3 class="form-section">Datos del Ingreso <span style="color:red;">*</span></h3>
                                                            
 
                                                                 
@@ -97,28 +97,9 @@
 										               
 										                   {% endif %}   
 										                   {% endfor %}
-                                                           <div id="ColaboradorInput" class="form-group">
-                                                                        <label class="control-label">Colaborador <span style="color:red;">*</span></label>
-                                                                         <select class="form-control" name="colaborador" id="id_colaborador">
-                                                                             <option selected="" value="">----------</option>
-
-                                                                             {% for colaborador  in  colaboradores %}
-                                                                                 <option value="{{colaborador.id}}">{{colaborador.user.nameUser}}</option>
-                                                                             {% endfor %}
-                                                                         </select>
-                                                                        
-                                                                    </div>
-                                                                    <div id="ProveedorInput" class="form-group">
-                                                                        <label class="control-label">Proveedor<span style="color:red;">*</span></label>
-                                                                         <select class="form-control" name="proveedor" id="id_proveedor">
-                                                                            <option selected="" value="">----------------</option>
-                                                                            {% for proveedor  in proveedores %}
-                                                                                <option value="{{proveedor.id}}">{{proveedor.nameProveedor}}</option>
-                                                                            {% endfor %}
-                                                                             
-                                                                         </select>  
-                                                                        
-                                                                    </div>
+                                                           
+                                                                    
+                                                                    
                                                                
                                                                 
                                                             </div>
@@ -143,7 +124,7 @@
                                                 <!-- END FORM-->
                                             </div>
                                         </div>
-                                        <a href="{% url "Caja:ListEgresos" %}"  class="btn btn-danger btn-block">Regresar</a>
+                                        <a href="{% url "Caja:ListOtroIngresos" %}"  class="btn btn-danger btn-block">Regresar</a>
                 </div>
                 <!-- END CONTENT BODY -->
             </div>

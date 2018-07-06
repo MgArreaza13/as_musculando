@@ -50,3 +50,15 @@ class tb_tipoEgreso(models.Model):
 	class Meta:
 		managed = True
 		db_table = 'tipo_de_egreso'
+
+
+
+class tb_tipoIngreso(models.Model):
+	user 					=	models.ForeignKey(settings.AUTH_USER_MODEL)
+	tipodeIngreso			=	models.CharField(default='Sin Datos', null=False, max_length=30, unique=True)
+	dateCreate				=	models.DateField(auto_now=True, blank=False)
+	def __str__(self):
+		return self.tipodeIngreso
+	class Meta:
+		managed = True
+		db_table = 'tipo_de_ingreso'

@@ -118,9 +118,19 @@
                         </div>
                     </div>
                     <!-- END THEME PANEL -->
-                    <h1 class="page-title"> Bienvenido  | {{profile_response.perfil.nameUser}}
+                    <h1 class="page-title"> Bienvenido  | {{profile_response.perfil.nameUser}}  
                         <small>Perfil de Usuario</small>
+                    
                     </h1>
+                    {% if is_perfil == False %}
+                        <div class="alert alert-block alert-warning fade in">
+                        
+                        <h2 class="alert-heading">Casi Estamos Listos!</h2>
+                        <p>Te damos las gracias por registrarte en nuestro sistema, estamos casi listo de brindarte la mejor experiencia entre los software de salud nunca antes vista, solamente estamos a un paso, por favor completa tu perfil y podras disponer de todas las opciones necesarias para una gran experiencia de usuario. </p>
+                                       
+                    </div>
+                    {% endif %}
+                    
                     <!-- END PAGE HEADER-->
                     <div class="row">
                         <div class="col-md-12">

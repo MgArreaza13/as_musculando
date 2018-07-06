@@ -32,6 +32,13 @@ from apps.Configuracion.views import GetTipoEgreso
 from apps.Configuracion.views import UpdateTipoEgreso
 
 
+##############################TIPO DE INGRESO###########################################
+from apps.Configuracion.views import NuevoTipoDeIngreso
+from apps.Configuracion.views import DeleteTipoDeIngreso
+from apps.Configuracion.views import GetTipoIngreso
+from apps.Configuracion.views import UpdateTipoIngreso
+
+
 urlpatterns = [
 	########################PLANES#########################################
 	url(r'^Planes/Lista/$', ListaDePlanes ,  name='ListaDePlanes' ),
@@ -57,6 +64,11 @@ urlpatterns = [
   	url(r'^Tipo/De/Egreso/Solicitud/Nuevo/Registro/$', NuevoTipoDeEgreso ,  name='NuevoTipoDeEgreso' ),
 	url(r'^Tipo/De/Egreso/Get/Registro/$', GetTipoEgreso ,  name='GetTipoEgreso' ),
 	url(r'^Tipo/De/Egreso/Update/Registro/$', UpdateTipoEgreso ,  name='UpdateTipoEgreso' ),
+	##############################TIPO DE INGRESO###########################################
+	url(r'^Tipo/De/Ingreso/Solicitud/Eliminar/Registro/$', DeleteTipoDeIngreso ,  name='DeleteTipoDeIngreso' ),
+  	url(r'^Tipo/De/Ingreso/Solicitud/Nuevo/Registro/$', NuevoTipoDeIngreso ,  name='NuevoTipoDeIngreso' ),
+	url(r'^Tipo/De/Ingreso/Get/Registro/$', GetTipoIngreso ,  name='GetTipoIngreso' ),
+	url(r'^Tipo/De/Ingreso/Update/Registro/$', UpdateTipoIngreso ,  name='UpdateTipoIngreso' ),
 
 
 

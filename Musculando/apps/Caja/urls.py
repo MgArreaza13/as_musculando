@@ -6,6 +6,8 @@ from apps.Caja.views import ListadoDeIngresos
 from apps.Caja.views import ListEgresos
 from apps.Caja.views import Resumen
 from apps.Caja.views import NewEgreso
+from apps.Caja.views import ListOtroIngresos
+from apps.Caja.views import NewIngreso
 
 
 urlpatterns = [
@@ -15,9 +17,11 @@ urlpatterns = [
 	#url(r'^nuevousuario/$', NuevoUsuario, name='NuevoUsuario'  ),
 	url(r'^Resumen/$', Resumen, name='Resumen'  ),
 	#url(r'^Nueva/Peticion/de/Nuevo/Proveedor$', NuevoProveedor, name='NuevoProveedor'  ),
-	url(r'^Ingresos/Lista/$', ListadoDeIngresos , name='ListadoDeIngresos'  ),
+	url(r'^Ingresos/Lista$', ListOtroIngresos , name='ListOtroIngresos'  ),
+	url(r'^Ingresos/Mensualidad/Lista$', ListadoDeIngresos , name='ListadoDeIngresos'  ),
 	url(r'^Egresos/Lista/$', ListEgresos , name='ListEgresos'  ),
 	url(r'^Egresos/Nuevo/$', NewEgreso , name='NewEgreso'  ),
+	url(r'^Ingresos/Nuevo/$', NewIngreso , name='NewIngreso'  ),
 	url(r'^Nuevo/Pago/De/Mensualidad/$', NewMensualIngreso , name='NewMensualIngreso'  ),
   	url(r'^Nueva/Solicitud/Pago/De/Mensualidad/$', NuevoReporteDePagoMensual , name='NuevoReporteDePagoMensual'  ),
 ]

@@ -11,6 +11,7 @@ from apps.UserProfile.models import tb_profile
 from apps.UserProfile.forms import ProfileRegisterForm
 from apps.UserProfile.forms import ProfileForm
 from apps.UserProfile.forms import UsuarioForm
+from apps.ContextProcesor.UserProfile import QueryUser
 # Create your views here.
 
 
@@ -67,6 +68,13 @@ def RegistroUser(request):
 @login_required(login_url = 'Panel:Login' )
 def Perfil(request):
 	perfil = tb_profile.objects.filter(user__id = request.user.id)
+	is_perfil = None
+	if QueryUser(request.user.id) == False or perfil[0].is_complete == False :
+		#No tiene Perfil
+		is_perfil = False
+	else:
+		#tiene perfil
+		is_perfil = True
 	if len(perfil) == 0:
 		Form = ProfileForm()
 	else:
@@ -87,8 +95,10 @@ def Perfil(request):
 				perfil.image = 'Null'
 			perfil.is_complete = True
 			perfil.save()
+			return redirect('Usuarios:Perfil')
 	contexto = {
 	'Form':Form,
+	'is_perfil':is_perfil,
 	}
 	return render(request, 'UserProfile/Profile.html', contexto )
 

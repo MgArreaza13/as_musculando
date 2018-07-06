@@ -1,7 +1,7 @@
 {% extends "../Base/Base.html" %}
 {% load staticfiles %}
 {% block Title %}
-	Listado De Egresos
+	Listado De Ingresos
 {% endblock Title %}
 
 {% block stayle %}
@@ -37,14 +37,14 @@
             <!-- END SIDEBAR -->
             <!-- BEGIN CONTENT -->
             <div class="page-content-wrapper">
-            	{% if egresos %}
+            	{% if ingresos %}
 		                <!-- BEGIN CONTENT BODY -->
 		                <div class="page-content">
 		                    <!-- BEGIN PAGE HEADER-->
 		                    <!-- BEGIN THEME PANEL -->
 		                   
 		                    <!-- END THEME PANEL -->
-		                    <h1 class="page-title"> Listados De Egresos 
+		                    <h1 class="page-title"> Listados De Ingresos 
 		                        
 		                    </h1>
 		                    <div class="page-bar">
@@ -55,7 +55,7 @@
 		                                <i class="fa fa-angle-right"></i>
 		                            </li>
 		                            <li>
-		                                <a href="#">Egresos</a>
+		                                <a href="#">Ingresos</a>
 		                                <i class="fa fa-angle-right"></i>
 		                            </li>
 		                            <li>
@@ -82,11 +82,11 @@
 		                                        <thead>
 		                                            <tr>
 		                                                <th>Usuario</th>
-		                                                <th>Proveedor</th>
-		                                                <th>Colaborador</th>
+		                                                
 		                                                <th>Monto</th>
-		                                                <th>Tipo De Egreso</th>
+		                                                
 		                                                <th>Descripcion</th>
+		                                                <th>Tipo De Ingreso</th>
 		                                                <th>Fecha de Registro</th>
 		                                            </tr>
 		                                        </thead>
@@ -94,28 +94,14 @@
 		                                            
 		                                        </tfoot>
 		                                        <tbody>
-		                                        	{% for egresos in egresos  %}
+		                                        	{% for ingreso in ingresos  %}
 			                                        	<tr>
-			                                                <td>{{egresos.user}}</td>
-			                                                <td>
-			                                                	{% if egresos.proveedor == None %}
-			                                                		No Aplica 
-			                                                	{% else %}
-			                                                		{{egresos.proveedor}}
-			                                                	{% endif %}
-			                                                </td>
-			                                                <td>
-			                                                	{% if egresos.colaborador == None %}
-			                                                		No Aplica 
-			                                                	{% else %}
-			                                                		{{egresos.colaborador}}
-			                                                	{% endif %}
-			                                                </td>
-			                                                <td><span class="label label-danger"> ${{egresos.monto}} </span></td>
-			                                                <td>{{egresos.tipoDeEgreso}}</td>
-			                                                <td>{{egresos.descripcion}}</td>
-			                                                <td>{{egresos.dateCreate}}</td>
-			                                              
+			                                                <td>{{ingreso.user}}</td>
+			                                                
+			                                                <td><span class="label label-success"> ${{ingreso.monto}} </span></td>
+			                                                <td>{{ingreso.descripcion}}</td>
+			                                                <td>{{ingreso.tipoDeIngresos}}</td>
+			                                                <td>{{ingreso.dateCreate}}</td>
 			                                            </tr>
 		                                        	{% endfor %}
 		                                        </tbody>
@@ -126,7 +112,7 @@
 		                           
 		                        </div>
 		                    </div>
-		                    <a href="{% url "Caja:NewEgreso" %}"  class="btn btn-danger btn-block">Registrar Egreso</a>
+		                    <a href="{% url "Caja:NewIngreso" %}"  class="btn btn-success btn-block">Registrar Ingreso Especial</a>
 		                </div>
 		                <!-- END CONTENT BODY -->
 	            	{% else %}
@@ -134,7 +120,7 @@
 		                <div class="page-content">
 		                    <!-- BEGIN PAGE HEADER-->
 		                    
-		                    <h1 class="page-title"> Listados De Egresos 
+		                    <h1 class="page-title"> Listados De Ingresos 
 		                        
 		                    </h1>
 		                    <div class="page-bar">
@@ -145,7 +131,7 @@
 		                                <i class="fa fa-angle-right"></i>
 		                            </li>
 		                            <li>
-		                                <a href="#">Egresos</a>
+		                                <a href="#">Ingresos</a>
 		                                <i class="fa fa-angle-right"></i>
 		                            </li>
 		                            <li>
@@ -163,10 +149,11 @@
 		                            
 		                        </div>
 		                    </div>
-            				<a href="{% url "Caja:NewEgreso" %}"  class="btn btn-danger btn-block">Registrar Egreso</a>
+		                    <a href="{% url "Caja:NewIngreso" %}"  class="btn btn-success btn-block">Registrar Ingreso Especial</a>
 		                </div>
 		                <!-- END CONTENT BODY -->
 
+            		
             	{% endif %}
             </div>
 {% endblock Content %}

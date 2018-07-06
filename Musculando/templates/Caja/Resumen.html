@@ -73,8 +73,8 @@
                                     <div class="number">
                                         <h3 class="font-white-sharp" style="color:white;">
                                             <span style="color:white;" data-counter="counterup" data-value="
-                                             {% if totalIngresos.total != None %}
-                                               {{totalIngresos.total}} 
+                                             {% if totalIngresos != None %}
+                                               {{totalIngresos}} 
                                             {% else %}
                                                 0
                                             {% endif %}
@@ -108,8 +108,8 @@
                                 <div class="display">
                                     <div class="number">
                                         <h3 class="font-white-sharp" style="color:white;">
-                                            <span  style="color:white;"data-counter="counterup" data-value=" {% if totalIngrsos_mensual.total_mensual != None %}
-                                               {{totalIngrsos_mensual.total_mensual}} 
+                                            <span  style="color:white;"data-counter="counterup" data-value=" {% if totalIngrsos_mensual != None %}
+                                               {{totalIngrsos_mensual}} 
                                             {% else %}
                                                 0
                                             {% endif %}">0</span>
@@ -413,8 +413,7 @@
 		                                                        <span></span>
 		                                                    </label>
 		                                                </th>
-		                                                		 <th>User</th>
-				                                                <th>Plan</th>
+		                                                		<th>User</th>
 				                                                <th>Monto</th>
 				                                                <th>descripcion</th>
 				                                               	<th>Fecha de Registro</th>
@@ -435,9 +434,8 @@
 		                                                    </label>
 		                                                </td>
 		                                                <td> {{ingreso.user}} </td>
-		                                                <td>
-		                                                    {{ingreso.plan}}
-		                                                </td>
+		                                                
+		                                                
 		                                                <td><span class="label label-success"> ${{ingreso.monto}} </span></td>
 		                                               
 		                                                <td>
@@ -448,7 +446,26 @@
 		                                            </tr>
 		                                        {% endfor %}
 		                                            
-					                                        	
+					                            {% for ingreso in ingresos_especial  %}
+                                                    <tr class="odd gradeX">
+                                                        <td>
+                                                            <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                                                                <input type="checkbox" class="checkboxes" value="1" />
+                                                                <span></span>
+                                                            </label>
+                                                        </td>
+                                                        <td> {{ingreso.user}} </td>
+                                                        
+                                                        
+                                                        <td><span class="label label-success"> ${{ingreso.monto}} </span></td>
+                                                       
+                                                        <td>
+                                                           {{ingreso.descripcion}}
+                                                        </td>
+                                                        <td> {{ingreso.dateCreate}} </td>
+                                                        
+                                                    </tr>
+                                                {% endfor %}            	
 				                                        	
 		                                            
 		                                        </tbody>
