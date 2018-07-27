@@ -7,7 +7,7 @@ from apps.UserProfile.models import tb_profile
 # Create your models here.
 
 PAGO_CHOICES = (
-    ('honorarios Mensuales', 'Honorarios Mensuales'),
+    ('Honorarios Mensuales', 'Honorarios Mensuales'),
     ('Monto Por Clase', 'Monto Por clase'),
 	('Sin Definir', 'Sin Definir'),
     ('Comision Por Clase', 'Comision Por Clase'),

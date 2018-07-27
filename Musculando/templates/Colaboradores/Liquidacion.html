@@ -210,7 +210,7 @@
 		                                    <div class="tools"> </div>
 		                                </div>
 		                                <div class="portlet-body">
-		                                    <table class="table table-striped table-bordered table-hover" style="padding-bottom:8em;" id="sample_1">
+		                                    <table class="table table-striped table-bordered table-hover" style="padding-bottom:9em;" id="sample_1">
 		                                        <thead>
 		                                            <tr>
 		                                                <th>Nombre de Usuario</th>
@@ -302,6 +302,16 @@
                                                                     <li>
                                                                         <a style="background:#32c5d2;color:white;" href="{% url "Colaboradores:UpdateColaboradores" colaborador.id %}"  class="btn btn-success btn-block" > Editar </a>
                                                                     </li>
+
+                                                                    {% if liquidacion == True %}
+                                                                        
+                                                                    <li>
+                                                                        <button style="background:#e91e63;color:white;" href="{% url " type="button" value="{{colaborador.id}}" onclick="LiquidarColaborador(this.value)"  class="btn btn-success btn-block" > Liquidar </button>
+                                                                    </li>
+                                                                    {% endif %}
+
+
+
                                                                     <li>
                                                                         <a style="background:#337ab7; color:white;" href="{% url "Colaboradores:CuentaColaborador" colaborador.id %}"  class="btn btn-primary btn-block" > ver cuenta </a>
                                                                     </li>

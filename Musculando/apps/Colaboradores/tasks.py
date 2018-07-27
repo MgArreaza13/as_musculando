@@ -11,6 +11,8 @@ from apps.tasks.Email_tasks import administradorNotificacion
 from apps.tasks.Email_tasks import administradorNotificacionPresentimo
 from apps.tasks.Email_tasks import PresentimoColaborador
 from apps.tasks.Email_tasks import administradorNotificacionAguinaldo
+from apps.tasks.Email_tasks import administradorNotificacionHonorarios
+from apps.tasks.Email_tasks import HonarariosMailColaborador
 from apps.Caja.models import tb_egreso
 from django.contrib.auth.models import User
 from celery import shared_task
@@ -58,10 +60,31 @@ def aguinaldo():
 
 
 ####################################presentimo################################################
+@app.task
+def SueldoMensual():
+	time.sleep(15)
+	colaboradores =  tb_colaboradores.objects.filter(isHonorarios =  True)
+	dia = datetime.today().day
+	if(dia == 1):
+	 	#####mes de aguinaldo mayo, diciembre 
+	 	########sumara el monto del aguinaldo a la cuenta del colaborador
+	 	for i in range(0, len(colaboradores)):	
+	 		#####verifico que el colaborador tenga habilitado el 
+	 		#####aguinaldo si es asi, entonces sumare el monto a su cuenta 
+	 		#####y lo registrare 
+	 		colaboradores[i].cuentaColaborador += colaboradores[i].honorariosMensuales
+	 		colaboradores[i].save()
+	 		HonarariosMailColaborador.delay(colaboradores[i].user.nameUser, colaboradores[i].user.mailUser)
+	 		#######creo el registro del movimiento
+	 		registro = tb_cuentaColaborador()
+	 		registro.colaborador = tb_colaboradores.objects.get(id = colaboradores[i].id)
+	 		registro.typePago = 'Honorarios Mensuales'
+	 		registro.monto = colaboradores[i].honorariosMensuales
+	 		registro.save()
+	 		administradorNotificacionHonorarios.delay()
 
 
 
-	 	
 
 
 
@@ -101,7 +124,6 @@ def LiquidacionColaboradores(usuario_id):
 	for i in range(0,len(colaborador)):
 		monto = colaborador[i].cuentaColaborador
 		if (monto > 0 ):
-			
 			colaborador[i].montoPagadoColaborador += colaborador[i].cuentaColaborador
 			colaborador[i].cuentaColaborador -= colaborador[i].cuentaColaborador
 			colaborador[i].save()

@@ -5,11 +5,6 @@
 {% endblock Title %}
 
 
-<script>
-    
-console.log({{totalIngrsos_mensual}})
-
-</script>
 {% block Content %}
     {% if  profile_response.perfil != 'Null' and socio_profile.status == 'Desactivado'   %}
         <div class="page-content-wrapper">
@@ -168,8 +163,8 @@ console.log({{totalIngrsos_mensual}})
                                     <div class="number">
                                         <h3 class="font-green-sharp">
                                             <span data-counter="counterup" data-value="
-                                             {% if totalIngresos.total != None %}
-                                               {{totalIngresos.total}} 
+                                             {% if totalIngresos != None %}
+                                               {{totalIngresos}} 
                                             {% else %}
                                                 0
                                             {% endif %}
@@ -203,8 +198,8 @@ console.log({{totalIngrsos_mensual}})
                                 <div class="display">
                                     <div class="number">
                                         <h3 class="font-green-sharp">
-                                            <span data-counter="counterup" data-value=" {% if totalIngrsos_mensual.total_mensual != None %}
-                                               {{totalIngrsos_mensual.total_mensual}} 
+                                            <span data-counter="counterup" data-value=" {% if totalIngrsos_mensual != None %}
+                                               {{totalIngrsos_mensual}} 
                                             {% else %}
                                                 0
                                             {% endif %}">0</span>

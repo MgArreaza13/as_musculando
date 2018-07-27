@@ -179,7 +179,7 @@ CELERY_ENABLE_UTC = False
 CELERY_TIMEZONE = TIME_ZONE
 
 t = datetime.today()
-diario = crontab(minute=0, hour=7)
+diario = crontab(minute=0, hour=6)
 mensual = crontab(minute=0, hour=0)
 
 CELERYBEAT_SCHEDULE = {
@@ -191,9 +191,9 @@ CELERYBEAT_SCHEDULE = {
         'task': 'apps.Colaboradores.tasks.aguinaldo',
         'schedule': mensual,
     },
-    'presentimo-colaborador': {
-        'task': 'apps.Colaboradores.tasks.PresentimoMensualActivate',
-        'schedule': mensual,
+    'honorario-colaborador': {
+        'task': 'apps.Colaboradores.tasks.SueldoMensual',
+        'schedule': diario,
     },
 }
 

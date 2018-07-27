@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.models import User 
 from django.http import HttpResponse
 from django.shortcuts import redirect
+from django.core import serializers
 #################MODELOS###################
 from apps.Socios.models import tb_socio
 from apps.Caja.models import tb_egreso
@@ -169,3 +170,27 @@ def Resumen(request):
 		'egresos':egresos
 	}
 	return render(request, 'Caja/Resumen.html', contexto)
+
+
+
+
+
+
+def QueryAnual(request):
+	year = int(request.GET.get('year', None))
+	all_objects = list(tb_ingresos.objects.filter(dateCreate__year = year)) + list(tb_ingreso_mensualidad.objects.filter(dateCreate__year = year)) + list(tb_egreso.objects.filter(dateCreate__year=year))
+	data = serializers.serialize('json', all_objects)
+	return HttpResponse(data)
+
+def QueryMensual(request):
+	year = int(request.GET.get('year', None))
+	month = int(request.GET.get('month', None))
+	all_objects = list(tb_ingresos.objects.filter(dateCreate__year = year).filter(dateCreate__month = month)) + list(tb_ingreso_mensualidad.objects.filter(dateCreate__year = year).filter(dateCreate__month = month)) + list(tb_egreso.objects.filter(dateCreate__year=year).filter(dateCreate__month = month))
+	data = serializers.serialize('json', all_objects)
+	return HttpResponse(data)
+
+def QueryDia(request):
+	dia = request.GET.get('dia', None)
+	all_objects = list(tb_ingresos.objects.filter(dateCreate = dia)) + list(tb_ingreso_mensualidad.objects.filter(dateCreate = dia)) + list(tb_egreso.objects.filter(dateCreate = dia))
+	data = serializers.serialize('json', all_objects)
+	return HttpResponse(data)

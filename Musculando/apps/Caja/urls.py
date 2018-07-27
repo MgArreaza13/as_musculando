@@ -8,6 +8,9 @@ from apps.Caja.views import Resumen
 from apps.Caja.views import NewEgreso
 from apps.Caja.views import ListOtroIngresos
 from apps.Caja.views import NewIngreso
+from apps.Caja.views import QueryAnual
+from apps.Caja.views import QueryMensual
+from apps.Caja.views import QueryDia
 
 
 urlpatterns = [
@@ -22,6 +25,9 @@ urlpatterns = [
 	url(r'^Egresos/Lista/$', ListEgresos , name='ListEgresos'  ),
 	url(r'^Egresos/Nuevo/$', NewEgreso , name='NewEgreso'  ),
 	url(r'^Ingresos/Nuevo/$', NewIngreso , name='NewIngreso'  ),
+	url(r'^Ingresos/QueryAnual/$', QueryAnual , name='QueryAnual'  ),
+	url(r'^Ingresos/QueryMensual/$', QueryMensual , name='QueryMensual'  ),
+	url(r'^Ingresos/QueryDia/$', QueryDia , name='QueryDia'  ),
 	url(r'^Nuevo/Pago/De/Mensualidad/$', NewMensualIngreso , name='NewMensualIngreso'  ),
   	url(r'^Nueva/Solicitud/Pago/De/Mensualidad/$', NuevoReporteDePagoMensual , name='NuevoReporteDePagoMensual'  ),
 ]

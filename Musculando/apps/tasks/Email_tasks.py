@@ -171,6 +171,17 @@ def AguinaldoColaborador(usuario,correo):
 	
 
 
+@app.task
+def HonarariosMailColaborador(usuario,correo):
+	cuerpo = ""
+	###Mensaje para el usuario #########
+	email_subject_usuario = 'Musculando - Honorarios'
+	email_body_usuario = "Hola %s, Hemos cargado el monto de tu Honorario  a tu cuenta por orden del administrador" %(usuario)
+	send_mail (email_subject_usuario, cuerpo, 'musculando@b7000615.ferozo.com', [correo], fail_silently=True, html_message=email_body_usuario)
+	
+
+
+
 
 
 ###################### Finalizado el Proceso de pago 
@@ -209,5 +220,13 @@ def administradorNotificacionAguinaldo():
 	cuerpo = ""
 	email_subject_Soporte = 'Musculando - Aguinaldo Cargado'
 	email_body_Soporte = "Hemos Imputado El monto del aguinaldo de cada colaborador a la cuenta de cada colaborador por solicitud de usted" 
+	send_mail(email_subject_Soporte, cuerpo , 'musculando@b7000615.ferozo.com', ['soporte@apreciasoft.com', "mg.arreaza.13@gmail.com",],fail_silently=True, html_message=email_body_Soporte)
+
+
+@app.task
+def administradorNotificacionHonorarios():
+	cuerpo = ""
+	email_subject_Soporte = 'Musculando - Honorarios Cargado'
+	email_body_Soporte = "Hemos Imputado El monto del Honorario de cada colaborador a la cuenta de cada colaborador por solicitud de usted" 
 	send_mail(email_subject_Soporte, cuerpo , 'musculando@b7000615.ferozo.com', ['soporte@apreciasoft.com', "mg.arreaza.13@gmail.com",],fail_silently=True, html_message=email_body_Soporte)
 	

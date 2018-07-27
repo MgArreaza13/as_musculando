@@ -53,23 +53,15 @@
                         <!-- Socio Activo -->
                          <ul class="page-sidebar-menu  page-header-fixed page-sidebar-menu-hover-submenu " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
                         <li class="nav-item start ">
-                            <a href="javascript:;" class="nav-link nav-toggle">
+                            <a href="/" class="nav-link nav-toggle">
                                 <i class="icon-home"></i>
                                 <span class="title">INICIO 
                                 </span>
                                 <span class="selected"></span>
                                 <span class="arrow open"></span>
                             </a>
-                            <ul class="sub-menu">
-                                <li class="nav-item start  ">
-                                    <a href="{% url "Panel:ComingSoon" %}" class="nav-link ">
-                                        <i class="icon-bar-chart"></i>
-                                        <span class="title">Estadisticas</span>
-                                        <span class="selected"></span>
-                                    </a>
-                                </li>
-                                
-                            </ul>
+                            
+
                         </li>
                         
                         
@@ -151,23 +143,14 @@
                     {% else %}
                     <ul class="page-sidebar-menu  page-header-fixed page-sidebar-menu-hover-submenu " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
                         <li class="nav-item start ">
-                            <a href="javascript:;" class="nav-link nav-toggle">
+                            <a href="/" class="nav-link nav-toggle">
                                 <i class="icon-home"></i>
                                 <span class="title">INICIO 
                                 </span>
                                 <span class="selected"></span>
                                 <span class="arrow open"></span>
                             </a>
-                            <ul class="sub-menu">
-                                <li class="nav-item start  ">
-                                    <a href="{% url "Panel:ComingSoon" %}" class="nav-link ">
-                                        <i class="icon-bar-chart"></i>
-                                        <span class="title">Estadisticas</span>
-                                        <span class="selected"></span>
-                                    </a>
-                                </li>
-                                
-                            </ul>
+                            
                         </li>
                         <li class="nav-item  ">
                             <a href="javascript:;" class="nav-link nav-toggle">
@@ -277,48 +260,16 @@
                                             <span class="title">Listado de Colaboradores </span>
                                         </a>
                                     </li>
+                                   
+
+
+                           
                             
                                 </ul>
                             </li>
-                            {% if liquidacion == False %}
-                                <li class="nav-item  ">
-                                    <a href="javascript:;" class="nav-link nav-toggle">
-                                        <i class="fa fa-users"></i>
-                                        <span class="title">LIQUIDACION COLABORADORES</span>
-                                        <span class="arrow"></span>
-                                    </a>
-                                    <ul class="sub-menu">
-                                        <li class="nav-item  ">
-                                            <a href="{% url "Colaboradores:Liquidacion" %}" class="nav-link ">
-                                                <span class="title">LIQUIDACION </span>
-                                            </a>
-                                        </li>
-                                
-                                    </ul>
-                                </li>
-                                
-                            {% endif %}
-
-
-                            {% if presentimo == False %}
-                                <li class="nav-item  ">
-                                    <a href="javascript:;" class="nav-link nav-toggle">
-                                        <i class="fa fa-users"></i>
-                                        <span class="title">PRESENTIMO COLABORADORES</span>
-                                        <span class="arrow"></span>
-                                    </a>
-                                    <ul class="sub-menu">
-                                        <li class="nav-item  ">
-                                            <a href="{% url "Colaboradores:Presentimo" %}" class="nav-link ">
-                                                <span class="title">PRESENTIMO</span>
-                                            </a>
-                                        </li>
-                                
-                                    </ul>
-                                </li>
-                                
-                            {% endif %}
+                            
                         {% endif %}
+                        <!--
                         <li class="nav-item  ">
                             <a href="?p=" class="nav-link nav-toggle">
                                 <i class="fa fa-line-chart"></i>
@@ -333,7 +284,7 @@
                                 </li>
                                 
                             </ul>
-                        </li>
+                        </li> -->
                         <li class="nav-item  ">
                             <a href="javascript:;" class="nav-link nav-toggle">
                                 <i class="fa fa-wrench"></i>

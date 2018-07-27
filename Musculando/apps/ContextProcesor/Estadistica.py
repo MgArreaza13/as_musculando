@@ -12,6 +12,27 @@ from django.db.models import Count, Min, Sum, Avg
 
 
 def ResumenIngresos(request):
+	#ingreso y egreso diario 
+	ingresos_mensualidad_hoy = tb_ingreso_mensualidad.objects.filter(dateCreate = date.today()).aggregate(total=Sum('monto'))
+	ingresos_hoy = tb_ingresos.objects.filter(dateCreate= date.today()).aggregate(total=Sum('monto'))
+	if ingresos_mensualidad_hoy['total'] == None:
+		ingresos_mensualidad_hoy['total'] = 0
+	if ingresos_hoy['total'] == None:
+		ingresos_hoy['total'] = 0
+	TotalIngresosHoy = ingresos_mensualidad_hoy['total'] + ingresos_hoy['total']
+
+	totalEgresosHoy =  tb_egreso.objects.filter(dateCreate = date.today()).aggregate(total=Sum('monto'))
+
+	if totalEgresosHoy['total']==None:
+		balanceGeneralHoy = TotalIngresosHoy
+	elif  totalEgresosHoy['total']!=None:
+		balanceGeneralHoy = TotalIngresosHoy - totalEgresosHoy['total']
+	else :
+		balanceGeneralHoy = 0
+
+
+
+
 	#Total ingresos 
 	ingresos_socios 	= tb_ingreso_mensualidad.objects.all().aggregate(total=Sum('monto'))
 	ingresos_especial 	= tb_ingresos.objects.all().aggregate(total=Sum('monto'))
@@ -21,20 +42,25 @@ def ResumenIngresos(request):
 		ingresos_especial['total'] = 0
 	TotalIngresos = ingresos_socios['total'] + ingresos_especial['total']
 
+
+
 	
 	# ingresos mensual 
-	ingreso_mensual_socio 		=	tb_ingreso_mensualidad.objects.filter(dateCreate__month = date.today().month).aggregate(total_mensual=Sum('monto'))
-	ingreso_mensual 			=	tb_ingresos.objects.filter(dateCreate__month = date.today().month).aggregate(total_mensual=Sum('monto'))
+	ingreso_mensual_socio 		=	tb_ingreso_mensualidad.objects.filter(dateCreate__year = date.today().year ).filter(dateCreate__month = date.today().month).aggregate(total_mensual=Sum('monto'))
+	ingreso_mensual 			=	tb_ingresos.objects.filter(dateCreate__year = date.today().year ).filter(dateCreate__month = date.today().month).aggregate(total_mensual=Sum('monto'))
 	if ingreso_mensual_socio['total_mensual'] == None:
 		ingreso_mensual_socio['total_mensual'] = 0
 	if ingreso_mensual ['total_mensual'] == None:
-		ngreso_mensual ['total_mensual'] = 0
+		ingreso_mensual ['total_mensual'] = 0
 
 	totalIngrsos_mensual = float(ingreso_mensual_socio['total_mensual']) + float(ingreso_mensual['total_mensual'])
+	
+
+
 	#Total Egresos
 	TotalEgresos = tb_egreso.objects.all().aggregate(total=Sum('monto'))
 	#Egresos Mensual 
-	totalEgresos_mensual = tb_egreso.objects.filter(dateCreate__month = date.today().month).aggregate(total_mensual=Sum('monto'))
+	totalEgresos_mensual = tb_egreso.objects.filter(dateCreate__year = date.today().year ).filter(dateCreate__month = date.today().month).aggregate(total_mensual=Sum('monto'))
 
 	if len(TotalEgresos) == 0 :
 		balanceGeneral = TotalIngresos
@@ -44,13 +70,21 @@ def ResumenIngresos(request):
 		balanceGeneral = 0
 	#print(balanceGeneral)
 
-	if len(totalEgresos_mensual) == 0:
+	if  totalEgresos_mensual['total_mensual'] == None:
 		balanceGeneralMensual = totalIngrsos_mensual
 	elif totalEgresos_mensual['total_mensual'] != None:
 		balanceGeneralMensual = totalIngrsos_mensual - totalEgresos_mensual['total_mensual']
 	else:
 		balanceGeneralMensual = 0
-	return {'totalIngresos':TotalIngresos, 'totalIngrsos_mensual':totalIngrsos_mensual, 'TotalEgresos':TotalEgresos, 'totalEgresos_mensual':totalEgresos_mensual, 'balanceGeneral':balanceGeneral, 'balanceGeneralMensual':balanceGeneralMensual }
+	return {'totalIngresos':TotalIngresos, 
+			'totalIngrsos_mensual':totalIngrsos_mensual, 
+			'TotalEgresos':TotalEgresos, 
+			'totalEgresos_mensual':totalEgresos_mensual, 
+			'balanceGeneral':balanceGeneral, 
+			'balanceGeneralMensual':balanceGeneralMensual, 
+			'TotalIngresosHoy':TotalIngresosHoy,
+			'totalEgresosHoy':totalEgresosHoy,
+			'balanceGeneralHoy':balanceGeneralHoy }
 
 
 
