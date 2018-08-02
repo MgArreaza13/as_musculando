@@ -174,12 +174,61 @@
                                                         <div class="row">
                                                         
                                                             <div class="col-md-6">
+                                                               <h3 class="form-section">Usuarios</h3>
+                                                          
+                                                            
+
+                                                                
+                                                           {% for field in Form %}
+                                                            {% if field.name == "username" %}
+                                                              <div class="form-group">
+                                                                    <label class="control-label">Usuario</label>
+                                                                    <input type="text"  class="form-control" placeholder="{{field.label}}" autocomplete="off" 
+                                                              required autofocus maxlength="{{field.max_length}}" {{ field }}    
+                                                                                    
+                                                                                </div>
+                                                                             {% elif field.name == "password1" %}
+                                                                              <div class="form-group">
+                                                                                    <label class="control-label">Clave</label>
+                                                                                    <input type="password"  class="form-control" placeholder="{{field.label}}" autocomplete="off" 
+                                                              required autofocus maxlength="{{field.max_length}}" {{ field }}    
+                                                                                    
+                                                                                </div>
+                                                                             {% else %}
+                                                                              <div class="form-group">
+                                                                                    <label class="control-label">Repite Tu Clave</label>
+                                                                                    <input type="password"  class="form-control" placeholder="{{field.label}}" autocomplete="off" 
+                                                              required autofocus maxlength="{{field.max_length}}" {{ field }}    
+                                                                                    
+                                                                                </div>
+                                                                            {% endif %}
+                                                                                
+                                                                              {% if field.errors %}
+                                                            <div class="alert alert-danger alert-dismissible">
+                                                              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                                              <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                                                              
+                                                               {{ field.errors }}
+                                                            </div>
+                                                            {% elif field.help_text %}
+                                                              <div class="alert alert-info alert-dismissible">
+                                                              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                                              <h4><i class="icon fa fa-info"></i> Considere!</h4>
+                                                             {{ field.help_text|safe }}
+                                                            </div>
+                                                   
+                                                       {% endif %}   
+                                                       {% endfor %}
+                                                               
+
+
+
                                                             <h3 class="form-section">Informacion De Perfil</h3>
                                                           
                                                             
 
                                                                 
-                                                            {% for fields in  Form %}
+                                                            {% for fields in  Form2 %}
                                                                 <div class="form-group">
                                                                     <label class="control-label">{{fields.label}}</label>
                                                                     {{fields}}
@@ -208,7 +257,7 @@
                                                             <div class="col-md-6">
                                                             <h3 class="form-section">Informacion De Colaboradores</h3>
                                                             
-                                                            	{% for fields in  Form2 %}
+                                                            	{% for fields in  Form3 %}
                                                                 {% if fields.name == 'isHonorarios' %}
                                                                 <h3>Opciones Habilitadas Para El Colaborador</h3>
                                                                 <p> <span style="color:red;font-weight:bold;">

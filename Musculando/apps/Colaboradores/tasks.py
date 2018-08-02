@@ -65,23 +65,27 @@ def SueldoMensual():
 	time.sleep(15)
 	colaboradores =  tb_colaboradores.objects.filter(isHonorarios =  True)
 	dia = datetime.today().day
-	if(dia == 1):
+	if(dia == 1 or dia ==2 or dia == 3): #el dos es de debug pero tiene que ser solamente el 1
 	 	#####mes de aguinaldo mayo, diciembre 
 	 	########sumara el monto del aguinaldo a la cuenta del colaborador
 	 	for i in range(0, len(colaboradores)):	
-	 		#####verifico que el colaborador tenga habilitado el 
-	 		#####aguinaldo si es asi, entonces sumare el monto a su cuenta 
-	 		#####y lo registrare 
-	 		colaboradores[i].cuentaColaborador += colaboradores[i].honorariosMensuales
-	 		colaboradores[i].save()
-	 		HonarariosMailColaborador.delay(colaboradores[i].user.nameUser, colaboradores[i].user.mailUser)
-	 		#######creo el registro del movimiento
-	 		registro = tb_cuentaColaborador()
-	 		registro.colaborador = tb_colaboradores.objects.get(id = colaboradores[i].id)
-	 		registro.typePago = 'Honorarios Mensuales'
-	 		registro.monto = colaboradores[i].honorariosMensuales
-	 		registro.save()
-	 		administradorNotificacionHonorarios.delay()
+	 		if colaboradores[i].isHonorariosUpload == False:
+	 			#####verifico que el colaborador tenga habilitado el 
+		 		#####aguinaldo si es asi, entonces sumare el monto a su cuenta 
+		 		#####y lo registrare 
+		 		colaboradores[i].cuentaColaborador += colaboradores[i].honorariosMensuales
+		 		colaboradores[i].isHonorariosUpload = True
+		 		colaboradores[i].save()
+		 		HonarariosMailColaborador.delay(colaboradores[i].user.nameUser, colaboradores[i].user.mailUser)
+		 		#######creo el registro del movimiento
+		 		registro = tb_cuentaColaborador()
+		 		registro.colaborador = tb_colaboradores.objects.get(id = colaboradores[i].id)
+		 		registro.typePago = 'Honorarios Mensuales'
+		 		registro.monto = colaboradores[i].honorariosMensuales
+		 		registro.save()
+		 		administradorNotificacionHonorarios.delay()
+		 	else:
+		 		pass
 
 
 

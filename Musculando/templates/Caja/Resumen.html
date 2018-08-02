@@ -37,7 +37,7 @@
             <!-- END SIDEBAR -->
             <!-- BEGIN CONTENT -->
             <div class="page-content-wrapper">
-            	{% if ingresos or ingresos_especial %}
+            	{% if ingresos or ingresos_especial and user.is_authenticated and user.is_staff == True and user.is_superuser == True %}
 
                 
                             <!-- BEGIN PAGE HEADER-->
@@ -485,7 +485,7 @@
                                             ">0</span>
                                             <small style="color:white" class="font-white-sharp">$</small>
                                         </h3> 
-                                        <small style="color:white;"> BALANCE GENERAL </small>
+                                        <small style="color:white;">SALDO EN CAJA </small>
                                     </div>
                                     <div style="color:white;" class="icon">
                                         <i class="icon-pie-chart"></i>
@@ -518,7 +518,7 @@
                                             {% endif %}">0</span>
                                             <small style="color:white" class="font-white-sharp">$</small>
                                         </h3>
-                                        <small style="color:white">BALANCE MENSUAL</small>
+                                        <small style="color:white">SALDO EN CAJA MENSUAL</small>
                                     </div>
                                     <div  style="color:white" class="icon">
                                         <i class="icon-pie-chart"></i>
@@ -539,7 +539,7 @@
                                             {% endif %}">0</span>
                                             <small style="color:white" class="font-white-sharp">$</small>
                                         </h3>
-                                        <small style="color:white">BALANCE GENERAL DEL DIA DE HOY</small>
+                                        <small style="color:white">SALDO EN CAJA DEL DIA DE HOY</small>
                                     </div>
                                     <div  style="color:white" class="icon">
                                         <i class="icon-pie-chart"></i>

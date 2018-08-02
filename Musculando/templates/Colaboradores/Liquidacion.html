@@ -338,7 +338,7 @@
 		                                </div>
 		                            </div>
 		                            <!-- END EXAMPLE TABLE PORTLET-->
-		                            <a href="javascript:void(0)" onclick="PagarCuentaColaboradores()"  class="btn green btn-block">PAGAR CUENTA</a>
+		                            <a href="{% url "Colaboradores:NewColaborador" %}"  class="btn green btn-block">Nuevo Colaborador</a>
 		                        </div>
 		                    </div>
 		                </div>
@@ -376,7 +376,8 @@
 		                            <!-- END EXAMPLE TABLE PORTLET-->
 		                            
 		                        </div>
-		                    </div>
+                            </div>
+                                 <a href="{% url "Colaboradores:NewColaborador" %}"  class="btn green btn-block">Nuevo Colaborador</a>
 		                     
 		                </div>
 		                <!-- END CONTENT BODY -->

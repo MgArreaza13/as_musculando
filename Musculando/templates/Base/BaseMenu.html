@@ -101,6 +101,11 @@
                                             <span class="title">Listado de Colaboradores </span>
                                         </a>
                                     </li>
+                                    <li class="nav-item  ">
+                                        <a href="{% url "Colaboradores:ListaDeColaboradores" %}" class="nav-link ">
+                                            <span class="title">Listado de Colaboradores </span>
+                                        </a>
+                                    </li>
                             
                                 </ul>
                             </li>
@@ -152,42 +157,45 @@
                             </a>
                             
                         </li>
-                        <li class="nav-item  ">
-                            <a href="javascript:;" class="nav-link nav-toggle">
-                                <i class="fa fa-bank"></i>
-                                <span class="title">CAJA</span>
-                                <span class="arrow"></span>
-                            </a>
-                            <ul class="sub-menu">
-                                <li class="nav-item  ">
-                                    <a href="{% url "Caja:Resumen" %}" class="nav-link ">
-                                        <span class="title">RESUMEN</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item  ">
-                                    <a href="javascript:;" class="nav-link nav-toggle">
-                                        <span class="title">INGRESOS</span>
-                                        <span class="arrow"></span>
-                                    </a>
-                                    <ul class="sub-menu">
-                                        <li class="nav-item ">
-                                            <a href="{% url "Caja:ListOtroIngresos" %}" class="nav-link ">OTROS INGRESOS</a>
-                                        </li>
-                                        <li class="nav-item ">
-                                            <a href="{% url "Caja:ListadoDeIngresos" %}" class="nav-link "> PAGOS DE MENSUALIDADES SOCIOS </a>
-                                        </li>
-                                        
-                                        
-                                    </ul>
-                                </li>
-                                <li class="nav-item  ">
-                                    <a href="{% url "Caja:ListEgresos" %}" class="nav-link ">
-                                        <span class="title">EGRESOS</span>
-                                    </a>
-                                </li>
-                                
-                            </ul>
-                        </li>
+                        {% if user.is_authenticated and user.is_staff == True and user.is_superuser == True  %}
+                            <li class="nav-item  ">
+                                <a href="javascript:;" class="nav-link nav-toggle">
+                                    <i class="fa fa-bank"></i>
+                                    <span class="title">CAJA</span>
+                                    <span class="arrow"></span>
+                                </a>
+                                <ul class="sub-menu">
+                                    <li class="nav-item  ">
+                                        <a href="{% url "Caja:Resumen" %}" class="nav-link ">
+                                            <span class="title">RESUMEN</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item  ">
+                                        <a href="javascript:;" class="nav-link nav-toggle">
+                                            <span class="title">INGRESOS</span>
+                                            <span class="arrow"></span>
+                                        </a>
+                                        <ul class="sub-menu">
+                                            <li class="nav-item ">
+                                                <a href="{% url "Caja:ListOtroIngresos" %}" class="nav-link ">OTROS INGRESOS</a>
+                                            </li>
+                                            <li class="nav-item ">
+                                                <a href="{% url "Caja:ListadoDeIngresos" %}" class="nav-link "> PAGOS DE MENSUALIDADES SOCIOS </a>
+                                            </li>
+                                            
+                                            
+                                        </ul>
+                                    </li>
+                                    <li class="nav-item  ">
+                                        <a href="{% url "Caja:ListEgresos" %}" class="nav-link ">
+                                            <span class="title">EGRESOS</span>
+                                        </a>
+                                    </li>
+                                    
+                                </ul>
+                            </li>
+                            
+                        {% endif %}
                         <li class="nav-item  ">
                             <a href="javascript:;" class="nav-link nav-toggle">
                                 <i class="fa fa-truck"></i>
@@ -260,6 +268,27 @@
                                             <span class="title">Listado de Colaboradores </span>
                                         </a>
                                     </li>
+                                   
+                                    <li class="nav-item  ">
+                                        <a href="javascript:void(0);" class="nav-link nav-toggle">
+                                            
+                                            <span class="title">Control de Acceso</span>
+                                            <span class="arrow"></span>
+                                        </a>
+                                        <ul class="sub-menu">
+                                            <li class="nav-item  ">
+                                                <a href="{% url "Colaboradores:ListEntradaSalida" %}" class="nav-link ">
+                                                    <span class="title">Control</span>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item  ">
+                                                <a href="javascript:void(0);" onclick="ControlDeAcceso()" class="nav-link ">
+                                                    <span class="title">Nuevo Registro de Acceso</span>
+                                                </a>
+                                            </li>
+                                           
+                                        </ul>
+                                    
                                    
 
 

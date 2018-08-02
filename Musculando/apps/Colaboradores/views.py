@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.shortcuts import redirect
+from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from django.core import serializers
 #####################MODELOS##########################
@@ -8,11 +9,13 @@ from apps.Colaboradores.models import tb_colaboradores
 from apps.UserProfile.models import tb_profile
 from apps.Configuracion.models import tb_tipoColaborador
 from apps.Colaboradores.models import tb_cuentaColaborador
+from apps.Colaboradores.models import tb_EntradaSalida
 from apps.Caja.models import tb_egreso
 from apps.Configuracion.models import tb_tipoEgreso
 #####################FORMS#############################
 from apps.Colaboradores.forms import ColaboradoresRegisterForm
 from apps.UserProfile.forms import ProfileForm
+from apps.UserProfile.forms import UsuarioForm
 #####################TAREAS############################
 from apps.tasks.Email_tasks import ColaboradorEliminado
 from apps.tasks.Email_tasks import PagoColaborador
@@ -25,6 +28,31 @@ from django.db.models import Count, Min, Sum, Avg
 
 
 # Create your views here.
+@login_required(login_url = 'Panel:Login' )
+def ListEntradaSalida(request):
+	list_entrada = tb_EntradaSalida.objects.all()
+	contexto = {
+		'list_entrada':list_entrada
+	}
+	return render(request, 'Colaboradores/listaEntradaSalida.html', contexto )
+
+
+def EntradaSalida(request):
+	usuario = request.GET.get('usuario', None)
+	password = request.GET.get('password', None)
+	entrada_salida = request.GET.get('entradaSalida_', None)
+	user 	= authenticate(username=usuario, password=password)
+	print(user)
+	status = 503
+	if user != None:
+		new_object = tb_EntradaSalida()
+		new_object.colaborador = tb_colaboradores.objects.get(user__user__id = user.id)
+		new_object.typeEntradaSalida = entrada_salida
+		new_object.save()
+		status =  200
+	
+	return HttpResponse(status)
+
 
 
 
@@ -35,6 +63,7 @@ def ProcesarLiquidacion(request):
 	colaborador = tb_colaboradores.objects.get(id = id_colaborador)
 	colaborador.montoPagadoColaborador += abono
 	colaborador.cuentaColaborador -= abono
+	colaborador.isHonorariosUpload = False
 	colaborador.save()
 	PagoColaborador.delay(colaborador.user.nameUser, colaborador.user.mailUser)
 	egreso = tb_egreso()
@@ -138,45 +167,55 @@ def EliminarColaborador(request):
 
 @login_required(login_url = 'Panel:Login' )
 def NewColaborador(request):
-	Form = ProfileForm()
-	Form2 = ColaboradoresRegisterForm()
+	Form = UsuarioForm()
+	Form2 = ProfileForm()
+	Form3 = ColaboradoresRegisterForm()
 	fallido = None
 	if request.method == 'POST':
-		Form = ProfileForm(request.POST, request.FILES  or None)
-		Form2 = ColaboradoresRegisterForm(request.POST, request.FILES  or None)
-		if Form.is_valid() and Form2.is_valid():
-			nuevoPerfil = tb_profile()
-			nuevoPerfil.nameUser = request.POST['nameUser']
-			nuevoPerfil.lastName = request.POST['lastName']
-			nuevoPerfil.dni = request.POST['dni']
-			nuevoPerfil.movilTlf = request.POST['movilTlf']
-			nuevoPerfil.houseTlf = request.POST['houseTlf']
-			nuevoPerfil.mailUser = request.POST['mailUser']
-			nuevoPerfil.tipoUser = 'Colaborador'
-			if len(request.FILES) != 0:
-				nuevoPerfil.image = request.FILES['ImagenDePerfil']
-			else:
-				nuevoPerfil.image = 'Null'
-			nuevoPerfil.save()
-			nuevoColaborador = Form2.save(commit=False)
-			nuevoColaborador.user = tb_profile.objects.get(id = nuevoPerfil.id)
-			nuevoColaborador.cuentaColaborador = request.POST['honorariosMensuales']
-			nuevoColaborador.save() 
-			#luego de guardar, necesito registrar el ingreso principal del colaborador
-			if float(request.POST['honorariosMensuales']) != 0 :
-				cuenta = tb_cuentaColaborador()
-				cuenta.colaborador = tb_colaboradores.objects.get(id = nuevoColaborador.id)
-				cuenta.typePago = 'Honorarios Mensual'
-				cuenta.monto = float(request.POST['honorariosMensuales'])
-				cuenta.save() 
-			return redirect('Colaboradores:ListaDeColaboradores')
+		Form = UsuarioForm(request.POST, request.FILES  or None)
+		Form2 = ProfileForm(request.POST, request.FILES  or None)
+		Form3 = ColaboradoresRegisterForm(request.POST, request.FILES  or None)
+		if Form.is_valid() and Form2.is_valid() and Form3.is_valid():
+			Form.save()
+			usuario = request.POST['username']
+			clave 	= request.POST['password1']
+			user 	= authenticate(username=usuario, password=clave)
+			if user is not None and user.is_active:
+				nuevoPerfil = tb_profile()
+				nuevoPerfil.user = user
+				nuevoPerfil.nameUser = request.POST['nameUser']
+				nuevoPerfil.lastName = request.POST['lastName']
+				nuevoPerfil.dni = request.POST['dni']
+				nuevoPerfil.movilTlf = request.POST['movilTlf']
+				nuevoPerfil.houseTlf = request.POST['houseTlf']
+				nuevoPerfil.mailUser = request.POST['mailUser']
+				nuevoPerfil.tipoUser = 'Colaborador'
+				if len(request.FILES) != 0:
+					nuevoPerfil.image = request.FILES['ImagenDePerfil']
+				else:
+					nuevoPerfil.image = 'Null'
+				nuevoPerfil.save()
+				nuevoColaborador = Form3.save(commit=False)
+				nuevoColaborador.user = tb_profile.objects.get(id = nuevoPerfil.id)
+				nuevoColaborador.cuentaColaborador = request.POST['honorariosMensuales']
+				nuevoColaborador.save() 
+				#luego de guardar, necesito registrar el ingreso principal del colaborador
+				if float(request.POST['honorariosMensuales']) != 0 :
+					cuenta = tb_cuentaColaborador()
+					cuenta.colaborador = tb_colaboradores.objects.get(id = nuevoColaborador.id)
+					cuenta.typePago = 'Honorarios Mensual'
+					cuenta.monto = float(request.POST['honorariosMensuales'])
+					cuenta.save() 
+				return redirect('Colaboradores:ListaDeColaboradores')
 		else:
-			Form	= ProfileForm(request.POST, request.FILES  or None)
-			Form2 = ColaboradoresRegisterForm(request.POST, request.FILES  or None)
+			Form = UsuarioForm(request.POST, request.FILES  or None)
+			Form2 = ProfileForm(request.POST, request.FILES  or None)
+			Form3 = ColaboradoresRegisterForm(request.POST, request.FILES  or None)
 			fallido = "No pudimos guardar sus datos, intentalo de nuevo luego de verificarlos" 
 	contexto = {
 	'Form':Form,
 	'Form2':Form2,
+	'Form3':Form3,
 	'fallido':fallido,
 	}
 	return render(request, 'Colaboradores/nuevo.html' , contexto)

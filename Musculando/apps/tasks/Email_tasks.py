@@ -25,7 +25,7 @@ def MailNewIngresoMensualidad(usuario, monto, plan, correo):
 	#mensaje para apreciasoft
 	email_subject_Soporte = 'Musculando - Nueva pago de Mensualidad'
 	email_body_Soporte = "Se ha registrado un pago de mensualidad en el sistema por el socio %s y un monto de $:%s referente al plan %s y por ende lo hemos activado satisfactoriamente" %(usuario,monto,plan)
-	send_mail(email_subject_Soporte, cuerpo , 'musculando@b7000615.ferozo.com', ['soporte@apreciasoft.com', "mg.arreaza.13@gmail.com",],fail_silently=True, html_message=email_body_Soporte)
+	send_mail(email_subject_Soporte, cuerpo , 'musculando@b7000615.ferozo.com', ['allerapamela@live.com.ar','beto.rudel@gmail.com','soporte@apreciasoft.com', "mg.arreaza.13@gmail.com",],fail_silently=True, html_message=email_body_Soporte)
 	
 
 
@@ -43,7 +43,7 @@ def VencimientoMensualidad(usuario, monto, plan, correo):
 	#mensaje para apreciasoft
 	email_subject_Soporte = 'Musculando - Desactivacion de Perfil Por vencimiento de cuota'
 	email_body_Soporte = "Hemos desactivado el socio %s por vencimiendo , esperemos reporte el pago por un monto de $:%s referente al plan %s te informaremos a penas solicite la activacion" %(usuario,monto,plan)
-	send_mail(email_subject_Soporte, cuerpo , 'musculando@b7000615.ferozo.com', ['soporte@apreciasoft.com', "mg.arreaza.13@gmail.com",],fail_silently=True, html_message=email_body_Soporte)
+	send_mail(email_subject_Soporte, cuerpo , 'musculando@b7000615.ferozo.com', ['allerapamela@live.com.ar','beto.rudel@gmail.com','soporte@apreciasoft.com', "mg.arreaza.13@gmail.com",],fail_silently=True, html_message=email_body_Soporte)
 	
 
 
@@ -60,7 +60,7 @@ def NewSocioMAil(usuario, monto, plan, correo, ):
 	#mensaje para apreciasoft
 	email_subject_Soporte = 'Musculando - Nuevo Socio Creado '
 	email_body_Soporte = "Hemos creado el socio %s perfectamente un monto de $:%s referente al plan %s " %(usuario,monto,plan)
-	send_mail(email_subject_Soporte, cuerpo , 'musculando@b7000615.ferozo.com', ['soporte@apreciasoft.com', "mg.arreaza.13@gmail.com",],fail_silently=True, html_message=email_body_Soporte)
+	send_mail(email_subject_Soporte, cuerpo , 'musculando@b7000615.ferozo.com', ['allerapamela@live.com.ar','beto.rudel@gmail.com','soporte@apreciasoft.com', "mg.arreaza.13@gmail.com",],fail_silently=True, html_message=email_body_Soporte)
 	Group('notifcaciones').send({
         'text': json.dumps ({"action": "socio_creado","content": "Hemos Finalizado el proceso"})
     })
@@ -76,7 +76,7 @@ def DesactivacionSocio(usuario, monto, plan, correo):
 	#mensaje para apreciasoft
 	email_subject_Soporte = 'Musculando - Desactivacion de Perfil Por vencimiento de cuota'
 	email_body_Soporte = "Hemos desactivado el socio %s por tu solicitud , esperemos reporte el pago por un monto de $:%s referente al plan %s te informaremos a penas solicite la activacion" %(usuario,monto,plan)
-	send_mail(email_subject_Soporte, cuerpo , 'musculando@b7000615.ferozo.com', ['soporte@apreciasoft.com', "mg.arreaza.13@gmail.com",],fail_silently=True, html_message=email_body_Soporte)
+	send_mail(email_subject_Soporte, cuerpo , 'musculando@b7000615.ferozo.com', ['allerapamela@live.com.ar','beto.rudel@gmail.com','soporte@apreciasoft.com', "mg.arreaza.13@gmail.com",],fail_silently=True, html_message=email_body_Soporte)
 	
 
 
@@ -93,7 +93,7 @@ def ActivacionSocio(usuario ,correo):
 	#mensaje para apreciasoft
 	email_subject_Soporte = 'Musculando - Activacion del perfil'
 	email_body_Soporte = "Hemos Activado el socio %s respondiendo a tu solicitud de activacion satisfactoriamente," %(usuario)
-	send_mail(email_subject_Soporte, cuerpo , 'musculando@b7000615.ferozo.com', ['soporte@apreciasoft.com', "mg.arreaza.13@gmail.com",],fail_silently=True, html_message=email_body_Soporte)
+	send_mail(email_subject_Soporte, cuerpo , 'musculando@b7000615.ferozo.com', ['allerapamela@live.com.ar','beto.rudel@gmail.com','soporte@apreciasoft.com', "mg.arreaza.13@gmail.com",],fail_silently=True, html_message=email_body_Soporte)
 	
 
 
@@ -111,7 +111,7 @@ def PerfilEliminado():
 	#mensaje para apreciasoft
 	email_subject_Soporte = 'Musculando - Perfil Eliminado'
 	email_body_Soporte = "Hemos Eliminado un socio  por solicitud de usted." 
-	send_mail(email_subject_Soporte, cuerpo , 'musculando@b7000615.ferozo.com', ['soporte@apreciasoft.com', "mg.arreaza.13@gmail.com",],fail_silently=True, html_message=email_body_Soporte)
+	send_mail(email_subject_Soporte, cuerpo , 'musculando@b7000615.ferozo.com', ['allerapamela@live.com.ar','beto.rudel@gmail.com','soporte@apreciasoft.com', "mg.arreaza.13@gmail.com",],fail_silently=True, html_message=email_body_Soporte)
 	
 
 
@@ -144,7 +144,7 @@ def ColaboradorEliminado():
 	#mensaje para apreciasoft
 	email_subject_Soporte = 'Musculando - Colaborador Eliminado'
 	email_body_Soporte = "Hemos Eliminado un Colaborador  por solicitud de usted." 
-	send_mail(email_subject_Soporte, cuerpo , 'musculando@b7000615.ferozo.com', ['soporte@apreciasoft.com', "mg.arreaza.13@gmail.com",],fail_silently=True, html_message=email_body_Soporte)
+	send_mail(email_subject_Soporte, cuerpo , 'musculando@b7000615.ferozo.com', ['allerapamela@live.com.ar','beto.rudel@gmail.com','soporte@apreciasoft.com', "mg.arreaza.13@gmail.com",],fail_silently=True, html_message=email_body_Soporte)
 	
 
 
@@ -190,7 +190,7 @@ def administradorNotificacion():
 	cuerpo = ""
 	email_subject_Soporte = 'Musculando - Liquidacion Completada'
 	email_body_Soporte = "Hemos Liquidado El monto de la cuenta de cada colaborador por solicitud de usted" 
-	send_mail(email_subject_Soporte, cuerpo , 'musculando@b7000615.ferozo.com', ['soporte@apreciasoft.com', "mg.arreaza.13@gmail.com",],fail_silently=True, html_message=email_body_Soporte)
+	send_mail(email_subject_Soporte, cuerpo , 'musculando@b7000615.ferozo.com', ['allerapamela@live.com.ar','beto.rudel@gmail.com','soporte@apreciasoft.com', "mg.arreaza.13@gmail.com",],fail_silently=True, html_message=email_body_Soporte)
 	
 
 
@@ -201,7 +201,7 @@ def administradorNotificacionPresentimo():
 	cuerpo = ""
 	email_subject_Soporte = 'Musculando - Presentimo Completada'
 	email_body_Soporte = "Hemos Imputado El monto de presentimo de cada colaborador a la cuenta de cada colaborador por solicitud de usted" 
-	send_mail(email_subject_Soporte, cuerpo , 'musculando@b7000615.ferozo.com', ['soporte@apreciasoft.com', "mg.arreaza.13@gmail.com",],fail_silently=True, html_message=email_body_Soporte)
+	send_mail(email_subject_Soporte, cuerpo , 'musculando@b7000615.ferozo.com', ['allerapamela@live.com.ar','beto.rudel@gmail.com','soporte@apreciasoft.com', "mg.arreaza.13@gmail.com",],fail_silently=True, html_message=email_body_Soporte)
 	
 
 
@@ -220,7 +220,7 @@ def administradorNotificacionAguinaldo():
 	cuerpo = ""
 	email_subject_Soporte = 'Musculando - Aguinaldo Cargado'
 	email_body_Soporte = "Hemos Imputado El monto del aguinaldo de cada colaborador a la cuenta de cada colaborador por solicitud de usted" 
-	send_mail(email_subject_Soporte, cuerpo , 'musculando@b7000615.ferozo.com', ['soporte@apreciasoft.com', "mg.arreaza.13@gmail.com",],fail_silently=True, html_message=email_body_Soporte)
+	send_mail(email_subject_Soporte, cuerpo , 'musculando@b7000615.ferozo.com', ['allerapamela@live.com.ar','beto.rudel@gmail.com','soporte@apreciasoft.com', "mg.arreaza.13@gmail.com",],fail_silently=True, html_message=email_body_Soporte)
 
 
 @app.task
@@ -228,5 +228,5 @@ def administradorNotificacionHonorarios():
 	cuerpo = ""
 	email_subject_Soporte = 'Musculando - Honorarios Cargado'
 	email_body_Soporte = "Hemos Imputado El monto del Honorario de cada colaborador a la cuenta de cada colaborador por solicitud de usted" 
-	send_mail(email_subject_Soporte, cuerpo , 'musculando@b7000615.ferozo.com', ['soporte@apreciasoft.com', "mg.arreaza.13@gmail.com",],fail_silently=True, html_message=email_body_Soporte)
+	send_mail(email_subject_Soporte, cuerpo , 'musculando@b7000615.ferozo.com', ['allerapamela@live.com.ar','beto.rudel@gmail.com','soporte@apreciasoft.com', "mg.arreaza.13@gmail.com",],fail_silently=True, html_message=email_body_Soporte)
 	
