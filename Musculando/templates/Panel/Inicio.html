@@ -61,7 +61,7 @@
                     </div>
                     <!-- END PAGE HEADER-->
                     <div class="row">
-                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <div class="{% if user.is_authenticated and user.is_staff == True %} %}col-lg-3 col-md-3 col-sm-6 col-xs-12{% else %}hidden{% endif %}">
                             <div class="dashboard-stat2 ">
                                 <div class="display">
                                     <div class="number">
@@ -97,7 +97,7 @@
                                 -->
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <div class="{% if user.is_authenticated and user.is_staff == True %} %}col-lg-3 col-md-3 col-sm-6 col-xs-12{% else %}hidden{% endif %}">
                             <div class="dashboard-stat2 ">
                                 <div class="display">
                                     <div class="number">
@@ -118,7 +118,7 @@
                                 
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <div class="{% if user.is_authenticated and user.is_staff == True %} %}col-lg-3 col-md-3 col-sm-6 col-xs-12{% else %}col-lg-6 col-md-6 col-sm-6 col-xs-12{% endif %}">
                             <div class="dashboard-stat2 ">
                                 <div class="display">
                                     <div class="number">
@@ -140,7 +140,7 @@
                                 
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <div class="{% if user.is_authenticated and user.is_staff == True %} %}col-lg-3 col-md-3 col-sm-6 col-xs-12{% else %}col-lg-6 col-md-6 col-sm-6 col-xs-12{% endif %}">
                             <div class="dashboard-stat2 ">
                                 <div class="display">
                                     <div class="number">

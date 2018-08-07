@@ -94,6 +94,7 @@
                                                 <option value="Anual">Anual</option>
                                                 <option value="Mensual">Mensual</option>
                                                 <option value="Fecha">Fecha</option>
+                                                <option value="TipoEgreso">Tipo De Egreso</option>
                                             </select>
                                         </div>
                                     </form>
@@ -215,9 +216,33 @@
                                     
                                 </div>
                             </div>
+                            <div class="row hidden" id="FilterByEgreso">
+                                <div class="col-md-10">
+                                    <h1 class="page-title">Tipo de Egreso</h1>
+                                    <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                                    
+                                        <div class="form-group">
+                                            <select name="" id="Tipo_Egreso" class="form-control">
+                                                <option selected="" value="----">Seleccionar</option>
+                                                {% for egreso in tipo_egreso %}
+                                                    <option value="{{egreso.tipodeEgreso}}">{{egreso.tipodeEgreso}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    
+                                    <!-- END EXAMPLE TABLE PORTLET-->
+                                    
+                                </div>
+                                <div class="col-md-2">
+                                <button type="button" onclick="BusquedaPorTipoEgreso()" style="margin-top:3.8em;" class="btn btn-primary btn-block">
+                                        Buscar
+                                    </button>
+                                    
+                                </div>
+                            </div>
 
 		                    <div style="margin-top: 3em;" class="row">
-                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <div class="{% if user.is_authenticated and user.is_staff == True %} %}col-lg-4 col-md-4 col-sm-12 col-xs-12{% else %}hidden{% endif %}">
                             <div class="dashboard-stat2 " style="background:dodgerblue;">
                                 <div class="display">
                                     <div class="number">
@@ -253,7 +278,7 @@
                                 -->
                             </div>
                         </div>
-                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <div class="{% if user.is_authenticated and user.is_staff == True %} %}col-lg-4 col-md-4 col-sm-12 col-xs-12{% else %}hidden{% endif %}">
                             <div class="dashboard-stat2 " style="background:dodgerblue;">
                                 <div class="display">
                                     <div class="number">
@@ -274,7 +299,7 @@
                                 
                             </div>
                         </div>
-                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <div class="{% if user.is_authenticated and user.is_staff == True %} %}col-lg-4 col-md-4 col-sm-12 col-xs-12{% else %}col-lg-12 col-md-12 col-sm-12 col-xs-12{% endif %}">
                             <div class="dashboard-stat2 " style="background:dodgerblue;">
                                 <div class="display">
                                     <div class="number">
@@ -344,7 +369,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <div class="{% if user.is_authenticated and user.is_staff == True %} %}col-lg-4 col-md-4 col-sm-12 col-xs-12{% else %}hidden{% endif %}">
                             <div class="dashboard-stat2 " style="background:crimson;">
                                 <div class="display">
                                     <div class="number">
@@ -380,7 +405,7 @@
                                 -->
                             </div>
                         </div>
-                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <div class="{% if user.is_authenticated and user.is_staff == True %} %}col-lg-4 col-md-4 col-sm-12 col-xs-12{% else %}hidden{% endif %}">
                             <div class="dashboard-stat2 " style="background:crimson;">
                                 <div class="display">
                                     <div class="number">
@@ -401,7 +426,7 @@
                                 
                             </div>
                         </div>
-                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <div class="{% if user.is_authenticated and user.is_staff == True %} %}col-lg-4 col-md-4 col-sm-12 col-xs-12{% else %}col-lg-12 col-md-12 col-sm-12 col-xs-12{% endif %}">
                             <div class="dashboard-stat2 " style="background:crimson;">
                                 <div class="display">
                                     <div class="number">
@@ -470,7 +495,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <div class="{% if user.is_authenticated and user.is_staff == True %} %}col-lg-4 col-md-4 col-sm-12 col-xs-12{% else %}hidden{% endif %}">
                             <div class="dashboard-stat2 " style="background:teal;">
                                 <div class="display">
                                     <div class="number">
@@ -506,7 +531,7 @@
                                 -->
                             </div>
                         </div>
-                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <div class="{% if user.is_authenticated and user.is_staff == True %} %}col-lg-4 col-md-4 col-sm-12 col-xs-12{% else %}hidden{% endif %}">
                             <div class="dashboard-stat2 " style="background:teal;">
                                 <div class="display">
                                     <div class="number">
@@ -527,7 +552,7 @@
                                 
                             </div>
                         </div>
-                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <div class="{% if user.is_authenticated and user.is_staff == True %} %}col-lg-4 col-md-4 col-sm-12 col-xs-12{% else %}col-lg-12 col-md-12 col-sm-12 col-xs-12{% endif %}">
                             <div class="dashboard-stat2 " style="background:teal;">
                                 <div class="display">
                                     <div class="number">
