@@ -1,7 +1,7 @@
 {% extends "../Base/Base.html" %}
 {% load staticfiles %}
 {% block Title %}
-	Musculando | Inicio
+    Musculando | Inicio
 {% endblock Title %}
 
 
@@ -29,10 +29,36 @@
                 </div>
                 <!-- END CONTENT BODY -->
             </div>
+
+        {% elif user.is_authenticated and user.is_staff == False %}
+
+        <div class="page-content-wrapper">
+                <!-- BEGIN CONTENT BODY -->
+                <div class="page-content">
+                    <!-- BEGIN PAGE HEADER-->
+                    <!-- BEGIN THEME PANEL -->
+                    <div class="theme-panel">
+                        <div class="toggler tooltips" data-container="body" data-placement="left" data-html="true" data-original-title="Click to open advance theme customizer panel">
+                            <i class="icon-settings"></i>
+                        </div>
+                        <div class="toggler-close">
+                            <i class="icon-close"></i>
+                        </div>
+                        
+                    </div>
+                    <!-- END THEME PANEL -->
+                    <h1 class="page-title"> Bienvenido
+                        <small>{{request.user}}</small>
+                    </h1>
+                    
+                </div>
+                <!-- END CONTENT BODY -->
+            </div>
+
     
         {% else %}
 
-			<div class="page-content-wrapper">
+            <div class="page-content-wrapper">
                 <!-- BEGIN CONTENT BODY -->
                 <div class="page-content">
                     <!-- BEGIN PAGE HEADER-->
@@ -563,7 +589,7 @@
                 </div>
                 <!-- END CONTENT BODY -->
             </div>
-	
+    
 
 
     {% endif %}

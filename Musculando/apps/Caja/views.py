@@ -21,9 +21,109 @@ from apps.Caja.forms import IngresoRegisterForm
 ################SCRIPTS#########################
 from apps.Scripts.DesactivateUser import Desactivate_Register
 # Create your views here.
-
 #################tareas asincronas correos ##########################
 from apps.tasks.Email_tasks import MailNewIngresoMensualidad
+from django.db.models import Count, Min, Sum, Avg
+from apps.Caja.models import tb_cierre_de_caja
+from datetime import date
+import time
+import json
+
+
+
+def VerCierre(request, id_cierre):
+	cierre = tb_cierre_de_caja.objects.get(id = id_cierre)
+	ingresos_today = json.loads(cierre.ingresos)
+	ingresos_mensualidades = json.loads(cierre.ingresos_mensualidades)
+	egresos = json.loads(cierre.egresos)
+
+	ingresos = []
+	egresos_d = []
+
+	for i in range(0,len(ingresos_today)):
+		
+		ingresos.append({'ingresos':'Mensualidades', 'descripcion':ingresos_today[i]['fields']['descripcion'], 'fecha':ingresos_today[i]['fields']['dateCreate'], 'monto':ingresos_today[i]['fields']['monto']})
+	for i in range(0,len(ingresos_mensualidades)):
+	
+		ingresos.append({'ingresos':tb_tipoIngreso.objects.get(id = ingresos_mensualidades[i]['fields']['tipoDeIngresos'] ), 'descripcion':ingresos_mensualidades[i]['fields']['descripcion'], 'fecha':ingresos_mensualidades[i]['fields']['dateCreate'], 'monto':ingresos_mensualidades[i]['fields']['monto']})
+	for i in range(0,len(egresos)):
+		
+		egresos_d.append({'egresos':tb_tipoEgreso.objects.get(id = egresos[i]['fields']['tipoDeEgreso']), 'descripcion':egresos[i]['fields']['descripcion'], 'fecha':egresos[i]['fields']['dateCreate'], 'monto':egresos[i]['fields']['monto']})
+
+	
+	
+	contexto = {
+		'cierre':cierre,
+		'ingresos':ingresos,
+		'egresos_d':egresos_d,
+		'egresos':egresos,
+	}
+	return render(request, 'Caja/Cierre_detail.html', contexto )
+
+
+
+
+
+@login_required(login_url = 'Panel:Login' )
+def ResumenCierres(request):
+	cierres = tb_cierre_de_caja.objects.all()
+	contexto = {
+		'cierres':cierres
+	}
+	return render(request , 'Caja/ResumenCierre.html', contexto )
+
+
+
+@login_required(login_url = 'Panel:Login' )
+def Cierre(request):
+	hoy = date.today()
+	hora = time.strftime("%H:%M:%S")
+	cierre = tb_cierre_de_caja()
+	ingresos_today =  tb_ingreso_mensualidad.objects.filter(dateCreate = hoy)
+	mensualidades_today = tb_ingresos.objects.filter(dateCreate = hoy)
+	egresos = tb_egreso.objects.filter(dateCreate = hoy)
+	total_ingresos_today = tb_ingreso_mensualidad.objects.filter(dateCreate = hoy).aggregate(total=Sum('monto'))
+	total_mensualidades_today = tb_ingresos.objects.filter(dateCreate = hoy).aggregate(total=Sum('monto'))
+	total_egresos= tb_egreso.objects.filter(dateCreate = hoy).aggregate(total=Sum('monto'))
+	if total_ingresos_today['total'] == None:
+		total_ingresos_today['total'] = 0
+	if total_mensualidades_today['total'] == None:
+		total_mensualidades_today['total'] = 0
+	if total_egresos['total'] == None:
+		total_egresos['total'] = 0
+	total_ingresos = total_ingresos_today['total'] + total_mensualidades_today['total']
+	balance_general = total_ingresos - total_egresos['total']
+	cierre.user = request.user
+	cierre.hora = time.strftime("%H:%M:%S")
+	cierre.ingresos_mensualidades = serializers.serialize("json", ingresos_today)
+	cierre.ingresos = serializers.serialize("json", mensualidades_today)
+	cierre.egresos = serializers.serialize("json", egresos)
+	cierre.totalIngresos = float(total_ingresos)
+	cierre.totalEgresos = float(total_egresos['total'])
+	cierre.balanceGeneral = float(balance_general)
+	cierre.save()
+
+
+	
+	 
+	
+	context = {
+		'total_ingresos':total_ingresos,
+		'balance_general':balance_general,
+		'total_egresos':total_egresos,
+		'ingresos_today':ingresos_today,
+		'mensualidades_today':mensualidades_today,
+		'egresos':egresos,
+		'hoy':hoy,
+		'hora':hora,
+		'user' : request.user
+	}
+	return render(request, 'Caja/cierre.html', context)
+
+
+
+
+
 
 #######################NUEVO INGRESO DE MENSUALIDAD###########################
 @login_required(login_url = 'Panel:Login' )
@@ -198,7 +298,9 @@ def QueryDia(request):
 	return HttpResponse(data)
 
 def QueryTipoEgreso(request):
+	year =int(request.GET.get('year', None))
+	month = int(request.GET.get('month', None))
 	tipo_egreso = request.GET.get('tipo_egreso', None)
-	query = tb_egreso.objects.filter(tipoDeEgreso__tipodeEgreso = tipo_egreso)
+	query = tb_egreso.objects.filter(dateCreate__year = year).filter(dateCreate__month = month).filter(tipoDeEgreso__tipodeEgreso = tipo_egreso)
 	data = serializers.serialize('json', query)
 	return HttpResponse(data)

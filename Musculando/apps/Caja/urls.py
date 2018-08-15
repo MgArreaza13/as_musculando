@@ -12,6 +12,9 @@ from apps.Caja.views import QueryAnual
 from apps.Caja.views import QueryMensual
 from apps.Caja.views import QueryDia
 from apps.Caja.views import QueryTipoEgreso
+from apps.Caja.views import Cierre
+from apps.Caja.views import VerCierre
+from apps.Caja.views import ResumenCierres
 
 urlpatterns = [
 	#url(r'^registro/$', Registro, name='Registro'  ),
@@ -19,6 +22,9 @@ urlpatterns = [
 	#url(r'^borrar/(?P<id_UserProfile>\d+)$', DeleteUserProfile, name='DeleteUserProfile'  ),
 	#url(r'^nuevousuario/$', NuevoUsuario, name='NuevoUsuario'  ),
 	url(r'^Resumen/$', Resumen, name='Resumen'  ),
+	url(r'^Cierre/$', Cierre, name='Cierre'  ),
+	url(r'^Cierre/Resumen$', ResumenCierres, name='ResumenCierres'  ),
+	url(r'^Cierre/ver/(?P<id_cierre>\d+)$', VerCierre, name='VerCierre'  ),
 	#url(r'^Nueva/Peticion/de/Nuevo/Proveedor$', NuevoProveedor, name='NuevoProveedor'  ),
 	url(r'^Ingresos/Lista$', ListOtroIngresos , name='ListOtroIngresos'  ),
 	url(r'^Ingresos/Mensualidad/Lista$', ListadoDeIngresos , name='ListadoDeIngresos'  ),

@@ -296,6 +296,8 @@ function BusquedaFecha() {
 
 
 function BusquedaPorTipoEgreso() {
+	year = $('#tipo_egreso_Year').val();
+	month = $('#tipo_egreso_Month').val();
 	tipo_egreso = $('#Tipo_Egreso').val();
 	$('#ResultadosDeBusquedacontainer').removeClass('hidden');
 	$('#ResultadosDeBusqueda').removeClass('hidden');
@@ -304,6 +306,8 @@ function BusquedaPorTipoEgreso() {
 		    // la URL para la petición
 		    url : '/Caja/Ingresos/QueryTipoEgreso/',
 		    data : { 
+		    	'year':year,
+		    	'month':month,
 		    	'tipo_egreso':tipo_egreso,
 		    },
 		    dataType : 'json',

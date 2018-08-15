@@ -6,8 +6,16 @@ from django.contrib.auth import login as login_django
 from django.contrib.auth import logout as logout_django
 from apps.UserProfile.models import tb_profile
 from apps.ContextProcesor.UserProfile import QueryUser
-
+from apps.tasks.Process_tasks import ActualizacionDeUsuarios
+from django.http import HttpResponse
 # Create your views here.
+
+
+
+
+def ActualizacionUsuario(request):
+	ActualizacionDeUsuarios.delay()
+	return HttpResponse(200)
 
 
 

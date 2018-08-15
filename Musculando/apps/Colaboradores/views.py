@@ -42,7 +42,6 @@ def EntradaSalida(request):
 	password = request.GET.get('password', None)
 	entrada_salida = request.GET.get('entradaSalida_', None)
 	user 	= authenticate(username=usuario, password=password)
-	print(user)
 	status = 503
 	if user != None:
 		new_object = tb_EntradaSalida()

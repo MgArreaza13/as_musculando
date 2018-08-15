@@ -5,6 +5,7 @@ from apps.Configuracion.models import tb_tipoEgreso
 from apps.Proveedores.models import tb_proveedor
 from apps.Colaboradores.models import tb_colaboradores
 from apps.Configuracion.models import tb_tipoIngreso
+import time
 # Create your models here.
 
 class tb_ingreso_mensualidad (models.Model):
@@ -70,5 +71,22 @@ class tb_egreso(models.Model):
 
 
 
+def get_default_my_hour():
+	return time.strftime("%H:%M:%S")
 
-
+class tb_cierre_de_caja(models.Model):
+	user 									=	models.ForeignKey(settings.AUTH_USER_MODEL)
+	hora									= 	models.CharField(max_length=50, default=get_default_my_hour)
+	ingresos_mensualidades 					=	models.TextField(default='Sin Descripcion', null=True, max_length=300000000)
+	ingresos  								=	models.TextField(default='Sin Descripcion', null=True, max_length=300000000)
+	egresos  								=	models.TextField(default='Sin Descripcion', null=True, max_length=300000000)
+	totalIngresos							=	models.FloatField(default='0000', null=True,)
+	totalEgresos							=	models.FloatField(default='0000', null=True,)
+	balanceGeneral							=	models.FloatField(default='0000', null=True,)
+	dateCreate								=	models.DateField(auto_now=True, blank=False)
+	
+	def __str__(self):
+		return self.user.username
+	class Meta:
+		managed = True
+		db_table = 'tb_cierre_de_caja' 
