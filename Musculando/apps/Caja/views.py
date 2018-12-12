@@ -40,14 +40,11 @@ def VerCierre(request, id_cierre):
 	ingresos = []
 	egresos_d = []
 
-	for i in range(0,len(ingresos_today)):
-		
-		ingresos.append({'ingresos':'Mensualidades', 'descripcion':ingresos_today[i]['fields']['descripcion'], 'fecha':ingresos_today[i]['fields']['dateCreate'], 'monto':ingresos_today[i]['fields']['monto']})
 	for i in range(0,len(ingresos_mensualidades)):
-	
-		ingresos.append({'ingresos':tb_tipoIngreso.objects.get(id = ingresos_mensualidades[i]['fields']['tipoDeIngresos'] ), 'descripcion':ingresos_mensualidades[i]['fields']['descripcion'], 'fecha':ingresos_mensualidades[i]['fields']['dateCreate'], 'monto':ingresos_mensualidades[i]['fields']['monto']})
+		ingresos.append({'ingresos':'Mensualidades', 'descripcion':ingresos_mensualidades[i]['fields']['descripcion'], 'fecha':ingresos_mensualidades[i]['fields']['dateCreate'], 'monto':ingresos_mensualidades[i]['fields']['monto']})
+	for i in range(0,len(ingresos_today)):
+		ingresos.append({'ingresos':tb_tipoIngreso.objects.get(id = ingresos_today[i]['fields']['tipoDeIngresos'] ), 'descripcion':ingresos_today[i]['fields']['descripcion'], 'fecha':ingresos_today[i]['fields']['dateCreate'], 'monto':ingresos_today[i]['fields']['monto']})
 	for i in range(0,len(egresos)):
-		
 		egresos_d.append({'egresos':tb_tipoEgreso.objects.get(id = egresos[i]['fields']['tipoDeEgreso']), 'descripcion':egresos[i]['fields']['descripcion'], 'fecha':egresos[i]['fields']['dateCreate'], 'monto':egresos[i]['fields']['monto']})
 
 	

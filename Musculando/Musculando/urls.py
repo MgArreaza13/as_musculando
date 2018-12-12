@@ -30,8 +30,9 @@ router.register(r'api/Mails', MailViewSet)
 urlpatterns = [
     url(r'^', include('apps.Panel.urls', namespace='Panel')),
     url(r'^admin/', admin.site.urls),
-    url(r'^Clases/', include('apps.Clases.urls', namespace='Clases')),
+    url(r'^Actividades/', include('apps.Clases.urls', namespace='Clases')),
     url(r'^Colaboradores/', include('apps.Colaboradores.urls', namespace='Colaboradores')),
+    url(r'^Canchas/', include('apps.Canchas.urls', namespace='Canchas')),
     url(r'^Caja/', include('apps.Caja.urls', namespace='Caja')),
     url(r'^Configuracion/', include('apps.Configuracion.urls', namespace='Configuracion')),
     url(r'^Usuarios/', include('apps.UserProfile.urls', namespace='Usuarios')),

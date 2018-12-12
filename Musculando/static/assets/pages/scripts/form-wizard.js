@@ -36,11 +36,11 @@ var FormWizard = function () {
                 rules: {
                     //account
                    
-                    Nombre: {
+                    nombre: {
      
                         required: true
                     },
-                    Apellido: {
+                    telefono: {
 
                         required: true,
 
@@ -48,7 +48,7 @@ var FormWizard = function () {
                     
                     
                    
-                    plan: {
+                    email: {
                         required: true
                     },
                     //payment
@@ -175,7 +175,7 @@ var FormWizard = function () {
                 if (current >= total) {
                     $('#form_wizard_1').find('.button-next').hide();
                     $('#form_wizard_1').find('.button-submit').show();
-                    displayConfirm();
+                   
                 } else {
                     $('#form_wizard_1').find('.button-next').show();
                     $('#form_wizard_1').find('.button-submit').hide();
@@ -225,13 +225,7 @@ var FormWizard = function () {
             });
 
             $('#form_wizard_1').find('.button-previous').hide();
-            $('#form_wizard_1 .button-submit').click(function () {
-                swal(
-                  'Excelente',
-                  'Gracias por subir tu aporte!',
-                  'success'
-                )
-            }).hide();
+            $('#form_wizard_1 .button-submit').hide();
 
             //apply validation on select2 dropdown value change, this only needed for chosen dropdown integration.
             $('#country_list', form).change(function () {

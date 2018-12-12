@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'apps.Marketing',
     'apps.Socios',
     'apps.Panel',
+    'apps.Canchas'
 ]
 
 MIDDLEWARE = [

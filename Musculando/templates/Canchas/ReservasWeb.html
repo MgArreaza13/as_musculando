@@ -1,0 +1,861 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<!-- 
+-->
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+    <!--<![endif]-->
+    <!-- BEGIN HEAD -->
+
+    <head>
+        <meta charset="utf-8" />
+        <title>Musculando - Reservas Web</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <meta content="Preview page of Metronic Admin Theme #2 for bootstrap form wizard demos using Twitter Bootstrap Wizard Plugin" name="description" />
+        <meta content="" name="author" />
+        <!-- BEGIN GLOBAL MANDATORY STYLES -->
+        <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
+        <link href="{% static "assets/global/plugins/font-awesome/css/font-awesome.min.css" %}" rel="stylesheet" type="text/css" />
+        <link href="{% static "assets/global/plugins/simple-line-icons/simple-line-icons.min.css" %}" rel="stylesheet" type="text/css" />
+        <link href="{% static "assets/global/plugins/bootstrap/css/bootstrap.min.css" %}" rel="stylesheet" type="text/css" />
+        <link href="{% static "assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" %}" rel="stylesheet" type="text/css" />
+        <!-- END GLOBAL MANDATORY STYLES -->
+        <!-- BEGIN PAGE LEVEL PLUGINS -->
+        <link href="{% static "assets/global/plugins/select2/css/select2.min.css" %}" rel="stylesheet" type="text/css" />
+        <link href="{% static "assets/global/plugins/select2/css/select2-bootstrap.min.css" %}" rel="stylesheet" type="text/css" />
+        <link href="{% static "assets/global/plugins/fullcalendar/fullcalendar.min.css" %}" rel="stylesheet" type="text/css" />
+        <!-- END PAGE LEVEL PLUGINS -->
+        <!-- BEGIN THEME GLOBAL STYLES -->
+        <link href="{% static "assets/global/css/components-md.min.css" %}" rel="stylesheet" id="style_components" type="text/css" />
+        <link href="{% static "assets/global/css/plugins-md.min.css" %}" rel="stylesheet" type="text/css" />
+        <!-- END THEME GLOBAL STYLES -->
+        <!-- BEGIN THEME LAYOUT STYLES -->
+        <link href="{% static "assets/layouts/layout2/css/layout.min.css" %}" rel="stylesheet" type="text/css" />
+        <link href="{% static "assets/layouts/layout2/css/themes/blue.min.css" %}" rel="stylesheet" type="text/css" id="style_color" />
+        <link href="{% static "assets/layouts/layout2/css/custom.min.css" %}" rel="stylesheet" type="text/css" />
+
+        <style>
+            /*=============================================================
+    Authour URL: www.designbootstrap.com
+    
+    http://www.designbootstrap.com/
+
+    License: MIT     
+========================================================  */
+
+.db-pricing-seven {
+    margin-bottom: 30px;
+    margin-top: 30px;
+    text-align: center;
+    border: 1px solid #C5C2C2;
+    background-color: #EDEDED;
+}
+
+    
+
+    .db-pricing-seven ul {
+        list-style: none;
+        margin: 0;
+        text-align: center;
+        padding-left: 0px;
+    }
+
+        .db-pricing-seven ul li {
+            border-bottom: solid 1px #D8D8D8;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+            .db-pricing-seven ul li.price {
+                background-color: #fff;
+                padding: 40px 20px 20px 20px;
+                font-size: 20px;
+                font-weight: 900;
+                color: #353c3e;
+                font-weight: 900;
+            }
+
+                .db-pricing-seven ul li.price i {
+                    padding: 30px;
+                    font-size: 50px;
+                    display: block;
+                }
+
+
+    .db-pricing-seven .pricing-footer {
+        padding: 20px;
+    }
+
+        .db-pricing-seven .pricing-footer a i {
+            margin: 5px;
+            top: 3px;
+        }
+        </style>
+        
+
+
+
+        
+        
+        
+       
+        
+
+        
+        <!-- END THEME LAYOUT STYLES -->
+        <link rel="shortcut icon" href="favicon.ico" /> </head>
+    <!-- END HEAD -->
+
+    <body class="page-header-fixed page-sidebar-closed-hide-logo page-container-bg-solid page-md" style="overflow-x:hidden">
+        <!-- BEGIN HEADER -->
+        <div class="page-header navbar navbar-fixed-top">
+            <!-- BEGIN HEADER INNER -->
+            <div class="page-header-inner ">
+                <!-- BEGIN LOGO -->
+                <div class="page-logo">
+                    <a href="index.html">
+                        <img style="height: 50px;width: 139px;margin-top: 0.7em;" src="{% static "assets/pages/img/logo2.png" %}../" alt="logo" class="logo-default" /> </a>
+                    
+                </div>
+                <!-- END LOGO -->
+                <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+               
+                <!-- END RESPONSIVE MENU TOGGLER -->
+                <!-- BEGIN PAGE ACTIONS -->
+                <!-- DOC: Remove "hide" class to enable the page header actions -->
+                
+                <!-- END PAGE ACTIONS -->
+                <!-- BEGIN PAGE TOP -->
+                <div class="page-top">
+                    <!-- BEGIN HEADER SEARCH BOX -->
+                    <!-- DOC: Apply "search-form-expanded" right after the "search-form" class to have half expanded search box -->
+                    
+                    <!-- END HEADER SEARCH BOX -->
+                    <!-- BEGIN TOP NAVIGATION MENU -->
+                   
+                    <!-- END TOP NAVIGATION MENU -->
+                </div>
+                <!-- END PAGE TOP -->
+            </div>
+            <!-- END HEADER INNER -->
+        </div>
+        <!-- END HEADER -->
+        <!-- BEGIN HEADER & CONTENT DIVIDER -->
+        <div class="clearfix"> </div>
+        <!-- END HEADER & CONTENT DIVIDER -->
+        <!-- BEGIN CONTAINER -->
+        <div class="page-container">
+            <!-- BEGIN SIDEBAR -->
+            <div class="page-sidebar-wrapper">
+                <!-- END SIDEBAR -->
+                <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+                <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+                
+                <!-- END SIDEBAR -->
+            </div>
+            <!-- END SIDEBAR -->
+            <!-- BEGIN CONTENT -->
+            <div class="container-fluid" style="padding: 0 !important">
+                <!-- BEGIN CONTENT BODY -->
+                <div class="page-content">
+                    <!-- BEGIN PAGE HEADER-->
+                    <!-- BEGIN THEME PANEL -->
+                    
+                    <!-- END THEME PANEL -->
+                    <h1 class="page-title"> Canchas
+                        <small>Reservas Web</small>
+                    </h1>
+                    
+                    <!-- END PAGE HEADER-->
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            <div class="portlet light " id="form_wizard_1">
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <i class=" icon-layers font-red"></i>
+                                        <span class="caption-subject font-red bold uppercase"> Reservas - Web
+                                            <span class="step-title"> Paso 1 de 4 </span>
+                                        </span>
+                                    </div>
+                                    <div class="actions">
+                                        <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
+                                            <i class="icon-cloud-upload"></i>
+                                        </a>
+                                        <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
+                                            <i class="icon-wrench"></i>
+                                        </a>
+                                        <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
+                                            <i class="icon-trash"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="portlet-body form">
+                                    <form class="form-horizontal" action="#" id="submit_form" method="POST">
+                                        <div class="form-wizard">
+                                            <div class="form-body">
+                                                <ul class="nav nav-pills nav-justified steps">
+                                                    <li id="paso1">
+                                                        <a href="#tab1" data-toggle="tab" class="step">
+                                                            <span class="number"> 1 </span>
+                                                            <span class="desc">
+                                                                <i class="fa fa-check"></i>Datos Personales </span>
+                                                        </a>
+                                                    </li>
+                                                    <li id="paso2">
+                                                        <a href="#tab2" data-toggle="tab" class="step">
+                                                            <span class="number"> 2 </span>
+                                                            <span class="desc">
+                                                                <i class="fa fa-check"></i> Canchas </span>
+                                                        </a>
+                                                    </li>
+                                                    <li id="paso3">
+                                                        <a href="#tab3" data-toggle="tab" class="step active">
+                                                            <span class="number"> 3 </span>
+                                                            <span class="desc">
+                                                                <i class="fa fa-check"></i> Fechas </span>
+                                                        </a>
+                                                    </li>
+                                                    <li id="paso4">
+                                                        <a href="#tab4" data-toggle="tab" class="step">
+                                                            <span class="number"> 4 </span>
+                                                            <span class="desc">
+                                                                <i class="fa fa-check"></i> Confirmacion </span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                                <div id="bar" class="progress progress-striped" role="progressbar">
+                                                    <div class="progress-bar progress-bar-success"> </div>
+                                                </div>
+                                                <div class="tab-content">
+                                                    <div class="alert alert-danger display-none">
+                                                        <button class="close" data-dismiss="alert"></button> Tienes Un error  </div>
+                                                    <div class="alert alert-success display-none">
+                                                        <button class="close" data-dismiss="alert"></button> Datos Satisfactorios </div>
+                                                    <div class="tab-pane active" id="tab1">
+                                                        <h3 class="block">Ingresa los datos personales</h3>
+                                                        <div class="form-group">
+                                                            <label class="control-label col-md-3">Nombre
+                                                                <span class="required"> * </span>
+                                                            </label>
+                                                            <div class="col-md-7">
+                                                                <input type="text" class="form-control" id="Nombre" name="nombre" />
+                                                                <span class="help-block"> Ingresa tu nombre </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="control-label col-md-3">Numero de Telefono
+                                                                <span class="required"> * </span>
+                                                            </label>
+                                                            <div class="col-md-7">
+                                                                <input type="text" class="form-control" name="telefono" id="NumeroDeTelefono" id="submit_form_password" />
+                                                                <span class="help-block"> Ingresa tu numero telefonico </span>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <div class="form-group">
+                                                            <label class="control-label col-md-3">Correo
+                                                                <span class="required"> * </span>
+                                                            </label>
+                                                            <div class="col-md-7">
+                                                                <input type="text" class="form-control" id="Correo" name="email" />
+                                                                <span class="help-block"> Ingresa tu correo  </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="tab-pane" id="tab2">
+                                                        <h3 class="block">Selecciona la cancha a contratar</h3>
+                                                        <div class="form-group">
+                                                            <div id="carousel-example" class="carousel slide " data-ride="carousel">
+                                                                <div class="controls pull-right ">
+                                                                    <a class="left fa fa-chevron-left btn btn-success" href="#carousel-example"
+                                                                        data-slide="prev"></a><a class="right fa fa-chevron-right btn btn-success" href="#carousel-example"
+                                                                            data-slide="next"></a>
+                                                                </div>
+                                                               <!-- Wrapper for slides -->
+                                                                <div class="carousel-inner">
+                                                                    <div class="item active">
+                                                                        <div class="row">
+                                                                            
+                                                                            <div class="col-xs-offset-3 col-xs-6">
+                                                                                <img style="width:350px; height:320px;" class="img-responsive col-xs-offset-3 col-xs-6"  src="{% static "/assets/pages/img/musculando-logo.jpg" %}" alt="Logo">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    {% for canchas  in canchas  %}
+                                                                    <div class="item">
+                                                                        <div class="row">
+                                                                            <div class="col-xs-offset-3 col-xs-6">
+                                                                                <div class="col-item">
+                                                                                    <div class="photo col-xs-offset-3 col-xs-6">
+                                                                                        <img src="{{server}}/media/{{canchas.image}}" style="width:350px; height:260px;" class="img-responsive" alt="a" />
+                                                                                    </div>
+                                                                                    <div class="info">
+                                                                                        <div class="row">
+                                                                                            <div class="col-xs-offset-3 col-xs-6">
+                                                                                                <h3>
+                                                                                                    {{canchas.nameCancha}}</h3>
+                                                                                                <h4 class="price-text-color">
+                                                                                                    ${{canchas.precioHora}}</h4>
+                                                                                                    <p>{{canchas.description}}</p>
+                                                                                            </div>
+                                                                                            
+                                                                                        </div>
+                                                                                        <div class="separator clear-left col-md-12">
+                                                                                            <p class="btn-add col-sm-12">
+                                                                                                <button type="button" name="{{canchas.id}}"  id="siguientePaso2"   value="{{canchas.nameCancha}} - ${{canchas.precioHora}}" class="btn btn-success btn-block  boton2" onclick="selecciondecancha(this) "><i class="fa fa-shopping-cart"></i>CONTINUAR</button></p>
+                                                                                            
+                                                                                        </div>
+                                                                                        <div class="clearfix">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                           
+                                                                        </div>
+                                                                    </div>
+
+                                                                     {% endfor %}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                    <div class="tab-pane" id="tab3">
+                                                        <h3 class="block">Selecciona la fecha de tu reserva</h3>
+
+                                                        <div class="row" style="margin-top:3em;">
+                                                        <div class="col-md-12">
+                                                            
+                                                                
+                                                                <div class="portlet-body">
+                                                                    <div class="row">
+                                                                        
+                                                                        <div class="col-md-8 col-sm-8">
+                                                                            <div id="calendario" class="has-toolbar"> </div>
+                                                                        </div>
+                                                                        <div class="col-md-4 col-sm-4">
+                                                                            <div class="db-wrapper">
+                                                                                <div class="db-pricing-seven">
+                                                                                    <ul>
+                                                                                        <li class="price">
+                                                                                            
+                                                                                            Datos de la Reserva - <span id="dataReserva"></span>
+                                                                                        </li>
+
+                                                                                        <li>Nombre: <span id="informacionDeNombre"></span></li>
+                                                                                        <li>Numero de Telefono: <span id="informacionDeTelefono"></span></li>
+                                                                                        <li>Correo: <span id="informacionDeCorreo"></span></li>
+                                                                                        <li>Cancha a Reservar: <span id="CanchaAReservar"></span></li>
+                                                                                        <li>Fecha de Reserva: <span id="FechaReserva"></span></li>
+                                                                                        <li>Turno a Reservar: <span id="TurnoReserva"></span></li>
+                                                                                    </ul>
+                                                                                    
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        
+                                                            
+                                                        </div>
+                                                    </div>
+                                                        
+                                                    </div>
+                                                    </div>
+                                                    </div>
+
+                                                    <div class="tab-pane" id="tab4">
+                                                        <h3 class="block">Confirma Tu Reserva</h3>
+
+                                                        <div class="row" style="margin-top:3em;">
+                                                        <div class="col-md-12">
+                                                            
+                                                                
+                                                                <div class="portlet-body">
+                                                                    <div class="row">
+                                                                        
+                                                                        
+                                                                        <div class="col-md-12 col-sm-12">
+                                                                            <div class="db-wrapper">
+                                                                                <div class="db-pricing-seven">
+                                                                                    <ul>
+                                                                                        <li class="price">
+                                                                                            
+                                                                                            Datos de la Reserva - <span id="dataReserva2"></span>
+                                                                                        </li>
+
+                                                                                        <li>Nombre: <span id="informacionDeNombre2"></span></li>
+                                                                                        <li>Numero de Telefono: <span id="informacionDeTelefono2"></span></li>
+                                                                                        <li>Correo: <span id="informacionDeCorreo2"></span></li>
+                                                                                        <li>Cancha a Reservar: <span id="CanchaAReservar2"></span></li>
+                                                                                        <li>Fecha de Reserva: <span id="FechaReserva2"></span></li>
+                                                                                        <li>Turno a Reservar: <span id="TurnoReserva2"></span></li>
+                                                                                    </ul>
+                                                                                    
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        
+                                                            
+                                                        </div>
+                                                    </div>
+                                                        
+                                                    </div>
+                                                    </div>
+                                                        
+                                                        
+                                                        
+                                                        
+                                                       
+                                                        
+                                                       
+                                                       
+                                                       
+                                                       
+                                                        
+                                                    </div>
+                                                </div>
+                                                                                      <a href="javascript:;" class="btn default button-previous">
+                                                            <i class="fa fa-angle-left"></i> Atras </a>
+                                                        <a id="botonDeContinuar" onclick="continueStep()" href="javascript:;" class="btn btn-outline green button-next pull-right"> Continuar
+                                                            <i class="fa fa-angle-right"></i>
+                                                        </a>
+                                                        <button type="button" onclick="EnviarReserva()" class="btn green button-submit pull-right"> Enviar
+                                                            <i class="fa fa-check"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END CONTENT BODY -->
+            </div>
+            <!-- END CONTENT -->
+            
+        </div>
+
+
+        <input type="hidden" id="fecha" value='0'>
+        <input type="hidden" id="turn" value="0">
+        <input type="hidden" id="cancha" value="0">
+        <!-- END CONTAINER -->
+        <!-- BEGIN FOOTER -->
+        <div class="page-footer">
+            <div class="page-footer-inner"> 2016 &copy; Metronic Theme By
+                <a target="_blank" href="http://keenthemes.com">Keenthemes</a> &nbsp;|&nbsp;
+                <a href="http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes" title="Purchase Metronic just for 27$ and get lifetime updates for free" target="_blank">Purchase Metronic!</a>
+                <div class="scroll-to-top">
+                    <i class="icon-arrow-up"></i>
+                </div>
+            </div>
+            <!-- END FOOTER -->
+            
+            <!--[if lt IE 9]>
+<script src="{% static "" %}../assets/global/plugins/respond.min.js"></script>
+<script src="{% static "" %}../assets/global/plugins/excanvas.min.js"></script> 
+<script src="{% static "" %}../assets/global/plugins/ie8.fix.min.js"></script> 
+<![endif]-->
+            <!-- BEGIN CORE PLUGINS -->
+            <script src="{% static "assets/global/plugins/jquery.min.js" %}" type="text/javascript"></script>
+            <script src="{% static "assets/apps/scripts/swet-miguel.js" %}" type="text/javascript"></script>
+            <script src="{% static "assets/global/plugins/bootstrap/js/bootstrap.min.js" %}" type="text/javascript"></script>
+            <script src="{% static "assets/global/plugins/js.cookie.min.js" %}" type="text/javascript"></script>
+            <script src="{% static "assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" %}" type="text/javascript"></script>
+            <script src="{% static "assets/global/plugins/jquery.blockui.min.js" %}" type="text/javascript"></script>
+            <script src="{% static "assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" %}" type="text/javascript"></script>
+            <!-- END CORE PLUGINS -->
+            <!-- BEGIN PAGE LEVEL PLUGINS -->
+            <script src="{% static "assets/global/plugins/select2/js/select2.full.min.js" %}" type="text/javascript"></script>
+            <script src="{% static "assets/global/plugins/jquery-validation/js/jquery.validate.min.js" %}" type="text/javascript"></script>
+            <script src="{% static "assets/global/plugins/jquery-validation/js/additional-methods.min.js" %}" type="text/javascript"></script>
+            <script src="{% static "assets/global/plugins/bootstrap-wizard/jquery.bootstrap.wizard.min.js" %}" type="text/javascript"></script>
+            <!-- BEGIN PAGE LEVEL PLUGINS -->
+            <script src="{% static "assets/global/plugins/moment.min.js" %}" type="text/javascript"></script>
+            <script src="{% static "assets/global/plugins/fullcalendar/fullcalendar.min.js" %}" type="text/javascript"></script>
+            <script src="{% static "assets/global/plugins/fullcalendar/lang/es.js" %}" type="text/javascript"></script>
+            <script src="{% static "assets/global/plugins/jquery-ui/jquery-ui.min.js" %}" type="text/javascript"></script>
+            <!-- END PAGE LEVEL PLUGINS -->
+            <!-- BEGIN THEME GLOBAL SCRIPTS -->
+            <!-- END THEME GLOBAL SCRIPTS -->
+            <!-- BEGIN PAGE LEVEL SCRIPTS -->
+            
+            <!-- END PAGE LEVEL SCRIPTS -->
+            <!-- END PAGE LEVEL PLUGINS -->
+            <!-- BEGIN THEME GLOBAL SCRIPTS -->
+            <script src="{% static "assets/global/scripts/app.min.js" %}" type="text/javascript"></script>
+            <script src="{% static "assets/apps/scripts/calendar.min.js" %}" type="text/javascript"></script>
+            <!-- END THEME GLOBAL SCRIPTS -->
+            <!-- BEGIN PAGE LEVEL SCRIPTS -->
+            <script src="{% static "assets/pages/scripts/form-wizard.js" %}" type="text/javascript"></script>
+            <!-- END PAGE LEVEL SCRIPTS -->
+            <!-- BEGIN THEME LAYOUT SCRIPTS -->
+            <script src="{% static "assets/layouts/layout2/scripts/layout.min.js" %}" type="text/javascript"></script>
+            <script src="{% static "assets/layouts/layout2/scripts/demo.min.js" %}" type="text/javascript"></script>
+            <script src="{% static "assets/layouts/global/scripts/quick-sidebar.min.js" %}" type="text/javascript"></script>
+            <script src="{% static "assets/layouts/global/scripts/quick-nav.min.js" %}" type="text/javascript"></script>
+            <script src="{% static "assets/apps/scripts/reservas.js" %}"></script>
+
+
+            <script>
+  $(function () {
+
+    /* initialize the calendar
+     -----------------------------------------------------------------*/
+    //Date for the calendar events (dummy data)
+    var date = new Date();
+    var d = date.getDate(),
+        m = date.getMonth(),
+        y = date.getFullYear();
+
+    var selectableoption = false;
+    
+    $('#calendario').fullCalendar({
+      header: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'month,agendaWeek,agendaDay'
+      },
+      buttonText: {
+        today: 'Iniciar Calendario',
+        month: 'Mes',
+        week: 'Semana',
+        day: 'Dia'
+      },
+
+
+      //Random default events
+      events: [
+
+      {% for turno in turnos %}
+        {
+          title: 'RESERVADO - {{turno.cancha.nameCancha}}',
+          start: '{{ turno.dateTurn|date:"Y-m-d" }} {{turno.turn.HoraTurnEnd}}',
+          end:'{{ turno.dateTurn|date:"Y-m-d" }} {{turno.turn.HoraTurnEnd}}',
+          backgroundColor: "#f56954", //red
+          borderColor: "#f56954",//red
+          titulo:'{{turno.cancha.nameCancha}}',
+          //cliente:'{{turno.client}}',
+          //fecha_de_inicio:'{{ turno.dateTurn|date:"d-m-Y" }}',
+          //hora_de_inicio:'{{ turno.HoraTurn }}',
+          
+        },
+      {% endfor %}],
+      selectable: true,
+      selectHelper: true,
+      select: function(start, end) {
+        date = new Date(start);
+        year = date.getFullYear();
+        month = date.getMonth()+1;
+        dt = date.getDate()+1;
+        if (dt < 10) {
+        dt = '0' + dt;
+        }
+        if (month < 10) {
+            month = '0' + month;
+        }
+
+        var fecha = year+'-' + month + '-'+dt;
+        console.log(fecha)
+            $.ajax({
+                url: '/Canchas/web/consulta/',
+                data: {
+                    'date': fecha
+                },
+                dataType: 'json',
+                success: function (query) {
+                    if(query.length != 0)
+                         {
+                        console.log('longitud del arreglo ' + query.length);
+                        var myArrayOfThings = [];
+                        var cont = 0;
+                        var arreglo_dos = [];
+                        var band = 1;
+                        var validacion = 0; // 0 no esta ocupado, 1 ocupado
+                        function cargarOpciones(query) {
+                                //esta  funcion lo que esta hacioendo es validando 
+                                //lo que traigo del query que en este momentos son todos los turnos que estan
+                                //ocupados ese dia, y esta llenando las opciones 
+                                //del select unica y exclusivamente con la informacion 
+                                // de los turnos que se permiten en ese dia
+                                //console.log(query);
+                                {% for Tturno in tipe_turnos %}
+                                   //console.log('##########################################################id  del turno a validar'+ {{Tturno.id}} + '######################################################');
+                                        for(var i = 0; i<query.length; i++){
+                                           //console.log('--------------------------valor de i ' + i + '---------------------------');
+                                          // este for lo que hace es validar si existe alguna coincidencia 
+                                          // dentro del query del turno 
+                                          // si es asi sale 0 que es false 
+                                          // de lo contrario ban es igual a 1 
+                                          //y se cargara el turno
+                                          if({{Tturno.id}} != query[i].fields.turn && {{Tturno.id}} != 8 ){
+                                            //console.log('valor del id es ' + {{Tturno.id}} + ' valor del turno desocupado ' +query[i].fields.turn )
+                                            //console.log('Cargare');
+                                            band = 1;
+                                          }
+                                          else{
+                                            //console.log('No voy a cargar nada me estoy volviendo loco');
+                                            band = 0;
+                                            i = query.length;
+                                          }
+                                          //console.log('la bandera sale ' +band);
+                                        }
+                                        if(band == 1){
+                                          // aqui cargo la opcion para el select
+                                         myArrayOfThings.push( { id: '{{Tturno.id}}', name: '{{Tturno.nameturnsession}} . {{Tturno.HoraTurn}} - {{Tturno.HoraTurnEnd}}' });
+                                          //console.log(' voy a cargarrrrrrrrrrrrrrrrrrrrrrrrrr cargare');
+                                        }
+                                        //console.log(myArrayOfThings);
+                                    
+                                  {% endfor %}
+
+                               //console.log(myArrayOfThings);
+                              }
+
+
+                              for(var i = 0; i<query.length; i++){
+                                if (query[i].fields.turn == 8) {
+                                  validacion = 1;
+                                }
+                              }
+
+                              if (validacion != 1) { 
+                                cargarOpciones(query);
+                                var options = {};
+                                  $.map(myArrayOfThings,
+                                      function(o,query) {
+                                        
+                                          options[o.id] = o.name;
+                                        
+                                          
+                                      });  
+                                swal({
+                                    title: '<h1>Seleccione el turno para cargar su cotizacion </h1> <h3 style="color:#3b60be;" > El horario es flexible, si desea realizar algun horario especial comuniquese telefonicamente </h3>',
+                                    input: 'select',
+                                    inputOptions: options,
+                                    inputPlaceholder: 'Seleccione El Turno dispobible a cotizar,',
+                                    showCancelButton: true,
+                                    inputValidator: function (value ) {
+                                      return new Promise(function (resolve, reject) {
+                                        if(value){
+                                          console.log(query[0].fields.turn);
+                                        for (var i = 0; i < query.length; i++) {
+                                          if (value != query[i].fields.turn) {
+                                            console.log(value);
+                                          resolve()
+                                          
+                                        } 
+                                        }
+                                      }
+                                        else {
+                                          resolve('Seleccion Invalida')
+                                        }
+                                        }
+                                      )
+                                    }
+                                  }).then(function (result) {
+                                    // console.log('estoy entrand aqui ')
+                                    // console.log(result)
+                                    swal({
+                                      type: 'success',
+                                      title: 'Felicidades',
+                                      text: 'Ya puedes finiquitar tu reserva, puedes dar click en el boton de continuar',
+                                    })
+                                    $('#FechaReserva').text(fecha);
+                                    $('#TurnoReserva').text(result.value);
+                                    $('#FechaReserva2').text(fecha);
+                                    $('#TurnoReserva2').text(result.value);
+                                    $('li#paso3').addClass('paso3');
+                                    $('#botonDeContinuar').removeClass('disabled');
+                                    $('#fecha').val(fecha);
+                                    $('#turn').val(result.value);
+                                });
+
+
+                              }
+                              else{
+
+                                swal({
+                                type: 'warning',
+                                title: 'Ups!',
+                                text: '¡El Dia ha Sido reselvado Completamente , intente con otro dia, Gracias',
+                                timer: 8000,
+                                onOpen: function () {
+                                  swal.showLoading()
+                                }
+                              }).then(
+                                function () {},
+                                // handling the promise rejection
+                                function (dismiss) {
+                                  if (dismiss === 'timer') {
+                                    console.log('I was closed by the timer')
+                                  }
+                                }
+                              )
+
+                              }
+                               
+
+
+                                  
+                            }
+                            else{
+                              var myArrayOfThings = [
+                              {% for Tturno in tipe_turnos %}
+
+                              { id: {{Tturno.id}}, name: '{{Tturno.nameturnsession}} . {{Tturno.HoraTurn}} - {{Tturno.HoraTurnEnd}}' },
+
+                              {% endfor %}
+
+                              ];
+
+                                  var options = {};
+                                  $.map(myArrayOfThings,
+                                      function(o,query) {
+                                          options[o.id] = o.name;  
+                                      });
+                                  
+                              
+                             
+                                swal({
+                                    title: '<h1>Seleccione el turno para cargar su cotizacion </h1>  <h3 style="color:#3b60be;"> El horario es flexible, si desea realizar algun horario especial comuniquese telefonicamente </h3>',
+                                    input: 'select',
+                                    inputOptions: options,
+                                    inputPlaceholder: 'Seleccione El turno que desea cotizar',
+                                    showCancelButton: true,
+                                    inputValidator: function (value ) {
+                                      return new Promise(function (resolve, reject) {
+                                            
+                                          if (value) {
+                                            console.log(value);
+                                            
+                                          resolve()
+                                                  
+                                        }
+                                        else{
+                                          resolve('Seleccion Invalida')
+                                        }
+                                      })
+                                    }
+                                  }).then(function (result) {
+                                    // console.log('estoy entrando aqui 2')
+                                    // console.log(result)
+                                    swal({
+                                      type: 'success',
+                                      title: 'Felicidades',
+                                      text: 'Ya puedes finiquitar tu reserva, puedes dar click en el boton de continuar',
+                                    })
+                                    $('#FechaReserva').text(fecha);
+                                    $('#TurnoReserva').text(result.value);
+                                    $('#FechaReserva2').text(fecha);
+                                    $('#TurnoReserva2').text(result.value);
+                                    $('li#paso3').addClass('paso3');
+                                    $('#botonDeContinuar').removeClass('disabled');
+                                    $('#fecha').val(fecha);
+                                    $('#turn').val(result.value);
+
+                                });
+                            }
+                          },
+                        error : function() {
+                          swal({
+                                      type: 'error',
+                                      html: '<h1>Oops...</h1><h3>Hemos tenido un problema al procesar tu solicitud</h3>'+
+                                            '<p>Te invitamos a seleccionar otro dia.</p>'
+                                    })
+                      },
+
+                     
+                    });
+      },
+      eventClick: function(calEvent) {
+
+        alert('hola')
+       console.log(calEvent);
+
+        
+
+    },
+      editable: false,
+      droppable: true, // this allows things to be dropped onto the calendar !!!
+      drop: function (date, allDay) { // this function is called when something is dropped
+
+        // retrieve the dropped element's stored Event Object
+        var originalEventObject = $(this).data('eventObject');
+
+        // we need to copy it, so that multiple events don't have a reference to the same object
+        var copiedEventObject = $.extend({}, originalEventObject);
+
+        // assign it the date that was reported
+        copiedEventObject.start = date;
+        copiedEventObject.allDay = allDay;
+        copiedEventObject.backgroundColor = $(this).css("background-color");
+        copiedEventObject.borderColor = $(this).css("border-color");
+
+        // render the event on the calendar
+        // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
+        $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
+
+        // is the "remove after drop" checkbox checked?
+        if ($('#drop-remove').is(':checked')) {
+          // if so, remove the element from the "Draggable Events" list
+          $(this).remove();
+        }
+
+      }
+    });
+
+    /* ADDING EVENTS */
+    var currColor = "#3c8dbc"; //Red by default
+    //Color chooser button
+    var colorChooser = $("#color-chooser-btn");
+    $("#color-chooser > li > a").click(function (e) {
+      e.preventDefault();
+      //Save color
+      currColor = $(this).css("color");
+      //Add color effect to button
+      $('#add-new-event').css({"background-color": currColor, "border-color": currColor});
+    });
+    $("#add-new-event").click(function (e) {
+      e.preventDefault();
+      //Get value and make sure it is not null
+      var val = $("#new-event").val();
+      if (val.length == 0) {
+        return;
+      }
+
+      //Create events
+      var event = $("<div />");
+      event.css({"background-color": currColor, "border-color": currColor, "color": "#fff"}).addClass("external-event");
+      event.html(val);
+      $('#external-events').prepend(event);
+
+      //Add draggable funtionality
+      ini_events(event);
+
+      //Remove event from text input
+      $("#new-event").val("");
+    });
+  });
+</script>
+            
+
+            
+            
+            
+            
+            
+            
+            
+           
+    </body>
+
+</html>

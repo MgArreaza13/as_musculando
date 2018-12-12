@@ -1,0 +1,231 @@
+{% extends "../Base/Base.html" %}
+{% load staticfiles %}
+{% block Title %}
+    Musculando | Nuevo Ingreso
+{% endblock Title %}
+
+
+{% block stayle %}
+        <link href="{% static "assets/global/plugins/font-awesome/css/font-awesome.min.css" %}" rel="stylesheet" type="text/css" />
+        <link href="{% static "assets/global/plugins/simple-line-icons/simple-line-icons.min.css" %}" rel="stylesheet" type="text/css" />
+        <link href="{% static "assets/global/plugins/bootstrap/css/bootstrap.min.css" %}" rel="stylesheet" type="text/css" />
+        <link href="{% static "assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" %}" rel="stylesheet" type="text/css" />
+        <!-- END GLOBAL MANDATORY STYLES -->
+        <!-- BEGIN PAGE LEVEL PLUGINS -->
+        <link href="{% static "assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css" %}" rel="stylesheet" type="text/css" />
+        <!-- END PAGE LEVEL PLUGINS -->
+        <!-- BEGIN THEME GLOBAL STYLES -->
+        
+        <link href="{% static "assets/global/css/plugins.min.css" %}" rel="stylesheet" type="text/css" />
+        <!-- END THEME GLOBAL STYLES -->
+        <!-- BEGIN PAGE LEVEL STYLES -->
+        <link href="{% static "assets/pages/css/profile.min.css" %}" rel="stylesheet" type="text/css" />
+        <!-- END PAGE LEVEL STYLES -->
+        <!-- BEGIN THEME LAYOUT STYLES -->
+        <link href="{% static "assets/layouts/layout2/css/layout.min.css" %}" rel="stylesheet" type="text/css" />
+        <link href="{% static "assets/layouts/layout2/css/themes/blue.min.css" %}" rel="stylesheet" type="text/css" id="style_color" />
+        <link href="{% static "assets/layouts/layout2/css/custom.min.css" %}" rel="stylesheet" type="text/css" />
+        <link href="{% static "assets/pages/css/pricing.min.css" %}" rel="stylesheet" type="text/css" />
+        <style>
+            body{
+                overflow:hidden;
+            }
+        </style>
+
+{% endblock stayle %}
+
+{% block Content %}
+            <div class="loader" id="loading-screen"> <img id="Cargando" src="{% static "assets/global/img/spinning-circles.svg" %}" alt=""></div>
+    <!-- BEGIN CONTENT -->
+            <div class="page-content-wrapper">
+                <!-- BEGIN CONTENT BODY -->
+                <div class="page-content">
+                                        <div class="portlet light bordered">
+                                            <div class="portlet-title">
+                                                <div class="caption">
+                                                    
+                                                    <span class="caption-subject font-blue-hoki bold uppercase">Reservas</span>
+                                                    <span class="caption-helper">Musculando</span>
+                                                </div>
+                                                <div class="tools">
+                                                    <a href="" class="collapse" data-original-title="" title=""> </a>
+                                                    <a href="#portlet-config" data-toggle="modal" class="config" data-original-title="" title=""> </a>
+                                                    <a href="" class="reload" data-original-title="" title=""> </a>
+                                                    <a href="" class="remove" data-original-title="" title=""> </a>
+                                                </div>
+                                            </div>
+                                            <div class="portlet-body form">
+                                                <!-- BEGIN FORM-->
+                                                <form action="" method="POST" enctype="multipart/form-data" class="horizontal-form">
+                                                    {% csrf_token %}
+                                                    <div class="form-body">
+                                                        
+                                                        <div class="row">
+                                                        <div class="col-md-3"></div>
+                                                        
+                                                        <div class="col-md-6">
+                                                            <h3 class="form-section">Datos de la Reserva <span style="color:red;">*</span></h3>
+                                                           
+
+                                                                
+                                                            {% for field in Form %}
+                                                                
+                                                                
+                                                                    <div class="form-group">
+                                                                        <label class="control-label">{{field.label}} <span style="color:red;">*</span></label>
+                                                                         {{ field }}    
+                                                                        
+                                                                    </div>
+                                                                    
+                                                               
+                                                                
+                                                           
+                                                                
+                                                              {% if field.errors %}
+                                                                <div class="alert alert-danger alert-dismissible">
+                                                                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                                                  <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                                                                  
+                                                                   {{ field.errors }}
+                                                                </div>
+                                                                {% elif field.help_text %}
+                                                                  <div class="alert alert-info alert-dismissible">
+                                                                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                                                  <h4><i class="icon fa fa-info"></i> Considere!</h4>
+                                                                 {{ field.help_text|safe }}
+                                                                </div>
+                                                       
+                                                           {% endif %}   
+                                                           {% endfor %}
+                                                           
+                                                                    
+                                                                    
+                                                               
+                                                                
+                                                            </div>
+                                                            <div class="col-md-3"></div>
+                                                            <!--/span-->
+                                                         
+                                                        </div>
+                                                        <!--/row-->
+                                                        
+                                                        <!--/row-->
+                                                        
+                                                        
+                                                    </div>
+                                                    <input id="messageChanel" name="messageChanel" type="hidden" value="">
+                                                    <input type="hidden" value="0" id="IdPlanSeleccionado" name="IdPlanSeleccionado">
+                                                    <div class="form-actions right">
+                                                        
+                                                                <button  type="submit" class="btn green" > Guardar  </button>
+                                                                <button id="Cancelar" type="button" onclick="Desabilitar();" disabled class="btn default"> Cancel </button>
+                                                    </div>
+                                                </form>
+                                                <!-- END FORM-->
+                                            </div>
+                                        </div>
+                                        <a href="{% url "Caja:ListOtroIngresos" %}"  class="btn btn-danger btn-block">Regresar</a>
+                </div>
+                <!-- END CONTENT BODY -->
+            </div>
+
+
+            <div id="responsive" class="modal fade  bg-grey-cararra bg-font-grey-cararra" tabindex="-1" data-width="760">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                            <h1 style="padding-left:1em;" class="modal-title font-green-seagreen">Seleccione el Plan Para el nuevo Socio</h1>
+                                        </div>
+                                        <div class="modal-body " style="padding: 3em 1em 1em 5em;">
+                                            <div class="row ">
+                                                 <div class="portlet-body">
+                            <div class="pricing-content-1">
+                                <div class="row">
+                                    {% for plan  in planes  %}
+                                        <div class="col-md-3">
+                                            <div class="price-column-container border-active">
+                                                <div class="price-table-head bg-blue">
+                                                    <h2 class="no-margin">{{plan.nombrePlan}}</h2>
+                                                </div>
+                                                <div class="arrow-down border-top-blue"></div>
+                                                <div class="price-table-pricing">
+                                                    <h3>
+                                                        <sup class="price-sign">$</sup>{{plan.precioPlan}}</h3>
+                                                    <p>por mes</p>
+                                                </div>
+                                                <div class="price-table-content">
+                                                    <div class="row mobile-padding">
+                                                        <div class="col-xs-3 text-right mobile-padding">
+                                                            <i class="icon-user"></i>
+                                                        </div>
+                                                        <div class="col-xs-9 text-left mobile-padding">{{plan.user}}</div>
+                                                    </div>
+                                                    <div class="row mobile-padding">
+                                                        <div class="col-xs-3 text-right mobile-padding">
+                                                            <i class="icon-user"></i>
+                                                        </div>
+                                                        <div class="col-xs-9 text-left mobile-padding">{{plan.dateCreate}}</div>
+                                                    </div>
+                                                    <div class="row mobile-padding">
+                                                        <div class="col-xs-3 text-right mobile-padding">
+                                                            <i class="icon-user"></i>
+                                                        </div>
+                                                        <div class="col-xs-9 text-left mobile-padding">${{plan.precioPlanAnual}} al año</div>
+                                                    </div>
+                                                    <div class="price-table-footer">
+                                                       <button value="{{plan.id}}" href="javascript:void(0);" id="SeleccionarPlan" onclick="PlanSeleccionado(this.value);"  class="btn blue btn-block">Seleccionar Plan</button> 
+                                                    </div>  
+                                                </div>
+                                                <div class="arrow-down arrow-grey"></div>
+                                                
+                                            </div>
+                                        </div>
+                                            
+                                    {% endfor %}
+                                   
+                                </div>
+                            </div>
+
+                        </div>       
+                                                     
+                                            </div>
+                                        </div>
+                                        
+
+                                    </div>
+
+
+            <!-- END CONTENT -->
+{% endblock Content %}
+
+{% block Scripts %}
+            <script src="{% static "assets/global/plugins/jquery.min.js" %}" type="text/javascript"></script>
+            <script src="{% static "assets/global/plugins/bootstrap/js/bootstrap.min.js" %}" type="text/javascript"></script>
+            <script src="{% static "assets/global/plugins/js.cookie.min.js" %}" type="text/javascript"></script>
+            <script src="{% static "assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript" %}"></script>
+            <script src="{% static "assets/global/plugins/jquery.blockui.min.js" type="text/javascript" %}"></script>
+            <script src="{% static "assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" %}" type="text/javascript"></script>
+            <!-- END CORE PLUGINS -->
+            <!-- BEGIN PAGE LEVEL PLUGINS -->
+            <script src="{% static "assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js" %}" type="text/javascript"></script>
+            <script src="{% static "assets/global/plugins/jquery.sparkline.min.js" type="text/javascript" %}"></script>
+            <!-- END PAGE LEVEL PLUGINS -->
+            <!-- BEGIN THEME GLOBAL SCRIPTS -->
+            <script src="{% static "assets/global/scripts/app.min.js" %}" type="text/javascript"></script>
+            <!-- END THEME GLOBAL SCRIPTS -->
+            <!-- BEGIN PAGE LEVEL SCRIPTS -->
+            <script src="{% static "assets/pages/scripts/profile.min.js" %}" type="text/javascript"></script>
+            <!-- END PAGE LEVEL SCRIPTS -->
+            <!-- BEGIN THEME LAYOUT SCRIPTS -->
+            <script src="{% static "assets/layouts/layout2/scripts/layout.min.js" %}" type="text/javascript"></script>
+            <script src="{% static "assets/layouts/layout2/scripts/demo.min.js" %}" type="text/javascript"></script>
+            <script src="{% static "assets/layouts/global/scripts/quick-sidebar.min.js" %}" type="text/javascript"></script>
+            <script src="{% static "assets/layouts/global/scripts/quick-nav.min.js" %}" type="text/javascript"></script>
+            <script src="{% static "assets/apps/scripts/egresos.js" %}" type="text/javascript"></script>
+            <script>
+            $(window).load(function() {
+                $(".loader").fadeOut("slow");
+                $('body').css({'overflow':'visible'});
+            });
+
+            </script>
+{% endblock Scripts %}
