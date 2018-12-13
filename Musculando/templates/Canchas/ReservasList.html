@@ -2,7 +2,7 @@
 {% load staticfiles %}
 
 {% block Title %}
-	Musculando | Listado Colaboradores
+	Musculando | Listado Reservas
 {% endblock Title %}
 
 {% block stayle %}
@@ -77,7 +77,7 @@
 		                        <div class="col-md-12">
 		                            <!-- BEGIN EXAMPLE TABLE PORTLET-->
 		                            <div class="portlet light ">
-		                            	<a href="{% url "Canchas:NewCancha" %}" style="margin-bottom: 7em;padding-left: 3em;padding-right: 3em;"  class="btn green pull-right">Nueva Cancha</a>
+		                            	<a href="{% url "Canchas:newReserva" %}" style="margin-bottom: 7em;padding-left: 3em;padding-right: 3em;"  class="btn green pull-right">Nueva Reserva</a>
 		                                <div class="portlet-title">
 		                                    <div class="caption font-dark">
 		                                        <i class="icon-settings font-dark"></i>
@@ -200,7 +200,7 @@
 		                            
 		                        </div>
 		                    </div>
-		                     <a href="{% url "Colaboradores:NewColaborador" %}"  class="btn green btn-block">Nueva Cancha</a>
+		                     <a href="{% url "Canchas:newReserva" %}"  class="btn green btn-block">Nueva Reserva</a>
 		                </div>
 		                <!-- END CONTENT BODY -->
 

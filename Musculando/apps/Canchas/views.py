@@ -182,7 +182,12 @@ def NuevaReservaOnline(request):
 	return JsonResponse(status)
 
 def newReserva(request):
+	canchas = Cancha.objects.all()
+	turnos 	= ReservaCancha.objects.filter(statusTurn='Confirmada')
+	tipe_turnos = tb_turn_sesion.objects.all()
 	contexto = {
-		'Lista': Cancha.objects.all()
+		'canchas':canchas,
+		'turnos':turnos,
+		'tipe_turnos':tipe_turnos
 	}
 	return render(request, 'Canchas/ReservasInternas.html', contexto )
