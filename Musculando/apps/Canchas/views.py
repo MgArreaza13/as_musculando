@@ -180,3 +180,9 @@ def NuevaReservaOnline(request):
 		'code':200 ,
 	}
 	return JsonResponse(status)
+
+def newReserva(request):
+	contexto = {
+		'Lista': Cancha.objects.all()
+	}
+	return render(request, 'Canchas/ReservasInternas.html', contexto )
