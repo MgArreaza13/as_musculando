@@ -70,3 +70,12 @@ class tb_tipoIngreso(models.Model):
 	class Meta:
 		managed = True
 		db_table = 'tipo_de_ingreso'
+
+class tb_tipoHorario(models.Model):
+	user 					=	models.ForeignKey(settings.AUTH_USER_MODEL)
+	nametipoHorario			=	models.CharField(default='', null=False, max_length=30, unique=True)
+	HoraTurn				=	models.TimeField(auto_now=False, auto_now_add=False, blank=False, null=False, default='')
+	HoraTurnEnd				=	models.TimeField(auto_now=False, auto_now_add=False, blank=False, null=False, default='')
+	dateCreate				=	models.DateField(auto_now=True, blank=False)
+	def __str__(self):
+		return self.nametipoHorario

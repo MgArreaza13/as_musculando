@@ -37,8 +37,11 @@ from apps.Configuracion.views import NuevoTipoDeIngreso
 from apps.Configuracion.views import DeleteTipoDeIngreso
 from apps.Configuracion.views import GetTipoIngreso
 from apps.Configuracion.views import UpdateTipoIngreso
-
-
+##########################Horario#######################################################
+from apps.Configuracion.views import NuevoTipoHorario
+from apps.Configuracion.views import DeleteTipoDeHorario
+from apps.Configuracion.views import UpdateTipoHorario
+from apps.Configuracion.views import GetTipoHorario
 urlpatterns = [
 	########################PLANES#########################################
 	url(r'^Planes/Lista/$', ListaDePlanes ,  name='ListaDePlanes' ),
@@ -69,6 +72,11 @@ urlpatterns = [
   	url(r'^Tipo/De/Ingreso/Solicitud/Nuevo/Registro/$', NuevoTipoDeIngreso ,  name='NuevoTipoDeIngreso' ),
 	url(r'^Tipo/De/Ingreso/Get/Registro/$', GetTipoIngreso ,  name='GetTipoIngreso' ),
 	url(r'^Tipo/De/Ingreso/Update/Registro/$', UpdateTipoIngreso ,  name='UpdateTipoIngreso' ),
+	##########################Horario####################################
+	url(r'^TipoHorario/Nuevo/$', NuevoTipoHorario , name='NuevoTipoHorario'  ),
+	url(r'^Tipo/De/Horario/Solicitud/Eliminar/Registro/$', DeleteTipoDeHorario ,  name='DeleteTipoDeHorario' ),
+	url(r'^Tipo/De/Horario/Get/Registro/$', GetTipoHorario ,  name='GetTipoHorario' ),
+	url(r'^Tipo/De/Horario/Update/Registro/(?P<id_tipo_de_horario>\d+)$', UpdateTipoHorario ,  name='UpdateTipoHorario' ),
 
 
 

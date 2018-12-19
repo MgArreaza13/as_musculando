@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import json
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
@@ -11,10 +11,11 @@ from apps.Configuracion.models import tb_tipoColaborador
 from apps.Configuracion.models import tb_tipoEgreso
 from apps.Configuracion.models import tb_tipoIngreso
 from apps.Socios.models import tb_socio
+from apps.Configuracion.models import tb_tipoHorario
 
 ##############FORMULARIOS################
 from apps.Configuracion.forms import PlanRegisterForm
-
+from apps.Configuracion.forms import tipoHorarioForm
 # Create your views here.
 
 
@@ -94,11 +95,13 @@ def Configuracion_g(request):
 	tipos_de_colaboradores  = tb_tipoColaborador.objects.all()
 	tipos_de_egresos		= tb_tipoEgreso.objects.all()
 	tipos_de_ingresos		= tb_tipoIngreso.objects.all()
+	tipos_de_horarios		= tb_tipoHorario.objects.all()
 	contexto = {
 	'formas_de_pago':formas_de_pago,
 	'tipos_de_colaboradores':tipos_de_colaboradores,
 	'tipos_de_egresos':tipos_de_egresos,
-	'tipos_de_ingresos':tipos_de_ingresos
+	'tipos_de_ingresos':tipos_de_ingresos,
+	'tipos_de_horarios':tipos_de_horarios
 	} 
 	return render(request, 'Configuracion/Configuracion_General.html', contexto)
 
@@ -319,3 +322,52 @@ def UpdateTipoIngreso(request):
 	queryset.save()
 	status = 200 
 	return HttpResponse(status)
+
+###########################HORARIOS######################
+def NuevoTipoHorario(request):
+	
+	Form = tipoHorarioForm
+	if request.method == 'POST':
+		Form = tipoHorarioForm(request.POST or None)
+		if Form.is_valid():
+			tipoHorario = Form.save(commit=False)
+			tipoHorario.user = request.user
+			tipoHorario.HoraTurn= request.POST['TimeTurnStart']
+			tipoHorario.HoraTurnEnd = request.POST['TimeTurnEnd']
+			tipoHorario.save()
+			return redirect('Configuracion:Configuracion_g')
+		else:
+			Form = tipoHorarioForm()
+	return render(request, 'Configuracion/Horarios/NuevoTipoHorario.html' , {'Form':Form})
+
+def DeleteTipoDeHorario(request):
+	status = None
+	id_tipo_de_horario = request.GET.get('id', None)
+	queryset = tb_tipoHorario.objects.get(id=id_tipo_de_horario)
+	queryset.delete()
+	status = 200
+	return HttpResponse(status)
+
+def GetTipoHorario(request):
+	id_tipo_de_horario = request.GET.get('id_tipo_de_horario', None)
+	queryset = tb_tipoHorario.objects.get(id = id_tipo_de_horario)
+	tipo_horario = {
+		'user':str(queryset.user),
+		'tipo_horario':queryset.nametipoHorario,
+	}
+	return JsonResponse(tipo_horario)
+
+def UpdateTipoHorario(request, id_tipo_de_horario):
+	tipeHorarioEditar= tb_tipoHorario.objects.get(id=id_tipo_de_horario)
+	if request.method == 'GET':
+		Form= tipoHorarioForm(instance = tipeHorarioEditar)
+	else:
+		Form = tipoHorarioForm(request.POST, instance = tipeHorarioEditar)
+		if Form.is_valid():
+			tipoHorario = Form.save(commit=False)
+			tipoHorario.user = request.user
+			tipoHorario.HoraTurn= request.POST['TimeTurnStart']
+			tipoHorario.HoraTurnEnd = request.POST['TimeTurnEnd']
+			tipoHorario.save()
+			return redirect ('Configuracion:Configuracion_g')
+	return render (request, 'Configuracion/Horarios/NuevoTipoHorario.html' , {'Form':Form})
