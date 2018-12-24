@@ -230,3 +230,10 @@ def administradorNotificacionHonorarios():
 	email_body_Soporte = "Hemos Imputado El monto del Honorario de cada colaborador a la cuenta de cada colaborador por solicitud de usted" 
 	send_mail(email_subject_Soporte, cuerpo , 'musculando@b7000615.ferozo.com', ['allerapamela@live.com.ar','beto.rudel@gmail.com','soporte@apreciasoft.com', "mg.arreaza.13@gmail.com",],fail_silently=True, html_message=email_body_Soporte)
 	
+@app.task
+def PagoReserva(usuario,correo):
+	cuerpo = ""
+	###Mensaje para el usuario #########
+	email_subject_usuario = 'Musculando - Pago Imputado'
+	email_body_usuario = "Hola %s, Hemos imputado un pago en tu cuenta por orden del administrador" %(usuario)
+	send_mail (email_subject_usuario, cuerpo, 'musculando@b7000615.ferozo.com', [correo], fail_silently=True, html_message=email_body_usuario)

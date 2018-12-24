@@ -17,6 +17,8 @@
         <link href="{% static "assets/global/plugins/datatables/datatables.min.css" %}" rel="stylesheet" type="text/css" />
         <link href="{% static "assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" %}" rel="stylesheet" type="text/css" />
         <link href="{% static "assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" %}" rel="stylesheet" type="text/css" />
+         <link href="{% static "assets/global/css/fullcalendar.min.css" %}" rel="stylesheet" type="text/css" />
+         
         <!-- END PAGE LEVEL PLUGINS -->
         <!-- BEGIN THEME GLOBAL STYLES -->
         <link href="{% static "assets/global/css/components-md.min.css" %}" rel="stylesheet" id="style_components" type="text/css" />
@@ -92,6 +94,7 @@
 		                                                <th>Nombre</th>
 		                                                <th>Correo</th>
 		                                                <th>Status</th>
+		                                                <th>Pago</th>
 		                                                <th>Cancha</th>
 		                                                <th>Fecha</th>
 		                                                <th>Monto A Pagar</th>
@@ -107,6 +110,14 @@
 			                                                <td >{{reserva.nombre}}</td>
 			                                                <td >{{reserva.mail}}</td>
 			                                                <td id="status-{{reserva.id}}">{{reserva.statusTurn}}</td>
+			                                               <td id="{{reserva.id}}">
+			                                               			{% if reserva.isPay == True %}
+                                                                   <span class="label label-success"> PAGADO </span>
+                                                                   {% elif reserva.isPay == False %}
+                                                                   	<span class="label label-danger"> PENDIENTE </span>
+                                                                   {% endif %}
+			                                                	
+			                                                </td>
 			                                                <td >{{reserva.cancha}}</td>
 			                                                <td >{{reserva.dateTurn}}</td>
 			                                                
@@ -131,18 +142,25 @@
                                                                 <ul class="dropdown-menu" style="min-width: 108px !important" role="menu">
                                                                     
                                                                     <li>
-                                                                        <a style="background:#32c5d2;color:white;" href="{% url 'Canchas:updateReservas' reserva.id %}"  class="btn btn-success btn-block" > Editar </a>
+                                                                        <a style="background:#32c5d2;color:white;" href="{% url 'Canchas:updateReservas' reserva.id %}"  class="btn btn-success btn-block btn-xs" > Editar </a>
                                                                     </li>
                                                                     <li>
-                                                                        <button style="background: #80254f;color: white;" type="button" value="{{reserva.id}}" onclick="updateState(this.value)"  class="btn btn-primary btn-block" > Editar Estatus </button>
+                                                                        <button style="background: #80254f;color: white;" type="button" value="{{reserva.id}}" onclick="updateState(this.value)"  class="btn btn-primary btn-block btn-xs" > Editar Estatus </button>
                                                                     </li>
-                                                                    
-                                                                    
+
                                                                     <li>
-                                                                        <button type="button" class="btn btn-danger btn-block" value="{{reserva.id}}" onclick="DeleteReserva(this.value);"> Eliminar </button>
+                                                                    	{% if reserva.isPay == True %}
+                                                                        <button disabled="disabled" style="background: cadetblue;color: white;" type="button" value="{{reserva.id}}" onclick="ReportarPagoReserva(this.value)"  class="btn btn-primary btn-block btn-xs" > Reportar Pago </button>
+                                                                        {% elif reserva.isPay == False %}
+                                                                        <button style="background: cadetblue;color: white;" type="button" value="{{reserva.id}}" onclick="ReportarPagoReserva(this.value)"  class="btn btn-primary btn-block btn-xs" > Reportar Pago </button>
+                                                                        {% endif %}
+                                                                    </li>
+                                                                                                                                                                                                       
+                                                                    <li>
+                                                                        <button type="button" class="btn btn-danger btn-block btn-xs" value="{{reserva.id}}" onclick="DeleteReserva(this.value);"> Eliminar </button>
                                                                     </li>
                                                                     
-                                                                    <li class="divider"> </li>
+                                                                    
                                                                     <!--
                                                                     <li>
                                                                         <button type="button" class="btn btn-info btn-block" value="{{colaborador.perfil.user.id}}" onclick=""> Editar </button>
@@ -162,9 +180,10 @@
 		                            </div>
 		                            <!-- END EXAMPLE TABLE PORTLET-->
 		                            
-		                        </div>
+                     </div>
 		                    </div>
 		                </div>
+		               
 		                <!-- END CONTENT BODY -->
 	            	{% else %}
 	            	<!-- BEGIN CONTENT BODY -->
@@ -210,9 +229,6 @@
             </div>
 
 
-             
-
-
 					
 {% endblock Content %}
 
@@ -246,7 +262,9 @@
             <script src="{% static "assets/pages/scripts/form-wizard.js" %}" type="text/javascript"></script>
            
             <script src="{% static "assets/apps/scripts/reservas.js" %}" type="text/javascript"></script>
-
+            <script src="{% static "assets/global/scripts/moment.js" %}" type="text/javascript"></script>
+           
+            <script src="{% static "assets/global/scripts/fullcalendar.min.js" %}" type="text/javascript"></script>
 
              <script>
             $(window).load(function() {
@@ -255,6 +273,6 @@
 			});
 
             </script>
-            
-            <!-- END THEME LAYOUT SCRIPTS -->
+
+
 {% endblock Scripts %}

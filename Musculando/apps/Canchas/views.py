@@ -96,8 +96,10 @@ def ReservaWebQueryset(request):
 
 def getReservasList(request):
 	reservas 	= ReservaCancha.objects.all()
+	turnos 	= ReservaCancha.objects.filter(statusTurn='Confirmada')
 	context 	= {
-		'reservas':reservas
+		'reservas':reservas,
+		'turnos':turnos,
 	} 
 	return render(request, 'Canchas/ReservasList.html', context)
 

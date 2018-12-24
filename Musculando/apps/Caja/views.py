@@ -14,6 +14,7 @@ from apps.Proveedores.models import tb_proveedor
 from django.contrib.auth.decorators import login_required
 from apps.Configuracion.models import tb_tipoIngreso
 from apps.Caja.models import tb_ingresos
+from apps.Canchas.models import ReservaCancha
 ##################FORMULARIOS#############################
 from apps.Caja.forms import EgresoRegisterForm
 from apps.Caja.forms import IngresoRegisterForm
@@ -23,6 +24,7 @@ from apps.Scripts.DesactivateUser import Desactivate_Register
 # Create your views here.
 #################tareas asincronas correos ##########################
 from apps.tasks.Email_tasks import MailNewIngresoMensualidad
+from apps.tasks.Email_tasks import PagoReserva
 from django.db.models import Count, Min, Sum, Avg
 from apps.Caja.models import tb_cierre_de_caja
 from datetime import date
@@ -301,3 +303,19 @@ def QueryTipoEgreso(request):
 	query = tb_egreso.objects.filter(dateCreate__year = year).filter(dateCreate__month = month).filter(tipoDeEgreso__tipodeEgreso = tipo_egreso)
 	data = serializers.serialize('json', query)
 	return HttpResponse(data)
+
+def NuevoReporteDePagoReservas(request):
+	status = None
+	id_reserva = request.GET.get('id_reserva', None)
+	reserva = ReservaCancha.objects.get(id= id_reserva)
+	reserva.isPay = True
+	reserva.save()
+	pago_de_reserva = request.GET.get('PagoDeReserva', None)
+	pago = tb_ingresos()
+	pago.user = request.user
+	pago.descripcion = "Pago de Reservas Web"
+	pago.monto =  pago_de_reserva
+	pago.save()
+	PagoReserva.delay(reserva.nombre, reserva.mail)
+	status = 200
+	return HttpResponse(status)

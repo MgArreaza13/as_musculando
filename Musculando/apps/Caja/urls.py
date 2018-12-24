@@ -15,6 +15,7 @@ from apps.Caja.views import QueryTipoEgreso
 from apps.Caja.views import Cierre
 from apps.Caja.views import VerCierre
 from apps.Caja.views import ResumenCierres
+from apps.Caja.views import NuevoReporteDePagoReservas
 
 urlpatterns = [
 	#url(r'^registro/$', Registro, name='Registro'  ),
@@ -37,4 +38,5 @@ urlpatterns = [
 	url(r'^Ingresos/QueryTipoEgreso/$', QueryTipoEgreso , name='QueryTipoEgreso'  ),
 	url(r'^Nuevo/Pago/De/Mensualidad/$', NewMensualIngreso , name='NewMensualIngreso'  ),
   	url(r'^Nueva/Solicitud/Pago/De/Mensualidad/$', NuevoReporteDePagoMensual , name='NuevoReporteDePagoMensual'  ),
+  	url(r'^Nueva/Solicitud/Pago/De/Reserva/$', NuevoReporteDePagoReservas , name='NuevoReporteDePagoReservas'  ),
 ]

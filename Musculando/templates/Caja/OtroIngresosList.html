@@ -88,6 +88,7 @@
 		                                                
 		                                                <th>Descripcion</th>
 		                                                <th>Tipo De Ingreso</th>
+
 		                                                <th>Fecha de Registro</th>
 		                                            </tr>
 		                                        </thead>
@@ -102,6 +103,7 @@
 			                                                <td><span class="label label-success"> ${{ingreso.monto}} </span></td>
 			                                                <td>{{ingreso.descripcion}}</td>
 			                                                <td>{{ingreso.tipoDeIngresos}}</td>
+			                                                
 			                                                <td>{{ingreso.dateCreate}}</td>
 			                                            </tr>
 		                                        	{% endfor %}
