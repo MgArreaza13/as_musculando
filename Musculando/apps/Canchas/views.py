@@ -193,3 +193,12 @@ def newReserva(request):
 		'tipe_turnos':tipe_turnos
 	}
 	return render(request, 'Canchas/ReservasInternas.html', contexto )
+
+def ReservasList(request):
+	reservas 	= ReservaCancha.objects.all()
+	turnos 	= ReservaCancha.objects.filter(statusTurn='Confirmada')
+	context 	= {
+		'reservas':reservas,
+		'turnos':turnos,
+	} 
+	return render(request, 'Canchas/ReservasList2.html', context)

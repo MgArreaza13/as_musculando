@@ -13,6 +13,7 @@ from apps.Canchas.views import getReservasJson
 from apps.Canchas.views import ReservaWebQueryset
 from apps.Canchas.views import NuevaReservaOnline
 from apps.Canchas.views import newReserva
+from apps.Canchas.views import ReservasList
 
 urlpatterns = [
 	#url(r'^registro/$', Registro, name='Registro'  ),
@@ -34,4 +35,5 @@ urlpatterns = [
   	url(r'^Reservas/nueva/web$', NuevaReservaOnline , name='NuevaReservaOnline'  ),
   	url(r'^Reservas/Editar/(?P<pk>\d+)$', updateReservas, name='updateReservas'  ),
   	url(r'^Reservas/$', newReserva, name='newReserva'  ),
+  	url(r'^Reservas/Lista2$', ReservasList, name='ReservasList'  ),
 ]

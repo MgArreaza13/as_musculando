@@ -1,0 +1,370 @@
+{% extends "../Base/Base.html" %}
+{% load staticfiles %}
+
+{% block Title %}
+    Musculando | Reservas Internas
+{% endblock Title %}
+
+{% block stayle %}
+      <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
+        <link href="{% static "assets/global/plugins/font-awesome/css/font-awesome.min.css" %}" rel="stylesheet" type="text/css" />
+        <link href="{% static "assets/global/plugins/simple-line-icons/simple-line-icons.min.css" %}" rel="stylesheet" type="text/css" />
+        <link href="{% static "assets/global/plugins/bootstrap/css/bootstrap.min.css" %}" rel="stylesheet" type="text/css" />
+        <link href="{% static "assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" %}" rel="stylesheet" type="text/css" />
+        <!-- END GLOBAL MANDATORY STYLES -->
+        <!-- BEGIN PAGE LEVEL PLUGINS -->
+        <link href="{% static "assets/global/plugins/select2/css/select2.min.css" %}" rel="stylesheet" type="text/css" />
+        <link href="{% static "assets/global/plugins/select2/css/select2-bootstrap.min.css" %}" rel="stylesheet" type="text/css" />
+        <link href="{% static "assets/global/plugins/fullcalendar/fullcalendar.min.css" %}" rel="stylesheet" type="text/css" />
+        <!-- END PAGE LEVEL PLUGINS -->
+        <!-- BEGIN THEME GLOBAL STYLES -->
+        <link href="{% static "assets/global/css/components-md.min.css" %}" rel="stylesheet" id="style_components" type="text/css" />
+        <link href="{% static "assets/global/css/plugins-md.min.css" %}" rel="stylesheet" type="text/css" />
+        <!-- END THEME GLOBAL STYLES -->
+        <!-- BEGIN THEME LAYOUT STYLES -->
+        <link href="{% static "assets/layouts/layout2/css/layout.min.css" %}" rel="stylesheet" type="text/css" />
+        <link href="{% static "assets/layouts/layout2/css/themes/blue.min.css" %}" rel="stylesheet" type="text/css" id="style_color" />
+        <link href="{% static "assets/layouts/layout2/css/custom.min.css" %}" rel="stylesheet" type="text/css" />
+        
+        <!--ajaa-->
+
+        <script src="{% static "assets/global/scripts/datatable.js" %}" type="text/javascript"></script>
+            <script src="{% static "assets/global/plugins/datatables/datatables.min.js" %}" type="text/javascript"></script>
+            <script src="{% static "assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js" %}" type="text/javascript"></script>
+            <script src="{% static "assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" %}" type="text/javascript"></script>
+            <!-- END PAGE LEVEL PLUGINS -->
+            <!-- BEGIN THEME GLOBAL SCRIPTS -->
+            <!-- END THEME GLOBAL SCRIPTS -->
+            <!-- BEGIN PAGE LEVEL SCRIPTS -->
+            <script src="{% static "assets/pages/scripts/table-datatables-buttons.min.js" %}" type="text/javascript"></script>
+            <script src="{% static "assets/apps/scripts/Acciones-Socios.js" %}" type="text/javascript"></script>
+            <script src="{% static "assets/apps/scripts/reservas.js" %}" type="text/javascript"></script>
+      
+        
+        <style>
+            /*=============================================================
+    Authour URL: www.designbootstrap.com
+    
+    http://www.designbootstrap.com/
+
+    License: MIT     
+========================================================  */
+
+.db-pricing-seven {
+    margin-bottom: 30px;
+    margin-top: 30px;
+    text-align: center;
+    border: 1px solid #C5C2C2;
+    background-color: #EDEDED;
+}
+
+    
+
+    .db-pricing-seven ul {
+        list-style: none;
+        margin: 0;
+        text-align: center;
+        padding-left: 0px;
+    }
+
+        .db-pricing-seven ul li {
+            border-bottom: solid 1px #D8D8D8;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+            .db-pricing-seven ul li.price {
+                background-color: #fff;
+                padding: 40px 20px 20px 20px;
+                font-size: 20px;
+                font-weight: 900;
+                color: #353c3e;
+                font-weight: 900;
+            }
+
+                .db-pricing-seven ul li.price i {
+                    padding: 30px;
+                    font-size: 50px;
+                    display: block;
+                }
+
+
+    .db-pricing-seven .pricing-footer {
+        padding: 20px;
+    }
+
+        .db-pricing-seven .pricing-footer a i {
+            margin: 5px;
+            top: 3px;
+        }
+        </style>
+{% endblock stayle %}
+
+
+{% block Content %}
+
+    <div class="page-sidebar-wrapper">
+                <!-- END SIDEBAR -->
+                <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+                <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+                
+                <!-- END SIDEBAR -->
+            </div>
+            <!-- END SIDEBAR -->
+            <!-- BEGIN CONTENT -->
+            <div id="Listado" class="page-content-wrapper">
+                {% if reservas %}
+                        <!-- BEGIN CONTENT BODY -->
+                        <div class="page-content">
+                            <!-- BEGIN PAGE HEADER-->
+                            <!-- BEGIN THEME PANEL -->
+                           
+                            <!-- END THEME PANEL -->
+                            <h1 class="page-title"> Lista De RESERVAS 
+                                
+                            </h1>
+                            <div class="page-bar">
+                                <ul class="page-breadcrumb">
+                                    <li>
+                                        <i class="icon-home"></i>
+                                        <a href="index.html">Inicio</a>
+                                        <i class="fa fa-angle-right"></i>
+                                    </li>
+                                    <li>
+                                        <a href="#">RESERVAS</a>
+                                        <i class="fa fa-angle-right"></i>
+                                    </li>
+                                    <li>
+                                        <span>Lista</span>
+                                    </li>
+                                </ul>
+                                
+                            </div>
+                            <!-- END PAGE HEADER-->
+                           
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                                    <div class="portlet light ">
+                                        <a href="{% url "Canchas:newReserva" %}" style="margin-bottom: 7em;padding-left: 3em;padding-right: 3em;"  class="btn green pull-right">Nueva Reserva</a>
+                                        <div class="portlet-title">
+                                            <div class="caption font-dark">
+                                                <i class="icon-settings font-dark"></i>
+                                                <span class="caption-subject bold uppercase">Accciones</span>
+                                            </div>
+                                            <div class="tools"> </div>
+                                        </div>
+                                        <div class="portlet-body">
+                                            <table class="table table-striped table-bordered table-hover" style="padding-bottom:8em;" id="sample_1">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Nombre</th>
+                                                        <th>Correo</th>
+                                                        <th>Status</th>
+                                                        <th>Pago</th>
+                                                        <th>Cancha</th>
+                                                        <th>Fecha</th>
+                                                        <th>Monto A Pagar</th>
+                                                        <th>Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tfoot>
+                                                    <tr></tr>
+                                                </tfoot>
+                                                <tbody>
+                                                    {% for reserva in reservas  %}
+                                                        <tr id="reserva-{{reserva.id}}">
+                                                            <td >{{reserva.nombre}}</td>
+                                                            <td >{{reserva.mail}}</td>
+                                                            <td id="status-{{reserva.id}}">
+                                                                {% if reserva.statusTurn == 'Confirmada' %}
+                                                                <span class="label label-success"> Confirmada </span>
+                                                                {% elif reserva.statusTurn == 'En Espera' %}
+                                                                <span class="label label-warning"> Pendiente </span>
+                                                                {% elif reserva.statusTurn == 'No Aprobada' %}
+                                                                <span class="label label-danger"> Negada </span>
+                                                                {% endif %}
+                                                            </td>
+                                                           <td id="{{reserva.id}}">
+                                                                    {% if reserva.isPay == True %}
+                                                                   <span class="label label-success"> PAGADO </span>
+                                                                   {% elif reserva.isPay == False %}
+                                                                    <span class="label label-danger"> PENDIENTE </span>
+                                                                   {% endif %}
+                                                                
+                                                            </td>
+                                                            <td >{{reserva.cancha}}</td>
+                                                            <td >{{reserva.dateTurn}}</td>
+                                                            
+                                                            <td style="text-align:center;">
+                                                                
+                                             
+                                                                    <span style="font-size:15px" class="label label-success"> ${{reserva.montoAPagar}} </span>
+    
+                                                            
+                                                            </td>
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            <td>
+                                                                <div class="btn-group"  style="position:relative!important ; with:108px!important">
+                                                                <button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> Acciones
+                                                                    <i class="fa fa-angle-down"></i>
+                                                                </button>
+                                                                <ul class="dropdown-menu" style="min-width: 108px !important" role="menu">
+                                                                    
+                                                                    <li>
+                                                                        <a style="background:#32c5d2;color:white;" href="{% url 'Canchas:updateReservas' reserva.id %}"  class="btn btn-success btn-block btn-xs" > Editar </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <button style="background: #80254f;color: white;" type="button" value="{{reserva.id}}" onclick="updateState(this.value)"  class="btn btn-primary btn-block btn-xs" > Editar Estatus </button>
+                                                                    </li>
+
+                                                                    <li>
+                                                                        {% if reserva.isPay == True %}
+                                                                        <button disabled="disabled" style="background: cadetblue;color: white;" type="button" value="{{reserva.id}}" onclick="ReportarPagoReserva(this.value)"  class="btn btn-primary btn-block btn-xs" > Reserva Pagada</button>
+                                                                        {% elif reserva.isPay == False %}
+                                                                        <button style="background: cadetblue;color: white;" type="button" value="{{reserva.id}}" onclick="ReportarPagoReserva(this.value)"  class="btn btn-primary btn-block btn-xs" > Reportar Pago </button>
+                                                                        {% endif %}
+                                                                    </li>
+                                                                                                                                                                                                       
+                                                                    <li>
+                                                                        <button type="button" class="btn btn-danger btn-block btn-xs" value="{{reserva.id}}" onclick="DeleteReserva(this.value);"> Eliminar </button>
+                                                                    </li>
+                                                                    
+                                                                    
+                                                                    <!--
+                                                                    <li>
+                                                                        <button type="button" class="btn btn-info btn-block" value="{{colaborador.perfil.user.id}}" onclick=""> Editar </button>
+                                                                    </li> -->
+                                                                    
+                                                                    
+                                                                </ul>
+                                                            </div>
+                                                            
+                                                            
+                                                            </td>
+                                                        </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <!-- END EXAMPLE TABLE PORTLET-->
+        
+                     </div>
+                                                <div class="col-md-4 col-sm-4">
+                                                    <div class="portlet light ">
+                                        <div id="calendario" class="has-toolbar"> </div>
+                                                </div> </div>
+                            </div>
+                        </div>
+                       
+                        <!-- END CONTENT BODY -->
+                    {% else %}
+                    <!-- BEGIN CONTENT BODY -->
+                        <div class="page-content">
+                            <!-- BEGIN PAGE HEADER-->
+                            
+                            <h1 class="page-title"> Lista de RESERVAS
+                                
+                            </h1>
+                            <div class="page-bar">
+                                <ul class="page-breadcrumb">
+                                    <li>
+                                        <i class="icon-home"></i>
+                                        <a href="index.html">Inicio</a>
+                                        <i class="fa fa-angle-right"></i>
+                                    </li>
+                                    <li>
+                                        <a href="#">RESERVAS</a>
+                                        <i class="fa fa-angle-right"></i>
+                                    </li>
+                                    <li>
+                                        <span>Lista</span>
+                                    </li>
+                                </ul>
+                                
+                            </div>
+                            <!-- END PAGE HEADER-->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                                    <h3>Listado Vacio</h3>
+                                    <!-- END EXAMPLE TABLE PORTLET-->
+                                    
+                                </div>
+                            </div>
+                             <a href="{% url "Canchas:newReserva" %}"  class="btn green btn-block">Nueva Reserva</a>
+                        </div>
+                        <!-- END CONTENT BODY -->
+
+                    
+                {% endif %}
+
+            </div>
+
+            
+
+{% endblock Content %}
+
+
+
+{% block Scripts %}
+
+            
+
+<script>
+  $(function () {
+
+    /* initialize the calendar
+     -----------------------------------------------------------------*/
+    //Date for the calendar events (dummy data)
+    var date = new Date();
+    var d = date.getDate(),
+        m = date.getMonth(),
+        y = date.getFullYear();
+
+    var selectableoption = false;
+    
+    $('#calendario').fullCalendar({
+      header: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'month,agendaWeek,agendaDay'
+      },
+      buttonText: {
+        today: 'Hoy',
+        month: 'Mes',
+        week: 'Semana',
+        day: 'Dia'
+      },
+
+
+      //Random default events
+      events: [
+
+      {% for turno in turnos %}
+        {
+          title: 'RESERVADO - {{turno.cancha.nameCancha}}',
+          start: '{{ turno.dateTurn|date:"Y-m-d" }} {{turno.turn.HoraTurnEnd}}',
+          end:'{{ turno.dateTurn|date:"Y-m-d" }} {{turno.turn.HoraTurnEnd}}',
+          backgroundColor: "#f56954", //red
+          borderColor: "#f56954",//red
+          titulo:'{{turno.cancha.nameCancha}}',
+          //cliente:'{{turno.client}}',
+          //fecha_de_inicio:'{{ turno.dateTurn|date:"d-m-Y" }}',
+          //hora_de_inicio:'{{ turno.HoraTurn }}',
+          
+        },
+      {% endfor %}],
+      
+    });
+  });
+</script>
+{% endblock Scripts %}
