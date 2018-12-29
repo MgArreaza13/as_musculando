@@ -344,10 +344,7 @@ def NuevoTipoTurno(request):
 				if(objeto.HoraTurn.strftime(formato) == request.POST['TimeTurnStart'] ):
 					print('encontre una coincidencia ')
 					# la hora que intetas gardar esta en el rango de ese objeto
-				if(objeto.HoraTurnEnd.strftime(formato) == request.POST['TimeTurnEnd'] ):
-					print('encontre una coincidencia2')
-				else:
-					
+				
 					band = True
 			print(band)
 			if( band == False): #quiere decir que no consiguio ningun problema entonces guardo 
