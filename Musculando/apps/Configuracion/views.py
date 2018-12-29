@@ -17,8 +17,8 @@ from apps.Configuracion.models import tb_tipoHorario
 from apps.Configuracion.forms import PlanRegisterForm
 from apps.Configuracion.forms import tipoHorarioForm
 # Create your views here.
-
-
+#import datetime
+import time
 
 ############################PLANES#####################################
 @login_required(login_url = 'Panel:Login' )
@@ -325,20 +325,47 @@ def UpdateTipoIngreso(request):
 
 ###########################HORARIOS######################
 def NuevoTipoHorario(request):
-	
 	Form = tipoHorarioForm
+	formato = "%H:%M"
+	queryset = tb_tipoHorario.objects.all()
+	band = False #hay que declarar una bandera para saber luego que finalice el recorrido si guardar o no 
 	if request.method == 'POST':
 		Form = tipoHorarioForm(request.POST or None)
 		if Form.is_valid():
-			tipoHorario = Form.save(commit=False)
-			tipoHorario.user = request.user
-			tipoHorario.HoraTurn= request.POST['TimeTurnStart']
-			tipoHorario.HoraTurnEnd = request.POST['TimeTurnEnd']
-			tipoHorario.save()
-			return redirect('Configuracion:Configuracion_g')
+			print('formulario valido')
+			#### i el formulario es valido aqui tenemos que hacer la otra vaidacion .
+			for objeto in queryset:
+				print(objeto)
+				#objecto es valga la redundancia el objecto en el cual tu podras ver cada popiedad de cada objecto guardado en tipo de horarios
+				#entonces seria algo como 
+				print(objeto.HoraTurnEnd)
+				print(objeto.HoraTurn)
+				print(request.POST['TimeTurnStart'])
+				if(objeto.HoraTurn.strftime(formato) == request.POST['TimeTurnStart'] ):
+					print('encontre una coincidencia ')
+					# la hora que intetas gardar esta en el rango de ese objeto
+				if(objeto.HoraTurnEnd.strftime(formato) == request.POST['TimeTurnEnd'] ):
+					print('encontre una coincidencia2')
+				else:
+					pass
+					band = True
+			print(band)
+			if( band == False): #quiere decir que no consiguio ningun problema entonces guardo 
+				print('deeria guardar')
+				tipoHorario = Form.save(commit=False)
+				tipoHorario.user = request.user
+				tipoHorario.HoraTurn= request.POST['TimeTurnStart']
+				tipoHorario.HoraTurnEnd = request.POST['TimeTurnEnd']
+				tipoHorario.save()
+				return redirect('Configuracion:Configuracion_g')
+			else: #hubo un error
+				print('no guardare') 
+				mensaje = "Ud esta ingresando un horario ya registrado en el sistema, intente otro."
+				return render(request, 'Configuracion/Horarios/NuevoTipoHorario.html' , {'Form':Form, 'mensaje':mensaje})
 		else:
 			Form = tipoHorarioForm()
 	return render(request, 'Configuracion/Horarios/NuevoTipoHorario.html' , {'Form':Form})
+
 
 def DeleteTipoDeHorario(request):
 	status = None

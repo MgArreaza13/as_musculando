@@ -112,6 +112,10 @@
                                             </div>
                                             <div class="portlet-body form">
                                                 <form action="" method="post">
+                                                  {% if mensaje %}
+                                                      {{mensaje}}
+                                                  
+                                                  {% endif %}
               {% csrf_token %}
               <div class="box-body">
                   
@@ -229,7 +233,8 @@
             <script type="text/javascript">
 $('.clockpicker').clockpicker({
   placement: 'top',
-  donetext: 'GUARDAR'
+  donetext: 'OK',
+  default: 'now'
 });
 
 </script>
