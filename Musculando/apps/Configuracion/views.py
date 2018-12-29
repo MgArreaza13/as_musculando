@@ -11,11 +11,11 @@ from apps.Configuracion.models import tb_tipoColaborador
 from apps.Configuracion.models import tb_tipoEgreso
 from apps.Configuracion.models import tb_tipoIngreso
 from apps.Socios.models import tb_socio
-from apps.Configuracion.models import tb_tipoHorario
+from apps.Configuracion.models import tb_turn_sesion
 
 ##############FORMULARIOS################
 from apps.Configuracion.forms import PlanRegisterForm
-from apps.Configuracion.forms import tipoHorarioForm
+from apps.Configuracion.forms import tipoTurnForm
 # Create your views here.
 #import datetime
 import time
@@ -95,13 +95,13 @@ def Configuracion_g(request):
 	tipos_de_colaboradores  = tb_tipoColaborador.objects.all()
 	tipos_de_egresos		= tb_tipoEgreso.objects.all()
 	tipos_de_ingresos		= tb_tipoIngreso.objects.all()
-	tipos_de_horarios		= tb_tipoHorario.objects.all()
+	tipos_de_turnos		= tb_turn_sesion.objects.all()
 	contexto = {
 	'formas_de_pago':formas_de_pago,
 	'tipos_de_colaboradores':tipos_de_colaboradores,
 	'tipos_de_egresos':tipos_de_egresos,
 	'tipos_de_ingresos':tipos_de_ingresos,
-	'tipos_de_horarios':tipos_de_horarios
+	'tipos_de_turnos':tipos_de_turnos
 	} 
 	return render(request, 'Configuracion/Configuracion_General.html', contexto)
 
@@ -324,13 +324,13 @@ def UpdateTipoIngreso(request):
 	return HttpResponse(status)
 
 ###########################HORARIOS######################
-def NuevoTipoHorario(request):
-	Form = tipoHorarioForm
+def NuevoTipoTurno(request):
+	Form = tipoTurnForm
 	formato = "%H:%M"
-	queryset = tb_tipoHorario.objects.all()
+	queryset = tb_turn_sesion.objects.all()
 	band = False #hay que declarar una bandera para saber luego que finalice el recorrido si guardar o no 
 	if request.method == 'POST':
-		Form = tipoHorarioForm(request.POST or None)
+		Form = tipoTurnForm(request.POST or None)
 		if Form.is_valid():
 			print('formulario valido')
 			#### i el formulario es valido aqui tenemos que hacer la otra vaidacion .
@@ -347,54 +347,54 @@ def NuevoTipoHorario(request):
 				if(objeto.HoraTurnEnd.strftime(formato) == request.POST['TimeTurnEnd'] ):
 					print('encontre una coincidencia2')
 				else:
-					pass
+					
 					band = True
 			print(band)
 			if( band == False): #quiere decir que no consiguio ningun problema entonces guardo 
 				print('deeria guardar')
-				tipoHorario = Form.save(commit=False)
-				tipoHorario.user = request.user
-				tipoHorario.HoraTurn= request.POST['TimeTurnStart']
-				tipoHorario.HoraTurnEnd = request.POST['TimeTurnEnd']
-				tipoHorario.save()
+				tipoTurno = Form.save(commit=False)
+				tipoTurno.user = request.user
+				tipoTurno.HoraTurn= request.POST['TimeTurnStart']
+				tipoTurno.HoraTurnEnd = request.POST['TimeTurnEnd']
+				tipoTurno.save()
 				return redirect('Configuracion:Configuracion_g')
 			else: #hubo un error
 				print('no guardare') 
-				mensaje = "Ud esta ingresando un horario ya registrado en el sistema, intente otro."
-				return render(request, 'Configuracion/Horarios/NuevoTipoHorario.html' , {'Form':Form, 'mensaje':mensaje})
+				mensaje = "Ud esta ingresando un turno ya registrado en el sistema, intente otro."
+				return render(request, 'Configuracion/Turnos/NuevoTipoTurno.html' , {'Form':Form, 'mensaje':mensaje})
 		else:
-			Form = tipoHorarioForm()
-	return render(request, 'Configuracion/Horarios/NuevoTipoHorario.html' , {'Form':Form})
+			Form = tipoTurnForm()
+	return render(request, 'Configuracion/Turnos/NuevoTipoTurno.html' , {'Form':Form})
 
 
-def DeleteTipoDeHorario(request):
+def DeleteTipoDeTurno(request):
 	status = None
-	id_tipo_de_horario = request.GET.get('id', None)
-	queryset = tb_tipoHorario.objects.get(id=id_tipo_de_horario)
+	id_tipo_de_turno = request.GET.get('id', None)
+	queryset = tb_turn_sesion.objects.get(id=id_tipo_de_turno)
 	queryset.delete()
 	status = 200
 	return HttpResponse(status)
 
-def GetTipoHorario(request):
-	id_tipo_de_horario = request.GET.get('id_tipo_de_horario', None)
-	queryset = tb_tipoHorario.objects.get(id = id_tipo_de_horario)
-	tipo_horario = {
+def GetTipoTurno(request):
+	id_tipo_de_turno = request.GET.get('id_tipo_de_turno', None)
+	queryset = tb_turn_sesion.objects.get(id = id_tipo_de_turno)
+	tipo_turno = {
 		'user':str(queryset.user),
-		'tipo_horario':queryset.nametipoHorario,
+		'tipo_turno':queryset.nameturnsession,
 	}
-	return JsonResponse(tipo_horario)
+	return JsonResponse(tipo_turno)
 
-def UpdateTipoHorario(request, id_tipo_de_horario):
-	tipeHorarioEditar= tb_tipoHorario.objects.get(id=id_tipo_de_horario)
+def UpdateTipoTurno(request, id_tipo_de_turno):
+	tipeTurnoEditar= tb_turn_sesion.objects.get(id=id_tipo_de_turno)
 	if request.method == 'GET':
-		Form= tipoHorarioForm(instance = tipeHorarioEditar)
+		Form= tipoTurnForm(instance = tipeTurnoEditar)
 	else:
-		Form = tipoHorarioForm(request.POST, instance = tipeHorarioEditar)
+		Form = tipoTurnForm(request.POST, instance = tipeTurnoEditar)
 		if Form.is_valid():
-			tipoHorario = Form.save(commit=False)
-			tipoHorario.user = request.user
-			tipoHorario.HoraTurn= request.POST['TimeTurnStart']
-			tipoHorario.HoraTurnEnd = request.POST['TimeTurnEnd']
-			tipoHorario.save()
+			tipoTurno = Form.save(commit=False)
+			tipoTurno.user = request.user
+			tipoTurno.HoraTurn= request.POST['TimeTurnStart']
+			tipoTurno.HoraTurnEnd = request.POST['TimeTurnEnd']
+			tipoTurno.save()
 			return redirect ('Configuracion:Configuracion_g')
-	return render (request, 'Configuracion/Horarios/NuevoTipoHorario.html' , {'Form':Form})
+	return render (request, 'Configuracion/Turnos/NuevoTipoTurno.html' , {'Form':Form})

@@ -263,7 +263,7 @@
                             <div class="portlet light portlet-fit box green ">
                                 <div class="portlet-title">
                                     <div class="caption">
-                                        <i class="fa fa-bell-o"></i>HORARIOS</div>
+                                        <i class="fa fa-bell-o"></i>TURNOS</div>
                                     <div class="tools">
                                         <a href="javascript:;" class="collapse"> </a>
                                         <a href="#portlet-config" data-toggle="modal" class="config"> </a>
@@ -276,7 +276,7 @@
                                         <table class="table table-striped table-bordered table-advance table-hover">
                                             <thead>
                                                 <tr>
-                                                    <th style="text-align:left">TIPOS DE HORARIOS </th>
+                                                    <th style="text-align:left">TURNOS</th>
                                                         <th>Hora de Inicio</th>
                                                         <th>Hora de Finalizacion</th>
                                                     <th style="text-align:center"> 
@@ -287,15 +287,15 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {% for tipo_de_horario in tipos_de_horarios %}
+                                                {% for tipo_de_turno in tipos_de_turnos %}
                                                     <tr>
-                                                    <td>{{tipo_de_horario.nametipoHorario}}</td>
-                                                     <td>{{tipo_de_horario.HoraTurn}}</td>
-                                                        <td>{{tipo_de_horario.HoraTurnEnd}}</td>
+                                                    <td>{{tipo_de_turno.nameturnsession}}</td>
+                                                     <td>{{tipo_de_turno.HoraTurn}}</td>
+                                                        <td>{{tipo_de_turno.HoraTurnEnd}}</td>
                                                     <td style="text-align:center">
-                                                        <a href="{% url "Configuracion:UpdateTipoHorario" tipo_de_horario.id  %}" class="btn btn-outline btn-circle btn-sm purple"><i class="fa fa-edit"></i>Editar</a>
+                                                        <a href="{% url "Configuracion:UpdateTipoTurno" tipo_de_turno.id  %}" class="btn btn-outline btn-circle btn-sm purple"><i class="fa fa-edit"></i>Editar</a>
                                                         
-                                                        <button type="button" value="{{tipo_de_horario.id}}" onclick="EliminarTipoDeHorario(this.value);" class="btn btn-outline btn-circle dark btn-sm black">
+                                                        <button type="button" value="{{tipo_de_turno.id}}" onclick="EliminarTipoDeTurno(this.value);" class="btn btn-outline btn-circle dark btn-sm black">
                                                             <i class="fa fa-trash-o"></i> Borrar </button>
                                                     </td>
                                                 </tr>
@@ -307,7 +307,7 @@
                                     </div>
                                 </div>
 
-                                <a href="{% url "Configuracion:NuevoTipoHorario" %}" class="btn green btn-block">Nuevo Tipo de Horario</a>
+                                <a href="{% url "Configuracion:NuevoTipoTurno" %}" class="btn green btn-block">Nuevo Tipo de Turno</a>
                             </div>
                             <!-- END BORDERED TABLE PORTLET-->
                         </div>

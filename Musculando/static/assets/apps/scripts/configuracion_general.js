@@ -879,10 +879,10 @@ function EditarTipoDeIngreso(id) {
 		});
 }
 
-function EliminarTipoDeHorario(id_tipo_de_horario) {
+function EliminarTipoDeTurno(id_tipo_de_turno) {
 	swal({
 		  title: '¿Estas Seguro?',
-		  text: "¿Estas Seguro de que deseas eliminar este tipo de Horario?",
+		  text: "¿Estas Seguro de que deseas eliminar este tipo de Turno?",
 		  type: 'warning',
 		  showCancelButton: true,
 		  confirmButtonColor: '#3085d6',
@@ -895,11 +895,11 @@ function EliminarTipoDeHorario(id_tipo_de_horario) {
            	//Ajax para eliminar el Plan
            	$.ajax({
 		    // la URL para la petición
-		    url : '/Configuracion/Tipo/De/Horario/Solicitud/Eliminar/Registro/',
+		    url : '/Configuracion/Tipo/De/Turno/Solicitud/Eliminar/Registro/',
 		    // la información a enviar
 		    // (también es posible utilizar una cadena de datos)
 		    data : { 
-		    	'id':id_tipo_de_horario,
+		    	'id':id_tipo_de_turno,
 		    },
 		    // el tipo de información que se espera de respuesta
 		    dataType : 'json',
@@ -910,13 +910,13 @@ function EliminarTipoDeHorario(id_tipo_de_horario) {
 		    		//todo correcto 
 		    		swal(
 					      'Borrado!',
-					      'Hemos Borrado satisfactoriamente tu tipo de Horario.',
+					      'Hemos Borrado satisfactoriamente tu tipo de Turno.',
 					      'success'
 					    );
 		        	location.href ="/Configuracion/";
 		    	}
 		    	else{
-		    		swal("OOOh!", "Hemos tenido un problema al borrar su tipo de Horario!", "error")
+		    		swal("OOOh!", "Hemos tenido un problema al borrar su tipo de Turno!", "error")
 		    	}
 		    },
 		 

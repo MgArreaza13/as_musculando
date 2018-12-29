@@ -1,7 +1,7 @@
 {% extends "../../Base/Base.html" %}
 {% load staticfiles %}
 {% block Title %}
-  Horarios
+  Turnos
 {% endblock Title %}
 
 {% block stayle %}
@@ -68,7 +68,7 @@
                         <!-- BEGIN THEME PANEL -->
                        
                         <!-- END THEME PANEL -->
-                        <h1 class="page-title"> Nuevo Tipo de Horario                        
+                        <h1 class="page-title"> Nuevo Turno                       
                         </h1>
                         <div class="page-bar">
                             <ul class="page-breadcrumb">
@@ -96,7 +96,7 @@
                                             <div class="portlet-title">
                                                 <div class="caption">
                                                     <span class="caption-subject font-red-sunglo bold uppercase">Configuracion/</span>
-                                                    <span class="caption-helper">Nuevo Horario</span>
+                                                    <span class="caption-helper">Nuevo Turno</span>
                                                 </div>
                                                 <div class="actions">
                                                     <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
@@ -133,7 +133,7 @@
                     
 
 
-                    {% if field.name == 'nametipoHorario' %}
+                    {% if field.name == 'nameturnsession' %}
                           <div class="form-group ">
                             <label>Descripcion</label>
                             <input class="form-control" placeholder="{{field.label}}" autocomplete="off" 

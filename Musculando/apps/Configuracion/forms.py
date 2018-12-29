@@ -4,7 +4,7 @@ from django.forms import ModelForm, Media,TextInput, NumberInput,EmailInput,URLI
 from django.forms import extras
 #######################MODELOS####################
 from apps.Configuracion.models import tb_plan
-from apps.Configuracion.models import tb_tipoHorario
+from apps.Configuracion.models import tb_turn_sesion
 class PlanRegisterForm(forms.ModelForm):
 	class Meta:
 		model = tb_plan
@@ -57,16 +57,16 @@ class PlanRegisterForm(forms.ModelForm):
           
 		exclude = ['user',  'dateCreate',]
 
-class tipoHorarioForm(forms.ModelForm):
+class tipoTurnForm(forms.ModelForm):
 	
 	class Meta:
-		model = tb_tipoHorario
+		model = tb_turn_sesion
 		fields = [
-		'nametipoHorario',
+		'nameturnsession',
 		]
 		exclude = ['user','dateCreate', 'HoraTurn' , 'dateCreate' ]
 		labels = {
-		'nametipoHorario':'Descripcion', 		
+		'nametipoTurno':'Descripcion', 		
 		}
 		widgets = {
 		}
