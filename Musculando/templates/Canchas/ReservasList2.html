@@ -353,7 +353,7 @@
       {% for turno in turnos %}
         {
           title: 'RESERVADO - {{turno.cancha.nameCancha}}',
-          start: '{{ turno.dateTurn|date:"Y-m-d" }} {{turno.turn.HoraTurnEnd}}',
+          start: '{{ turno.dateTurn|date:"Y-m-d" }} {{turno.turn.HoraTurn}}',
           end:'{{ turno.dateTurn|date:"Y-m-d" }} {{turno.turn.HoraTurnEnd}}',
           backgroundColor: "#f56954", //red
           borderColor: "#f56954",//red
