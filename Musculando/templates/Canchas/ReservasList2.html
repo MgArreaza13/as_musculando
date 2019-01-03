@@ -167,6 +167,7 @@
                                                         <th>Cancha</th>
                                                         <th>Fecha</th>
                                                         <th>Monto A Pagar</th>
+                                                        <th>Monto Pagado</th>
                                                         <th>Acciones</th>
                                                     </tr>
                                                 </thead>
@@ -182,31 +183,44 @@
                                                                 {% if reserva.statusTurn == 'Confirmada' %}
                                                                 <span class="label label-success"> Confirmada </span>
                                                                 {% elif reserva.statusTurn == 'En Espera' %}
-                                                                <span class="label label-warning"> Pendiente </span>
+                                                                <span class="label label" style="background-color: coral"> Pendiente </span>
                                                                 {% elif reserva.statusTurn == 'No Aprobada' %}
                                                                 <span class="label label-danger"> Negada </span>
                                                                 {% endif %}
                                                             </td>
                                                            <td id="{{reserva.id}}">
-                                                                    {% if reserva.isPay == True %}
+                                                                    {% if reserva.statusPago == 'Pagado' %}
                                                                    <span class="label label-success"> PAGADO </span>
-                                                                   {% elif reserva.isPay == False %}
-                                                                    <span class="label label-danger"> PENDIENTE </span>
-                                                                   {% endif %}
+                                                                    {% elif reserva.statusPago == 'Pendiente por Pagar' %}
+                                                                    <span class="label label" style="background-color: coral"> PENDIENTE POR PAGAR </span>
+                                                                    {% elif reserva.statusPago == 'Parcialmente Pagado' %}
+                                                                    <span class="label label-danger"> PARCIALMENTE PAGADO </span>
+                                                                    {% endif %}
                                                                 
                                                             </td>
+                                                            
                                                             <td >{{reserva.cancha}}</td>
                                                             <td >{{reserva.dateTurn}}</td>
+                                                            
                                                             
                                                             <td style="text-align:center;">
                                                                 
                                              
-                                                                    <span style="font-size:15px" class="label label-success"> ${{reserva.montoAPagar}} </span>
+                                                                    <span style="font-size:15px;background-color: cadetblue" class="label label-success"> ${{reserva.montoAPagar}} </span>
     
                                                             
                                                             </td>
                                                             
+                                                            <td style="text-align:center;">
+                                                                
+                                             
+                                                                    <span style="font-size:15px;background-color: cadetblue" class="label label-success"> ${{reserva.montoPagado}} </span>
+    
                                                             
+                                                            </td>
+                                                          </td>
+
+                                                           
                                                             
                                                             
                                                             

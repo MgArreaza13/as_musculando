@@ -254,8 +254,10 @@ function DeleteReserva(id) {
         });
 }
 
-function ReportarPagoReserva(id_reserva){
-	swal({
+function ReportarPagoReserva(id_reserva){	
+ console.log(id_reserva);
+ // console.log(id_monto);
+ swal({
   html: '<h2>Añadir Monto</h2><h4 style="color:blue">Ingrese el Monto</h4>',
   input: 'number',
   inputPlaceholder: '$',
@@ -271,8 +273,9 @@ function ReportarPagoReserva(id_reserva){
 		    // la información a enviar
 		    // (también es posible utilizar una cadena de datos)
 		    data : { 
-		    	'PagoDeReserva':value,
-		    	'id_reserva':id_reserva
+		    	// 'PagoDeReserva':value,
+		    	'id_reserva':id_reserva,
+		    	'id_monto':value,
 		    },
 		    // el tipo de información que se espera de respuesta
 		    dataType : 'json',

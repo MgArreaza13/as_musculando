@@ -9,7 +9,11 @@ STATE_RESERVAS = (
     ('No Aprobada', 'No Aprobada'),
 )
 
-
+STATE_PAGORESERVAS = (
+    ('Pagado', 'Pagado'),
+    ('Parcialmente Pagado', 'Parcialmente Pagado'),
+    ('Pendiente por Pagar', 'Pendiente por Pagar'),
+)
 
 class Cancha(models.Model):
 	nameCancha					=	models.CharField(default='Sin Datos', null=True, max_length=300)
@@ -38,6 +42,7 @@ class ReservaCancha(models.Model):
 	montoAPagar				=   models.IntegerField(default=0, null=False, blank=True)
 	montoPagado				=   models.IntegerField(default=0, null=True, blank=True)
 	isPay			 		=	models.BooleanField(null=False, blank=True , default=False)
+	statusPago 				=	models.CharField(max_length=255,null=False,choices=STATE_PAGORESERVAS,default='Pendiente por Pagar',)
 	description				=	models.TextField(default='Sin Descripcion', null=False, max_length=3000000, blank=True)	
 	TipoReservas			=   models.CharField(default='Reserva Web', null=True, max_length=30)
 	observaciones           =  	models.TextField(default='Sin Obsevaciones', null=False, max_length=3000)

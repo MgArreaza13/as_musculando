@@ -304,18 +304,44 @@ def QueryTipoEgreso(request):
 	data = serializers.serialize('json', query)
 	return HttpResponse(data)
 
+
+	# status = None
+	# id_reserva = request.GET.get('id_reserva', None)
+	# reserva = ReservaCancha.objects.get(id= id_reserva)
+	# reserva.isPay = True
+	# reserva.save()
+	# pago_de_reserva = request.GET.get('PagoDeReserva', None)
+	# pago = tb_ingresos()
+	# pago.user = request.user
+	# pago.descripcion = "Pago de Reservas Web"
+	# pago.monto =  pago_de_reserva
+	# pago.save()
+	# PagoReserva.delay(reserva.nombre, reserva.mail)
+	# status = 200
+	# return HttpResponse(status)
+
 def NuevoReporteDePagoReservas(request):
-	status = None
-	id_reserva = request.GET.get('id_reserva', None)
-	reserva = ReservaCancha.objects.get(id= id_reserva)
-	reserva.isPay = True
-	reserva.save()
-	pago_de_reserva = request.GET.get('PagoDeReserva', None)
-	pago = tb_ingresos()
-	pago.user = request.user
-	pago.descripcion = "Pago de Reservas Web"
-	pago.monto =  pago_de_reserva
-	pago.save()
-	PagoReserva.delay(reserva.nombre, reserva.mail)
 	status = 200
+	id_reserva = request.GET.get('id_reserva', None)
+	print (id_reserva)
+	id_monto  = float (request.GET.get('id_monto', None))
+	print (type (id_monto))
+	reserva = ReservaCancha.objects.get(id= id_reserva)
+	print (type (reserva.montoPagado))
+	print (reserva.montoPagado)
+	reserva.montoPagado += id_monto
+	reserva.save()
+	if reserva.montoAPagar != reserva.montoPagado or reserva.montoPagado == 0 and id_monto != reserva.montoAPagar:
+		reserva.statusPago = 'Parcialmente Pagado'
+	elif reserva.montoAPagar == reserva.montoPagado:
+		reserva.isPay = True
+		reserva.statusPago = 'Pagado'
+		reserva.save()
+	ingreso = tb_ingresos()
+	ingreso.user = request.user
+	ingreso.reserva = reserva
+	ingreso.tipoDeIngresos = tb_tipoIngreso.objects.get(id = 1)
+	ingreso.monto = id_monto
+	ingreso.descripcion = 'Pago de Reserva Web'
+	ingreso.save()
 	return HttpResponse(status)
