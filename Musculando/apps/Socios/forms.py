@@ -18,13 +18,13 @@ class SociosRegisterForm(forms.ModelForm):
 		widgets = {
 		'obraSocial': TextInput(attrs={'class':'form-control', 
 			  'required':'False',
-			  'disabled':True,
+			  'disabled':False,
 			  'autocomplete':'off',
 			   'placeholder':'Ingrese El Primer Nombre Del Usuario'}),
 
 		'dateInactive_socio': DateInput(attrs={'class':'form-control', 
 			  'required':'False',
-			  'disabled':True,
+			  'disabled':False,
 			  'autocomplete':'off',
 			  'type':'date',
 			  'placeholder':'Fecha de Inicio'}),

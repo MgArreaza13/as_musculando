@@ -74,7 +74,7 @@ function PlanSeleccionado(id) {
 		    		$('#FechaPlan').html(plan.fecha);
 		    		$('#IdPlanSeleccionado').val(id);
 		    		$("#responsive").modal("hide");	
-		    		$('#Enviar').removeClass('btn-warning');
+		    		$('#Enviar').removeClass('btn-info');
 		    		$('#Enviar').addClass('green');
 		    		$('#Enviar').text('Guardar');
 		    		$('#Enviar').removeAttr("disabled");
