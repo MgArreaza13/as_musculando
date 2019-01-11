@@ -37,7 +37,8 @@
             <!-- END SIDEBAR -->
             <!-- BEGIN CONTENT -->
             <div class="page-content-wrapper">
-            	{% if egresos and user.is_authenticated and user.is_staff == True and user.is_superuser == True%}
+
+            	
 		                <!-- BEGIN CONTENT BODY -->
 		                <div class="page-content">
 		                    <!-- BEGIN PAGE HEADER-->
@@ -130,45 +131,8 @@
 		                   
 		                </div>
 		                <!-- END CONTENT BODY -->
-	            	{% else %}
-	            	<!-- BEGIN CONTENT BODY -->
-		                <div class="page-content">
-		                    <!-- BEGIN PAGE HEADER-->
-		                    
-		                    <h1 class="page-title"> Listados De Egresos 
-		                        
-		                    </h1>
-		                    <div class="page-bar">
-		                        <ul class="page-breadcrumb">
-		                            <li>
-		                                <i class="icon-home"></i>
-		                                <a href="index.html">Inicio</a>
-		                                <i class="fa fa-angle-right"></i>
-		                            </li>
-		                            <li>
-		                                <a href="#">Egresos</a>
-		                                <i class="fa fa-angle-right"></i>
-		                            </li>
-		                            <li>
-		                                <span>Listado</span>
-		                            </li>
-		                        </ul>
-		                        
-		                    </div>
-		                    <!-- END PAGE HEADER-->
-		                    <div class="row">
-		                        <div class="col-md-12">
-		                            <!-- BEGIN EXAMPLE TABLE PORTLET-->
-		                            <h3>Listado Vacio</h3>
-		                            <!-- END EXAMPLE TABLE PORTLET-->
-		                            
-		                        </div>
-		                    </div>
-            				
-		                </div>
-		                <!-- END CONTENT BODY -->
+	            	
 
-            	{% endif %}
             </div>
 {% endblock Content %}
 

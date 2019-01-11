@@ -204,6 +204,43 @@
                             </li>
                             
                         {% endif %}
+                       {% if profile_response.perfil.tipoUser == 'Operador' %}
+                        <li class="nav-item  ">
+                                <a href="javascript:;" class="nav-link nav-toggle">
+                                    <i class="fa fa-bank"></i>
+                                    <span class="title">CAJA</span>
+                                    <span class="arrow"></span>
+                                </a>
+
+                                <ul class="sub-menu">
+                                   
+                                  <li class="nav-item  ">
+                                         <a href="javascript:;" class="nav-link nav-toggle">
+                                            <span class="title">INGRESOS</span>
+                                            <span class="arrow"></span>
+                                        </a>
+                                         <ul class="sub-menu">
+                                            <li class="nav-item ">
+                                                <a href="{% url "Caja:ListadoDeIngresos" %}" class="nav-link "> PAGOS DE MENSUALIDADES SOCIOS </a>
+                                            </li>
+                                            <li class="nav-item ">
+                                                <a href="{% url "Caja:ListOtroIngresos" %}" class="nav-link ">OTROS INGRESOS</a>
+                                            </li>
+                                                                                       
+                                            
+                                        </ul>
+                                        <li class="nav-item  ">
+                                        <a href="{% url "Caja:ListEgresos" %}" class="nav-link ">
+                                            <span class="title">EGRESOS</span>
+                                        </a>
+                                    </li>
+                                       
+                                    </li>  
+                                </ul>
+
+                        </li>
+                        {% endif %}
+
                         <li class="nav-item  ">
                             <a href="javascript:;" class="nav-link nav-toggle">
                                 <i class="fa fa-truck"></i>

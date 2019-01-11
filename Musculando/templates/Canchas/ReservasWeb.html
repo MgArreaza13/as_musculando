@@ -253,7 +253,7 @@
                                                                 <span class="required"> * </span>
                                                             </label>
                                                             <div class="col-md-7">
-                                                                <input type="text" class="form-control" name="telefono" id="NumeroDeTelefono" id="submit_form_password" />
+                                                                <input type="number" class="form-control" name="telefono" id="NumeroDeTelefono" id="submit_form_password" />
                                                                 <span class="help-block"> Ingresa tu numero telefonico </span>
                                                             </div>
                                                         </div>
@@ -263,7 +263,7 @@
                                                                 <span class="required"> * </span>
                                                             </label>
                                                             <div class="col-md-7">
-                                                                <input type="text" class="form-control" id="Correo" name="email" />
+                                                                <input type="email" class="form-control" id="Correo" name="email" />
                                                                 <span class="help-block"> Ingresa tu correo  </span>
                                                             </div>
                                                         </div>
@@ -504,8 +504,7 @@
             <script src="{% static "assets/layouts/global/scripts/quick-nav.min.js" %}" type="text/javascript"></script>
             <script src="{% static "assets/apps/scripts/reservas.js" %}"></script>
 
-
-            <script>
+<script>
   $(function () {
 
     /* initialize the calendar
@@ -552,6 +551,7 @@
       selectable: true,
       selectHelper: true,
       select: function(start, end) {
+        console.log('seleccione un dia')
         date = new Date(start);
         year = date.getFullYear();
         month = date.getMonth()+1;
@@ -564,8 +564,33 @@
         }
 
         var fecha = year+'-' + month + '-'+dt;
+
+        date2 = new Date();
+        year2 = date2.getFullYear();
+        month2 = date2.getMonth()+1;
+        dt2 = date2.getDate();
+        if (dt2 < 10) {
+        dt2= '0' + dt2;
+        }
+        if (month2 < 10) {
+            month2 = '0' + month2;
+        }
+
+        var fecha2 = year2+'-' + month2 + '-'+dt2;
+        
         console.log(fecha)
-            $.ajax({
+        console.log(fecha2)
+        if (fecha < fecha2) {
+              swal({
+              title: 'Elección de Fecha Invalida',
+              text: "La fecha seleccionada es anterior a la actual, seleccione otra.",
+              type: 'warning',
+              
+            })  
+            }
+
+        if(fecha >= fecha2){
+           $.ajax({
                 url: '/Canchas/web/consulta/',
                 data: {
                     'date': fecha
@@ -664,6 +689,12 @@
                                   }).then(function (result) {
                                     // console.log('estoy entrand aqui ')
                                     // console.log(result)
+
+                                    if(result.dismiss == "cancel"){
+                                        // le dio al boton de cancelar
+                                        /*console.log('le dio al boton de cancelar');*/
+                                    }
+                                    else{
                                     swal({
                                       type: 'success',
                                       title: 'Felicidades',
@@ -677,6 +708,8 @@
                                     $('#botonDeContinuar').removeClass('disabled');
                                     $('#fecha').val(fecha);
                                     $('#turn').val(result.value);
+                                    }
+                                    
                                 });
 
 
@@ -748,6 +781,11 @@
                                   }).then(function (result) {
                                     // console.log('estoy entrando aqui 2')
                                     // console.log(result)
+                                    if(result.dismiss == "cancel"){
+                                        // le dio a cancelar
+                                        /*console.log('le dio al boton de cancelar');*/
+                                    }
+                                    else{
                                     swal({
                                       type: 'success',
                                       title: 'Felicidades',
@@ -761,7 +799,7 @@
                                     $('#botonDeContinuar').removeClass('disabled');
                                     $('#fecha').val(fecha);
                                     $('#turn').val(result.value);
-
+                                    }
                                 });
                             }
                           },
@@ -775,12 +813,15 @@
 
                      
                     });
+        } 
+
+        
+        
+            
       },
       eventClick: function(calEvent) {
 
-        alert('hola')
-       console.log(calEvent);
-
+        
         
 
     },

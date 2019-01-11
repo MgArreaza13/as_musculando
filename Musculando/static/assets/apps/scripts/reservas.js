@@ -66,7 +66,7 @@ function getCookie(name) {
 
 
 function continueStep(){
-	console.log('me dieron click');
+	/*console.log('me dieron click');*/
 }
 
 function updateState(id){

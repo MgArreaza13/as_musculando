@@ -196,6 +196,8 @@ var FormWizard = function () {
                         return false;
                     }
                     
+
+                    
                     handleTitle(tab, navigation, clickedIndex);
                 },
                 onNext: function (tab, navigation, index) {
