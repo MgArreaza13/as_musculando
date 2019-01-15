@@ -157,7 +157,7 @@
                             </a>
                             
                         </li>
-                        {% if user.is_authenticated  and user.is_superuser == True  %}
+                        {% if profile_response.perfil.tipoUser == 'Administrador' %}
                             <li class="nav-item  ">
                                 <a href="javascript:;" class="nav-link nav-toggle">
                                     <i class="fa fa-bank"></i>
@@ -165,11 +165,12 @@
                                     <span class="arrow"></span>
                                 </a>
                                 <ul class="sub-menu">
+                                     {% if user.is_authenticated and user.is_staff == True %}
                                     <li class="nav-item  ">
                                         <a href="{% url "Caja:Resumen" %}" class="nav-link ">
                                             <span class="title">RESUMEN</span>
                                         </a>
-                                        {% if user.is_authenticated and user.is_staff == True %}
+                                       
                                         <ul class="sub-menu">
                                             <li class="nav-item ">
                                                 <a href="{% url "Caja:ResumenCierres" %}" class="nav-link ">CIERRES DE CAJA</a>
@@ -204,42 +205,7 @@
                             </li>
                             
                         {% endif %}
-                       {% if profile_response.perfil.tipoUser == 'Operador' %}
-                        <li class="nav-item  ">
-                                <a href="javascript:;" class="nav-link nav-toggle">
-                                    <i class="fa fa-bank"></i>
-                                    <span class="title">CAJA</span>
-                                    <span class="arrow"></span>
-                                </a>
-
-                                <ul class="sub-menu">
-                                   
-                                  <li class="nav-item  ">
-                                         <a href="javascript:;" class="nav-link nav-toggle">
-                                            <span class="title">INGRESOS</span>
-                                            <span class="arrow"></span>
-                                        </a>
-                                         <ul class="sub-menu">
-                                            <li class="nav-item ">
-                                                <a href="{% url "Caja:ListadoDeIngresos" %}" class="nav-link "> PAGOS DE MENSUALIDADES SOCIOS </a>
-                                            </li>
-                                            <li class="nav-item ">
-                                                <a href="{% url "Caja:ListOtroIngresos" %}" class="nav-link ">OTROS INGRESOS</a>
-                                            </li>
-                                                                                       
-                                            
-                                        </ul>
-                                        <li class="nav-item  ">
-                                        <a href="{% url "Caja:ListEgresos" %}" class="nav-link ">
-                                            <span class="title">EGRESOS</span>
-                                        </a>
-                                    </li>
-                                       
-                                    </li>  
-                                </ul>
-
-                        </li>
-                        {% endif %}
+                       
 
                         <li class="nav-item  ">
                             <a href="javascript:;" class="nav-link nav-toggle">

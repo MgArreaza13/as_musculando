@@ -9,7 +9,7 @@ PAGO_CHOICES = (
     ('Colaborador', 'Colaborador'),
 	('SinDefinir', 'Sin Definir'),
     ('Socio', 'Socio'),
-    ('Operador', 'Operador')
+    
 )
 class tb_profile (models.Model):
 	user			=	models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True)
