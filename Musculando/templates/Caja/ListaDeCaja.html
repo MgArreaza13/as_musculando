@@ -37,7 +37,7 @@
             <!-- END SIDEBAR -->
             <!-- BEGIN CONTENT -->
             <div class="page-content-wrapper">
-            	{% if ingresos and user.is_authenticated and user.is_staff == True and user.is_superuser == True%}
+            	{% if ingresos and profile_response.perfil.tipoUser == 'Administrador' %}
 		                <!-- BEGIN CONTENT BODY -->
 		                <div class="page-content">
 		                    <!-- BEGIN PAGE HEADER-->
