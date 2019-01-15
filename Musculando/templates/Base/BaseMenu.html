@@ -165,12 +165,12 @@
                                     <span class="arrow"></span>
                                 </a>
                                 <ul class="sub-menu">
-                                     {% if user.is_authenticated and user.is_staff == True %}
+                                     
                                     <li class="nav-item  ">
                                         <a href="{% url "Caja:Resumen" %}" class="nav-link ">
                                             <span class="title">RESUMEN</span>
                                         </a>
-                                       
+                                       {% if user.is_authenticated and user.is_staff == True %}
                                         <ul class="sub-menu">
                                             <li class="nav-item ">
                                                 <a href="{% url "Caja:ResumenCierres" %}" class="nav-link ">CIERRES DE CAJA</a>
