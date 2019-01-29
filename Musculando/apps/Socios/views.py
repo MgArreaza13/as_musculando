@@ -185,15 +185,13 @@ def UpdateSocio(request, id_socio):
 #########################ELIMINAR SOCIO ##############################
 
 def DeleteSocio(request):
-	status = None
-	id_usuario = request.GET.get('id', None)
-	queryset = User.objects.get(id = id_usuario)
-	PerfilEliminado.delay()
-	queryset.delete()
-	status = 200
+	status 		= None
+	id_socio 	= 	request.GET.get('id_socio', None)
+	socio  	=	tb_socio.objects.get(id = id_socio)
+	print (id_socio)
+	socio.delete()
+	status 		=	200
 	return HttpResponse(status)
-
-
 
 #########################DESACTIVAR SOCIO#############################
 
@@ -254,3 +252,41 @@ def ActivacionSocioMensualAnual(request):
 
 
 
+def NuevoReporteDePagoParcialMensual(request):
+	status = 200
+	id_socio = request.GET.get('id_socio', None)
+	print (id_socio)
+	id_monto  = float (request.GET.get('id_monto', None))
+	print (id_monto)
+	print ('paseee2')
+	socio = tb_socio.objects.get(id = id_socio)
+	precioPlan = float(socio.TarifaMensual.precioPlan)
+	print(precioPlan)
+	print(type(precioPlan))
+	socio.montoPagado += id_monto
+	socio.save()
+	if precioPlan != socio.montoPagado or socio.montoPagado == 0 and id_monto != precioPlan:
+		socio.isPay = False
+		socio.status = 'Activo'
+	elif socio.montoPagado == precioPlan:
+		socio.isPay = True
+		socio.status = 'Activo'
+		socio.save()
+	print (socio.montoPagado)
+	print (socio.isPay)
+	print ('pase4')
+	print (socio.status)
+	print(precioPlan)
+	print (type (precioPlan))
+	ingreso = tb_ingreso_mensualidad()
+	ingreso.user = request.user
+	ingreso.plan = tb_plan.objects.get(nombrePlan = socio.TarifaMensual)
+	ingreso.monto = id_monto
+	ingreso.descripcion = 'Pago Parcial de Mensualidad'
+	ingreso.nombre = socio.perfil.nameUser
+	ingreso.apellido = socio.perfil.lastName
+	ingreso.correo  = socio.perfil.mailUser
+	ingreso.save()
+	status = 200
+		
+	return HttpResponse(status)

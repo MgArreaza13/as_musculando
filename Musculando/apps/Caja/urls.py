@@ -17,6 +17,7 @@ from apps.Caja.views import VerCierre
 from apps.Caja.views import ResumenCierres
 from apps.Caja.views import NuevoReporteDePagoReservas
 
+
 urlpatterns = [
 	#url(r'^registro/$', Registro, name='Registro'  ),
 	#url(r'^editar/(?P<id_UserProfile>\d+)$', EditUserProfile, name='EditUserProfile'  ),

@@ -337,7 +337,7 @@ def NuevoTipoTurno(request):
 			for objeto in queryset:
 				print(objeto)
 				#objecto es valga la redundancia el objecto en el cual tu podras ver cada popiedad de cada objecto guardado en tipo de horarios
-				#entonces seria algo como 
+				#entonces seria algo como
 				print(objeto.HoraTurnEnd)
 				print(objeto.HoraTurn)
 				print(request.POST['TimeTurnStart'])

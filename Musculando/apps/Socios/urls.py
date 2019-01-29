@@ -9,6 +9,7 @@ from apps.Socios.views import ActivateSocio
 from apps.Socios.views import getSocio
 from apps.Socios.views import ActivacionSocioMensualAnual
 from apps.Socios.views import UpdateSocio
+from apps.Socios.views import NuevoReporteDePagoParcialMensual
 
 #from apps.Proveedores.views import ListaDeProveedores
 #from apps.Proveedores.views import Nuevo
@@ -30,5 +31,6 @@ urlpatterns = [
 	url(r'^Lista/$', ListaDeSocios , name='ListaDeSocios'  ),
 	url(r'^Nuevo/$', NewSocio , name='NewSocio'  ),
 	url(r'^Editar/(?P<id_socio>\d+)$', UpdateSocio, name='UpdateSocio'  ),
-  
+    url(r'^Nueva/Solicitud/Pago/De/Mensualidad/Parcial/$', NuevoReporteDePagoParcialMensual , name='NuevoReporteDePagoParcialMensual'  ),
+
 ]

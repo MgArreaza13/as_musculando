@@ -43,7 +43,8 @@ function Eliminar(id) {
 		    // la información a enviar
 		    // (también es posible utilizar una cadena de datos)
 		    data : { 
-		    	'id':id,
+		    	'id_socio':id,
+		    	
 		    },
 		    // el tipo de información que se espera de respuesta
 		    dataType : 'json',
@@ -447,7 +448,71 @@ function ReportePago(id) {
     
 }
 
-
+function ReportarPagoParcial(id_socio){	
+ console.log(id_socio);
+ // console.log(id_monto);
+ swal({
+  html: '<h2>Añadir Monto</h2><h4 style="color:blue">Ingrese el Monto</h4>',
+  input: 'number',
+  inputPlaceholder: '$',
+  showCancelButton: true,
+  inputValidator: (value) => {
+  	if (value == '') {
+  		return !value && 'Necesitas escribir algo!'
+  	}
+    else{
+    	  	$.ajax({
+		    // la URL para la petición
+		    url : '/Socios/Nueva/Solicitud/Pago/De/Mensualidad/Parcial/',
+		    // la información a enviar
+		    // (también es posible utilizar una cadena de datos)
+		    data : { 
+		    	// 'PagoDeReserva':value,
+		    	'id_socio':id_socio,
+		    	'id_monto':value,
+		    },
+		    // el tipo de información que se espera de respuesta
+		    dataType : 'json',
+		    // código a ejecutar si la petición es satisfactoria;
+		    // la respuesta es pasada como argumento a la función
+		    success : function(status) {
+		    	if (status == 200) {
+		    		//todo correcto 
+		    		swal(
+					      'Felicidades!',
+					      'Agregamos Su Monto satisfactoriamente.',
+					      'success'
+					    );
+		        	location.reload(); 
+		    	}
+		    	else if (status == 401) {
+		    		
+		    		swal(
+					      'Error!',
+					      
+					      'error'
+					    );
+		        	
+		    	}
+		    	else{
+		    		swal("OOOh!", "Hemos tenido un problema al cargar el monto!", "error")
+		    	}
+		    },
+		 
+		    // código a ejecutar si la petición falla;
+		    // son pasados como argumentos a la función
+		    // el objeto de la petición en crudo y código de estatus de la petición
+		    error : function(xhr, status) {
+		        swal("OOOh!", "Hemos tenido un problema con el Servidor!", "error")
+		    },
+		 
+		    // código a ejecutar sin importar si la petición falló o n
+		});
+    }
+  }
+})
+			
+}
 
 
 function configureLoadingScreen(screen){

@@ -33,7 +33,7 @@
 
 
 {% block Content %}
-<div class="loader" id="loading-screen"> <img id="Cargando" src="{% static "assets/global/img/spinning-circles.svg" %}" alt=""></div>
+<!-- <div class="loader" id="loading-screen"> <img id="Cargando" src="{% static "assets/global/img/spinning-circles.svg" %}" alt=""></div> -->
 	<div class="page-sidebar-wrapper">
                 <!-- END SIDEBAR -->
                 <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
@@ -94,6 +94,7 @@
 		                                                <th>Número de contacto Movil</th>
 		                                                <th>Fecha de Nacimiento</th>
 		                                                <th>Mensualidad</th>
+		                                                <th>Monto Pagado</th>
 		                                                <th>Status</th>
 		                                                <th>Fecha de Vencimiento de Abono</th>
 	                                         
@@ -120,6 +121,7 @@
 			                                                <td>{{socio.perfil.birthdayDate}}</td>
 			                                                
 			                                                <td>${{socio.TarifaMensual.precioPlan}}</td>
+			                                                <td>${{socio.montoPagado}}</td>
 			                                                <td>
 			                                                	{% if socio.status == 'Activo' %}
 			                                                	    
@@ -142,18 +144,21 @@
                                                                 <ul class="dropdown-menu" style="min-width: 108px !important" role="menu">
 
                                                                 	<li>
-                                                                        <a style="background:#32c5d2;color:white;" href="{% url "Socios:UpdateSocio" socio.id %}"  class="btn btn-success btn-block" > Editar </a>
+                                                                        <a style="background-color:cornflowerblue;color:white;" href="{% url "Socios:UpdateSocio" socio.id %}"  class="btn btn-success btn-block btn-xs" > Editar </a>
                                                                     </li>
-                                                                    <li class="divider"> </li>
+                                                                    
                                                                     
                                                                     <li>
-                                                                        <button type="button" class="btn btn-success btn-block" value="{{socio.id}}" onclick="Activar(this.value);"> Activar </button>
+                                                                        <button type="button" class="btn btn-success btn-block btn-xs" value="{{socio.id}}" onclick="Activar(this.value);"> Activar </button>
                                                                     </li>
                                                                     <li>
-                                                                        <button type="button" class="btn btn-warning btn-block" value="{{socio.id}}" onclick="Desactivar(this.value);"> Desactivar </button>
+                                                                        <button type="button" class="btn btn-warning btn-block btn-xs" value="{{socio.id}}" onclick="Desactivar(this.value);"> Desactivar </button>
                                                                     </li>
                                                                     <li>
-                                                                        <button type="button" class="btn btn blue btn-block" value="{{socio.id}}" onclick="ReportePago(this.value);"> Reportar Pago </button>
+                                                                        <button type="button" class="btn btn blue btn-block btn-xs" value="{{socio.id}}" onclick="ReportePago(this.value);"> Reportar Pago </button>
+                                                                    </li>
+                                                                    <li>
+                                                                        <button style="background-color:cadetblue;color:white;" type="button" class="btn btn blue btn-block btn-xs" value="{{socio.id}}" onclick="ReportarPagoParcial(this.value);"> Pago Parcial</button>
                                                                     </li>
                                                                     <!--
                                                                     <li>
@@ -161,7 +166,7 @@
                                                                     </li> -->
                                                                     
                                                                     <li>
-                                                                        <button type="button" class="btn btn-danger btn-block" value="{{socio.perfil.user.id}}" onclick="Eliminar(this.value);"> Eliminar </button>
+                                                                        <button type="button" class="btn btn-danger btn-block btn-xs" value="{{socio.id}}" onclick="Eliminar(this.value);"> Eliminar </button>
                                                                     </li>
                                                                 </ul>
                                                             </div>

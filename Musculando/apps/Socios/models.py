@@ -13,7 +13,9 @@ PAGO_CHOICES = (
     #('Cliente', 'Cliente'),
     #('Socio', 'Socio'),
 )
-class tb_socio (models.Model):
+
+
+class tb_socio(models.Model):
 	perfil						=	models.OneToOneField(tb_profile, on_delete=models.CASCADE, null=False, default='')
 	obraSocial					=	models.CharField(default='Sin Definir', null=True, max_length=30)
 	status						=	models.CharField(max_length=30,null=False,choices=PAGO_CHOICES,default='Pendiente',)
@@ -25,6 +27,8 @@ class tb_socio (models.Model):
 	#image 						= 	models.ImageField(upload_to='users/avatar/', default='', null=False, )
 	#image 						= 	models.ImageField(upload_to='users/avatar/', default='', null=True, )
 	#tipoUser					=  	models.CharField(max_length=30,null=False,choices=PAGO_CHOICES,default='SinDefinir',) # Esto se utilizara para saber si es admin, colaborador o client
+	montoPagado					=   models.IntegerField(default=0, null=True, blank=True)
+	isPay			 			=	models.BooleanField(null=False, blank=True , default=False)
 	dateInactive_socio			=	models.DateField(blank=False, null=True, default='2018-04-19' )
 	dateCreate_socio			=	models.DateField(auto_now=True, blank=False)
 	#is_complete				=   models.BooleanField(null=False, blank=True , default=False)
