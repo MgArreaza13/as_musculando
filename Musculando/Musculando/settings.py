@@ -86,7 +86,8 @@ TEMPLATES = [
                 'apps.ContextProcesor.Estadistica.ResumenPlanes',
                 'apps.ContextProcesor.liquidacion.Liquidacion',
                 'apps.ContextProcesor.Presentimo.presentimo', 
-                
+                'apps.ContextProcesor.Estadistica.ResumenSociosInactivos',
+                'apps.ContextProcesor.Estadistica.ResumenTotalSocios',
             ],
         },
     },

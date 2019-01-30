@@ -93,7 +93,16 @@ def ResumenSociosActivos(request):
 	totalSociosActivos = len(queryset)
 	return {'totalSociosActivos':totalSociosActivos}
 
+def ResumenSociosInactivos(request):
+	queryset = tb_socio.objects.filter(status = 'Desactivado')
+	
+	totalSociosInactivos = len(queryset)
+	return {'totalSociosInactivos':totalSociosInactivos}
 
+def ResumenTotalSocios(request):
+	queryset1 = tb_socio.objects.all()
+	totalSocios = len(queryset1)
+	return {'totalSocios':totalSocios}
 
 def ResumenPlanes(request):
 	queryset = tb_plan.objects.all()
