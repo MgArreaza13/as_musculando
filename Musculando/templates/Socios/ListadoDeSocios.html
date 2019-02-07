@@ -155,8 +155,15 @@
                                                                         <button type="button" class="btn btn-warning btn-block btn-xs" value="{{socio.id}}" onclick="Desactivar(this.value);"> Desactivar </button>
                                                                     </li>
                                                                     <li>
-                                                                        <button type="button" class="btn btn blue btn-block btn-xs" value="{{socio.id}}" onclick="ReportePago(this.value);"> Reportar Pago </button>
-                                                                    </li>
+                                                                    {% if socio.montoPagado == 0 %}
+                                                                    	 <button type="button" class="btn btn blue btn-block btn-xs" value="{{socio.id}}" onclick="ReportePago(this.value);"> Reportar Pago </button>
+                                                                    	
+                                                                    {% else %}
+                                                                    	<button disabled="disabled" type="button" class="btn btn blue btn-block btn-xs" value="{{socio.id}}" onclick="ReportePago(this.value);"> Reportar Pago </button>
+                                                                    	</li>
+                                                                     {% endif %}                                                              
+                                                                     
+                                                                   
                                                                     <li>
                                                                         <button style="background-color:cadetblue;color:white;" type="button" class="btn btn blue btn-block btn-xs" value="{{socio.id}}" onclick="ReportarPagoParcial(this.value);"> Pago Parcial</button>
                                                                     </li>

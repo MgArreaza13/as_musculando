@@ -254,71 +254,69 @@ function DeleteReserva(id) {
         });
 }
 
-function ReportarPagoReserva(id_reserva){	
- console.log(id_reserva);
- // console.log(id_monto);
- swal({
-  html: '<h2>Añadir Monto</h2><h4 style="color:blue">Ingrese el Monto</h4>',
-  input: 'number',
-  inputPlaceholder: '$',
-  showCancelButton: true,
-  inputValidator: (value) => {
-  	if (value == '') {
-  		return !value && 'Necesitas escribir algo!'
-  	}
-    else{
-    	  	$.ajax({
-		    // la URL para la petición
-		    url : '/Caja/Nueva/Solicitud/Pago/De/Reserva/',
-		    // la información a enviar
-		    // (también es posible utilizar una cadena de datos)
-		    data : { 
-		    	// 'PagoDeReserva':value,
-		    	'id_reserva':id_reserva,
-		    	'id_monto':value,
-		    },
-		    // el tipo de información que se espera de respuesta
-		    dataType : 'json',
-		    // código a ejecutar si la petición es satisfactoria;
-		    // la respuesta es pasada como argumento a la función
-		    success : function(status) {
-		    	if (status == 200) {
-		    		//todo correcto 
-		    		swal(
+function ReportarPagoReserva(id_reserva) {
+    var myArrayOfThings;
+	$.ajax({
+	    // la URL para la petición
+	    url : '/Configuracion/Forma/De/Pago/Solicitud/Get/',
+	    dataType : 'json',
+	    // código a ejecutar si la petición es satisfactoria;
+	    // la respuesta es pasada como argumento a la función
+	    success : function(data) {
+		    	
+		  myArrayOfThings  = data
+		  var options = {};
+		  $.map(myArrayOfThings,function(o,query) {options[o.forma_de_pago] = o.forma_de_pago;});
+      	  swal.setDefaults({
+          input: 'text',
+          confirmButtonText: 'Siguiente &rarr;',
+          showCancelButton: true,
+          progressSteps: ['1', '2',]
+        })
+        var steps = [
+        {
+            title: 'Seleccione un metodo de pago',
+            input: 'select',
+            inputOptions: options,
+            inputPlaceholder: 'metodos de pago',
+          },
+          {
+            title: 'Ingrese el Monto a Cargar',
+            input: 'number',
+  			inputPlaceholder: '$',
+          },
+
+          
+        ]
+
+        swal.queue(steps).then(function (result) {
+        	forma_pago = result.value[0];
+          	id_monto   = result.value[1];   
+               swal.resetDefaults()
+                $.ajax({
+                    url: '/Caja/Nueva/Solicitud/Pago/De/Reserva/',
+                    data: {
+                      'id_reserva':id_reserva,
+                      'forma_pago': forma_pago,
+                      'id_monto':id_monto,
+                  },
+                  dataType: 'json',
+                  success: function (status) {
+                     swal(
 					      'Felicidades!',
-					      'Agregamos Su Monto satisfactoriamente.',
+					      'Hemos cargado su pago de manera exitosa!.',
 					      'success'
 					    );
-		        	location.reload(); 
-		    	}
-		    	else if (status == 401) {
-		    		
-		    		swal(
-					      'Error!',
-					      
-					      'error'
-					    );
-		        	
-		    	}
-		    	else{
-		    		swal("OOOh!", "Hemos tenido un problema al cargar el monto!", "error")
-		    	}
-		    },
-		 
-		    // código a ejecutar si la petición falla;
-		    // son pasados como argumentos a la función
-		    // el objeto de la petición en crudo y código de estatus de la petición
-		    error : function(xhr, status) {
-		        swal("OOOh!", "Hemos tenido un problema con el Servidor!", "error")
-		    },
-		 
-		    // código a ejecutar sin importar si la petición falló o n
-		});
+                     location.reload(); 
+                }
+            });
+
+        }, function () {
+          swal.resetDefaults()
+        })
     }
+        });
   }
-})
-			
-}
 
 function configureLoadingScreen(screen){
     $(document)

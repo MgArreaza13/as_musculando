@@ -13,6 +13,7 @@ from apps.Configuracion.models import tb_tipoEgreso
 from apps.Proveedores.models import tb_proveedor
 from django.contrib.auth.decorators import login_required
 from apps.Configuracion.models import tb_tipoIngreso
+from apps.Configuracion.models import tb_formasDePago
 from apps.Caja.models import tb_ingresos
 from apps.Canchas.models import ReservaCancha
 ##################FORMULARIOS#############################
@@ -117,7 +118,7 @@ def Cierre(request):
 		'hora':hora,
 		'user' : request.user
 	}
-	return render(request, 'Caja/cierre.html', context)
+	return render(request, 'Caja/Cierre.html', context)
 
 
 
@@ -322,6 +323,8 @@ def QueryTipoEgreso(request):
 def NuevoReporteDePagoReservas(request):
 	status = 200
 	id_reserva = request.GET.get('id_reserva', None)
+	forma_pago = request.GET.get('forma_pago', None)
+	print (forma_pago)
 	print (id_reserva)
 	id_monto  = float (request.GET.get('id_monto', None))
 	print (type (id_monto))
@@ -339,6 +342,10 @@ def NuevoReporteDePagoReservas(request):
 	ingreso = tb_ingresos()
 	ingreso.user = request.user
 	ingreso.reserva = reserva
+	print ("paseaqui")
+	ingreso.tipoPago = tb_formasDePago.objects.get(nameFormasDePago = forma_pago )
+	print('estoy pasando de aqui')
+	print (type (ingreso.tipoPago.nameFormasDePago))
 	ingreso.tipoDeIngresos = tb_tipoIngreso.objects.get(id = 1)
 	ingreso.monto = id_monto
 	ingreso.descripcion = 'Pago de Reserva Web'

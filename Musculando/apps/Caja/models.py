@@ -5,6 +5,7 @@ from apps.Configuracion.models import tb_tipoEgreso
 from apps.Proveedores.models import tb_proveedor
 from apps.Colaboradores.models import tb_colaboradores
 from apps.Configuracion.models import tb_tipoIngreso
+from apps.Configuracion.models import tb_formasDePago
 import time
 # Create your models here.
 
@@ -43,6 +44,7 @@ class tb_ingresos(models.Model):
 	descripcion	 					=	models.TextField(default='Sin Descripcion', null=True, max_length=3000)
 	tipoDeIngresos					=   models.ForeignKey(tb_tipoIngreso, on_delete=models.CASCADE, null=True,)
 	dateCreate						=	models.DateField(auto_now=True, blank=False)
+	tipoPago						=	models.ForeignKey(tb_formasDePago, on_delete=models.CASCADE, null=True, default='')
 	
 	def __str__(self):
 		return self.user.username
