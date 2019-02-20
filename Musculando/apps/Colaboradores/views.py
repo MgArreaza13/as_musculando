@@ -12,6 +12,7 @@ from apps.Colaboradores.models import tb_cuentaColaborador
 from apps.Colaboradores.models import tb_EntradaSalida
 from apps.Caja.models import tb_egreso
 from apps.Configuracion.models import tb_tipoEgreso
+from apps.Configuracion.models import tb_formasDePago
 #####################FORMS#############################
 from apps.Colaboradores.forms import ColaboradoresRegisterForm
 from apps.UserProfile.forms import ProfileForm
@@ -58,6 +59,7 @@ def EntradaSalida(request):
 def ProcesarLiquidacion(request):
 	id_colaborador = request.GET.get('id', None)
 	pagar_presentimo = request.GET.get('pagar_presentimo', None)
+	forma_pago = request.GET.get('forma_pago', None)
 	abono = float(request.GET.get('abono', None))
 	colaborador = tb_colaboradores.objects.get(id = id_colaborador)
 	colaborador.montoPagadoColaborador += abono
@@ -69,6 +71,7 @@ def ProcesarLiquidacion(request):
 	egreso.user = request.user
 	egreso.monto = abono
 	egreso.descripcion = 'Pago de Colaborador'
+	egreso.tipoPago = tb_formasDePago.objects.get(nameFormasDePago = forma_pago )
 	egreso.tipoDeEgreso = tb_tipoEgreso.objects.get(  tipodeEgreso = 'Pago Colaboradores')
 	egreso.colaborador = tb_colaboradores.objects.get(id = id_colaborador)
 	egreso.save()
@@ -83,6 +86,7 @@ def ProcesarLiquidacion(request):
 		egreso.monto = colaborador.presentimo
 		egreso.descripcion = 'Pago de Colaborador - Presentimo'
 		egreso.tipoDeEgreso = tb_tipoEgreso.objects.get(  tipodeEgreso = 'Pago Colaboradores')
+		egreso.tipoPago = tb_formasDePago.objects.get(nameFormasDePago = forma_pago )
 		egreso.colaborador = tb_colaboradores.objects.get(id = id_colaborador)
 		egreso.save()
 	status = 200

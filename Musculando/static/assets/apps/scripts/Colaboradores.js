@@ -206,7 +206,54 @@ function PagarCuentaColaboradores() {
 function LiquidarColaborador(colaborador_id) {
 	swal({
 		  title: '¿Estas Seguro?',
-		  text: "¿Estas Seguro de que deseas Liquidar a este Colaborador?",
+		  text: "¿Estas Seguro de querer comenzar con el proceso de Liquidacion?",
+		  type: 'warning',
+		  showCancelButton: true,
+		  confirmButtonColor: '#3085d6',
+		  cancelButtonColor: '#d33',
+		  confirmButtonText: 'Si, deseo comenzar!'
+		}).then(function (result) {
+           if(result.value){
+           	var screen = $('#loading-screen');
+    		
+           var myArrayOfThings;
+			$.ajax({
+			    // la URL para la petición
+			    url : '/Configuracion/Forma/De/Pago/Solicitud/Get/',
+			    dataType : 'json',
+			     
+			    // código a ejecutar si la petición es satisfactoria;
+			    // la respuesta es pasada como argumento a la función
+			    success : function(data) {
+				    	
+				  myArrayOfThings  = data
+				  var options = {};
+				  $.map(myArrayOfThings,function(o,query) {options[o.forma_de_pago] = o.forma_de_pago;});
+		      	  swal.setDefaults({
+		          input: 'text',
+		          confirmButtonText: 'Siguiente &rarr;',
+		          showCancelButton: true,
+		          progressSteps: ['1',]
+		        })
+		        var steps = [
+		        {
+		            title: 'Seleccione un metodo de pago',
+		            input: 'select',
+		            inputOptions: options,
+		            inputPlaceholder: 'metodos de pago',
+		          },
+		          
+
+		          
+		        ]
+
+		        swal.queue(steps).then(function (result) {
+		        	forma_pago = result.value[0];
+		          	   
+		               swal.resetDefaults()
+		                swal({
+		  title: '¿Estas Seguro?',
+		  text: "¿Estas Seguro de querer continuar con el proceso de Liquidación?",
 		  type: 'warning',
 		  showCancelButton: true,
 		  confirmButtonColor: '#3085d6',
@@ -304,6 +351,7 @@ function LiquidarColaborador(colaborador_id) {
 									    // (también es posible utilizar una cadena de datos)
 									    data : { 
 									    	'id':colaborador_id,
+									    	'forma_pago': forma_pago,
 									    	'abono':abono_colaborador,
 									    	'pagar_presentimo':'Si'
 									    },
@@ -368,6 +416,7 @@ function LiquidarColaborador(colaborador_id) {
 									    data : { 
 									    	'id':colaborador_id,
 									    	'abono':abono_colaborador,
+									    	'forma_pago': forma_pago,
 									    	'pagar_presentimo':'No'
 									    },
 									    // el tipo de información que se espera de respuesta
@@ -572,5 +621,13 @@ function LiquidarColaborador(colaborador_id) {
 		});
            }
            
+        });
+
+		        }, function () {
+		          swal.resetDefaults()
+		        })
+		    }
+		        });
+           }
         });
 }

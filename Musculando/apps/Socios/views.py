@@ -11,6 +11,7 @@ from datetime import datetime
 ########Modelos################
 from apps.Socios.models import tb_socio
 from apps.Configuracion.models import tb_plan
+from apps.Configuracion.models import tb_formasDePago
 from django.contrib.auth.models import User ##MODULE LO USUARIO DE DJANGO
 from apps.Caja.models import tb_ingreso_mensualidad
 from apps.UserProfile.models import tb_profile
@@ -220,34 +221,55 @@ def ActivacionSocioMensualAnual(request):
 	status = None
 	id_socio = request.GET.get('id_socio', None)
 	anual_mensual = request.GET.get('mensual_anual', None)
-	forma_de_pago = request.GET.get('forma_pago', None)
+	forma_pago = request.GET.get('forma_pago', None)
 	#activar socio, anual, mensual 
 	socio = tb_socio.objects.get(id = id_socio)
 	if anual_mensual == 'Mensual':
 		#activo al socio mensual
 		socio.status = 'Activo'
+		socio.isPay = True
 		socio.dateInactive_socio = Desactivate_Register(socio.dateInactive_socio, 1)
 		socio.save()
 	elif anual_mensual == "Anual":
 		#activo al socio por todo el a#o 
 		socio.status = 'Activo'
+		socio.isPay = True
 		socio.dateInactive_socio = Desactivate_Register(socio.dateInactive_socio, 12)
 		socio.save()
-	ingreso = tb_ingreso_mensualidad()
-	#GENRAR INGRESO 
-	ingreso.user = request.user
-	ingreso.plan = tb_plan.objects.get(nombrePlan = socio.TarifaMensual)
-	if anual_mensual == 'Mensual':
-		ingreso.monto = socio.TarifaMensual.precioPlan
-	elif anual_mensual == "Anual":
-		ingreso.monto = socio.TarifaMensual.precioPlanAnual
-	ingreso.descripcion = 'Pago. Abono Mensual del Asociado.'
-	ingreso.nombre = socio.perfil.nameUser
-	ingreso.apellido = socio.perfil.lastName
-	ingreso.correo  = socio.perfil.mailUser
-	ingreso.save()
-	status = 200
-	return HttpResponse(status)
+	if socio.descuento == False:	
+		ingreso = tb_ingreso_mensualidad()
+		#GENRAR INGRESO 
+		ingreso.user = request.user
+		ingreso.plan = tb_plan.objects.get(nombrePlan = socio.TarifaMensual)
+		if anual_mensual == 'Mensual':
+			ingreso.monto = socio.TarifaMensual.precioPlan
+		elif anual_mensual == "Anual":
+			ingreso.monto = socio.TarifaMensual.precioPlanAnual
+		ingreso.descripcion = 'Pago. Abono Mensual del Asociado.'
+		ingreso.tipoPago = tb_formasDePago.objects.get(nameFormasDePago = forma_pago )
+		ingreso.nombre = socio.perfil.nameUser
+		ingreso.apellido = socio.perfil.lastName
+		ingreso.correo  = socio.perfil.mailUser
+		ingreso.save()
+		status = 200
+		return HttpResponse(status)
+	elif socio.descuento == True:
+		ingreso = tb_ingreso_mensualidad()
+		#GENRAR INGRESO 
+		ingreso.user = request.user
+		ingreso.plan = tb_plan.objects.get(nombrePlan = socio.TarifaMensual)
+		if anual_mensual == 'Mensual':
+			ingreso.monto = socio.TarifaconDescuento
+		elif anual_mensual == "Anual":
+			ingreso.monto = socio.TarifaMensual.precioPlanAnual
+		ingreso.descripcion = 'Pago. Abono Mensual del Asociado con descuento.'
+		ingreso.tipoPago = tb_formasDePago.objects.get(nameFormasDePago = forma_pago )
+		ingreso.nombre = socio.perfil.nameUser
+		ingreso.apellido = socio.perfil.lastName
+		ingreso.correo  = socio.perfil.mailUser
+		ingreso.save()
+		status = 200
+		return HttpResponse(status)
 
 
 
@@ -255,38 +277,63 @@ def ActivacionSocioMensualAnual(request):
 def NuevoReporteDePagoParcialMensual(request):
 	status = 200
 	id_socio = request.GET.get('id_socio', None)
-	print (id_socio)
+	
 	id_monto  = float (request.GET.get('id_monto', None))
-	print (id_monto)
-	print ('paseee2')
+	
+	forma_pago = request.GET.get('forma_pago', None)
+	
 	socio = tb_socio.objects.get(id = id_socio)
 	precioPlan = float(socio.TarifaMensual.precioPlan)
-	print(precioPlan)
-	print(type(precioPlan))
+	precioPlandescuento = float(socio.TarifaconDescuento)
 	socio.montoPagado += id_monto
 	socio.save()
-	if precioPlan != socio.montoPagado or socio.montoPagado == 0 and id_monto != precioPlan:
-		socio.isPay = False
-		socio.status = 'Activo'
-	elif socio.montoPagado == precioPlan:
-		socio.isPay = True
-		socio.status = 'Activo'
-		socio.save()
-	print (socio.montoPagado)
-	print (socio.isPay)
-	print ('pase4')
-	print (socio.status)
-	print(precioPlan)
+	if socio.descuento == False:
+		
+		if precioPlan != socio.montoPagado or socio.montoPagado == 0 and id_monto != precioPlan:
+			socio.isPay = False
+			socio.status = 'Activo'
+		elif socio.montoPagado == precioPlan:
+			socio.isPay = True
+			socio.status = 'Activo'
+			socio.save()
+	elif socio.descuento == True:
+		if precioPlandescuento != socio.montoPagado or socio.montoPagado == 0 and id_monto != precioPlandescuento:
+			socio.isPay = False
+			socio.status = 'Activo'
+		elif socio.montoPagado == precioPlandescuento:
+			socio.isPay = True
+			socio.status = 'Activo'
+			socio.save()
+	print(socio.descuento)
 	print (type (precioPlan))
 	ingreso = tb_ingreso_mensualidad()
 	ingreso.user = request.user
 	ingreso.plan = tb_plan.objects.get(nombrePlan = socio.TarifaMensual)
+	ingreso.tipoPago = tb_formasDePago.objects.get(nameFormasDePago = forma_pago )
 	ingreso.monto = id_monto
 	ingreso.descripcion = 'Pago Parcial de Mensualidad'
 	ingreso.nombre = socio.perfil.nameUser
 	ingreso.apellido = socio.perfil.lastName
 	ingreso.correo  = socio.perfil.mailUser
 	ingreso.save()
+	status = 200
+		
+	return HttpResponse(status)
+
+
+def Descuento(request):
+	status = 200
+	id_socio = request.GET.get('id_socio', None)
+	porcentajesop  = float (request.GET.get('porcentajesop', None))
+	porcentajeapli = porcentajesop / 100
+	socio = tb_socio.objects.get(id = id_socio)
+	precioPlan = float(socio.TarifaMensual.precioPlan) 
+	porcentajeTotal = precioPlan * porcentajeapli 
+	Totalplan = precioPlan - porcentajeTotal
+	socio.TarifaconDescuento = Totalplan
+	socio.descuento = True 
+	print(Totalplan)
+	socio.save()
 	status = 200
 		
 	return HttpResponse(status)

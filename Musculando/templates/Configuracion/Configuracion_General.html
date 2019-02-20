@@ -258,6 +258,9 @@
                             <!-- END BORDERED TABLE PORTLET-->
                         </div>
                         
+                        
+                    </div>
+                    <div class="row">
                         <div class="col-md-6">
                             <!-- BEGIN BORDERED TABLE PORTLET-->
                             <div class="portlet light portlet-fit box green ">
@@ -311,8 +314,61 @@
                             </div>
                             <!-- END BORDERED TABLE PORTLET-->
                         </div>
+                        <div class="col-md-6">
+                            <!-- BEGIN BORDERED TABLE PORTLET-->
+                            <div class="portlet light portlet-fit box green ">
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <i class="fa fa-bell-o"></i>PORCENTAJES</div>
+                                    <div class="tools">
+                                        <a href="javascript:;" class="collapse"> </a>
+                                        <a href="#portlet-config" data-toggle="modal" class="config"> </a>
+                                        <a href="javascript:;" class="reload"> </a>
+                                        <a href="javascript:;" class="remove"> </a>
+                                    </div>
+                                </div>
+                                <div class="portlet-body">
+                                    <div class="table-scrollable">
+                                        <table class="table table-striped table-bordered table-advance table-hover">
+                                            <thead>
+                                                <tr>
+                                                    
+                                                       <!--  <th>Titulo</th> -->
+                                                        <th>Descripcion</th>
+                                                        <th>%</th>
+                                                    <th style="text-align:center"> 
+                                                        <i class="fa fa-briefcase"></i> ACCION </th>
+                                                    
+                                                    
+                                                    
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for porcentajes in porcentajes %}
+                                                    <tr>
+                                                  <!--   <td>{{porcentajes.titulo}}</td> -->
+                                                     <td>{{porcentajes.descripcion}}</td>
+                                                        <td>{{porcentajes.porcentaje}}</td>
+                                                    <td style="text-align:center">
+                                                        <a href="{% url "Configuracion:UpdatePorcentaje" porcentajes.id%}" class="btn btn-outline btn-circle btn-sm purple"><i class="fa fa-edit"></i>Editar</a>
+                                                        
+                                                        <button type="button" value="{{porcentajes.id}}" onclick="EliminarPorcentaje(this.value);" class="btn btn-outline btn-circle dark btn-sm black">
+                                                            <i class="fa fa-trash-o"></i> Borrar </button>
+                                                    </td>
+                                                </tr>
+                                                {% endfor %}
+                                                
+                                                
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <a href="{% url "Configuracion:NewPorcentaje" %}" class="btn green btn-block">Nuevo Porcentaje</a>
+                            </div>
+                            <!-- END BORDERED TABLE PORTLET-->
+                        </div>
                     </div>
-                    
                    
                     
                    

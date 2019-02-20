@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 import json
+from apps.Scripts.validatePerfil import validatePerfil
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.http import JsonResponse
@@ -12,10 +13,12 @@ from apps.Configuracion.models import tb_tipoEgreso
 from apps.Configuracion.models import tb_tipoIngreso
 from apps.Socios.models import tb_socio
 from apps.Configuracion.models import tb_turn_sesion
-
+from apps.Configuracion.models import tb_porcentaje
+from apps.UserProfile.models import tb_profile
 ##############FORMULARIOS################
 from apps.Configuracion.forms import PlanRegisterForm
 from apps.Configuracion.forms import tipoTurnForm
+from apps.Configuracion.forms import PorcentajeRegisterForm
 # Create your views here.
 #import datetime
 import time
@@ -95,13 +98,15 @@ def Configuracion_g(request):
 	tipos_de_colaboradores  = tb_tipoColaborador.objects.all()
 	tipos_de_egresos		= tb_tipoEgreso.objects.all()
 	tipos_de_ingresos		= tb_tipoIngreso.objects.all()
-	tipos_de_turnos		= tb_turn_sesion.objects.all()
+	tipos_de_turnos			= tb_turn_sesion.objects.all()
+	porcentajes				= tb_porcentaje.objects.all()
 	contexto = {
 	'formas_de_pago':formas_de_pago,
 	'tipos_de_colaboradores':tipos_de_colaboradores,
 	'tipos_de_egresos':tipos_de_egresos,
 	'tipos_de_ingresos':tipos_de_ingresos,
-	'tipos_de_turnos':tipos_de_turnos
+	'tipos_de_turnos':tipos_de_turnos,
+	'porcentajes':porcentajes,
 	} 
 	return render(request, 'Configuracion/Configuracion_General.html', contexto)
 
@@ -395,3 +400,71 @@ def UpdateTipoTurno(request, id_tipo_de_turno):
 			tipoTurno.save()
 			return redirect ('Configuracion:Configuracion_g')
 	return render (request, 'Configuracion/Turnos/NuevoTipoTurno.html' , {'Form':Form})
+
+###########################PORCENTAJES######################
+def NewPorcentaje(request):
+	result = validatePerfil(tb_profile.objects.filter(user=request.user))
+	perfil = result[0]
+	Form = PorcentajeRegisterForm()
+	if request.method == 'POST':
+		Form = PorcentajeRegisterForm(request.POST or None)
+		if Form.is_valid():
+			Porcentaje = Form.save(commit=False)
+			Porcentaje.user = request.user
+			Porcentaje.save()
+			return redirect('Configuracion:Configuracion_g')
+		else:
+			print('error')
+			
+	contexto = {
+		'Form': Form,
+		'perfil':perfil,
+	}
+	return render (request, 'Configuracion/Porcentajes/nuevoporcentaje.html', contexto)
+
+def GetPorcentaje(request):
+	porcentaje = request.GET.get('id_porcentaje', None)
+	queryset = tb_porcentaje.objects.get(id = id_porcentaje)
+	data = {
+		'user':str(queryset.user),
+		'porcentaje':queryset.titulo,
+	}
+	return JsonResponse(data)
+
+def UpdatePorcentaje(request, id_porcentaje):
+	porcentajeEditar= tb_porcentaje.objects.get(id=id_porcentaje)
+	result = validatePerfil(tb_profile.objects.filter(user=request.user))
+	perfil = result[0]
+	if request.method == 'GET':
+		Form= PorcentajeRegisterForm(instance = porcentajeEditar)
+	else:
+		Form = PorcentajeRegisterForm(request.POST, instance = porcentajeEditar)
+		if Form.is_valid():
+			porcentaje = Form.save(commit=False)
+			porcentaje.user = request.user
+			porcentaje.porcentaje= request.POST['porcentaje']
+			porcentaje.descripcion = request.POST['descripcion']
+			porcentaje.titulo = request.POST['titulo']
+			porcentaje.save()
+			return redirect ('Configuracion:Configuracion')
+	return render (request, 'Configuracion/Porcentajes/nuevoporcentaje.html' , {'Form':Form, 'perfil':perfil})
+
+
+def DeletePorcentaje(request):
+	status = None
+	id_porcentaje = request.GET.get('id', None)
+	queryset = tb_porcentaje.objects.get(id=id_porcentaje)
+	queryset.delete()
+	status = 200
+	return HttpResponse(status)
+
+def PorcentajesoptionsGet(request):
+	porcentajes = tb_porcentaje.objects.all()
+	lista = [{'id': porcentaje.id, 'porcentajesop': porcentaje.porcentaje} for porcentaje in porcentajes]
+	data = json.dumps(lista)
+	
+	return HttpResponse(data)
+
+
+
+	

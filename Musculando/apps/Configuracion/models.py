@@ -79,3 +79,16 @@ class tb_tipoHorario(models.Model):
 	dateCreate				=	models.DateField(auto_now=True, blank=False)
 	def __str__(self):
 		return self.nametipoHorario
+
+class tb_porcentaje(models.Model):
+	user 							=	models.ForeignKey(settings.AUTH_USER_MODEL)
+	porcentaje						=	models.FloatField(default='0', null=True,)
+	dateCreate						=	models.DateField(auto_now=True, blank=False)
+	descripcion	 			        =	models.TextField(default='Sin Descripcion', null=True, max_length=3000)
+	
+	
+	def __str__(self):
+		return self.descripcion
+	class Meta:
+		managed = True
+		db_table = 'porcentaje' 

@@ -15,11 +15,13 @@ class IngresoRegisterForm(forms.ModelForm):
 		'monto',
 		'descripcion',
 		'tipoDeIngresos',
+		'tipoPago',
 		]
 		labels = {
 			'monto':'Monto de Ingreso',
 			'descripcion' :'Descripcion del Ingreso',
 			'tipoDeIngresos' :'Tipo de Ingreso',
+			'tipoPago' :'Forma de Pago',
 			
 		}
 		widgets = {
@@ -42,6 +44,12 @@ class IngresoRegisterForm(forms.ModelForm):
 			  'disabled':False,
 			  'autocomplete':'off',
 			   'placeholder':'Tipo de Ingreso'}),
+
+		'tipoPago': Select(attrs={'class':'form-control', 
+			  'required':'False',
+			  'disabled':False,
+			  'autocomplete':'off',
+			   'placeholder':'Forma de Pago'}),
 
 		#'descriptionProduct': Textarea(attrs={'class':'form-control', 
 		#	'required':True ,
@@ -67,14 +75,17 @@ class EgresoRegisterForm(forms.ModelForm):
 		'descripcion',
 		'tipoDeEgreso',
 		'proveedor',
-		'colaborador'
+		'colaborador',
+		'tipoPago',
 		]
 		labels = {
 			'monto':'Monto de Egreso',
 			'descripcion' :'Descripcion del Egreso',
 			'proveedor' :'Proveedor',
 			'tipoDeEgreso' :'Tipo de Egreso',
-			'colaborador': 'Colaborador'	
+			'colaborador': 'Colaborador',
+			'tipoPago': 'Forma de Pago',
+
 		}
 		widgets = {
 		'monto': NumberInput(attrs={'class':'form-control', 
@@ -105,6 +116,12 @@ class EgresoRegisterForm(forms.ModelForm):
 			  'disabled':False,
 			  'autocomplete':'off',
 			   'placeholder':'Tipo de Egreso'}),
+
+		'tipoPago': Select(attrs={'class':'form-control', 
+			  'required':'False',
+			  'disabled':False,
+			  'autocomplete':'off',
+			   'placeholder':'Forma de Pago'}),
 
 		#'descriptionProduct': Textarea(attrs={'class':'form-control', 
 		#	'required':True ,

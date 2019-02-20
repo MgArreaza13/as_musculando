@@ -159,6 +159,7 @@ def ListadoDeIngresos(request):
 def NuevoReporteDePagoMensual(request):
 	usuario = request.GET.get('usuario', None)
 	nombre = request.GET.get('nombre', None)
+	forma_pago = request.GET.get('forma_pago', None)
 	apellido = request.GET.get('apellido', None)
 	correo  = request.GET.get('correo', None)
 	plan = request.GET.get('tarifaMensual', None)
@@ -167,6 +168,7 @@ def NuevoReporteDePagoMensual(request):
 	NuevoIngresoMensual = tb_ingreso_mensualidad()
 	NuevoIngresoMensual.user = User.objects.get(username = usuario)
 	NuevoIngresoMensual.plan = tb_plan.objects.get(nombrePlan = plan)
+	NuevoIngresoMensual.tipoPago = tb_formasDePago.objects.get(nameFormasDePago = forma_pago )
 	NuevoIngresoMensual.monto = monto_plan
 	NuevoIngresoMensual.descripcion = descripcion
 	NuevoIngresoMensual.nombre = nombre

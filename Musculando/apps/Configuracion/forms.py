@@ -5,6 +5,8 @@ from django.forms import extras
 #######################MODELOS####################
 from apps.Configuracion.models import tb_plan
 from apps.Configuracion.models import tb_turn_sesion
+from apps.Configuracion.models import tb_porcentaje
+
 class PlanRegisterForm(forms.ModelForm):
 	class Meta:
 		model = tb_plan
@@ -70,3 +72,56 @@ class tipoTurnForm(forms.ModelForm):
 		}
 		widgets = {
 		}
+
+class PorcentajeRegisterForm(forms.ModelForm):
+	class Meta:
+		model = tb_porcentaje
+		fields = [
+		'porcentaje',
+		'dateCreate',
+		'titulo',
+		'descripcion',
+		'user',
+		]
+		labels = {
+		'porcentaje':'Porcentaje',
+		'titulo':'Titulo',
+		'descripcion': 'Decripcion',
+		}
+		widgets = {
+		'user': Select(attrs={'class':'form-control', 
+			  'required':'False',
+			  'value':'Sin Descripcion',
+			  'autocomplete':'off',
+			   'placeholder':'Usuario'}),
+
+		'porcentaje':  NumberInput(attrs={'class':'form-control', 
+			  'required':'True',
+			  
+			  'autocomplete':'off',
+			   'placeholder':'Porcentaje'}),
+
+				
+		'titulo': TextInput(attrs={'class':'form-control', 
+			  'required':'False',
+			  'value':'Sin Descripcion',
+			  'autocomplete':'off',
+			   'placeholder':'Titulo'}),
+		
+
+		'descripcion': TextInput(attrs={'class':'form-control', 
+			  'required':'False',
+			  'value':'Sin Descripcion',
+			  'autocomplete':'off',
+			   'placeholder':'Descripcion'}),
+
+		#'descriptionProduct': Textarea(attrs={'class':'form-control', 
+		#	'required':True ,
+		#	 'autofocus':True,
+		#	  'autocomplete':'off',
+		#	   ,'placeholder':'Direccion Principal Del Nuevo Proveedor',
+		#	   'cols': 2, 
+		#	   'rows': 6}),
+		}
+          
+		exclude = ['dateCreate','user','titulo',]

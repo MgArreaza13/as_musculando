@@ -42,6 +42,13 @@ from apps.Configuracion.views import NuevoTipoTurno
 from apps.Configuracion.views import DeleteTipoDeTurno
 from apps.Configuracion.views import UpdateTipoTurno
 from apps.Configuracion.views import GetTipoTurno
+##########################PORCENTAJES#########################
+from apps.Configuracion.views import NewPorcentaje
+from apps.Configuracion.views import UpdatePorcentaje
+from apps.Configuracion.views import GetPorcentaje
+from apps.Configuracion.views import DeletePorcentaje
+from apps.Configuracion.views import PorcentajesoptionsGet
+
 urlpatterns = [
 	########################PLANES#########################################
 	url(r'^Planes/Lista/$', ListaDePlanes ,  name='ListaDePlanes' ),
@@ -77,7 +84,10 @@ urlpatterns = [
 	url(r'^Tipo/De/Turno/Solicitud/Eliminar/Registro/$', DeleteTipoDeTurno ,  name='DeleteTipoDeTurno' ),
 	url(r'^Tipo/De/Turno/Get/Registro/$', GetTipoTurno ,  name='GetTipoTurno' ),
 	url(r'^Tipo/De/Turno/Update/Registro/(?P<id_tipo_de_turno>\d+)$', UpdateTipoTurno ,  name='UpdateTipoTurno' ),
-
-
-
+	##########################PORCENTAJES####################################
+	url(r'^Porcentaje/Nuevo/$', NewPorcentaje , name='NewPorcentaje'  ),
+	url(r'^Porcentaje/Get/Registro/$', GetPorcentaje ,  name='GetPorcentaje' ),
+	url(r'^Porcentaje/Editar/(?P<id_porcentaje>\d+)$', UpdatePorcentaje, name='UpdatePorcentaje'  ),
+	url(r'^Porcentaje/Solicitud/Eliminar/Registro/$', DeletePorcentaje ,  name='DeletePorcentaje' ),
+	url(r'^Porcentaje/Get/$', PorcentajesoptionsGet ,  name='PorcentajesoptionsGet' ),
 ]

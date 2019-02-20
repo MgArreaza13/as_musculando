@@ -13,7 +13,7 @@ class tb_ingreso_mensualidad (models.Model):
 	user 					=	models.ForeignKey(settings.AUTH_USER_MODEL)
 	plan					=	models.ForeignKey(tb_plan, on_delete=models.CASCADE, null=True,)
 	#turno					=   models.ForeignKey(tb_turn, on_delete=models.CASCADE, null=True,)
-	#tipoPago				=	models.ForeignKey(tb_formasDePago, on_delete=models.CASCADE, null=True, default='')
+	tipoPago				=	models.ForeignKey(tb_formasDePago, on_delete=models.CASCADE, null=True, default='')
 	#tipoIngreso			=	models.ForeignKey(tb_tipoIngreso, on_delete=models.CASCADE, null=True, default='')
 	#service				=	models.ForeignKey(tb_service, on_delete=models.CASCADE, null=True, default='')
 	monto					=	models.FloatField(default='0000', null=True,)
@@ -64,6 +64,7 @@ class tb_egreso(models.Model):
 	tipoDeEgreso					=   models.ForeignKey(tb_tipoEgreso, on_delete=models.CASCADE, null=True,)
 	colaborador						=   models.ForeignKey(tb_colaboradores, on_delete=models.CASCADE, null=True,)
 	dateCreate						=	models.DateField(auto_now=True, blank=False)
+	tipoPago						=	models.ForeignKey(tb_formasDePago, on_delete=models.CASCADE, null=True, default='')
 	
 	def __str__(self):
 		return self.user.username

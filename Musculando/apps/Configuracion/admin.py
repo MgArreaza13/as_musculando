@@ -5,6 +5,7 @@ from apps.Configuracion.models import tb_tipoColaborador
 from apps.Configuracion.models import tb_tipoEgreso
 from apps.Configuracion.models import tb_tipoIngreso
 from apps.Configuracion.models import tb_turn_sesion
+from apps.Configuracion.models import tb_porcentaje
 
 
 # Register your models here.
@@ -15,3 +16,4 @@ admin.site.register(tb_tipoColaborador)
 admin.site.register(tb_tipoEgreso)
 admin.site.register(tb_tipoIngreso)
 admin.site.register(tb_turn_sesion)
+admin.site.register(tb_porcentaje)

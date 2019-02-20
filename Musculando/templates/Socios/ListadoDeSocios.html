@@ -94,6 +94,7 @@
 		                                                <th>Número de contacto Movil</th>
 		                                                <th>Fecha de Nacimiento</th>
 		                                                <th>Mensualidad</th>
+		                                                <th>Con Descuento</th>
 		                                                <th>Monto Pagado</th>
 		                                                <th>Status</th>
 		                                                <th>Fecha de Vencimiento de Abono</th>
@@ -119,9 +120,27 @@
 			                                                <td>{{socio.perfil.lastName}}</td>
 			                                                <td>{{socio.perfil.movilTlf}}</td>
 			                                                <td>{{socio.perfil.birthdayDate}}</td>
-			                                                
 			                                                <td>${{socio.TarifaMensual.precioPlan}}</td>
-			                                                <td>${{socio.montoPagado}}</td>
+			                                                <td>
+			                                                	{% if socio.descuento == True %}
+			                                                	    
+			                                                		<span class="label label-success"> {{socio.TarifaconDescuento}} </span>
+			                                                	
+			                                                	{%  elif socio.descuento == False  %}
+			                                                		<span class="label label-danger"> No Aplica</span>
+			                                                	{% endif %}
+			                                                </td>
+			                                                <td>
+			                                                	{% if socio.isPay == False %}
+			                                                		${{socio.montoPagado}}
+			                                                
+			                                                	{% elif socio.isPay == True %}
+			                                               			 <span class="label" style="background-color: darkcyan;">Pago Completo</span>
+
+			                                                	{% endif %}
+			                                                </td>
+			                                                
+
 			                                                <td>
 			                                                	{% if socio.status == 'Activo' %}
 			                                                	    
@@ -166,6 +185,9 @@
                                                                    
                                                                     <li>
                                                                         <button style="background-color:cadetblue;color:white;" type="button" class="btn btn blue btn-block btn-xs" value="{{socio.id}}" onclick="ReportarPagoParcial(this.value);"> Pago Parcial</button>
+                                                                    </li>
+                                                                    <li>
+                                                                        <button style="background-color:chocolate;color:white;" type="button" class="btn btn-block btn-xs" value="{{socio.id}}" onclick="Descuento(this.value);"> Descuento</button>
                                                                     </li>
                                                                     <!--
                                                                     <li>
@@ -601,6 +623,7 @@
             <!-- BEGIN PAGE LEVEL SCRIPTS -->
             <script src="{% static "assets/pages/scripts/table-datatables-buttons.min.js" %}" type="text/javascript"></script>
             <script src="{% static "assets/apps/scripts/Acciones-Socios.js" %}" type="text/javascript"></script>
+            <script src="{% static "assets/apps/scripts/descuentos.js" %}" type="text/javascript"></script>
             <!-- END PAGE LEVEL SCRIPTS -->
             <!-- BEGIN THEME LAYOUT SCRIPTS -->
             <script src="{% static "assets/global/plugins/select2/js/select2.full.min.js" %}" type="text/javascript"></script>

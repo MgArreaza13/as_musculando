@@ -2,6 +2,7 @@ from django.db import models
 
 ##############MODELOS EXTERNOS################
 from apps.Configuracion.models import tb_plan
+from apps.Configuracion.models import tb_porcentaje
 from apps.UserProfile.models import tb_profile
 
 
@@ -20,6 +21,7 @@ class tb_socio(models.Model):
 	obraSocial					=	models.CharField(default='Sin Definir', null=True, max_length=30)
 	status						=	models.CharField(max_length=30,null=False,choices=PAGO_CHOICES,default='Pendiente',)
 	TarifaMensual 				=	models.ForeignKey(tb_plan, on_delete=models.CASCADE, null=True, default='')
+	TarifaconDescuento			=	models.FloatField(default='0000', null=True,)
 	#movilTlf					=	models.CharField(default='+000000000', null=True, max_length=30)
 	#houseTlf					=	models.CharField(default='+000000000', null=True, max_length=30)
 	#mailUser					=	models.EmailField(default='sin@definir.com', null=True, max_length=30)
@@ -31,6 +33,7 @@ class tb_socio(models.Model):
 	isPay			 			=	models.BooleanField(null=False, blank=True , default=False)
 	dateInactive_socio			=	models.DateField(blank=False, null=True, default='2018-04-19' )
 	dateCreate_socio			=	models.DateField(auto_now=True, blank=False)
+	descuento					=	models.BooleanField(null=False, blank=True , default=False)
 	#is_complete				=   models.BooleanField(null=False, blank=True , default=False)
 	#nameProfile				=	models.CharField(default='', null=False, max_length=30)
 	#StatusKf					= 	models.ForeignKey(tb_status_turn, on_delete=models.CASCADE, null=False, default='')
