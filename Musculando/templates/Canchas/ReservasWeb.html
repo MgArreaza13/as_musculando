@@ -695,17 +695,13 @@
                                         /*console.log('le dio al boton de cancelar');*/
                                     }
                                     else{
-                                    swal({
-                                      type: 'success',
-                                      title: 'Felicidades',
-                                      text: 'Ya puedes finiquitar tu reserva, puedes dar click en el boton de continuar',
-                                    })
+                                   
                                     $('#FechaReserva').text(fecha);
                                     $('#TurnoReserva').text(result.value);
                                     $('#FechaReserva2').text(fecha);
                                     $('#TurnoReserva2').text(result.value);
                                     $('li#paso3').addClass('paso3');
-                                    $('#botonDeContinuar').removeClass('disabled');
+                                    $('#botonDeContinuar').trigger( "click" );
                                     $('#fecha').val(fecha);
                                     $('#turn').val(result.value);
                                     }
@@ -786,17 +782,13 @@
                                         /*console.log('le dio al boton de cancelar');*/
                                     }
                                     else{
-                                    swal({
-                                      type: 'success',
-                                      title: 'Felicidades',
-                                      text: 'Ya puedes finiquitar tu reserva, puedes dar click en el boton de continuar',
-                                    })
+                                    
                                     $('#FechaReserva').text(fecha);
                                     $('#TurnoReserva').text(result.value);
                                     $('#FechaReserva2').text(fecha);
                                     $('#TurnoReserva2').text(result.value);
                                     $('li#paso3').addClass('paso3');
-                                    $('#botonDeContinuar').removeClass('disabled');
+                                    $('#botonDeContinuar').trigger( "click" );
                                     $('#fecha').val(fecha);
                                     $('#turn').val(result.value);
                                     }

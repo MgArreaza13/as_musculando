@@ -368,7 +368,7 @@
                                                 </div>
                                                                                       <a href="javascript:;" class="btn default button-previous">
                                                             <i class="fa fa-angle-left"></i> Atras </a>
-                                                        <a id="botonDeContinuar" onclick="continueStep()" href="javascript:;" class="btn btn-outline green button-next pull-right"> Continuar
+                                                        <a id="botonDeContinuar" onclick="continueStep()" href="javascript:;" class="btn btn-outline green button-next pull-right" > Continuar
                                                             <i class="fa fa-angle-right"></i>
                                                         </a>
                                                         <button type="button" onclick="EnviarReserva()" class="btn green button-submit pull-right"> Enviar
@@ -636,17 +636,14 @@
                                         /*console.log('le dio al boton de cancelar');*/
                                     }
                                     else{
-                                    swal({
-                                      type: 'success',
-                                      title: 'Felicidades',
-                                      text: 'Ya puedes finiquitar tu reserva, puedes dar click en el boton de continuar',
-                                    })
+                                    
                                     $('#FechaReserva').text(fecha);
                                     $('#TurnoReserva').text(result.value);
                                     $('#FechaReserva2').text(fecha);
                                     $('#TurnoReserva2').text(result.value);
                                     $('li#paso3').addClass('paso3');
-                                    $('#botonDeContinuar').removeClass('disabled');
+                                   
+                                    $('#botonDeContinuar').trigger( "click" );
                                     $('#fecha').val(fecha);
                                     $('#turn').val(result.value);
                                     }
@@ -660,7 +657,7 @@
                                 swal({
                                 type: 'warning',
                                 title: 'Ups!',
-                                text: '¡El Dia ha Sido reselvado Completamente , intente con otro dia, Gracias',
+                                text: '¡El Dia ha Sido reservado Completamente , intente con otro dia, Gracias',
                                 timer: 8000,
                                 onOpen: function () {
                                   swal.showLoading()
@@ -727,17 +724,13 @@
                                         /*console.log('le dio al boton de cancelar');*/
                                     }
                                     else{
-                                    swal({
-                                      type: 'success',
-                                      title: 'Felicidades',
-                                      text: 'Ya puedes finiquitar tu reserva, puedes dar click en el boton de continuar',
-                                    })
                                     $('#FechaReserva').text(fecha);
                                     $('#TurnoReserva').text(result.value);
                                     $('#FechaReserva2').text(fecha);
                                     $('#TurnoReserva2').text(result.value);
                                     $('li#paso3').addClass('paso3');
-                                    $('#botonDeContinuar').removeClass('disabled');
+                                   
+                                    $('#botonDeContinuar').trigger( "click" );
                                     $('#fecha').val(fecha);
                                     $('#turn').val(result.value);
                                     }

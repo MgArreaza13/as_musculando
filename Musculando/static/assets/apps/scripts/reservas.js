@@ -4,7 +4,7 @@ setInterval(function(){
 	// console.log($('li.#paso3').hasClass('active'));
 	// console.log($('li.#paso4').hasClass('active'));
 	if ($('li#paso2').hasClass('active')== true && $('li#paso2').hasClass('paso3') == false ) {
-		$('#botonDeContinuar').addClass('disabled');
+		$('#botonDeContinuar').addClass('hidden');
 	}	
 	if ($('li#paso3').hasClass('active')== true && $('li#paso3').hasClass('paso3') == false ) {
 		$('#botonDeContinuar').addClass('disabled');
@@ -19,6 +19,7 @@ function selecciondecancha(btn){
 	$('li#paso2').addClass('paso3');
 	$('.boton2').addClass('disabled');
 	$('#botonDeContinuar').removeClass('disabled');
+  $('#botonDeContinuar').trigger( "click" );
 	$('#informacionDeNombre').text($('#Nombre').val());
 	$('#informacionDeTelefono').text($('#NumeroDeTelefono').val());
 	$('#informacionDeCorreo').text($('#Correo').val());
