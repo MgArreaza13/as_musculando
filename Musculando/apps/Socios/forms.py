@@ -8,7 +8,7 @@ class SociosRegisterForm(forms.ModelForm):
 		model = tb_socio
 		fields = [
 		'obraSocial',
-		'dateInactive_socio'
+		'dateInactive_socio',
 
 		]
 		labels = {
@@ -38,4 +38,4 @@ class SociosRegisterForm(forms.ModelForm):
 		#	   'rows': 6}),
 		}
           
-		exclude = ['perfil', 'status', 'dateCreate_socio', 'TarifaMensual']
+		exclude = ['perfil', 'status', 'dateCreate_socio', 'TarifaMensual','TarifaconDescuento']

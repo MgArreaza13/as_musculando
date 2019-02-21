@@ -111,6 +111,41 @@
                                                             </div>
 
                                                         </div>
+                                                        <div id="CartadeDescuento"  class="portlet-body hidden" style="margin-top:-2em;">
+                                                                <h3 class="form-section">Descuento Seleccionado</h3>
+                                                            <div class="pricing-content-1">
+                                                                <div class="row">
+                                                                    <div class="col-md-3"></div>
+                                                                        <div class="col-md-6">
+                                                                            <div class="price-column-container border-active">
+                                                                                <div class="price-table-head bg-blue-hoki">
+                                                                                    <h2 id="TituloDescuent" class="no-margin" ></h2>
+                                                                                    
+                                                                                </div>
+                                                                               
+                                                                                <div class="price-table-content">
+                                                                                    <div class="row mobile-padding">
+                                                                                        <div class="col-xs-3 text-right mobile-padding">
+                                                                                            <i class="fa fa-info"></i>
+                                                                                        </div>
+                                                                                        <div id="Descripciondescuento" class="col-xs-9 text-left mobile-padding"></div>
+                                                                                    </div>
+                                                                                    
+                                                                                    <div class="price-table-footer">
+                                                                                       <a href="javascript:void(0);" id=""   onclick="ModalSocio2();"  class="btn bg-blue-hoki btn-block" style="color: white;">Seleccionar otro Descuento</a> 
+                                                                                    </div>  
+                                                                                </div>
+                                                                                <div class="arrow-down arrow-grey"></div>
+                                                                                
+                                                                            </div>
+                                                                        </div>
+                                                                            
+                                                                   <div class="col-md-3"></div>
+                                                                   
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
                                                             {% for field in Form %}
                                                             {% if field.name == "username" %}
                                                             	<div class="form-group">
@@ -202,7 +237,8 @@
                                                            {% endif %} 
                                                                     
                                                                 {% endfor %}
-                                                                
+                                                               <a href="javascript:void(0);" id="botonselectdescuento"   onclick="ModalSocio2();"  class="btn btn-xs bg-blue-hoki" style="color: white;">Seleccionar Descuento</a>  
+
                                                             </div>
                                                             <!--/span-->
                                                         </div>
@@ -216,6 +252,7 @@
                                                     <input type="hidden" value="0" id="IsPlan" name="IsPlan">
                                                     <input id="messageChanel" name="messageChanel" type="hidden" value="">
                                                     <input type="hidden" value="0" id="IdPlanSeleccionado" name="IdPlanSeleccionado">
+                                                    <input type="hidden" value="0" id="IdDescuentoSeleccionado" name="IdDescuentoSeleccionado">
                                                     <div class="form-actions right">
                                                         
                                                                 <button id="Enviar" disabled=""  type="submit" class="btn btn-info" > Para Guardar Debes Seleccionar un Plan  </button>
@@ -274,6 +311,52 @@
                                                     </div>
                                                     <div class="price-table-footer">
                                                        <button value="{{plan.id}}" href="javascript:void(0);" id="SeleccionarPlan" onclick="PlanSeleccionado(this.value);"  class="btn blue btn-block">Seleccionar Plan</button> 
+                                                    </div>  
+                                                </div>
+                                                <div class="arrow-down arrow-grey"></div>
+                                                
+                                            </div>
+                                        </div>
+                                            
+                                    {% endfor %}
+                                   
+                                </div>
+                            </div>
+
+                        </div>       
+                                                     
+                                            </div>
+                                        </div>
+                                        
+
+                                    </div>
+    <div id="descuento" class="modal fade  bg-grey-cararra bg-font-grey-cararra" tabindex="-1" data-width="760">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                            <h1 style="padding-left:1em;" class="modal-title font-green-seagreen">Seleccione el Descuento Para el nuevo Socio</h1>
+                                        </div>
+                                        <div class="modal-body " style="padding: 3em 1em 1em 5em;">
+                                            <div class="row ">
+                                                 <div class="portlet-body">
+                            <div class="pricing-content-1">
+                                <div class="row">
+                                    {% for descuento  in descuentos  %}
+                                        <div class="col-md-3">
+                                            <div class="price-column-container border-active">
+                                                <div class="price-table-head bg-blue-hoki">
+                                                    <h2 class="no-margin">{{descuento.porcentaje}}%</h2>
+                                                </div>
+                                               
+                                                <div class="price-table-content">
+                                                    <div class="row mobile-padding">
+                                                        <div class="col-xs-3 text-right mobile-padding">
+                                                            <i class="fa fa-info"></i>
+                                                        </div>
+                                                        <div class="col-xs-9 text-left mobile-padding">{{descuento.descripcion}}</div>
+                                                    </div>
+                                                    
+                                                    <div class="price-table-footer">
+                                                       <button value="{{descuento.id}}" href="javascript:void(0);" id="SeleccionarDescuento" onclick="DescuentoSeleccionado(this.value);"  class="btn blue-hoki btn-block">Seleccionar Descuento</button> 
                                                     </div>  
                                                 </div>
                                                 <div class="arrow-down arrow-grey"></div>

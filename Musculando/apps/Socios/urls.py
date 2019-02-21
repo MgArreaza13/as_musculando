@@ -12,6 +12,7 @@ from apps.Socios.views import UpdateSocio
 from apps.Socios.views import NuevoReporteDePagoParcialMensual
 from apps.Socios.views import Descuento
 
+
 #from apps.Proveedores.views import ListaDeProveedores
 #from apps.Proveedores.views import Nuevo
 #from apps.Proveedores.views import NuevoProveedor
@@ -34,5 +35,6 @@ urlpatterns = [
 	url(r'^Editar/(?P<id_socio>\d+)$', UpdateSocio, name='UpdateSocio'  ),
     url(r'^Nueva/Solicitud/Pago/De/Mensualidad/Parcial/$', NuevoReporteDePagoParcialMensual , name='NuevoReporteDePagoParcialMensual'  ),
     url(r'^Nuevo/Descuento/$', Descuento , name='Descuento'  ),
+   
 
 ]

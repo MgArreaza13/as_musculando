@@ -48,6 +48,7 @@ from apps.Configuracion.views import UpdatePorcentaje
 from apps.Configuracion.views import GetPorcentaje
 from apps.Configuracion.views import DeletePorcentaje
 from apps.Configuracion.views import PorcentajesoptionsGet
+from apps.Configuracion.views import getDescuento
 
 urlpatterns = [
 	########################PLANES#########################################
@@ -90,4 +91,5 @@ urlpatterns = [
 	url(r'^Porcentaje/Editar/(?P<id_porcentaje>\d+)$', UpdatePorcentaje, name='UpdatePorcentaje'  ),
 	url(r'^Porcentaje/Solicitud/Eliminar/Registro/$', DeletePorcentaje ,  name='DeletePorcentaje' ),
 	url(r'^Porcentaje/Get/$', PorcentajesoptionsGet ,  name='PorcentajesoptionsGet' ),
+	url(r'^Porcentaje/Solicitud/Get/Registro/$', getDescuento ,  name='getDescuento' ),
 ]

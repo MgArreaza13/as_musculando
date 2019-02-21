@@ -466,5 +466,12 @@ def PorcentajesoptionsGet(request):
 	return HttpResponse(data)
 
 
-
-	
+def getDescuento(request):
+	id_descuento = request.GET.get('id', None)
+	queryset = tb_porcentaje.objects.get(id= id_descuento)
+	descuento = {
+		'descuento':queryset.porcentaje,
+		'descripcion':queryset.descripcion,
+		
+	}
+	return JsonResponse(descuento)

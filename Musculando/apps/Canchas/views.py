@@ -10,7 +10,7 @@ from apps.Configuracion.models import tb_turn_sesion
 ###################Forms######################
 from apps.Canchas.forms import CanchaForm
 from apps.Canchas.forms import nuevaReservasForm
-
+from apps.tasks.Email_tasks import Testcorreo
 
 def NewCancha(request):
 	Form = CanchaForm()
@@ -168,18 +168,19 @@ def NuevaReservaOnline(request):
 	body = json.loads(body_unicode)
 	cancha = Cancha.objects.get( id = body['cancha'] )
 	newReserva = ReservaCancha()
-	newReserva.mail = body['correo']
 	newReserva.nombre = body['nombre']
+	newReserva.mail = body['correo']
 	newReserva.telefono = body['telefono']
 	newReserva.statusTurn =  'En Espera'
 	newReserva.turn = tb_turn_sesion.objects.get( id = body['turn'] )
 	newReserva.cancha = Cancha.objects.get( id = body['cancha'] )
 	newReserva.dateTurn = body['fecha']
 	newReserva.montoAPagar = cancha.precioHora
-
 	newReserva.save()
+	Testcorreo.delay(newReserva.nombre, newReserva.mail)
+	print(newReserva.mail)
 	status = {
-		'code':200 ,
+		'code':200,
 	}
 	return JsonResponse(status)
 

@@ -237,3 +237,11 @@ def PagoReserva(usuario,correo):
 	email_subject_usuario = 'Musculando - Pago Imputado'
 	email_body_usuario = "Hola %s, Hemos imputado un pago en tu cuenta por orden del administrador" %(usuario)
 	send_mail (email_subject_usuario, cuerpo, 'musculando@b7000615.ferozo.com', [correo], fail_silently=True, html_message=email_body_usuario)
+
+@app.task
+def Testcorreo(usuario,correo):
+	cuerpo = ""
+	###Mensaje para el usuario #########
+	email_subject_usuario = 'Musculando - Reserva de Cancha'
+	email_body_usuario = "Hola %s, Se ha registrado satisfactoriamente su reserva!" %(usuario)
+	send_mail (email_subject_usuario, cuerpo, 'musculando@b7000615.ferozo.com', [correo], fail_silently=True, html_message=email_body_usuario)

@@ -93,6 +93,7 @@ def Socios():
 	#	print(i)
 		if(socios[i].dateInactive_socio == hoy):
 			socios[i].status = 'Desactivado'
+			socios[i].descuento = False
 			socios[i].save()
 			#print(socios[i])
 			VencimientoMensualidad(socios[i].perfil.nameUser, socios[i].TarifaMensual.precioPlan, socios[i].TarifaMensual.nombrePlan, socios[i].perfil.mailUser)

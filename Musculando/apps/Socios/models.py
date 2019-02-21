@@ -21,7 +21,7 @@ class tb_socio(models.Model):
 	obraSocial					=	models.CharField(default='Sin Definir', null=True, max_length=30)
 	status						=	models.CharField(max_length=30,null=False,choices=PAGO_CHOICES,default='Pendiente',)
 	TarifaMensual 				=	models.ForeignKey(tb_plan, on_delete=models.CASCADE, null=True, default='')
-	TarifaconDescuento			=	models.FloatField(default='0000', null=True,)
+	TarifaconDescuento			=	models.FloatField(tb_porcentaje, default='0000', null=True,)
 	#movilTlf					=	models.CharField(default='+000000000', null=True, max_length=30)
 	#houseTlf					=	models.CharField(default='+000000000', null=True, max_length=30)
 	#mailUser					=	models.EmailField(default='sin@definir.com', null=True, max_length=30)

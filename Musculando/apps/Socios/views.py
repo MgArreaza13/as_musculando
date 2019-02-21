@@ -12,6 +12,7 @@ from datetime import datetime
 from apps.Socios.models import tb_socio
 from apps.Configuracion.models import tb_plan
 from apps.Configuracion.models import tb_formasDePago
+from apps.Configuracion.models import tb_porcentaje
 from django.contrib.auth.models import User ##MODULE LO USUARIO DE DJANGO
 from apps.Caja.models import tb_ingreso_mensualidad
 from apps.UserProfile.models import tb_profile
@@ -32,6 +33,7 @@ from apps.tasks.Email_tasks import DesactivacionSocio
 from apps.tasks.Email_tasks import ActivacionSocio
 from apps.tasks.Email_tasks import PerfilEliminado
 from apps.tasks.Email_tasks import GetProfile
+from apps.tasks.Email_tasks import Testcorreo
 
 
 
@@ -96,13 +98,15 @@ def NewSocio(request):
 	Form2 = ProfileForm()
 	Form3 = SociosRegisterForm()
 	planes =  tb_plan.objects.all()
+	descuentos = tb_porcentaje.objects.all()
 	fallido = None
 	if request.method == 'POST':
+		print(request.POST)
 		#Form  = UsuarioForm(request.POST, request.FILES  or None)
 		Form2 = ProfileForm(request.POST, request.FILES  or None)
 		Form3 = SociosRegisterForm(request.POST, request.FILES  or None)
 		if Form2.is_valid() and Form3.is_valid():
-			#print('validos')
+			print('validos')
 			nuevoPerfil = Form2.save(commit=False)
 			#nuevoPerfil.user = 
 			nuevoPerfil.nameUser = request.POST['nameUser']
@@ -114,12 +118,24 @@ def NewSocio(request):
 			else:
 				nuevoPerfil.image = 'Null'
 			nuevoPerfil.save()
+			print('paso1')
 			nuevoSocio = Form3.save(commit=False)
 			nuevoSocio.perfil = tb_profile.objects.get(id = nuevoPerfil.id)
 			nuevoSocio.obraSocial =  request.POST['obraSocial']
 			nuevoSocio.status = 'Activo'
 			nuevoSocio.TarifaMensual = tb_plan.objects.get(id = request.POST['IdPlanSeleccionado'])
 			nuevoSocio.dateInactive_socio = request.POST['dateInactive_socio']
+			if( float(request.POST['IdDescuentoSeleccionado']) > 0):
+				division =float(request.POST['IdDescuentoSeleccionado']) / 100
+				multiplicacion = float(nuevoSocio.TarifaMensual.precioPlan) * division
+				total = float(nuevoSocio.TarifaMensual.precioPlan) - multiplicacion
+				nuevoSocio.TarifaconDescuento = total
+				print(nuevoSocio.TarifaconDescuento)
+				nuevoSocio.descuento = True
+			else: 
+				nuevoSocio.TarifaconDescuento = 0
+				print(nuevoSocio.TarifaconDescuento)
+				nuevoSocio.descuento = False
 			nuevoSocio.save() 
 				################ENVIAR CORREO QUE SE CREO EL PERFIL DE SOCIO CORRECTAMENTE ########
 			NewSocioMAil.delay(request.POST['nameUser'], nuevoSocio.TarifaMensual.precioPlan, nuevoSocio.TarifaMensual.nombrePlan, request.POST['mailUser'])
@@ -135,6 +151,7 @@ def NewSocio(request):
 	'Form2':Form2,
 	'Form3':Form3,
 	'planes':planes,
+	'descuentos':descuentos,
 	'fallido':fallido,
 	}
 	return render(request, 'Socios/NuevoSocio.html' , contexto)
@@ -337,3 +354,4 @@ def Descuento(request):
 	status = 200
 		
 	return HttpResponse(status)
+
