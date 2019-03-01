@@ -266,11 +266,14 @@ def Resumen(request):
 	ingresos_especial = tb_ingresos.objects.all()
 	egresos = tb_egreso.objects.all()
 	tipo_egreso = tb_tipoEgreso.objects.all()
+	forma_pago = tb_formasDePago.objects.all()
 	contexto = {
 		'ingresos':ingresos,
 		'ingresos_especial':ingresos_especial,
 		'egresos':egresos,
-		'tipo_egreso':tipo_egreso
+		'tipo_egreso':tipo_egreso,
+		'forma_pago':forma_pago,
+
 	}
 	return render(request, 'Caja/Resumen.html', contexto)
 
@@ -306,6 +309,11 @@ def QueryTipoEgreso(request):
 	data = serializers.serialize('json', query)
 	return HttpResponse(data)
 
+def QueryFormadePago(request):
+	forma_pago = request.GET.get('forma_pago', None)
+	all_objects = list(tb_ingresos.objects.filter(tipoPago__nameFormasDePago = forma_pago)) + list(tb_ingreso_mensualidad.objects.filter(tipoPago__nameFormasDePago = forma_pago)) + list(tb_egreso.objects.filter(tipoPago__nameFormasDePago = forma_pago))
+	data = serializers.serialize('json', all_objects)
+	return HttpResponse(data)
 
 	# status = None
 	# id_reserva = request.GET.get('id_reserva', None)
@@ -351,5 +359,6 @@ def NuevoReporteDePagoReservas(request):
 	ingreso.tipoDeIngresos = tb_tipoIngreso.objects.get(id = 1)
 	ingreso.monto = id_monto
 	ingreso.descripcion = 'Pago de Reserva Web'
+	PagoReserva.delay(reserva.nombre, reserva.mail)
 	ingreso.save()
 	return HttpResponse(status)

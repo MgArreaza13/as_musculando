@@ -92,3 +92,16 @@ class tb_porcentaje(models.Model):
 	class Meta:
 		managed = True
 		db_table = 'porcentaje' 
+
+
+class tb_mailsAdministrador(models.Model):
+	user 							=	models.ForeignKey(settings.AUTH_USER_MODEL)
+	dateCreate						=	models.DateField(auto_now=True, blank=False)
+	mail							=	models.EmailField(default='sin@definir.com', null=True, max_length=300)
+	
+	
+	def __str__(self):
+		return self.mail
+	class Meta:
+		managed = True
+		db_table = 'mailadmin' 

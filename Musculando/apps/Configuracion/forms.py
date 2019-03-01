@@ -6,6 +6,7 @@ from django.forms import extras
 from apps.Configuracion.models import tb_plan
 from apps.Configuracion.models import tb_turn_sesion
 from apps.Configuracion.models import tb_porcentaje
+from apps.Configuracion.models import tb_mailsAdministrador
 
 class PlanRegisterForm(forms.ModelForm):
 	class Meta:
@@ -79,13 +80,13 @@ class PorcentajeRegisterForm(forms.ModelForm):
 		fields = [
 		'porcentaje',
 		'dateCreate',
-		'titulo',
+		
 		'descripcion',
 		'user',
 		]
 		labels = {
 		'porcentaje':'Porcentaje',
-		'titulo':'Titulo',
+		
 		'descripcion': 'Decripcion',
 		}
 		widgets = {
@@ -101,12 +102,6 @@ class PorcentajeRegisterForm(forms.ModelForm):
 			  'autocomplete':'off',
 			   'placeholder':'Porcentaje'}),
 
-				
-		'titulo': TextInput(attrs={'class':'form-control', 
-			  'required':'False',
-			  'value':'Sin Descripcion',
-			  'autocomplete':'off',
-			   'placeholder':'Titulo'}),
 		
 
 		'descripcion': TextInput(attrs={'class':'form-control', 
@@ -124,4 +119,35 @@ class PorcentajeRegisterForm(forms.ModelForm):
 		#	   'rows': 6}),
 		}
           
-		exclude = ['dateCreate','user','titulo',]
+		exclude = ['dateCreate','user',]
+
+class EmailRegisterForm(forms.ModelForm):
+	class Meta:
+		model = tb_mailsAdministrador
+		fields = [
+		'mail',
+		'dateCreate',
+		'user',
+		]
+		labels = {
+		'mail':'Email',
+		
+		}
+		widgets = {
+		
+		'mail': TextInput(attrs={'class':'form-control', 
+			  'required':'False',
+			  'value':'Sin Descripcion',
+			  'autocomplete':'off',
+			   'placeholder':'Email'}),
+
+		#'descriptionProduct': Textarea(attrs={'class':'form-control', 
+		#	'required':True ,
+		#	 'autofocus':True,
+		#	  'autocomplete':'off',
+		#	   ,'placeholder':'Direccion Principal Del Nuevo Proveedor',
+		#	   'cols': 2, 
+		#	   'rows': 6}),
+		}
+          
+		exclude = ['dateCreate','user']

@@ -97,6 +97,7 @@
                                                 <option value="Mensual">Mensual</option>
                                                 <option value="Fecha">Fecha</option>
                                                 <option value="TipoEgreso">Tipo De Egreso</option>
+                                                <option value="FormaPago">Forma de Pago</option>
                                             </select>
                                         </div>
                                     </form>
@@ -290,8 +291,35 @@
                                     </button>
                                     
                                 </div>
+
                             </div>
+                              
+                            <div class="row hidden" id="FilterByFormadePago">
+                               
+                                <div class="col-md-12">
+                                    <h1 class="page-title">Forma de Pago</h1>
+                                    <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                                    
+                                        <div class="form-group">
+                                            <select name="" id="Forma_Pago" class="form-control">
+                                                <option selected="" value="----">Seleccionar</option>
+                                                {% for formadepago in forma_pago %}
+                                                    <option value="{{formadepago.nameFormasDePago}}">{{formadepago.nameFormasDePago}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    
+                                    <!-- END EXAMPLE TABLE PORTLET-->
+                                    
+                                </div>
+                                <div class="col-md-3">
+                                <button type="button" onclick="BusquedaPorFormadePago()" style="margin-top:3.8em;" class="btn btn-primary btn-block">
+                                        Buscar
+                                    </button>
+                                    
+                                </div>
                                 
+                            </div>
                             {% endif %}
 
                             <div style="margin-top: 3em;" class="row">
@@ -709,6 +737,7 @@
                                                                 <th>User</th>
                                                                 <th>Monto</th>
                                                                 <th>descripcion</th>
+                                                                <th>Forma de Pago</th>
                                                                 <th>Fecha de Registro</th>
                                                     </tr>
                                                 </thead>
@@ -734,6 +763,7 @@
                                                         <td>
                                                            {{ingreso.descripcion}}
                                                         </td>
+                                                        <td>{{ingreso.tipoPago}}</td>
                                                         <td> {{ingreso.dateCreate}} </td>
                                                         
                                                     </tr>
@@ -755,6 +785,7 @@
                                                         <td>
                                                            {{ingreso.descripcion}}
                                                         </td>
+                                                        <td>{{ingreso.tipoPago}}</td>
                                                         <td> {{ingreso.dateCreate}} </td>
                                                         
                                                     </tr>

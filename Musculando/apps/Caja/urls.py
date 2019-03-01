@@ -12,6 +12,7 @@ from apps.Caja.views import QueryAnual
 from apps.Caja.views import QueryMensual
 from apps.Caja.views import QueryDia
 from apps.Caja.views import QueryTipoEgreso
+from apps.Caja.views import QueryFormadePago
 from apps.Caja.views import Cierre
 from apps.Caja.views import VerCierre
 from apps.Caja.views import ResumenCierres
@@ -37,6 +38,7 @@ urlpatterns = [
 	url(r'^Ingresos/QueryMensual/$', QueryMensual , name='QueryMensual'  ),
 	url(r'^Ingresos/QueryDia/$', QueryDia , name='QueryDia'  ),
 	url(r'^Ingresos/QueryTipoEgreso/$', QueryTipoEgreso , name='QueryTipoEgreso'  ),
+	url(r'^Ingresos/QueryFormadePago/$', QueryFormadePago , name='QueryFormadePago'  ),
 	url(r'^Nuevo/Pago/De/Mensualidad/$', NewMensualIngreso , name='NewMensualIngreso'  ),
   	url(r'^Nueva/Solicitud/Pago/De/Mensualidad/$', NuevoReporteDePagoMensual , name='NuevoReporteDePagoMensual'  ),
   	url(r'^Nueva/Solicitud/Pago/De/Reserva/$', NuevoReporteDePagoReservas , name='NuevoReporteDePagoReservas'  ),

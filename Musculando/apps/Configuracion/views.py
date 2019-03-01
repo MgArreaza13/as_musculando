@@ -15,10 +15,14 @@ from apps.Socios.models import tb_socio
 from apps.Configuracion.models import tb_turn_sesion
 from apps.Configuracion.models import tb_porcentaje
 from apps.UserProfile.models import tb_profile
+from apps.UserProfile.models import tb_profile
+from apps.Configuracion.models import tb_mailsAdministrador
 ##############FORMULARIOS################
 from apps.Configuracion.forms import PlanRegisterForm
-from apps.Configuracion.forms import tipoTurnForm
 from apps.Configuracion.forms import PorcentajeRegisterForm
+from apps.Configuracion.forms import tipoTurnForm
+from apps.Configuracion.forms import EmailRegisterForm
+
 # Create your views here.
 #import datetime
 import time
@@ -100,6 +104,7 @@ def Configuracion_g(request):
 	tipos_de_ingresos		= tb_tipoIngreso.objects.all()
 	tipos_de_turnos			= tb_turn_sesion.objects.all()
 	porcentajes				= tb_porcentaje.objects.all()
+	emails 					= tb_mailsAdministrador.objects.all()
 	contexto = {
 	'formas_de_pago':formas_de_pago,
 	'tipos_de_colaboradores':tipos_de_colaboradores,
@@ -107,6 +112,7 @@ def Configuracion_g(request):
 	'tipos_de_ingresos':tipos_de_ingresos,
 	'tipos_de_turnos':tipos_de_turnos,
 	'porcentajes':porcentajes,
+	'emails':emails,
 	} 
 	return render(request, 'Configuracion/Configuracion_General.html', contexto)
 
@@ -207,6 +213,7 @@ def DeleteTipoDeColaborador(request):
 def GetTipoColaborador(request):
 	id_tipo_de_colaborador = request.GET.get('id_tipo_colaborador', None)
 	queryset = tb_tipoColaborador.objects.get(id = id_tipo_de_colaborador)
+	print(queryset)
 	tipo_colaborador = {
 		'user':str(queryset.user),
 		'tipodecolaborador':queryset.tipodeColaborador,
@@ -444,9 +451,8 @@ def UpdatePorcentaje(request, id_porcentaje):
 			porcentaje.user = request.user
 			porcentaje.porcentaje= request.POST['porcentaje']
 			porcentaje.descripcion = request.POST['descripcion']
-			porcentaje.titulo = request.POST['titulo']
 			porcentaje.save()
-			return redirect ('Configuracion:Configuracion')
+			return redirect ('Configuracion:Configuracion_g')
 	return render (request, 'Configuracion/Porcentajes/nuevoporcentaje.html' , {'Form':Form, 'perfil':perfil})
 
 
@@ -475,3 +481,74 @@ def getDescuento(request):
 		
 	}
 	return JsonResponse(descuento)
+
+############################MAILS#############################
+# def NewMail(request):
+# 	status = None
+# 	nuevo_mail = request.GET.get('nuevo_mail', None)
+# 	queryset = tb_mailsAdministrador.objects.filter(mail = nuevo_mail )
+# 	if (len(queryset) >= 1):
+# 		status = 401
+# 	else:
+# 		new = tb_mailsAdministrador()
+# 		new.user = request.user
+# 		new.mail =  nuevo_mail
+# 		new.save()
+# 		status = 200
+# 	return HttpResponse(status)
+
+
+def DeleteMail(request):
+	status = None
+	id_mail = request.GET.get('id', None)
+	queryset = tb_mailsAdministrador.objects.get(id=id_mail)
+	print(queryset)
+	queryset.delete()
+	status = 200
+	return HttpResponse(status)
+
+
+def NewMail(request):
+	result = validatePerfil(tb_profile.objects.filter(user=request.user))
+	perfil = result[0]
+	Form = EmailRegisterForm()
+	if request.method == 'POST':
+		Form = EmailRegisterForm(request.POST or None)
+		if Form.is_valid():
+			mail = Form.save(commit=False)
+			mail.user = request.user
+			mail.save()
+			return redirect('Configuracion:Configuracion_g')
+		else:
+			print('error')
+			
+	contexto = {
+		'Form': Form,
+		'perfil':perfil,
+	}
+	return render (request, 'Configuracion/Emails/newemail.html', contexto)
+
+def GetMail(request):
+	mail = request.GET.get('id_mail', None)
+	queryset = tb_mailsAdministrador.objects.get(id = id_mail)
+	data = {
+		'user':str(queryset.user),
+		'mail':queryset.mail,
+	}
+	return JsonResponse(data)
+
+def UpdateMail(request, id_mail):
+	mailEditar= tb_mailsAdministrador.objects.get(id=id_mail)
+	result = validatePerfil(tb_profile.objects.filter(user=request.user))
+	perfil = result[0]
+	if request.method == 'GET':
+		Form= EmailRegisterForm(instance = mailEditar)
+	else:
+		Form = EmailRegisterForm(request.POST, instance = mailEditar)
+		if Form.is_valid():
+			mail = Form.save(commit=False)
+			mail.user = request.user
+			mail.mail= request.POST['mail']
+			mail.save()
+			return redirect ('Configuracion:Configuracion_g')
+	return render (request, 'Configuracion/Emails/newemail.html' , {'Form':Form, 'perfil':perfil})

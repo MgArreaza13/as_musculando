@@ -49,6 +49,10 @@ from apps.Configuracion.views import GetPorcentaje
 from apps.Configuracion.views import DeletePorcentaje
 from apps.Configuracion.views import PorcentajesoptionsGet
 from apps.Configuracion.views import getDescuento
+from apps.Configuracion.views import NewMail
+from apps.Configuracion.views import DeleteMail
+from apps.Configuracion.views import GetMail
+from apps.Configuracion.views import UpdateMail
 
 urlpatterns = [
 	########################PLANES#########################################
@@ -92,4 +96,8 @@ urlpatterns = [
 	url(r'^Porcentaje/Solicitud/Eliminar/Registro/$', DeletePorcentaje ,  name='DeletePorcentaje' ),
 	url(r'^Porcentaje/Get/$', PorcentajesoptionsGet ,  name='PorcentajesoptionsGet' ),
 	url(r'^Porcentaje/Solicitud/Get/Registro/$', getDescuento ,  name='getDescuento' ),
+	url(r'^Email/Nuevo/$', NewMail , name='NewMail'  ),
+	url(r'^Email/Eliminar/$', DeleteMail , name='DeleteMail'  ),
+	url(r'^Email/Get/$', GetMail , name='GetMail'  ),
+	url(r'^Email/Update/(?P<id_mail>\d+)$', UpdateMail ,  name='UpdateMail' ),
 ]

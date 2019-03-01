@@ -11,6 +11,8 @@ from apps.Configuracion.models import tb_turn_sesion
 from apps.Canchas.forms import CanchaForm
 from apps.Canchas.forms import nuevaReservasForm
 from apps.tasks.Email_tasks import Testcorreo
+from apps.tasks.Email_tasks import confirmaciondereserva
+from apps.tasks.Email_tasks import negaciondereserva
 
 def NewCancha(request):
 	Form = CanchaForm()
@@ -111,6 +113,12 @@ def updateState(request):
 	content = body['state']
 	queryset = ReservaCancha.objects.get(id = pk)
 	queryset.statusTurn = content
+	print(content)
+	print(queryset.mail)
+	if content == "Confirmada" :
+		confirmaciondereserva.delay(queryset.nombre, queryset.mail)
+	elif content == "No Aprobada":
+		negaciondereserva.delay(queryset.nombre, queryset.mail)	
 	queryset.save()
 	status = {
 		'code':200 ,
