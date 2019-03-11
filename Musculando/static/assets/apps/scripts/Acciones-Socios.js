@@ -535,3 +535,182 @@ function configureLoadingScreen(screen){
 }
 
 
+function ReportarPagoDiario(id_socio){	
+ var myArrayOfThings;
+	$.ajax({
+	    // la URL para la petición
+	    url : '/Configuracion/Forma/De/Pago/Solicitud/Get/',
+	    dataType : 'json',
+	    // código a ejecutar si la petición es satisfactoria;
+	    // la respuesta es pasada como argumento a la función
+	    success : function(data) {
+		    	
+		  myArrayOfThings  = data
+		  var options = {};
+		  $.map(myArrayOfThings,function(o,query) {options[o.forma_de_pago] = o.forma_de_pago;});
+      	  swal.setDefaults({
+          input: 'text',
+          confirmButtonText: 'Siguiente &rarr;',
+          showCancelButton: true,
+          progressSteps: ['1', '2',]
+        })
+        var steps = [
+        {
+            title: 'Seleccione un metodo de pago',
+            input: 'select',
+            inputOptions: options,
+            inputPlaceholder: 'metodos de pago',
+          },
+          {
+            title: 'Ingrese el Monto a Cargar',
+            input: 'number',
+  			inputPlaceholder: '$',
+          },
+
+          
+        ]
+
+        swal.queue(steps).then(function (result) {
+        	forma_pago = result.value[0];
+          	id_monto   = result.value[1];   
+               swal.resetDefaults()
+                $.ajax({
+                    url: '/Socios/Nueva/Solicitud/Pago/Diario/',
+                    data: {
+                      'id_socio':id_socio,
+                      'forma_pago': forma_pago,
+                      'id_monto':id_monto,
+                  },
+                  dataType: 'json',
+                  success: function (status) {
+                     swal(
+					      'Felicidades!',
+					      'Hemos cargado su pago de manera exitosa!.',
+					      'success'
+					    );
+                     location.reload(); 
+                }
+            });
+
+        }, function () {
+          swal.resetDefaults()
+        })
+    }
+        });
+  }
+
+function ReportePagoDiario(id) {
+	var myArrayOfThings;
+	$.ajax({
+		    // la URL para la petición
+		    url : '/Configuracion/Forma/De/Pago/Solicitud/Get/',
+		    dataType : 'json',
+		    // código a ejecutar si la petición es satisfactoria;
+		    // la respuesta es pasada como argumento a la función
+		    success : function(data) {
+		    	
+		    	myArrayOfThings  = data
+		    	var options = {};
+			    $.map(myArrayOfThings,function(o,query) {options[o.forma_de_pago] = o.forma_de_pago;});
+			      swal.setDefaults({
+			          input: 'text',
+			          confirmButtonText: 'Siguiente &rarr;',
+			          showCancelButton: true,
+			          progressSteps: ['1', '2']
+			        })
+			      //console.log(options);
+			        var steps = [
+			          {
+			           	 title: 'Desea activar el Plan Diario',
+						  input: 'select',
+						  inputOptions: {
+						    'Si': 'Si',
+						    
+						  },
+						  
+			          },
+			        {
+			            title: 'Seleccione un metodo de pago',
+			            input: 'select',
+			            inputOptions: options,
+			            inputPlaceholder: 'metodos de pago',
+			          },
+
+
+			          
+			        ]
+
+			        swal.queue(steps).then(function (result) {
+			        	if (result.value[0] != '' && result.value[1] != '' ){
+			        		si_no = result.value[0];
+			        		forma_pago = result.value[1];
+			        		swal.resetDefaults()
+			        	if (result.value[0] == "Si") {
+						    swal({
+						  title: '¿Estas Seguro?',
+						  text: "¿Estas Seguro de que deseas Activar este Socio por el dia de hoy?",
+						  type: 'warning',
+						  showCancelButton: true,
+						  confirmButtonColor: '#3085d6',
+						  cancelButtonColor: '#d33',
+						  confirmButtonText: 'Si, Quiero Activarlo!'
+						}).then(function (result) {
+							//console.log(result)
+				           if(result.value){
+				           	//console.log('dije que si ');
+				    		$.ajax({
+			                    url: '/Socios/Nueva/Peticion/Diaria/de/Activar/Socio/',
+			                    data: {
+			                      'id_socio':id,
+			                      'si_no': si_no,
+			                      'forma_pago':forma_pago,
+			                  },
+			                  dataType: 'json',
+			                  success: function (status) {
+			                     swal({
+			                        title: 'Hemos Cargado de manera exitosa su pago !',
+			                        confirmButtonText: 'Aceptar!'
+			                      })
+			                     location.reload(); 
+			                }
+			            });
+				           	
+				           }
+				        });
+						  }
+						else if (result.value[0] == "No") {
+						    swal.resetDefaults()
+			        		swal("OOOh!", "error")
+						  }
+
+			        	}
+			        	else{
+			        		swal.resetDefaults()
+			        		swal("OOOh!", "Hemos tenido un problema al verificar sus datos!", "error")
+
+
+
+			        	}
+			        	
+			               
+			                
+
+			        }, function () {
+			          swal.resetDefaults()
+			        })
+		    	
+		    	
+		    }
+		 
+		    // código a ejecutar si la petición falla;
+		    // son pasados como argumentos a la función
+		    // el objeto de la petición en crudo y código de estatus de la petición
+		   
+		 
+		    // código a ejecutar sin importar si la petición falló o n
+		});
+	
+	
+    
+    
+}

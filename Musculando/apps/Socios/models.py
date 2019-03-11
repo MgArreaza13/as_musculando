@@ -2,6 +2,7 @@ from django.db import models
 
 ##############MODELOS EXTERNOS################
 from apps.Configuracion.models import tb_plan
+from apps.Configuracion.models import tb_plan_diario
 from apps.Configuracion.models import tb_porcentaje
 from apps.UserProfile.models import tb_profile
 
@@ -21,7 +22,10 @@ class tb_socio(models.Model):
 	obraSocial					=	models.CharField(default='Sin Definir', null=True, max_length=30)
 	status						=	models.CharField(max_length=30,null=False,choices=PAGO_CHOICES,default='Pendiente',)
 	TarifaMensual 				=	models.ForeignKey(tb_plan, on_delete=models.CASCADE, null=True, default='')
+	TarifaDiaria				=	models.ForeignKey(tb_plan_diario, on_delete=models.CASCADE, null=True, default='')
 	TarifaconDescuento			=	models.FloatField(tb_porcentaje, default='0000', null=True,)
+	IsMensualAnual				=	models.BooleanField(null=False, blank=True , default=False)
+	IsDiario					=	models.BooleanField(null=False, blank=True , default=False)
 	#movilTlf					=	models.CharField(default='+000000000', null=True, max_length=30)
 	#houseTlf					=	models.CharField(default='+000000000', null=True, max_length=30)
 	#mailUser					=	models.EmailField(default='sin@definir.com', null=True, max_length=30)

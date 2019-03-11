@@ -120,7 +120,18 @@
 			                                                <td>{{socio.perfil.lastName}}</td>
 			                                                <td>{{socio.perfil.movilTlf}}</td>
 			                                                <td>{{socio.perfil.birthdayDate}}</td>
-			                                                <td>${{socio.TarifaMensual.precioPlan}}</td>
+			                                               
+			                                                <td>
+			                                                	{% if socio.IsMensualAnual == True %}
+			                                                	    
+			                                                		<span class="label label-success">${{socio.TarifaMensual.precioPlan}} </span>
+			                                                	
+			                                                	{%  elif socio.IsMensualAnual == False and socio.IsDiario == True %}
+			                                                		<span class="label label-danger">Plan Diario</span>
+			                                                	{%  elif socio.IsMensualAnual == False and socio.IsDiario == False %}
+			                                                		<span class="label label-success">${{socio.TarifaMensual.precioPlan}}</span>
+			                                                	{% endif %}
+			                                                </td>
 			                                                <td>
 			                                                	{% if socio.descuento == True %}
 			                                                	    
@@ -162,11 +173,36 @@
                                                                 </button>
                                                                 <ul class="dropdown-menu" style="min-width: 108px !important" role="menu">
 
+                                                                	{% if socio.IsDiario == True %}
                                                                 	<li>
                                                                         <a style="background-color:cornflowerblue;color:white;" href="{% url "Socios:UpdateSocio" socio.id %}"  class="btn btn-success btn-block btn-xs" > Editar </a>
                                                                     </li>
-                                                                    
-                                                                    
+                                                                       {% if socio.status == 'Desactivado'  %}
+                                                                    	 <a style="background-color:brown;color:white;border:transparent 1px solid;" href="{% url "Socios:UpdatePlan" socio.id %}"  class="btn btn-success btn-block btn-xs" >Activar Plan</a>
+                                                                     {% endif %}                                                                   
+                                                                   <li>
+                                                                        <button type="button" class="btn btn-warning btn-block btn-xs" value="{{socio.id}}" onclick="Desactivar(this.value);"> Desactivar </button>
+                                                                    </li>
+                                                                    <li>
+                                                                    {% if socio.isPay == True %}
+                                                                    	<button disabled="disabled" type="button" class="btn btn blue btn-block btn-xs" value="{{socio.id}}" onclick="ReportePagoDiario(this.value);"> Reportar Pago </button>
+                                                                    	 
+                                                                    	
+                                                                    {% else %}
+                                                                    	<button type="button" class="btn btn blue btn-block btn-xs" value="{{socio.id}}" onclick="ReportePagoDiario(this.value);"> Reportar Pago </button>
+                                                                    	</li>
+                                                                     {% endif %}                                                              
+                                                                                                                                        
+                                                                    <li>
+                                                                        <button type="button" class="btn btn-danger btn-block btn-xs" value="{{socio.id}}" onclick="Eliminar(this.value);"> Eliminar </button>
+                                                                    </li>
+                                                                	{% else %}
+                                                                	<li>
+                                                                        <a style="background-color:cornflowerblue;color:white;" href="{% url "Socios:UpdateSocio" socio.id %}"  class="btn btn-success btn-block btn-xs" > Editar </a>
+                                                                    </li>
+                                                                       {% if socio.status == 'Desactivado'  %}
+                                                                    	 <a style="background-color:brown;color:white;border:transparent 1px solid;" href="{% url "Socios:UpdatePlan" socio.id %}"  class="btn btn-success btn-block btn-xs" >Activar Plan</a>
+                                                                     {% endif %}                                                                   
                                                                     <li>
                                                                         <button type="button" class="btn btn-success btn-block btn-xs" value="{{socio.id}}" onclick="Activar(this.value);"> Activar </button>
                                                                     </li>
@@ -197,6 +233,7 @@
                                                                     <li>
                                                                         <button type="button" class="btn btn-danger btn-block btn-xs" value="{{socio.id}}" onclick="Eliminar(this.value);"> Eliminar </button>
                                                                     </li>
+                                                                	{% endif %}
                                                                 </ul>
                                                             </div>
 			                                                

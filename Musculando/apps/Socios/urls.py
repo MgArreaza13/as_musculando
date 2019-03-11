@@ -6,11 +6,14 @@ from apps.Socios.views import NewSocio
 from apps.Socios.views import DeleteSocio
 from apps.Socios.views import DesactivateSocio
 from apps.Socios.views import ActivateSocio
+from apps.Socios.views import ActivacionSocioDiario
 from apps.Socios.views import getSocio
 from apps.Socios.views import ActivacionSocioMensualAnual
 from apps.Socios.views import UpdateSocio
 from apps.Socios.views import NuevoReporteDePagoParcialMensual
 from apps.Socios.views import Descuento
+from apps.Socios.views import UpdatePlan
+from apps.Socios.views import NuevoReporteDePagoDiario
 
 
 #from apps.Proveedores.views import ListaDeProveedores
@@ -27,14 +30,15 @@ urlpatterns = [
 	url(r'^Nueva/Peticion/de/Eliminacion/de/Socios$', DeleteSocio, name='DeleteSocio'  ),
 	url(r'^Nueva/Peticion/de/Desactivar$', DesactivateSocio, name='DesactivateSocio'  ),
 	url(r'^Nueva/Peticion/de/Obtener/Datos/Socios$', getSocio, name='getSocio'  ),
-
 	url(r'^Nueva/Peticion/de/Activar$', ActivateSocio, name='ActivateSocio'  ),
+	url(r'^Nueva/Peticion/Diaria/de/Activar/Socio/$', ActivacionSocioDiario, name='ActivacionSocioDiario'  ),
 	url(r'^Nueva/Peticion/de/Activar/Socio/$', ActivacionSocioMensualAnual, name='ActivacionSocioMensualAnual'  ),
 	url(r'^Lista/$', ListaDeSocios , name='ListaDeSocios'  ),
 	url(r'^Nuevo/$', NewSocio , name='NewSocio'  ),
 	url(r'^Editar/(?P<id_socio>\d+)$', UpdateSocio, name='UpdateSocio'  ),
     url(r'^Nueva/Solicitud/Pago/De/Mensualidad/Parcial/$', NuevoReporteDePagoParcialMensual , name='NuevoReporteDePagoParcialMensual'  ),
+    url(r'^Nueva/Solicitud/Pago/Diario/$', NuevoReporteDePagoDiario , name='NuevoReporteDePagoDiario'  ),
     url(r'^Nuevo/Descuento/$', Descuento , name='Descuento'  ),
-   
+    url(r'^Plan/Update/(?P<id_socio>\d+)$', UpdatePlan, name='UpdatePlan'  ),
 
 ]

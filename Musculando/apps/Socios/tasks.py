@@ -17,9 +17,15 @@ def desactivatesocios():
 	for i in range(0,len(socios)):
 		#print(i)
 		if(socios[i].dateInactive_socio == hoy and socios[i].status == 'Activo'):
-			socios[i].status = 'Desactivado'
-			socios[i].descuento = False
-			socios[i].save()
-			#print(socios[i])
-			VencimientoMensualidad.delay(socios[i].perfil.nameUser, socios[i].TarifaMensual.precioPlan, socios[i].TarifaMensual.nombrePlan, socios[i].perfil.mailUser)
-
+			if socios[i].IsDiario == False:
+				socios[i].status = 'Desactivado'
+				socios[i].descuento = False
+				socios[i].save()
+				#print(socios[i])
+				VencimientoMensualidad.delay(socios[i].perfil.nameUser, socios[i].TarifaMensual.precioPlan, socios[i].TarifaMensual.nombrePlan, socios[i].perfil.mailUser)
+			elif socios[i].IsDiario == True:
+				socios[i].status = 'Desactivado'
+				socios[i].descuento = False
+				socios[i].save()
+				#print(socios[i])
+				# VencimientoMensualidad.delay(socios[i].perfil.nameUser, socios[i].TarifaMensual.precioPlan, socios[i].TarifaMensual.nombrePlan, socios[i].perfil.mailUser)

@@ -50,6 +50,9 @@ function ModalSocio() {
 function ModalSocio2() {
 	$("#descuento").modal("show");
 }
+function ModalSocio3() {
+	$("#plandiario").modal("show");
+}
 function PlanSeleccionado(id) {
 	var screen = $('#loading-screen');
     configureLoadingScreen(screen);
@@ -77,6 +80,7 @@ function PlanSeleccionado(id) {
 		    		$('#FechaPlan').html(plan.fecha);
 		    		$('#IdPlanSeleccionado').val(id);
 		    		$("#responsive").modal("hide");	
+		    		$('#SeleccionarPlanDiario').addClass('hidden');
 		    		$('#Enviar').removeClass('btn-info');
 		    		$('#Enviar').addClass('green');
 		    		$('#Enviar').text('Guardar');
@@ -160,4 +164,57 @@ function configureLoadingScreen(screen){
         .ajaxStop(function () {
             screen.fadeOut();
         });
+}
+
+function PlanDiarioSeleccionado(id) {
+	var screen = $('#loading-screen');
+    configureLoadingScreen(screen);
+	$.ajax({
+		    // la URL para la petición
+		    url : '/Configuracion/Planes/Diarios/Solicitud/Get/Registro/',
+		    // la información a enviar
+		    // (también es posible utilizar una cadena de datos)
+		    data : { 
+		    	'id':id,
+		    },
+		    // el tipo de información que se espera de respuesta
+		    dataType : 'json',
+		    // código a ejecutar si la petición es satisfactoria;
+		    // la respuesta es pasada como argumento a la función
+		    success : function(plan) {
+		    	if (plan) {
+		    		//todo correcto 
+		    		$('#SeleccionarPlanDiario').addClass('hidden');
+		    		$('#CartadePlanDiario').removeClass('hidden');
+		    		$('#TituloPlanDiario').html(plan.nombrePlan);
+		    		$('#PrecioPlanDiario').html('<sup class="price-sign">$</sup>'+plan.precioPlan+'</h3>');
+		    		$('#TituloPlanDiario').html(plan.nombrePlan);
+		    		$('#UserPlanDiario').html(plan.user);
+		    		$('#FechaPlanDiario').html(plan.fecha);
+		    		$('#IdPlanDiarioSeleccionado').val(id);
+		    		$("#plandiario").modal("hide");	
+		    		$('#SeleccionarPlan').addClass('hidden');
+		    		$('#botonselectdescuento').addClass('hidden');
+		    		$('#Enviar').removeClass('btn-info');
+		    		$('#Enviar').addClass('green');
+		    		$('#Enviar').text('Guardar');
+		    		$('#Enviar').removeAttr("disabled");
+		    		
+
+		    	}
+		    	else{
+		    		$("#plandiario").modal("hide");	
+		    		swal("OOOh!", "Hemos tenido un problema al borrar su plan!", "error")
+		    	}
+		    },
+		 
+		    // código a ejecutar si la petición falla;
+		    // son pasados como argumentos a la función
+		    // el objeto de la petición en crudo y código de estatus de la petición
+		    error : function(xhr, status) {
+		        swal("OOOh!", "Hemos tenido un problema con el Servidor!", "error")
+		    },
+		 
+		    // código a ejecutar sin importar si la petición falló o n
+		});
 }

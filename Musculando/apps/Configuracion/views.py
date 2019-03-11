@@ -7,6 +7,7 @@ from django.http import JsonResponse
 from django.core import serializers
 ###############MODELOS################
 from apps.Configuracion.models import tb_plan
+from apps.Configuracion.models import tb_plan_diario
 from apps.Configuracion.models import tb_formasDePago
 from apps.Configuracion.models import tb_tipoColaborador
 from apps.Configuracion.models import tb_tipoEgreso
@@ -36,6 +37,8 @@ def ListaDePlanes(request):
 	}
 	return render(request, 'Configuracion/Planes/ListadoDePlanes.html', contexto )
 
+
+
 def NuevoPlan(request):
 	status = None
 	titulo = request.GET.get('Nombre', None)
@@ -56,6 +59,40 @@ def NuevoPlan(request):
 		status = 200
 	return HttpResponse(status)
 
+
+@login_required(login_url = 'Panel:Login' )
+def ListaDePlanes_diarios(request):
+	planes_diarios = tb_plan_diario.objects.all()
+	contexto = {
+	'planes_diarios':planes_diarios
+	}
+	return render(request, 'Configuracion/Planes/ListadoDePlanesDiarios.html', contexto )
+
+def NuevoPlanDiario(request):
+	status = None
+	titulo = request.GET.get('Nombre', None)
+	precio = request.GET.get('Precio', None)
+	descripcion = request.GET.get('Descripcion', None)
+	queryset =  tb_plan_diario.objects.filter(nombrePlan = titulo)
+	if(len(queryset)>=1):
+		status = 400
+	else:
+		new_plan = tb_plan_diario()
+		new_plan.user = request.user
+		new_plan.nombrePlan = titulo
+		new_plan.precioPlan = precio 
+		new_plan.descripcionPlan = descripcion
+		new_plan.save()
+		status = 200
+	return HttpResponse(status)
+
+def EliminarPlanDiario(request):
+	status = None
+	id_plan = request.GET.get('id', None)
+	queryset = tb_plan_diario.objects.get(id=id_plan)
+	queryset.delete()
+	status = 200
+	return HttpResponse(status)
 
 def EliminarPlan(request):
 	status = None
@@ -94,7 +131,32 @@ def updatePlan(request):
 	status = 200
 	return HttpResponse(status)
 
+def getPlanDiario(request):
+	id_plan = request.GET.get('id', None)
+	queryset = tb_plan_diario.objects.get(id= id_plan)
+	plan = {
+		'nombrePlan':queryset.nombrePlan,
+		'precioPlan':queryset.precioPlan,
+		'descripcionPlan':queryset.descripcionPlan,
+		'user':str(queryset.user),
+		'fecha':queryset.dateCreate,
+	}
+	return JsonResponse(plan)
 
+def updatePlanDiario(request):
+	status = None
+	id_plan = request.GET.get('id', None)
+	titulo = request.GET.get('Nombre', None)
+	precio = request.GET.get('Precio', None)
+	PrecioAnual = request.GET.get('MontoAnual', None)
+	descripcion = request.GET.get('Descripcion', None)
+	queryset =  tb_plan_diario.objects.get(id = id_plan)
+	queryset.nombrePlan = titulo
+	queryset.precioPlan = precio 
+	queryset.descripcionPlan = descripcion
+	queryset.save()
+	status = 200
+	return HttpResponse(status)
 
 ################################CONFIGURACION GENERAL###############################
 def Configuracion_g(request):

@@ -6,6 +6,11 @@ from apps.Configuracion.views import ListaDePlanes
 from apps.Configuracion.views import EliminarPlan
 from apps.Configuracion.views import getPlan
 from apps.Configuracion.views import updatePlan
+from apps.Configuracion.views import NuevoPlanDiario
+from apps.Configuracion.views import ListaDePlanes_diarios
+from apps.Configuracion.views import EliminarPlanDiario
+from apps.Configuracion.views import getPlanDiario
+from apps.Configuracion.views import updatePlanDiario
 #####################CONFIGURACION############################
 from apps.Configuracion.views import Configuracion_g
 ###################FORMASS DE PAGO############################
@@ -61,6 +66,12 @@ urlpatterns = [
 	url(r'^Planes/Solicitud/Eliminar/Registro/$', EliminarPlan ,  name='EliminarPlan' ),
 	url(r'^Planes/Solicitud/Get/Registro/$', getPlan ,  name='getPlan' ),
 	url(r'^Planes/Solicitud/Update/Registro/$', updatePlan ,  name='updatePlan' ),
+	#############################PLANES DIARIOS###############################
+	url(r'^Planes/Diarios/Lista/$', ListaDePlanes_diarios ,  name='ListaDePlanes_diarios' ),
+	url(r'^Planes/Diarios/Solicitud/Nuevo/Registro/$', NuevoPlanDiario ,  name='NuevoPlanDiario' ),
+	url(r'^Planes/Diarios/Solicitud/Eliminar/Registro/$', EliminarPlanDiario ,  name='EliminarPlanDiario' ),
+	url(r'^Planes/Diarios/Solicitud/Get/Registro/$', getPlanDiario ,  name='getPlanDiario' ),
+	url(r'^Planes/Diarios/Solicitud/Update/Registro/$', updatePlanDiario ,  name='updatePlanDiario' ),
 	#######################CONFIGURACION GENERAL ###################################
 	url(r'^$', Configuracion_g, name='Configuracion_g' ),
 	#########################FORMAS DE PAGO#########################################
