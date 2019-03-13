@@ -189,6 +189,10 @@ CELERYBEAT_SCHEDULE = {
         'task': 'apps.Socios.tasks.desactivatesocios',
         'schedule': diario,
     },
+    'desactivate-socio-diario': {
+        'task': 'apps.Socios.tasks.desactivatesociosdiarios',
+        'schedule': diario,
+    },
     'aguinaldo-colaborador': {
         'task': 'apps.Colaboradores.tasks.aguinaldo',
         'schedule': mensual,

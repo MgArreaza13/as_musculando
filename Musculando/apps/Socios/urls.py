@@ -13,7 +13,7 @@ from apps.Socios.views import UpdateSocio
 from apps.Socios.views import NuevoReporteDePagoParcialMensual
 from apps.Socios.views import Descuento
 from apps.Socios.views import UpdatePlan
-from apps.Socios.views import NuevoReporteDePagoDiario
+# from apps.Socios.views import NuevoReporteDePagoDiario
 
 
 #from apps.Proveedores.views import ListaDeProveedores
@@ -37,7 +37,7 @@ urlpatterns = [
 	url(r'^Nuevo/$', NewSocio , name='NewSocio'  ),
 	url(r'^Editar/(?P<id_socio>\d+)$', UpdateSocio, name='UpdateSocio'  ),
     url(r'^Nueva/Solicitud/Pago/De/Mensualidad/Parcial/$', NuevoReporteDePagoParcialMensual , name='NuevoReporteDePagoParcialMensual'  ),
-    url(r'^Nueva/Solicitud/Pago/Diario/$', NuevoReporteDePagoDiario , name='NuevoReporteDePagoDiario'  ),
+    # url(r'^Nueva/Solicitud/Pago/Diario/$', NuevoReporteDePagoDiario , name='NuevoReporteDePagoDiario'  ),
     url(r'^Nuevo/Descuento/$', Descuento , name='Descuento'  ),
     url(r'^Plan/Update/(?P<id_socio>\d+)$', UpdatePlan, name='UpdatePlan'  ),
 

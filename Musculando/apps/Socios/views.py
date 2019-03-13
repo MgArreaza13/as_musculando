@@ -447,32 +447,32 @@ def UpdatePlan(request, id_socio):
 	return render (request, 'Socios/UpdatePlan.html' , {'Form3':Form3,'planes':planes,'planes_diarios':planes_diarios,'descuentos':descuentos,'fallido':fallido,})
 
 
-def NuevoReporteDePagoDiario(request):
-	status = 200
-	id_socio = request.GET.get('id_socio', None)
-	id_monto  = float (request.GET.get('id_monto', None))
-	forma_pago = request.GET.get('forma_pago', None)
-	socio = tb_socio.objects.get(id = id_socio)
-	precioPlan = float(socio.TarifaDiaria.precioPlan)
-	socio.montoPagado += id_monto
-	socio.save()
-	if precioPlan != socio.montoPagado or socio.montoPagado == 0 and id_monto != precioPlan:
-		socio.isPay = False
-		socio.status = 'Activo'
-	elif socio.montoPagado == precioPlan:
-		socio.isPay = True
-		socio.status = 'Activo'
-		socio.save()
-	print (type (precioPlan))
-	ingreso = tb_ingresos()
-	ingreso.user = request.user
-	ingreso.plan = tb_plan_diario.objects.get(nombrePlan = socio.TarifaDiaria)
-	ingreso.tipoPago = tb_formasDePago.objects.get(nameFormasDePago = forma_pago )
-	ingreso.monto = id_monto
-	ingreso.descripcion = 'Pago Parcial de Mensualidad'
-	ingreso.save()
-	status = 200
-	return HttpResponse(status)
+# def NuevoReporteDePagoDiario(request):
+# 	status = 200
+# 	id_socio = request.GET.get('id_socio', None)
+# 	id_monto  = float (request.GET.get('id_monto', None))
+# 	forma_pago = request.GET.get('forma_pago', None)
+# 	socio = tb_socio.objects.get(id = id_socio)
+# 	precioPlan = float(socio.TarifaDiaria.precioPlan)
+# 	socio.montoPagado += id_monto
+# 	socio.save()
+# 	if precioPlan != socio.montoPagado or socio.montoPagado == 0 and id_monto != precioPlan:
+# 		socio.isPay = False
+# 		socio.status = 'Activo'
+# 	elif socio.montoPagado == precioPlan:
+# 		socio.isPay = True
+# 		socio.status = 'Activo'
+# 		socio.save()
+# 	print (type (precioPlan))
+# 	ingreso = tb_ingresos()
+# 	ingreso.user = request.user
+# 	ingreso.plan = tb_plan_diario.objects.get(nombrePlan = socio.TarifaDiaria)
+# 	ingreso.tipoPago = tb_formasDePago.objects.get(nameFormasDePago = forma_pago )
+# 	ingreso.monto = id_monto
+# 	ingreso.descripcion = 'Pago Parcial de Mensualidad'
+# 	ingreso.save()
+# 	status = 200
+# 	return HttpResponse(status)
 
 def ActivacionSocioDiario(request):
 	status = None
