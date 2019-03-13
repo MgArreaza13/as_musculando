@@ -147,7 +147,7 @@ def NewSocio(request):
 					nuevoSocio.descuento = False
 				nuevoSocio.save()
 				print('guardémensual')
-			#NewSocioMAil.delay(request.POST['nameUser'], nuevoSocio.TarifaMensual.precioPlan, nuevoSocio.TarifaMensual.nombrePlan, request.POST['mailUser'])
+				NewSocioMAil.delay(request.POST['nameUser'], nuevoSocio.TarifaMensual.precioPlan, nuevoSocio.TarifaMensual.nombrePlan, request.POST['mailUser'])
 			else:
 				nuevoSocio.IsMensualAnual = False
 				nuevoSocio.IsDiario = True
