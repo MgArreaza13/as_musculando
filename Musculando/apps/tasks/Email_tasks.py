@@ -10,6 +10,9 @@ import logging
 from apps.Panel.consumers import ws_connect
 from channels import Group
 from apps.Configuracion.models import  tb_mailsAdministrador
+from apps.Socios.models import  *
+from django.template.loader import render_to_string
+
 
 
 from channels import Channel
@@ -344,3 +347,17 @@ def negaciondereserva(usuario,correo):
 	email_subject_usuario = 'Musculando - Reserva de Cancha'
 	email_body_usuario = "Hola %s, lamentablemente su reserva no ha sido aprobada!" %(usuario)
 	send_mail (email_subject_usuario, cuerpo, 'musculando@b7000615.ferozo.com', [correo], fail_silently=True, html_message=email_body_usuario)
+
+@app.task
+def Enviartermino(nombretermino,descripcion,server):
+	socio = tb_socio.objects.filter(AcceptTerms = False)
+	print(socio)
+	if(len(socio) > 0 ):
+		for i in range(0,len(socio)):
+			cuerpo = ""
+			###Mensaje para el usuario #########
+			email_subject_usuario = 'Musculando - Activación de Términos y Condiciones'
+			email_body_usuario = render_to_string('Configuracion/Terminos/activar.html',{'socio':socio[i],'nombretermino':nombretermino,'descripcion':descripcion,'server':server,})
+			send_mail (email_subject_usuario, cuerpo, 'musculando@b7000615.ferozo.com', [socio[i].perfil.mailUser], fail_silently=True, html_message=email_body_usuario)
+	else:
+		pass

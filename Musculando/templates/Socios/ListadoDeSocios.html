@@ -98,7 +98,7 @@
 		                                                <th>Monto Pagado</th>
 		                                                <th>Status</th>
 		                                                <th>Fecha de Vencimiento de Abono</th>
-	                                         
+	                                         			<th>Términos y Condiciones</th>
 		                                                <th>Correo</th>
 		                                                <th>Acciones</th>
 		                                                
@@ -164,6 +164,13 @@
 			                                                </td>
 			                                               
                                                             <td>{{socio.dateInactive_socio}}</td>
+                                                            <td>
+                                                            	{% if socio.AcceptTerms == False %}
+                                                            	<span class="label" style="background-color: darkcyan;">Términos no Aceptados</span>
+                                                            	{% elif socio.AcceptTerms == True %}
+                                                            	<span class="label" style="background-color: red;">Aceptados</span>
+                                                            	{% endif %}
+                                                            </td> 
 			                                               <td>{{socio.perfil.mailUser}}</td>
 			                                                <td>
 			                                                	<div class="btn-group"style="position:relative!important ; with:108px!important">

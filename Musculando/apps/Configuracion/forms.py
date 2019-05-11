@@ -7,6 +7,7 @@ from apps.Configuracion.models import tb_plan
 from apps.Configuracion.models import tb_turn_sesion
 from apps.Configuracion.models import tb_porcentaje
 from apps.Configuracion.models import tb_mailsAdministrador
+from apps.Configuracion.models import tb_termino
 
 class PlanRegisterForm(forms.ModelForm):
 	class Meta:
@@ -140,6 +141,45 @@ class EmailRegisterForm(forms.ModelForm):
 			  'value':'Sin Descripcion',
 			  'autocomplete':'off',
 			   'placeholder':'Email'}),
+
+		#'descriptionProduct': Textarea(attrs={'class':'form-control', 
+		#	'required':True ,
+		#	 'autofocus':True,
+		#	  'autocomplete':'off',
+		#	   ,'placeholder':'Direccion Principal Del Nuevo Proveedor',
+		#	   'cols': 2, 
+		#	   'rows': 6}),
+		}
+          
+		exclude = ['dateCreate','user']
+
+
+class TerminoRegisterForm(forms.ModelForm):
+	class Meta:
+		model = tb_termino
+		fields = [
+		'nameTerminos',
+		'descripcion',
+		'dateCreate',
+		'user',
+		]
+		labels = {
+		'nameTerminos':'Titulo',
+		
+		}
+		widgets = {
+		
+		'nameTerminos': TextInput(attrs={'class':'form-control', 
+			  'required':'False',
+			  'value':'Sin Descripcion',
+			  'autocomplete':'off',
+			   'placeholder':'Titulo del Termino o Servicio'}),
+
+		'descripcion': Textarea(attrs={'class':'form-control', 
+			  'required':'False',
+			  'value':'Sin Descripcion',
+			  'autocomplete':'off',
+			   'placeholder':'Descripcion'}),
 
 		#'descriptionProduct': Textarea(attrs={'class':'form-control', 
 		#	'required':True ,

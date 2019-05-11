@@ -6,6 +6,7 @@ from django.http import HttpResponse
 from django.http import JsonResponse
 from django.core import serializers
 ###############MODELOS################
+from apps.Configuracion.models import tb_termino
 from apps.Configuracion.models import tb_plan
 from apps.Configuracion.models import tb_plan_diario
 from apps.Configuracion.models import tb_formasDePago
@@ -23,7 +24,8 @@ from apps.Configuracion.forms import PlanRegisterForm
 from apps.Configuracion.forms import PorcentajeRegisterForm
 from apps.Configuracion.forms import tipoTurnForm
 from apps.Configuracion.forms import EmailRegisterForm
-
+from apps.Configuracion.forms import TerminoRegisterForm
+from apps.tasks.Email_tasks import Enviartermino
 # Create your views here.
 #import datetime
 import time
@@ -167,6 +169,7 @@ def Configuracion_g(request):
 	tipos_de_turnos			= tb_turn_sesion.objects.all()
 	porcentajes				= tb_porcentaje.objects.all()
 	emails 					= tb_mailsAdministrador.objects.all()
+	terminos 				= tb_termino.objects.all()
 	contexto = {
 	'formas_de_pago':formas_de_pago,
 	'tipos_de_colaboradores':tipos_de_colaboradores,
@@ -175,6 +178,7 @@ def Configuracion_g(request):
 	'tipos_de_turnos':tipos_de_turnos,
 	'porcentajes':porcentajes,
 	'emails':emails,
+	'terminos':terminos,
 	} 
 	return render(request, 'Configuracion/Configuracion_General.html', contexto)
 
@@ -614,3 +618,96 @@ def UpdateMail(request, id_mail):
 			mail.save()
 			return redirect ('Configuracion:Configuracion_g')
 	return render (request, 'Configuracion/Emails/newemail.html' , {'Form':Form, 'perfil':perfil})
+
+
+############################TERMINOS#############################
+
+
+
+def DeleteTermino(request):
+	status = None
+	id_termino = request.GET.get('id', None)
+	queryset = tb_termino.objects.get(id=id_termino)
+	print(queryset)
+	queryset.delete()
+	status = 200
+	return HttpResponse(status)
+
+
+def NewTermino(request):
+	result = validatePerfil(tb_profile.objects.filter(user=request.user))
+	perfil = result[0]
+	Form = TerminoRegisterForm()
+	if request.method == 'POST':
+		Form = TerminoRegisterForm(request.POST or None)
+		if Form.is_valid():
+			mail = Form.save(commit=False)
+			mail.user = request.user
+			mail.save()
+			return redirect('Configuracion:Configuracion_g')
+		else:
+			print('error')
+			
+	contexto = {
+		'Form': Form,
+		'perfil':perfil,
+	}
+	return render (request, 'Configuracion/Terminos/newTermino.html', contexto)
+
+def GetTermino(request):
+	mail = request.GET.get('id_termino', None)
+	queryset = tb_termino.objects.get(id = id_termino)
+	data = {
+		'user':str(queryset.user),
+		'nameTerminos':queryset.nameTerminos,
+
+	}
+	return JsonResponse(data)
+
+def UpdateTermino(request, id_termino):
+	terminoEditar= tb_termino.objects.get(id=id_termino)
+	result = validatePerfil(tb_profile.objects.filter(user=request.user))
+	perfil = result[0]
+	if request.method == 'GET':
+		Form= TerminoRegisterForm(instance = terminoEditar)
+	else:
+		Form = TerminoRegisterForm(request.POST, instance = terminoEditar)
+		if Form.is_valid():
+			termino = Form.save(commit=False)
+			termino.user = request.user
+			termino.nameTerminos= request.POST['nameTerminos']
+			termino.save()
+			return redirect ('Configuracion:Configuracion_g')
+	return render (request, 'Configuracion/Terminos/newTermino.html', {'Form':Form, 'perfil':perfil})
+
+
+def getTerminoView(request):
+	id_termino = request.GET.get('id', None)
+	queryset = tb_termino.objects.get(id= id_termino)
+	termino = {
+		'nameTerminos':queryset.nameTerminos,
+		'descripcion':queryset.descripcion,
+		
+	}
+	return JsonResponse(termino)
+
+def enviartermino(request):
+	status = None
+	id_termino = request.GET.get('id', None)
+	queryset = tb_termino.objects.get(id=id_termino)
+	print(queryset)
+	server = 'http://localhost:8000'
+	Enviartermino.delay(queryset.nameTerminos,queryset.descripcion,server)
+	status = 200
+	return HttpResponse(status)
+
+def recibodeid(request, id_socio):
+	socio = tb_socio.objects.get(id=id_socio)
+	if socio.AcceptTerms == True:
+		return render (request, 'Configuracion/Terminos/404.html')
+	else:
+		socio.AcceptTerms = True
+		socio.save()
+	print(id_socio)
+	return render (request, 'Configuracion/Terminos/aqui.html')
+

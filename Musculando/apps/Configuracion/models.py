@@ -117,3 +117,16 @@ class tb_mailsAdministrador(models.Model):
 	class Meta:
 		managed = True
 		db_table = 'mailadmin' 
+
+class tb_termino(models.Model):
+	user 							=	models.ForeignKey(settings.AUTH_USER_MODEL)
+	nameTerminos					=	models.CharField(default='', null=False, max_length=30, unique=True)
+	dateCreate						=	models.DateField(auto_now=True, blank=False)
+	descripcion	 			        =	models.TextField(default='Sin Descripcion', null=True, max_length=3000)
+	
+	
+	def __str__(self):
+		return self.nameTerminos
+	class Meta:
+		managed = True
+		db_table = 'Terminos' 

@@ -26,6 +26,7 @@ class tb_socio(models.Model):
 	TarifaconDescuento			=	models.FloatField(tb_porcentaje, default='0000', null=True,)
 	IsMensualAnual				=	models.BooleanField(null=False, blank=True , default=False)
 	IsDiario					=	models.BooleanField(null=False, blank=True , default=False)
+	AcceptTerms					=	models.BooleanField(null=False, blank=True , default=False)
 	#movilTlf					=	models.CharField(default='+000000000', null=True, max_length=30)
 	#houseTlf					=	models.CharField(default='+000000000', null=True, max_length=30)
 	#mailUser					=	models.EmailField(default='sin@definir.com', null=True, max_length=30)

@@ -155,6 +155,7 @@ def NewSocio(request):
 				nuevoSocio.dateInactive_socio = request.POST['dateInactive_socio']
 				nuevoSocio.save()
 				print('guardédiario')
+				NewSocioMAil.delay(request.POST['nameUser'], nuevoSocio.TarifaDiaria.precioPlan, nuevoSocio.TarifaDiaria.nombrePlan, request.POST['mailUser'])
 			return redirect('Socios:ListaDeSocios')
 		else:
 			#Form	= UsuarioForm(request.POST , request.FILES  or None)
@@ -260,7 +261,7 @@ def DesactivateSocio(request):
 	queryset.status = 'Desactivado'
 	queryset.IsDiario = False
 	queryset.isPay = False
-	# DesactivacionSocio.delay(queryset.perfil.nameUser, queryset.TarifaMensual.precioPlan, queryset.TarifaMensual.nombrePlan, queryset.perfil.mailUser)
+	DesactivacionSocio.delay(queryset.perfil.nameUser, queryset.TarifaMensual.precioPlan, queryset.TarifaMensual.nombrePlan, queryset.perfil.mailUser)
 	queryset.save()
 	return HttpResponse(200)
 

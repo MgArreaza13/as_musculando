@@ -167,6 +167,7 @@ USE_TZ = True
 from celery.schedules import crontab
 from datetime import datetime
 
+
 USE_TZ = True
 
 

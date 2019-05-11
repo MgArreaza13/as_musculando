@@ -1,0 +1,890 @@
+{% load staticfiles %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+	<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>Lite</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="width=display-width, initial-scale=1.0, maximum-scale=1.0,">
+		<link href="https://fonts.googleapis.com/css?family=Signika:400,600,700" rel="stylesheet" type="text/css">
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet" type="text/css">
+		<style type="text/css">		
+			html { width: 100%; }
+			body {margin:0; padding:0; width:100%; -webkit-text-size-adjust:none; -ms-text-size-adjust:none;}
+			img { display: block !important; border:0; -ms-interpolation-mode:bicubic;}
+
+			.ReadMsgBody { width: 100%;}
+			.ExternalClass {width: 100%;}
+			.ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div { line-height: 100%; }
+			.images {display:block !important; width:100% !important;}
+				
+			.Heading {font-family: Signika, Helvetica Neue, Helvetica, sans-serif !important;}
+			.MsoNormal {font-family: Open Sans, Arial, Helvetica Neue, Helvetica, sans-serif !important;}	
+			p, div{margin:0 !important; padding:0 !important;}						
+			.display-button td, .display-button a  {font-family: Open Sans, Arial, Helvetica Neue, Helvetica, sans-serif !important;}
+			.display-button a:hover {text-decoration:none !important;}
+			
+			/* MEDIA QUIRES */
+			 @media only screen and (min-width:799px)
+            {
+				.saf-table {display:table !important;}
+				.width-auto {width: auto !important;}
+				.width600 {width:600px;}	
+                .width800 {width:800px !important; max-width:800px !important;}
+				.width50percent {width:50% !important; max-width:50% !important;}
+			}
+			
+			 @media only screen and (max-width:799px)
+            {
+                 body {width:auto !important;}
+				.display-width {width:100% !important;}	
+				.res-padding {padding:0 20px !important;}	
+				.display-width-inner {width:600px !important;}
+				.res-center {text-align:center !important; width:100% !important; }
+				.width800 {width:100% !important; max-width:100% !important;}
+				.width50percent {width:50% !important; max-width:50% !important;}
+		   }	
+			
+			@media only screen and (max-width:639px)
+			{
+				.display-width-inner, .display-width-child {width:100% !important;}
+				.hide-bar {display:none !important;}
+				td[class="height-hidden"] {display:none !important;}
+				span.unsub-width {width:100% !important;
+				display:block !important;}
+				span.txt-copyright{ padding-bottom:10px !important;}
+				.txt-center {text-align:center !important;}
+				.image-center{margin:0 auto !important; display:table !important;}
+				.butn-center{margin:0 auto; display:table;}
+				.butn-left{margin:0 auto 0 0; display:table;}
+				.height20 {height:20px !important;}
+				.height30 {height:30px !important; line-height:30px !important;}
+				.height60 {height:60px !important;}
+				.width272 {max-width:272px !important;} 
+				.width290 {width:290px !important;}
+				.div-width {display: block !important; width: 100% !important; max-width: 100% !important;}
+				.saf-table {display:block !important;}
+				.width50percent {width:100% !important; max-width:100% !important;}
+			}
+			
+			@media only screen and (max-width:480px) 
+			{
+			   .button-width .display-button {width:auto !important;}
+			   .div-width {display: block !important; width: 100% !important; max-width: 100% !important;}		
+			   .display-width .butn-header {max-width:260px !important;}
+			   .display-width .width272 {width:272px !important;}
+			   .display-width .width290 {width:290px !important;}
+			
+			}	
+			
+			@media only screen and (max-width:380px)
+			{
+				.display-width-child .width272 { width:100% !important; max-width:100% !important;}
+				.display-width-child .width290 { width:100% !important; max-width:100% !important;}
+				
+				
+			}
+			
+			@media only screen and (max-width:360px)
+			{
+				.display-width-child .width272 { width:100% !important; max-width:100% !important;}
+				.display-width-child .width290 {width:290px !important;}
+				
+				
+			}
+
+			@media only screen and (max-width:320px)
+			{
+				.butn-font {font-size: 10px !important;}
+				.display-width-child .width290 { width:100% !important; max-width:100% !important;}
+			}
+		</style>
+		<style type="text/css" id="mc-style">
+ 		/********* BG COLORS *********/
+ 		/** 
+ 		*@tab Main BG Color 
+ 		*@tip Main BG Color 
+ 		*/
+ 		.mcbc-main{ /* @editable */ background-color: #333333 !important; } 
+ 
+ 		/** 
+ 		*@tab Section - View Browser Optional BG Color 
+ 		*@tip Section - View Browser Optional BG Color 
+ 		*/
+ 		.mcbc-sec-view-browser-optional{ /* @editable */ background-color: #f6f6f6 !important; } 
+ 
+ 		/** 
+ 		*@tab Section - Menu 1 Optional BG Color 
+ 		*@tip Section - Menu 1 Optional BG Color 
+ 		*/
+ 		.mcbc-sec-menu-1-optional{ /* @editable */ background-color: #ffffff !important; } 
+ 
+ 		/** 
+ 		*@tab Section - Menu 2 Optional BG Color 
+ 		*@tip Section - Menu 2 Optional BG Color 
+ 		*/
+ 		.mcbc-sec-menu-2-optional{ /* @editable */ background-color: #f6f6f6 !important; } 
+ 
+ 		/** 
+ 		*@tab Section - Menu 3 Optional BG Color 
+ 		*@tip Section - Menu 3 Optional BG Color 
+ 		*/
+ 		.mcbc-sec-menu-3-optional{ /* @editable */ background-color: #ffffff !important; } 
+ 
+ 		/** 
+ 		*@tab Section - Menu 4 Optional BG Color 
+ 		*@tip Section - Menu 4 Optional BG Color 
+ 		*/
+ 		.mcbc-sec-menu-4-optional{ /* @editable */ background-color: #f6f6f6 !important; } 
+ 
+ 		/** 
+ 		*@tab Section 1 BG Color 
+ 		*@tip Section 1 BG Color 
+ 		*/
+ 		.mcbc-sec-section-1{ /* @editable */ background-color: #ffffff !important; } 
+ 
+ 		/** 
+ 		*@tab Section 2 BG Color 
+ 		*@tip Section 2 BG Color 
+ 		*/
+ 		.mcbc-sec-section-2{ /* @editable */ background-color: #f6f6f6 !important; } 
+ 
+ 		/** 
+ 		*@tab Section - Header 1 Optional Bg BG Color 
+ 		*@tip Section - Header 1 Optional Bg BG Color 
+ 		*/
+ 		.mcbc-sec-header-1-optional-bg{ /* @editable */ background-color: #f6f6f6 !important; } 
+ 
+ 		/** 
+ 		*@tab Section - Header 2 Optional Bg BG Color 
+ 		*@tip Section - Header 2 Optional Bg BG Color 
+ 		*/
+ 		.mcbc-sec-header-2-optional-bg{ /* @editable */ background-color: #ffffff !important; } 
+ 
+ 		/** 
+ 		*@tab Section - Header 3 Optional Bg BG Color 
+ 		*@tip Section - Header 3 Optional Bg BG Color 
+ 		*/
+ 		.mcbc-sec-header-3-optional-bg{ /* @editable */ background-color: #000000 !important; } 
+ 
+ 		/** 
+ 		*@tab Section - Download Optional Bg BG Color 
+ 		*@tip Section - Download Optional Bg BG Color 
+ 		*/
+ 		.mcbc-sec-download-optional-bg{ /* @editable */ background-color: #f6f6f6 !important; } 
+ 
+ 		/** 
+ 		*@tab Section - Bg Image Optional Bg BG Color 
+ 		*@tip Section - Bg Image Optional Bg BG Color 
+ 		*/
+ 		.mcbc-sec-bg-image-optional-bg{ /* @editable */ background-color: #000000 !important; } 
+ 
+ 		/** 
+ 		*@tab Section - Really Optional Bg BG Color 
+ 		*@tip Section - Really Optional Bg BG Color 
+ 		*/
+ 		.mcbc-sec-really-optional-bg{ /* @editable */ background-color: #ffffff !important; } 
+ 
+ 		/** 
+ 		*@tab Section - Support Optional BG Color 
+ 		*@tip Section - Support Optional BG Color 
+ 		*/
+ 		.mcbc-sec-support-optional{ /* @editable */ background-color: #000000 !important; } 
+ 
+ 		/** 
+ 		*@tab Section - Footer 1 Optional BG Color 
+ 		*@tip Section - Footer 1 Optional BG Color 
+ 		*/
+ 		.mcbc-sec-footer-1-optional{ /* @editable */ background-color: #ffffff !important; } 
+ 
+ 		/** 
+ 		*@tab Section - Footer 2 Optional BG Color 
+ 		*@tip Section - Footer 2 Optional BG Color 
+ 		*/
+ 		.mcbc-sec-footer-2-optional{ /* @editable */ background-color: #f6f6f6 !important; } 
+ 
+ 		/** 
+ 		*@tab About Outer Bg BG Color 
+ 		*@tip About Outer Bg BG Color 
+ 		*/
+ 		.mcbc-cht-about-outer-bg{ /* @editable */ background-color: #f6f6f6 !important; } 
+ 
+ 		/** 
+ 		*@tab Elements Outer Bg BG Color 
+ 		*@tip Elements Outer Bg BG Color 
+ 		*/
+ 		.mcbc-cht-elements-outer-bg{ /* @editable */ background-color: #ffffff !important; } 
+ 
+ 		/** 
+ 		*@tab 2 Column 2 Child BG Color 
+ 		*@tip 2 Column 2 Child BG Color 
+ 		*/
+ 		.mcbc-cht-2-column-2-child_1{ /* @editable */ background-color: f6f6f6 !important; } 
+ 
+ 		/** 
+ 		*@tab 3 Column 1 Bg BG Color 
+ 		*@tip 3 Column 1 Bg BG Color 
+ 		*/
+ 		.mcbc-cht-3-column-1-bg{ /* @editable */ background-color: #f6f6f6 !important; } 
+ 
+ 		/** 
+ 		*@tab Packages Heading Bg BG Color 
+ 		*@tip Packages Heading Bg BG Color 
+ 		*/
+ 		.mcbc-cht-packages-heading-bg{ /* @editable */ background-color: #1dabba !important; } 
+ 
+ 		/** 
+ 		*@tab Bg Image Outer Bg BG Color 
+ 		*@tip Bg Image Outer Bg BG Color 
+ 		*/
+ 		.mcbc-cht-bg-image-outer-bg{ /* @editable */ background-color: #222222 !important; } 
+ 
+ 		/** 
+ 		*@tab Selective Outer Bg BG Color 
+ 		*@tip Selective Outer Bg BG Color 
+ 		*/
+ 		.mcbc-cht-selective-outer-bg{ /* @editable */ background-color: #f6f6f6 !important; } 
+ 
+ 		/** 
+ 		*@tab Icon 3 Column 2 Bg BG Color 
+ 		*@tip Icon 3 Column 2 Bg BG Color 
+ 		*/
+ 		.mcbc-cht-icon-3-column-2-bg{ /* @editable */ background-color: #ffffff !important; } 
+ 
+ 		/** 
+ 		*@tab 3 Column 2 Bg BG Color 
+ 		*@tip 3 Column 2 Bg BG Color 
+ 		*/
+ 		.mcbc-cht-3-column-2-bg{ /* @editable */ background-color: #ffffff !important; } 
+ 
+ 		/** 
+ 		*@tab Exciting Outer Bg BG Color 
+ 		*@tip Exciting Outer Bg BG Color 
+ 		*/
+ 		.mcbc-cht-exciting-outer-bg{ /* @editable */ background-color: ffffff !important; } 
+ 
+ 		/** 
+ 		*@tab Members Bg BG Color 
+ 		*@tip Members Bg BG Color 
+ 		*/
+ 		.mcbc-cht-members-bg{ /* @editable */ background-color: #222222 !important; } 
+ 
+ 		/** 
+ 		*@tab Team Outer Bg BG Color 
+ 		*@tip Team Outer Bg BG Color 
+ 		*/
+ 		.mcbc-cht-team-outer-bg{ /* @editable */ background-color: #f6f6f6 !important; } 
+ 
+ 		/** 
+ 		*@tab Support Bg BG Color 
+ 		*@tip Support Bg BG Color 
+ 		*/
+ 		.mcbc-cht-support-bg{ /* @editable */ background-color: #ffffff !important; } 
+ 
+ 		/********* BUTTON BG COLORS *********/
+ 		/** 
+ 		*@tab Header 1 Button BG Color 
+ 		*@tip Header 1 Button BG Color 
+ 		*/
+ 		.mcbc-btn-header-1-button{ /* @editable */ background-color: #1dabba !important; /* @editable */ border-radius:50px !important;  } 
+ 
+ 		/** 
+ 		*@tab Header 2 Button BG Color 
+ 		*@tip Header 2 Button BG Color 
+ 		*/
+ 		.mcbc-btn-header-2-button{ /* @editable */ background-color: #1dabba !important; /* @editable */ border-radius:50px !important;  } 
+ 
+ 		/** 
+ 		*@tab Header 3 Button BG Color 
+ 		*@tip Header 3 Button BG Color 
+ 		*/
+ 		.mcbc-btn-header-3-button{ /* @editable */ background-color: #1dabba !important; /* @editable */ border-radius:50px !important;  } 
+ 
+ 		/** 
+ 		*@tab About Button 1 BG Color 
+ 		*@tip About Button 1 BG Color 
+ 		*/
+ 		.mcbc-btn-about-button-1{ /* @editable */ background-color: #1dabba !important; /* @editable */ border-radius:50px !important;  } 
+ 
+ 		/** 
+ 		*@tab About Button 2 BG Color 
+ 		*@tip About Button 2 BG Color 
+ 		*/
+ 		.mcbc-btn-about-button-2{ /* @editable */ background-color: #1dabba !important; /* @editable */ border-radius:50px !important;  } 
+ 
+ 		/** 
+ 		*@tab All Button BG Color 
+ 		*@tip All Button BG Color 
+ 		*/
+ 		.mcbc-btn-all-button{ /* @editable */ background-color: #1dabba !important; /* @editable */ border-radius:50px !important;  } 
+ 
+ 		/** 
+ 		*@tab Download Button BG Color 
+ 		*@tip Download Button BG Color 
+ 		*/
+ 		.mcbc-btn-download-button{ /* @editable */ background-color: #1dabba !important; /* @editable */ border-radius:50px !important;  } 
+ 
+ 		/** 
+ 		*@tab Price Button BG Color 
+ 		*@tip Price Button BG Color 
+ 		*/
+ 		.mcbc-btn-price-button{ /* @editable */ background-color: #1dabba !important; /* @editable */ border-radius:50px !important;  } 
+ 
+ 		/** 
+ 		*@tab Packages Button BG Color 
+ 		*@tip Packages Button BG Color 
+ 		*/
+ 		.mcbc-btn-packages-button{ /* @editable */ background-color: #1dabba !important; /* @editable */ border-radius:50px !important;  } 
+ 
+ 		/** 
+ 		*@tab Exciting Button BG Color 
+ 		*@tip Exciting Button BG Color 
+ 		*/
+ 		.mcbc-btn-exciting-button{ /* @editable */ background-color: #1dabba !important; /* @editable */ border-radius:50px !important;  } 
+ 
+ 		/** 
+ 		*@tab Tutorial Button BG Color 
+ 		*@tip Tutorial Button BG Color 
+ 		*/
+ 		.mcbc-btn-tutorial-button{ /* @editable */ background-color: #1dabba !important; /* @editable */ border-radius:50px !important;  } 
+ 
+ 		/********* BACKGROUND IMAGES *********/
+ 		/** 
+ 		*@tab Header 1 BG Image 
+ 		*@tip Header 1 BG Image 
+ 		*/
+ 		.mcbi-header-1_1{ /* @editable */ background-image:url(http://fourdinos.com/demo/lite2019/images/800x800x1.jpg) !important; /* @editable */ background-position:center !important; /* @editable */ background-repeat:no-repeat !important;  } 
+
+ 		/** 
+ 		*@tab Header 2 BG Image 
+ 		*@tip Header 2 BG Image 
+ 		*/
+ 		.mcbi-header-2_1{ /* @editable */ background-image:url(http://fourdinos.com/demo/lite2019/images/800x800x2.jpg) !important; /* @editable */ background-position:center !important; /* @editable */ background-repeat:no-repeat !important;  } 
+
+ 		/** 
+ 		*@tab Header 3 BG Image 
+ 		*@tip Header 3 BG Image 
+ 		*/
+ 		.mcbi-header-3_1{ /* @editable */ background-image:url(http://fourdinos.com/demo/lite2019/images/800x800x3.jpg) !important; /* @editable */ background-position:center !important; /* @editable */ background-repeat:no-repeat !important;  } 
+
+ 		/** 
+ 		*@tab Business Palan BG Image 
+ 		*@tip Business Palan BG Image 
+ 		*/
+ 		.mcbi-business-palan_1{ /* @editable */ background-image:url(http://fourdinos.com/demo/lite2019/images/400x400.jpg) !important; /* @editable */ background-position:center !important; /* @editable */ background-repeat: no-repeat !important; /* @editable */ background-size:cover !important;  } 
+
+ 		/** 
+ 		*@tab Download BG Image 
+ 		*@tip Download BG Image 
+ 		*/
+ 		.mcbi-download_1{ /* @editable */ background-image:url(http://fourdinos.com/demo/lite2019/images/800x650x1.jpg) !important; /* @editable */ background-position:center !important; /* @editable */ background-repeat:no-repeat !important;  } 
+
+ 		/** 
+ 		*@tab Bg Image BG Image 
+ 		*@tip Bg Image BG Image 
+ 		*/
+ 		.mcbi-bg-image_1{ /* @editable */ background-image:url(http://fourdinos.com/demo/lite2019/images/800x800x4.png) !important; /* @editable */ background-position:center !important; /* @editable */ background-repeat:no-repeat !important;  } 
+
+ 		/** 
+ 		*@tab Really Awesome BG Image 
+ 		*@tip Really Awesome BG Image 
+ 		*/
+ 		.mcbi-really-awesome_1{ /* @editable */ background-image:url(http://fourdinos.com/demo/lite2019/images/800x650x2.jpg) !important; /* @editable */ background-position:center !important; /* @editable */ background-repeat:no-repeat !important;  } 
+
+ 		/** 
+ 		*@tab Support BG Image 
+ 		*@tip Support BG Image 
+ 		*/
+ 		.mcbi-support_1{ /* @editable */ background-image:url(http://fourdinos.com/demo/lite2019/images/800x650x3.jpg) !important; /* @editable */ background-position:center !important; /* @editable */ background-repeat:no-repeat !important;  } 
+
+ 		/********* BORDER COLORS *********/
+ 		/** 
+ 		*@tab Menu 4 Border 
+ 		*@tip Menu 4 Border 
+ 		*/
+ 		.mcbr-menu-4-border-b{ /* @editable */ border-bottom:1px solid #cccccc !important; } 
+
+ 		/** 
+ 		*@tab Title Five Br Border 
+ 		*@tip Title Five Br Border 
+ 		*/
+ 		.mcbr-title-five-br-l{ /* @editable */ border-left:1px solid #cccccc !important; } 
+
+ 		/** 
+ 		*@tab Awesome Border 
+ 		*@tip Awesome Border 
+ 		*/
+ 		.mcbr-awesome-border-f{ /* @editable */ border:1px solid #cccccc !important; } 
+
+ 		/** 
+ 		*@tab 2 Column 1 Table Border 1 
+ 		*@tip 2 Column 1 Table Border 1 
+ 		*/
+ 		.mcbr-2-column-1-table-border-f-1{ /* @editable */ border:1px solid #cccccc !important; } 
+
+ 		/** 
+ 		*@tab Portfolio Border 
+ 		*@tip Portfolio Border 
+ 		*/
+ 		.mcbr-portfolio-border-f{ /* @editable */ border:1px solid #cccccc !important; } 
+
+ 		/** 
+ 		*@tab Price Content Border 
+ 		*@tip Price Content Border 
+ 		*/
+ 		.mcbr-price-content-border-b{ /* @editable */ border-bottom:1px solid #cccccc !important; } 
+
+ 		/** 
+ 		*@tab Price Border 
+ 		*@tip Price Border 
+ 		*/
+ 		.mcbr-price-border-f{ /* @editable */ border:1px solid #cccccc !important; } 
+
+ 		/** 
+ 		*@tab Package Outer Border 
+ 		*@tip Package Outer Border 
+ 		*/
+ 		.mcbr-package-outer-border-f{ /* @editable */ border:1px solid #1dabba !important; } 
+
+ 		/** 
+ 		*@tab Touch Border 
+ 		*@tip Touch Border 
+ 		*/
+ 		.mcbr-touch-border-l{ /* @editable */ border-left:1px solid #cccccc !important; } 
+
+ 		/** 
+ 		*@tab Mailchimp Outer Border 
+ 		*@tip Mailchimp Outer Border 
+ 		*/
+ 		.mcbr-mailchimp-outer-border-f{ /* @editable */ border:1px solid #cccccc !important; } 
+
+ 		/** 
+ 		*@tab Team Border 
+ 		*@tip Team Border 
+ 		*/
+ 		.mcbr-team-border-b{ /* @editable */ border-bottom:1px solid #333333 !important; } 
+
+ 		/** 
+ 		*@tab Footer 1 Border 
+ 		*@tip Footer 1 Border 
+ 		*/
+ 		.mcbr-footer-1-border-b{ /* @editable */ border-bottom:1px solid #cccccc !important; } 
+
+ 		/** 
+ 		*@tab Footer 2 Border 
+ 		*@tip Footer 2 Border 
+ 		*/
+ 		.mcbr-footer-2-border-b{ /* @editable */ border-bottom:1px solid #cccccc !important; } 
+		</style>
+	</head>
+	<body>
+		<!--[if (gte mso 9)|(IE)]>
+			<style >
+				.Heading {font-family: Arial, Helvetica Neue, Helvetica, sans-serif !important;}
+				.MsoNormal {font-family: Arial, Helvetica Neue, Helvetica, sans-serif !important;}
+				.display-button td, .display-button a, a {font-family: Arial, Helvetica Neue, Helvetica, sans-serif !important;}			
+			</style>
+		<![endif]-->
+		<!-- VIEW IN BROWSER STARTS -->
+	
+		<!-- TITLE TWO STARTS -->
+		
+		<!-- TITLE FIVE STARTS -->
+		<table align="center" bgcolor="#333333" border="0" cellpadding="0" cellspacing="0" width="100%" mc:repeatable="title-five" class="mcbc-main">
+			<tbody>
+				<tr>
+					<td align="center">
+						<!--[if (gte mso 9)|(IE)]>
+								<table aria-hidden="true" border="0" cellspacing="0" cellpadding="0" align="center" width="800" style="width: 800px;">
+									<tr>
+										<td align="center" valign="top" width="100%" style="max-width:800px;">
+											<![endif]-->
+						<div style="display:inline-block; width:100%; max-width:800px; vertical-align:top;" class="width800">
+							<!-- ID:BG SECTION-1 -->
+							<table align="center" bgcolor="#ffffff" border="0" cellpadding="0" cellspacing="0" class="display-width mcbc-sec-section-1" width="100%" style="max-width:800px;">
+								<tbody>
+									<tr>
+										<td align="center" class="res-padding">
+											<!--[if (gte mso 9)|(IE)]>
+																	<table aria-hidden="true" border="0" cellspacing="0" cellpadding="0" align="center" width="600" style="width:600px;">
+																		<tr>
+																			<td align="center">
+																					<![endif]-->
+											<div style="display:inline-block; width:100%; max-width:600px; vertical-align:top;" class="width600">
+												<table align="center" border="0" class="display-width-inner" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;">
+													<tr>
+														<td height="40" style="mso-line-height-rule:exactly; line-height:40px;">
+															&nbsp;
+														</td>
+													</tr>
+													<tr>
+														<td align="center" style="padding:0 10px;">
+															<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:100%;">
+																<tr>
+																	<!-- ID:TXT TITLE -->
+																	<td align="left" class="Heading" style="color:#333333; font-family:Segoe UI, Helvetica Neue, Arial, Verdana, Trebuchet MS, sans-serif; font-weight:400; font-size:28px; line-height:38px; letter-spacing:1px;" mc:edit="Heading-4">
+																		 Hola, {{ socio.perfil.nameUser }}
+																	</td>
+																</tr>
+																<tr>
+																	<td height="5" style="mso-line-height-rule:exactly; line-height:5px; font-size:0;">
+																		&nbsp;
+																	</td>
+																</tr>
+																<tr>
+																	<td align="left">
+																		<table align="left" border="0" cellpadding="0" cellspacing="0" width="60%">
+																			<tr>
+																				<!-- ID:TXT TITLE FIVE CONTENT -->
+																				<!-- ID:BR TITLE FIVE BR -->
+																				<td align="left" class="MsoNormal mcbr-title-five-br-l" style="color:#666666; font-family:Segoe UI, Helvetica Neue, Arial, Verdana, Trebuchet MS, sans-serif; font-weight:400; font-size:14px; line-height:24px; mso-line-height-rule: exactly; border-left:1px solid #cccccc; padding-left:15px;" mc:edit="Content-14">
+																					 Ud tiene Términos sin aceptar de nuestros servicios. Por favor lea el siguiente texto y si está de acuerdo pulse el botón de Aceptar.
+																				</td>
+																			</tr>
+																		</table>
+																	</td>
+																</tr>
+															</table>
+														</td>
+													</tr>
+													<tr>
+														<td height="20" style="mso-line-height-rule:exactly; line-height:10px; font-size:0;">
+															&nbsp;
+														</td>
+													</tr>
+												</table>
+											</div>
+											<!--[if (gte mso 9)|(IE)]>
+																				</td>
+																			</tr>
+																		</table>
+																	<![endif]-->
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<!--[if (gte mso 9)|(IE)]>
+										</td>
+									</tr>
+								</table>
+							<![endif]-->
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<!-- TITLE FIVE ENDS -->
+		<!-- HEADER-1 STARTS -->
+		
+		<!-- HEADER-2 STARTS -->
+		<table align="center" bgcolor="#333333" border="0" cellpadding="0" cellspacing="0" width="100%" mc:repeatable="header-2" class="mcbc-main">
+			<tr>
+				<td align="center">
+					<!--[if (gte mso 9)|(IE)]>
+						<table aria-hidden="true" border="0" cellspacing="0" cellpadding="0" align="center" width="800" style="width: 800px;">
+							<tr>
+								<td align="center" valign="top" width="800">
+									<![endif]-->
+					<div style="display:inline-block; width:100%; max-width:800px; vertical-align:top;" class="width800">
+						<!-- ID:BG HEADER-2 OPTIONAL BG -->
+						<table align="center" bgcolor="#ffffff" border="0" cellpadding="0" cellspacing="0" class="display-width mcbc-sec-header-2-optional-bg" width="100%" style="max-width:800px;">
+							<tr>
+								<td align="center">
+									<!--[if gte mso 9]>
+													<v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:800px; height:564px; margin:auto;">
+													<v:fill type="tile" src="http://fourdinos.com/demo/lite2019/images/800x800x2.jpg" color="#f6f8f7" />
+													<v:textbox inset="0,0,0,0">
+													<![endif]-->
+									<div style="margin:auto;">
+										<table align="center" border="0" background="" cellpadding="0" cellspacing="0" class="display-width mcbi-header-2_1" width="100%" style="background-image:url(); background-position:center; background-repeat:no-repeat;">
+											<tr>
+												<td align="center" class="res-padding">
+													<!--[if (gte mso 9)|(IE)]>
+																	<table aria-hidden="true" border="0" cellspacing="0" cellpadding="0" align="center" width="600" style="width: 600px;">
+																		<tr>
+																			<td align="center" valign="top" width="600">
+																				<![endif]-->
+													<div style="display:inline-block;width:100%; max-width:600px; vertical-align:top;" class="width600">
+														<table align="center" border="0" class="display-width-inner" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;">
+															<tr>
+																<td height="200" style="font-size:0; mso-line-height-rule: exactly; line-height: 200px;">
+																	&nbsp;
+																</td>
+															</tr>
+															<tr>
+																<td align="center" style="padding:0 10px;">
+																	<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:100%;">
+																		<tr>
+																			<!-- ID:TXT HEADER-2 HEADING -->
+																			<td align="center" class="Heading" style="color:#333333; font-family:'Segoe UI', Helvetica Neue, Arial, Verdana, Trebuchet MS, sans-serif; font-size:40px; font-weight:400; letter-spacing:1px; line-height:50px; mso-line-height-rule: exactly;" mc:edit="Heading-6">
+																				 {{ nombretermino }}
+																			</td>
+																		</tr>
+																		<tr>
+																			<td height="15" style="font-size:0; mso-line-height-rule:exactly; line-height:15px;">
+																				&nbsp;
+																			</td>
+																		</tr>
+																		<tr>
+																			<!-- ID:TXT HEADER-2 CONTENT -->
+																			<td align="center" class="MsoNormal" style="color:#666666; font-family:Segoe UI, Helvetica Neue, Arial, Verdana, Trebuchet MS, sans-serif; font-size:14px; line-height:24px; font-weight:400; letter-spacing:1px; mso-line-height-rule: exactly;" mc:edit="Content-17">
+																				{{ descripcion }}
+																			</td>
+																		</tr>
+																		<tr>
+																			<td height="20" style="font-size:0; mso-line-height-rule: exactly; line-height: 20px;">
+																				&nbsp;
+																			</td>
+																		</tr>
+																		<tr>
+																			<td align="center" class="button-width">
+																				<!-- ID:BTN HEADER-2 BUTTON -->
+																				<table align="center" bgcolor="#1dabba" border="0" cellspacing="0" cellpadding="0" class="display-button mcbc-btn-header-2-button" style="border-radius:50px;">
+																					<tr>
+																						<td align="center" valign="middle" class="MsoNormal" style="color:#ffffff; font-family:Segoe UI, Helvetica Neue, Arial, Verdana, Trebuchet MS, sans-serif; font-size:12px; font-weight:700; letter-spacing:1px; padding:7px 14px;" mc:edit="Content-18">
+																							<form action="{{ server }}{% url "Configuracion:recibodeid" socio.id %}">
+																								<button style="background-color: transparent;text-decoration: none;border:none;color:white;" type="submit" value="{{ socio.id }}">Aceptar</button>
+																							    
+																							</form>
+																						</td>
+																					</tr>
+																				</table>
+																			</td>
+																		</tr>
+																	</table>
+																</td>
+															</tr>
+															<tr>
+																<td height="200" style="font-size:0; mso-line-height-rule: exactly; line-height: 200px;">
+																	&nbsp;
+																</td>
+															</tr>
+														</table>
+													</div>
+													<!--[if (gte mso 9)|(IE)]>
+																			</td>
+																		</tr>
+																	</table>
+																	<![endif]-->
+												</td>
+											</tr>
+										</table>
+									</div>
+									<!--[if (gte mso 9)|(IE)]></v:textbox> </v:rect> <![endif]-->
+								</td>
+							</tr>
+						</table>
+					</div>
+					<!--[if (gte mso 9)|(IE)]>
+								</td>
+							</tr>
+						</table>
+						<![endif]-->
+				</td>
+			</tr>
+		</table>
+		
+		<!-- FOOTER-2 STARTS -->
+		<table align="center" bgcolor="#333333" border="0" cellpadding="0" cellspacing="0" width="100%" mc:repeatable="footer-2" class="mcbc-main">
+			<tbody>
+				<tr>
+					<td align="center">
+						<!--[if (gte mso 9)|(IE)]>
+								<table aria-hidden="true" border="0" cellspacing="0" cellpadding="0" align="center" width="800" style="width: 800px;">
+									<tr>
+										<td align="center" valign="top" width="100%" style="max-width:800px;">
+											<![endif]-->
+						<div style="display:inline-block; width:100%; max-width:800px; vertical-align:top;" class="width800">
+							<!-- ID:BG FOOTER-2 OPTIONAL -->
+							<table align="center" bgcolor="#f6f6f6" border="0" cellpadding="0" cellspacing="0" class="display-width mcbc-sec-footer-2-optional" width="100%" style="max-width:800px;">
+								<tbody>
+									<tr>
+										<td align="center" class="res-padding">
+											<!--[if (gte mso 9)|(IE)]>
+																	<table aria-hidden="true" border="0" cellspacing="0" cellpadding="0" align="center" width="600" style="width:600px;">
+																		<tr>
+																			<td align="center">
+																					<![endif]-->
+											<div style="display:inline-block; width:100%; max-width:600px; vertical-align:top;" class="width600">
+												<table align="center" border="0" class="display-width-inner" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;">
+													<tr>
+														<td height="60" style="mso-line-height-rule:exactly; line-height:60px;">
+															&nbsp;
+														</td>
+													</tr>
+													<tr>
+														<td align="center">
+															<table align="center" border="0" cellspacing="0" cellpadding="0" width="40%" style="width:auto !important;">
+																<tr>
+																	<!-- ID:TXT FOOTER-2 HEADING -->
+																	
+																	<td width="20">
+																	</td>
+																	
+																	<td width="20">
+																	</td>
+																	<td align="center">
+																		 <a href="#" style="color:#666666;text-decoration:none;"> <img src="http://66.97.34.115/static/assets/pages/img/logo2.png" alt="Musculando Logo"  style="margin:0; border:0; padding:0; display:block;width: 50%;height: 50%"></a>
+																	</td>
+																	<td width="20">
+																	</td>
+																	
+																	<td width="20">
+																	</td>
+																	
+																</tr>
+															</table>
+														</td>
+													</tr>
+													<tr>
+														<!-- ID:BR FOOTER-2 BORDER -->
+														<td height="30" style="border-bottom:1px solid #cccccc; mso-line-height-rule: exactly; line-height: 30px;" class="mcbr-footer-2-border-b">
+														</td>
+													</tr>
+													<tr>
+														<td height="15" style="mso-line-height-rule: exactly; line-height: 15px;">
+														</td>
+													</tr>
+													<tr>
+														<td>
+															<table align="center" border="0" class="display-width" cellpadding="0" cellspacing="0" width="100%">
+																<tr>
+																	<td align="center" style="font-size:0;">
+																		<!--[if (gte mso 9)|(IE)]>
+																													<table  aria-hidden="true" border="0" cellspacing="0" cellpadding="0" align="center" width="100%" style="width:100%;">
+																														<tr>
+																															<td align="center" valign="top" width="200">
+																																<![endif]-->
+																		
+																		<!--[if (gte mso 9)|(IE)]>
+																															</td>
+																															<td align="center" valign="top" width="200">
+																																<![endif]-->
+																		
+																		<!--[if (gte mso 9)|(IE)]>
+																															</td>
+																															<td align="center" valign="top" width="200">
+																																<![endif]-->
+																		
+																		<!--[if (gte mso 9)|(IE)]>
+																															</td>
+																														</tr>
+																													</table>
+																													<![endif]-->
+																	</td>
+																</tr>
+															</table>
+														</td>
+													</tr>
+													<tr>
+														<!-- ID:BR FOOTER-2 BORDER -->
+														
+													</tr>
+													<tr>
+														<td height="15" style="font-size:0; mso-line-height-rule:exactly; line-height:15px;">
+															&nbsp;
+														</td>
+													</tr>
+													<tr>
+														<td align="center">
+															<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="width:100%; max-width:100%;">
+																<tr>
+																	<td align="center" style="width:100%; max-width:100%; font-size:0;">
+																		<!--[if (gte mso 9)|(IE)]>
+																													<table  aria-hidden="true" border="0" cellspacing="0" cellpadding="0" align="center" width="100%" style="width:100%;">
+																														<tr>
+																															<td align="center" valign="top" width="250">
+																																<![endif]-->
+																		<div style="display:block; max-width:250px; width:100%; vertical-align:top;" class="div-width">
+																			<!--TABLE LEFT-->
+																			<table align="center" border="0" cellpadding="0" cellspacing="0" class="display-width-child" width="100%" style="border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt; width:100%; max-width:100%;">
+																				<tbody>
+																					<tr>
+																						<td align="center" style=";">
+																							<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
+																								<tr>
+																									<!-- ID:TXT FOOTER-2 COPY RIGHTS -->
+																									<td align="center" style="color:#666666; font-family:Segoe UI, Helvetica Neue, Arial, Verdana, Trebuchet MS, sans-serif; font-size:15px; line-height:25px; letter-spacing:1px;">
+																										 © 2018, Desarrollado por Musculando Software 
+																									</td>
+																								</tr>
+																							</table>
+																						</td>
+																					</tr>
+																				</tbody>
+																			</table>
+																		</div>
+																		<!--[if (gte mso 9)|(IE)]>
+																															</td>
+																															<td align="center" valign="top" width="340">
+																															<![endif]-->
+																		<div style="display:inline-block; width:100%; max-width:340px; vertical-align:top;" class="div-width">
+																			<table align="center" border="0" cellpadding="0" cellspacing="0" class="display-width-child" width="100%" style="border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt; width:100%; max-width:100%;">
+																				<tr>
+																					<td align="center" style="font-size:0;">
+																						<!--[if (gte mso 9)|(IE)]>
+																																			<table  aria-hidden="true" border="0" cellspacing="0" cellpadding="0" align="center" width="100%" style="width:100%;">
+																																			<tr>
+																																			<td width="230">
+																																			<![endif]-->
+																						<div style="display:inline-block; width:100%; max-width:200px; vertical-align:top;" class="div-width">
+																							<table align="center" border="0" cellpadding="0" cellspacing="0" class="display-width-child" width="100%" style="border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt; width:100%; max-width:210px;">
+																								<tr>
+																									<td width="100%" style="font-size:0;">
+																										&nbsp;
+																									</td>
+																								</tr>
+																							</table>
+																						</div>
+																						<!--[if (gte mso 9)|(IE)]>
+																																			</td>
+																																			<td width="210">
+																																			<![endif]-->
+																						
+																						<!--[if (gte mso 9)|(IE)]>
+																																			</td>
+																																			</tr>
+																																			</table>
+																																			<![endif]-->
+																					</td>
+																				</tr>
+																			</table>
+																		</div>
+																		<!--[if (gte mso 9)|(IE)]>
+																															</td>
+																														</tr>
+																													</table>
+																													<![endif]-->
+																	</td>
+																</tr>
+															</table>
+														</td>
+													</tr>
+													<tr>
+														<td height="50" style="mso-line-height-rule:exactly; line-height:50px;;">
+															&nbsp;
+														</td>
+													</tr>
+												</table>
+											</div>
+											<!--[if (gte mso 9)|(IE)]>
+																				</td>
+																			</tr>
+																		</table>
+																	<![endif]-->
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<!--[if (gte mso 9)|(IE)]>
+										</td>
+									</tr>
+								</table>
+							<![endif]-->
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<!-- FOOTER-2 ENDS -->
+	</body>
+	</html>

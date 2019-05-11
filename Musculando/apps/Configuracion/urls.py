@@ -19,45 +19,48 @@ from apps.Configuracion.views import NewFormadePago
 from apps.Configuracion.views import GetFormaDePago
 from apps.Configuracion.views import UpdateFormaDePago
 from apps.Configuracion.views import FormasdePagoGet
-
-
-#################TIPOS DE COLABORADORES#########################
-
+#################TIPOS DE COLABORADORES######################
 from apps.Configuracion.views import DeleteTipoDeColaborador
 from apps.Configuracion.views import NuevoTipoDeColaborador
 from apps.Configuracion.views import GetTipoColaborador
 from apps.Configuracion.views import UpdateTipoColaborador
-
-
-
-##############################TIPO DE EGRESO###########################################
+##############################TIPO DE EGRESO###############
 from apps.Configuracion.views import NuevoTipoDeEgreso
 from apps.Configuracion.views import DeleteTipoDeEgreso
 from apps.Configuracion.views import GetTipoEgreso
 from apps.Configuracion.views import UpdateTipoEgreso
-
-
-##############################TIPO DE INGRESO###########################################
+##############################TIPO DE INGRESO############
 from apps.Configuracion.views import NuevoTipoDeIngreso
 from apps.Configuracion.views import DeleteTipoDeIngreso
 from apps.Configuracion.views import GetTipoIngreso
 from apps.Configuracion.views import UpdateTipoIngreso
-##########################Horario#######################################################
+##########################Horario########################
 from apps.Configuracion.views import NuevoTipoTurno
 from apps.Configuracion.views import DeleteTipoDeTurno
 from apps.Configuracion.views import UpdateTipoTurno
 from apps.Configuracion.views import GetTipoTurno
-##########################PORCENTAJES#########################
+##########################PORCENTAJES####################
 from apps.Configuracion.views import NewPorcentaje
 from apps.Configuracion.views import UpdatePorcentaje
 from apps.Configuracion.views import GetPorcentaje
 from apps.Configuracion.views import DeletePorcentaje
 from apps.Configuracion.views import PorcentajesoptionsGet
 from apps.Configuracion.views import getDescuento
+######################MAILS####################
 from apps.Configuracion.views import NewMail
 from apps.Configuracion.views import DeleteMail
 from apps.Configuracion.views import GetMail
 from apps.Configuracion.views import UpdateMail
+####################TERMINOS###################
+from apps.Configuracion.views import NewTermino
+from apps.Configuracion.views import DeleteTermino
+from apps.Configuracion.views import GetTermino
+from apps.Configuracion.views import UpdateTermino
+from apps.Configuracion.views import getTerminoView
+from apps.Configuracion.views import enviartermino
+from apps.Configuracion.views import recibodeid
+
+
 
 urlpatterns = [
 	########################PLANES#########################################
@@ -107,8 +110,19 @@ urlpatterns = [
 	url(r'^Porcentaje/Solicitud/Eliminar/Registro/$', DeletePorcentaje ,  name='DeletePorcentaje' ),
 	url(r'^Porcentaje/Get/$', PorcentajesoptionsGet ,  name='PorcentajesoptionsGet' ),
 	url(r'^Porcentaje/Solicitud/Get/Registro/$', getDescuento ,  name='getDescuento' ),
+	##########################MAILS######################################################
 	url(r'^Email/Nuevo/$', NewMail , name='NewMail'  ),
 	url(r'^Email/Eliminar/$', DeleteMail , name='DeleteMail'  ),
 	url(r'^Email/Get/$', GetMail , name='GetMail'  ),
 	url(r'^Email/Update/(?P<id_mail>\d+)$', UpdateMail ,  name='UpdateMail' ),
+	#################################TERMINOS####################################
+	url(r'^Terminos/Nuevo/$', NewTermino , name='NewTermino'  ),
+	url(r'^Terminos/Eliminar/$', DeleteTermino , name='DeleteTermino'  ),
+	url(r'^Terminos/Get/$', GetTermino , name='GetTermino'  ),
+	url(r'^Terminos/Update/(?P<id_termino>\d+)$', UpdateTermino ,  name='UpdateTermino' ),
+	url(r'^Terminos/Enviar/$', enviartermino , name='enviartermino'  ),
+	url(r'^Terminos/Solicitud/Get/Registro/$', getTerminoView ,  name='getTerminoView' ),
+	url(r'^(?P<id_socio>[0-9]+)/patk/$', recibodeid ,  name='recibodeid' ),
+
+	
 ]
