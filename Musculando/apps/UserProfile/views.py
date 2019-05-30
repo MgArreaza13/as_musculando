@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
+from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib import auth
 from django.contrib.auth import authenticate
@@ -105,8 +106,18 @@ def Perfil(request):
 
 @login_required(login_url = 'Panel:Login' )
 def ListadoDeUsuarios(request):
-	usuarios = tb_profile.objects.all()
+	usuarios = list(tb_profile.objects.filter(tipoUser='Administrador')) + list (tb_profile.objects.filter(tipoUser='Colaborador'))
 	contexto = {
 	'usuarios':usuarios,
+	
 	}
 	return render(request, 'UserProfile/List.html', contexto)
+
+def DeleteUser(request):
+	status 		= None
+	id_User 	= 	request.GET.get('id_User', None)
+	usuario  	=	tb_profile.objects.get(id = id_User)
+	print (id_User)
+	usuario.delete()
+	status 		=	200
+	return HttpResponse(status)

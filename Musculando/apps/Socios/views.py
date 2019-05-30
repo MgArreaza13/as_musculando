@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.contrib import auth
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as login_django
 from django.contrib.auth import logout as logout_django
@@ -84,13 +85,23 @@ def getSocio(request):
 
 
 #######################LISTA DE SOCIOS ##############################
+	
+
 @login_required(login_url = 'Panel:Login' )
 def ListaDeSocios(request):
-	socios = tb_socio.objects.all()
-	contexto = {
-	'socios':socios
-	}
-	return render (request, 'Socios/ListadoDeSocios.html', contexto)
+	socios_list = tb_socio.objects.all()
+	page = request.GET.get('page', 1)
+	paginator = Paginator(socios_list, 25)
+	try:
+		socios = paginator.page(page)
+	except PageNotAnInteger:
+	# If page is not an integer, deliver first page.
+		socios = paginator.page(1)
+	except EmptyPage:
+	# If page is out of range (e.g. 9999), deliver last page of results.
+		socios = paginator.page(paginator.num_pages)
+	
+	return render (request, 'Socios/ListadoDeSocios.html',{ 'socios': socios })
 
 
 

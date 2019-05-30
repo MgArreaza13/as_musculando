@@ -119,7 +119,7 @@ CELERY_RESULT_SERIALIZER = 'json'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME':"as_musculando",
+        'NAME':"as_musculando2",
         "USER":"root",
         "PASSWORD":'',
         "PORT":'',

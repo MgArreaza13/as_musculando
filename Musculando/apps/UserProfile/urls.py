@@ -4,6 +4,7 @@ from apps.UserProfile.views import ListadoDeUsuarios
 from apps.UserProfile.views import Perfil
 from apps.UserProfile.views import RegistroUser
 from apps.UserProfile.views import RegisterDebug
+from apps.UserProfile.views import DeleteUser
 urlpatterns = [
 	#url(r'^registro/$', Registro, name='Registro'  ),
 	#url(r'^editar/(?P<id_UserProfile>\d+)$', EditUserProfile, name='EditUserProfile'  ),
@@ -13,4 +14,5 @@ urlpatterns = [
 	url(r'^Registro/Nuevo$', RegistroUser , name='RegistroUser'  ),
 	url(r'^Lista/$', ListadoDeUsuarios , name='ListadoDeUsuarios'  ),
   	url(r'^Perfil/$', Perfil , name='Perfil'  ),
+  	url(r'^Eliminar/User/$', DeleteUser , name='DeleteUser'  ),
 ]

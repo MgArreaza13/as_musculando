@@ -68,7 +68,7 @@
 		                                <div class="portlet-title">
 		                                    <div class="caption font-dark">
 		                                        <i class="icon-settings font-dark"></i>
-		                                        <span class="caption-subject bold uppercase">Buttons</span>
+		                                        <span class="caption-subject bold uppercase">Usuarios</span>
 		                                    </div>
 		                                    <div class="tools"> </div>
 		                                </div>
@@ -81,6 +81,7 @@
 		                                                <th>Tipo de Usuario</th>
 		                                                <th>Avatar</th>
 		                                                <th>Fecha de Registro</th>
+		                                                <th>Acciones</th>
 		                                                
 		                                            </tr>
 		                                        </thead>
@@ -91,7 +92,7 @@
 		                                            </tr>
 		                                        </tfoot>
 		                                        <tbody>
-		                                        	{% for usuario in usuarios  %}
+		                                        	{% for usuario in usuarios %}
 			                                        	<tr>
 			                                                <td>{{usuario.nameUser}}</td>
 			                                                <td>{{usuario.mailUser}}</td>
@@ -103,6 +104,8 @@
 			                                                
 			                                                {% endif %}</td>
 			                                                <td>{{usuario.dateCreate}}</td>
+			                                                <td><button type="button" class="btn btn-danger btn-block btn-xs" value="{{usuario.id}}" onclick="Eliminar(this.value);"> Eliminar </button></td>
+			                                                
 			                                                
 			                                            </tr>
 		                                        	{% endfor %}
@@ -164,11 +167,13 @@
             <script src="{% static "assets/global/scripts/datatable.js" %}" type="text/javascript"></script>
             <script src="{% static "assets/global/plugins/datatables/datatables.min.js" %}" type="text/javascript"></script>
             <script src="{% static "assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js" %}" type="text/javascript"></script>
+            <script src="{% static "assets/global/plugins/datatables/plugins/datatables.all.min.js" %}" type="text/javascript"></script>
             <script src="{% static "assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" %}" type="text/javascript"></script>
             <!-- END PAGE LEVEL PLUGINS -->
             <!-- BEGIN THEME GLOBAL SCRIPTS -->
             <!-- END THEME GLOBAL SCRIPTS -->
             <!-- BEGIN PAGE LEVEL SCRIPTS -->
             <script src="{% static "assets/pages/scripts/table-datatables-buttons.min.js" %}" type="text/javascript"></script>
+            <script src="{% static "assets/apps/scripts/EliminarUser.js" %}" type="text/javascript"></script>
             <!-- END THEME LAYOUT SCRIPTS -->
 {% endblock Scripts %}
